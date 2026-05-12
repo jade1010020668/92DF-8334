@@ -1,0 +1,36 @@
+# Interfaz de usuario (web local, sin HTML manual)
+streamlit==1.40.0
+
+# Scraping web (Playwright + Chromium headless)
+playwright==1.48.0
+
+# Cliente Gemini
+google-generativeai==0.8.3
+
+# Correo entrante (IMAP)
+imap-tools==1.7.4
+
+# Gestion de secretos
+python-dotenv==1.0.1
+
+# Configuracion en YAML
+PyYAML==6.0.2
+
+# Scheduler in-process para tareas automaticas
+APScheduler==3.10.4
+
+# HTTP (cliente al servicio Node de WhatsApp, etc.)
+requests==2.32.3
+
+# Manipulacion de datos para dashboard y exportes
+pandas==2.2.3
+openpyxl==3.1.5
+
+# PDF del manual del papa
+reportlab==4.2.5
+
+# Testing
+pytest==8.3.3
+pytest-httpserver==1.1.0
+requests-mock==1.12.1
+aiosmtpd==1.4.6

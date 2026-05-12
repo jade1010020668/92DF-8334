@@ -1,0 +1,61 @@
+# ============================================================
+# CONFIGURACION DEL NEGOCIO
+# ============================================================
+# Este archivo SI se versiona (no contiene secretos).
+# Diego edita estos valores desde la pantalla de Configuracion
+# en la app, o directamente aqui antes del primer arranque.
+# ============================================================
+
+empresa:
+  nombre: "[NOMBRE DE LA EMPRESA DE DOTACION]"
+  productos:
+    - "[Ejemplo: uniformes industriales]"
+    - "[Ejemplo: overoles antifluido]"
+    - "[Ejemplo: EPP - botas, cascos, guantes]"
+    - "[Ejemplo: dotacion hospitalaria]"
+  ciudad_base: "Bogota"
+  telefono_contacto: "[+57 numero del papa]"
+  nombre_remitente: "[Nombre completo que firma los correos]"
+
+primer_sector_objetivo:
+  nombre: "[Ejemplo: empresas de plasticos]"
+  palabras_clave_google_maps:
+    - "[Ejemplo: fabrica de plasticos Bogota]"
+    - "[Ejemplo: empresa plasticos industriales Bogota]"
+  tamano_objetivo: "pequena_y_mediana"  # opciones: pequena_y_mediana, mediana, grande
+
+limites_seguridad:
+  correos_max_dia: 30
+  pausa_entre_correos_segundos: 90
+  empresas_max_busqueda: 300  # con creditos Gemini disponibles podemos subir el volumen
+  timeout_pagina_web_segundos: 15
+  reintentos_red: 1
+
+apis:
+  # Modelo Gemini para tareas sensibles: redaccion y clasificacion.
+  gemini_modelo_pro: "gemini-2.5-pro"
+  # Modelo Gemini para tareas masivas: extraccion de correos.
+  gemini_modelo_flash: "gemini-2.5-flash"
+  # Cuando se agoten los creditos prepago, poner en true para forzar todo a Flash.
+  forzar_flash: false
+  # Costos referenciales USD por 1M tokens (mayo 2026).
+  # Se usan solo para estimar el saldo restante en el dashboard.
+  costo_por_1m_tokens:
+    pro_input: 1.25
+    pro_output: 5.00
+    flash_input: 0.10
+    flash_output: 0.40
+  # Saldo inicial estimado en USD para calcular el porcentaje restante.
+  saldo_inicial_usd: 250.0
+
+scheduler:
+  # Hora local de Bogota a la que se envia el lote diario.
+  hora_envio_diario: "08:00"
+  # Cada cuantos minutos se revisa el buzon IMAP.
+  intervalo_lectura_imap_min: 60
+
+ui:
+  # Color principal para botones y barra superior (HEX).
+  color_principal: "#1f6feb"
+  # Tamano minimo de fuente en px.
+  fuente_minima_px: 16
