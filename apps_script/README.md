@@ -102,6 +102,12 @@ Ver `whatsapp_service/README.md` en este mismo repo.
 5. Click `Implementar`. Copia la URL.
 6. Esa URL es lo que abre el papa en su navegador o celular.
 
+### 9. Smoke test final
+
+Antes de entregar al papa, ejecuta el menu `Dotacion Papa > Verificar instalacion completa (smoke test)`.
+Hace 7 chequeos: propiedades, hojas, config, Gemini, Gmail, WhatsApp y triggers.
+Si todos salen OK, ya puedes pasarle la URL al papa.
+
 ---
 
 ## Estructura de archivos
@@ -120,6 +126,7 @@ Ver `whatsapp_service/README.md` en este mismo repo.
 | `Scheduler.gs` | Triggers cada hora / diarios |
 | `Menu.gs` | Menu personalizado en el Sheet |
 | `WebApp.gs` | doGet + endpoints API llamados desde HTML |
+| `VerificarInstalacion.gs` | Smoke test (menu "Verificar instalacion completa") |
 | `Estilos.html` | CSS compartido |
 | `Layout.html` | Header + nav compartidos |
 | `Dashboard.html` | Pantalla 1 - KPIs e indicadores |

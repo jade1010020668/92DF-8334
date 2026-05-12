@@ -1,0 +1,5 @@
+{
+  "_comentario": "Copia este archivo como .clasp.json (sin .ejemplo) y reemplaza scriptId con el ID real de tu proyecto Apps Script. .clasp.json esta en .gitignore — nunca se sube al repo.",
+  "scriptId": "REEMPLAZAR_CON_EL_ID_DEL_PROYECTO_APPS_SCRIPT",
+  "rootDir": "."
+}

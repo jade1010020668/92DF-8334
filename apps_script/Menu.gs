@@ -23,7 +23,19 @@ function onOpen() {
     .addSeparator()
     .addItem('Configurar triggers automaticos', 'configurarTriggers')
     .addItem('Verificar configuracion', 'menuVerificarConfig')
+    .addItem('Verificar instalacion completa (smoke test)', 'menuVerificarInstalacion')
     .addToUi();
+}
+
+function menuVerificarInstalacion() {
+  const reporte = verificarInstalacion();
+  let mensaje = 'Smoke test de instalacion:\n\n';
+  for (const c of reporte.chequeos) {
+    mensaje += (c.ok ? '[OK]   ' : '[FAIL] ') + c.nombre + '\n';
+    if (!c.ok) mensaje += '       ' + c.detalle + '\n';
+  }
+  mensaje += '\n' + (reporte.todoOk ? 'TODO OK - listo para entregar al papa.' : 'HAY FALLOS - revisar arriba.');
+  SpreadsheetApp.getUi().alert(mensaje);
 }
 
 function abrirWebApp() {
