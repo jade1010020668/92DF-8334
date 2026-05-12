@@ -1,0 +1,11 @@
+<?!= incluir('Estilos') ?>
+<header class="app-header">
+  <h1>Dotacion Papa</h1>
+  <span style="font-size: 14px; opacity: 0.8;">Sistema de prospeccion</span>
+</header>
+<nav class="app-nav">
+  <a href="?pagina=dashboard" class="<?= pagina === 'dashboard' ? 'activo' : '' ?>">Inicio</a>
+  <a href="?pagina=buscar" class="<?= pagina === 'buscar' ? 'activo' : '' ?>">Buscar empresas</a>
+  <a href="?pagina=respuestas" class="<?= pagina === 'respuestas' ? 'activo' : '' ?>">Respuestas</a>
+  <a href="?pagina=configuracion" class="<?= pagina === 'configuracion' ? 'activo' : '' ?>">Configuracion</a>
+</nav>

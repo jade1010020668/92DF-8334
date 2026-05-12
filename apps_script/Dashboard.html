@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<base target="_top">
+<?!= incluir('Layout') ?>
+</head>
+<body>
+<main class="app-main">
+  <h2 style="margin-top:0;">Inicio</h2>
+  <div id="estado-carga" class="mensaje info">
+    <span class="cargando"></span> Cargando datos...
+  </div>
+
+  <div class="tarjetas" id="tarjetas" style="display:none;">
+    <div class="tarjeta">
+      <h3>Empresas totales</h3>
+      <div class="numero" id="total-empresas">-</div>
+    </div>
+    <div class="tarjeta verde">
+      <h3>Listas para contactar</h3>
+      <div class="numero" id="enriquecidas">-</div>
+    </div>
+    <div class="tarjeta amarilla">
+      <h3>Correos esta semana</h3>
+      <div class="numero" id="correos-semana">-</div>
+    </div>
+    <div class="tarjeta verde">
+      <h3>Respuestas sin leer</h3>
+      <div class="numero" id="respuestas-no-leidas">-</div>
+    </div>
+    <div class="tarjeta" id="tarjeta-credito">
+      <h3>Credito Gemini restante</h3>
+      <div class="numero" id="credito-restante">-</div>
+      <div class="ayuda" id="credito-detalle">-</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3 style="margin-top:0;">Acciones rapidas</h3>
+    <p>
+      <a class="boton verde" href="?pagina=buscar">Buscar empresas nuevas</a>
+      <a class="boton" href="?pagina=respuestas">Ver respuestas</a>
+    </p>
+  </div>
+</main>
+
+<script>
+google.script.run
+  .withSuccessHandler(function (kpis) {
+    document.getElementById('total-empresas').textContent = kpis.totalEmpresas;
+    document.getElementById('enriquecidas').textContent = kpis.enriquecidas;
+    document.getElementById('correos-semana').textContent = kpis.correosUltimaSemana;
+    document.getElementById('respuestas-no-leidas').textContent = kpis.respuestasNoLeidas;
+    document.getElementById('credito-restante').textContent = '$' + kpis.creditoRestante.restanteUsd + ' USD';
+    document.getElementById('credito-detalle').textContent =
+      kpis.creditoRestante.porcentaje + '% disponible ' +
+      '(de $' + kpis.creditoRestante.saldoInicialUsd + ')';
+    var tarjeta = document.getElementById('tarjeta-credito');
+    if (kpis.creditoRestante.porcentaje < 10) tarjeta.className = 'tarjeta roja';
+    else if (kpis.creditoRestante.porcentaje < 30) tarjeta.className = 'tarjeta amarilla';
+    else tarjeta.className = 'tarjeta verde';
+    document.getElementById('estado-carga').style.display = 'none';
+    document.getElementById('tarjetas').style.display = 'grid';
+  })
+  .withFailureHandler(function (err) {
+    document.getElementById('estado-carga').className = 'mensaje error';
+    document.getElementById('estado-carga').textContent =
+      'Algo salio mal, avisale a Diego. Detalle: ' + err.message;
+  })
+  .apiObtenerKPIs();
+</script>
+</body>
+</html>
