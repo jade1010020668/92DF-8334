@@ -35,6 +35,10 @@ whatsapp_service/log.txt
 npm-debug.log*
 yarn-debug.log*
 
+# clasp (Apps Script CLI) - el ID del proyecto NO debe estar en git
+apps_script/.clasp.json
+apps_script/.clasprc.json
+
 # Editores e IDE
 .vscode/
 .idea/
