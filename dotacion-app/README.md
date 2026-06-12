@@ -57,6 +57,39 @@ De ahí en adelante, **cada `git push` a la rama redespliega la app solo** — n
 
 ---
 
+## Publicar en Hugging Face Spaces (URL pública alternativa)
+
+Además de Vercel, el repo trae un workflow de GitHub Actions
+(`.github/workflows/publicar-hf-space.yml`) que publica la app como **Space
+estático** de Hugging Face en cada actualización. Configuración una sola vez:
+
+1. Entra a [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)
+   con tu cuenta (MORALES101002) y crea un token: **"Create new token" → tipo
+   "Write"**. Cópialo (no lo compartas ni lo pegues en chats o código).
+2. En GitHub: este repositorio → **Settings → Secrets and variables → Actions →
+   "New repository secret"** → nombre `HF_TOKEN`, valor el token copiado.
+3. Ve a la pestaña **Actions** del repo → workflow **"Publicar en Hugging Face
+   Space"** → **"Run workflow"** (o simplemente haz merge de un cambio en
+   `dotacion-app/`).
+
+El workflow corre las pruebas, construye la app, **crea el Space si no existe**
+y sube el resultado. URLs resultantes:
+
+- Página del Space: <https://huggingface.co/spaces/MORALES101002/dotacionpro>
+- Vista directa (pantalla completa): <https://morales101002-dotacionpro.static.hf.space>
+
+**Alternativa manual sin workflow:** crea el Space en
+[huggingface.co/new-space](https://huggingface.co/new-space) (SDK: **Static**),
+corre `npm run build` y arrastra el **contenido** de la carpeta `dist/` a
+"Files → Add file → Upload files" del Space.
+
+> Nota: los datos viven en el navegador **por dominio**. La lista que tu papá
+> arme en la URL de Vercel no aparece en la de Hugging Face y viceversa —
+> elijan una URL como la oficial del día a día (el Excel de
+> exportar/importar permite moverla si algún día cambian).
+
+---
+
 ## Búsqueda de empresas en el mapa
 
 ### Sin configurar nada (gratis)
