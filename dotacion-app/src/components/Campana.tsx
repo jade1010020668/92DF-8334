@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   AlertTriangle,
   Check,
   Copy,
   FileDown,
+  Loader2,
   Mail,
   MessageCircle,
   PartyPopper,
   X,
+  Zap,
 } from 'lucide-react';
 import type { ConfigApp, Empresa, EstadoEmpresa } from '../types';
 import { generarEmail, generarWhatsApp, urlGmail, urlWhatsApp } from '../lib/plantillas';
+import { enviarCorreoBrevo } from '../lib/brevo';
 import { generarPdfCotizacion } from '../lib/pdf';
 import type { MostrarToast } from '../App';
 
@@ -32,6 +35,12 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
   const [indice, setIndice] = useState(0);
   const [enviadas, setEnviadas] = useState(0);
   const [subPestana, setSubPestana] = useState<SubPestana>('correo');
+  const [enviandoBrevo, setEnviandoBrevo] = useState(false);
+  const [masivo, setMasivo] = useState<{ hecho: number; total: number; fallidas: number } | null>(
+    null,
+  );
+  const detenerMasivo = useRef(false);
+  const brevoActivo = config.brevoApiKey.trim() !== '';
 
   // Busca la empresa actual "viva": si alguna ya no está pendiente, se salta sola.
   let posicion = indice;
@@ -52,6 +61,68 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
     } catch {
       mostrarToast('No se pudo copiar el mensaje. Selecciónalo y cópialo a mano.', 'error');
     }
+  };
+
+  const enviarActualPorBrevo = async () => {
+    if (!actual) return;
+    setEnviandoBrevo(true);
+    const resultado = await enviarCorreoBrevo(actual, config);
+    setEnviandoBrevo(false);
+    if (resultado.ok) {
+      mostrarToast(`Correo enviado a ${actual.nombre}.`, 'exito');
+      cambiarEstado(actual.id, 'enviado');
+      setEnviadas((n) => n + 1);
+      setIndice(posicion + 1);
+      setSubPestana('correo');
+    } else {
+      mostrarToast(resultado.error, 'error');
+    }
+  };
+
+  const enviarTodosPorBrevo = async () => {
+    const porEnviar = cola
+      .slice(posicion)
+      .map((id) => empresas.find((e) => e.id === id))
+      .filter((e): e is Empresa => !!e && e.estado === 'pendiente' && e.email.trim() !== '');
+    if (porEnviar.length === 0) {
+      mostrarToast('Ninguna de las empresas pendientes tiene correo.', 'info');
+      return;
+    }
+    if (
+      !window.confirm(
+        `¿Enviar ${porEnviar.length} correos de una vez por Brevo? Saldrán automáticamente, sin revisarlos uno por uno.`,
+      )
+    ) {
+      return;
+    }
+    detenerMasivo.current = false;
+    let hecho = 0;
+    let fallidas = 0;
+    setMasivo({ hecho, total: porEnviar.length, fallidas });
+    for (const e of porEnviar) {
+      if (detenerMasivo.current) break;
+      const resultado = await enviarCorreoBrevo(e, config);
+      hecho++;
+      if (resultado.ok) {
+        cambiarEstado(e.id, 'enviado');
+        setEnviadas((n) => n + 1);
+      } else {
+        fallidas++;
+      }
+      setMasivo({ hecho, total: porEnviar.length, fallidas });
+      if (hecho < porEnviar.length && !detenerMasivo.current) {
+        // Pausa corta entre envíos para no parecer ráfaga de spam.
+        await new Promise((r) => setTimeout(r, 1200));
+      }
+    }
+    setMasivo(null);
+    const exitosos = hecho - fallidas;
+    mostrarToast(
+      fallidas === 0
+        ? `¡Listo! Se ${exitosos === 1 ? 'envió 1 correo' : `enviaron ${exitosos} correos`}.`
+        : `Se enviaron ${exitosos} correos y fallaron ${fallidas}. Revisa los datos de las que fallaron.`,
+      fallidas === 0 ? 'exito' : 'info',
+    );
   };
 
   const email = actual ? generarEmail(actual, config) : null;
@@ -92,7 +163,33 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
           </button>
         </div>
 
-        {actual && email ? (
+        {masivo ? (
+          /* Envío masivo en curso */
+          <div className="flex flex-col items-center gap-4 px-6 py-12 text-center">
+            <Loader2 className="h-14 w-14 animate-spin text-blue-700" aria-hidden="true" />
+            <h3 className="text-2xl font-bold text-slate-800">Enviando correos…</h3>
+            <p className="text-lg text-slate-600">
+              {masivo.hecho} de {masivo.total}
+              {masivo.fallidas > 0 &&
+                ` — ${masivo.fallidas} ${masivo.fallidas === 1 ? 'fallido' : 'fallidos'}`}
+            </p>
+            <div className="h-3 w-full max-w-md overflow-hidden rounded-full bg-slate-200">
+              <div
+                className="h-full rounded-full bg-emerald-500 transition-all"
+                style={{ width: `${Math.round((masivo.hecho / masivo.total) * 100)}%` }}
+              />
+            </div>
+            <button
+              type="button"
+              className="btn-secundario"
+              onClick={() => {
+                detenerMasivo.current = true;
+              }}
+            >
+              Detener
+            </button>
+          </div>
+        ) : actual && email ? (
           <>
             {/* Cuerpo escroleable */}
             <div className="flex-1 space-y-4 overflow-y-auto px-5 py-4">
@@ -204,10 +301,26 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
               </div>
 
               {/* Acciones de envío */}
-              <div className="flex flex-col gap-2 sm:flex-row">
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {brevoActivo && (
+                  <button
+                    type="button"
+                    className="btn-primario"
+                    disabled={!actual.email || enviandoBrevo}
+                    title={actual.email ? undefined : 'Esta empresa no tiene correo'}
+                    onClick={enviarActualPorBrevo}
+                  >
+                    {enviandoBrevo ? (
+                      <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                    ) : (
+                      <Zap className="h-5 w-5" aria-hidden="true" />
+                    )}
+                    {enviandoBrevo ? 'Enviando…' : 'Enviar correo ya'}
+                  </button>
+                )}
                 <button
                   type="button"
-                  className="btn-primario flex-1"
+                  className={brevoActivo ? 'btn-secundario' : 'btn-primario'}
                   disabled={!actual.email}
                   title={actual.email ? undefined : 'Esta empresa no tiene correo'}
                   onClick={() =>
@@ -219,7 +332,7 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
                 </button>
                 <button
                   type="button"
-                  className="btn-verde flex-1"
+                  className="btn-verde"
                   disabled={!linkWhatsApp}
                   title={linkWhatsApp ? undefined : 'Esta empresa no tiene un celular válido'}
                   onClick={() => linkWhatsApp && window.open(linkWhatsApp, '_blank', 'noopener')}
@@ -229,13 +342,25 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
                 </button>
                 <button
                   type="button"
-                  className="btn-secundario flex-1"
+                  className="btn-secundario"
                   onClick={() => generarPdfCotizacion(actual, config)}
                 >
                   <FileDown className="h-5 w-5" aria-hidden="true" />
                   Descargar PDF
                 </button>
               </div>
+
+              {brevoActivo && (
+                <button
+                  type="button"
+                  className="btn-secundario w-full"
+                  disabled={enviandoBrevo}
+                  onClick={enviarTodosPorBrevo}
+                >
+                  <Zap className="h-5 w-5 text-amber-500" aria-hidden="true" />
+                  Enviar TODOS los pendientes con correo de una vez
+                </button>
+              )}
             </div>
 
             {/* Pie */}
@@ -243,6 +368,7 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
               <button
                 type="button"
                 className="btn-verde flex-1 text-lg"
+                disabled={enviandoBrevo}
                 onClick={() => {
                   cambiarEstado(actual.id, 'enviado');
                   setEnviadas((n) => n + 1);
@@ -256,6 +382,7 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
               <button
                 type="button"
                 className="btn-secundario"
+                disabled={enviandoBrevo}
                 onClick={() => {
                   setIndice(posicion + 1);
                   setSubPestana('correo');

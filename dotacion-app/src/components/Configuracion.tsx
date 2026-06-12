@@ -13,6 +13,7 @@ import {
   Plus,
   Save,
   Trash2,
+  Zap,
 } from 'lucide-react';
 import type { ConfigApp, Empresa, ProductoCatalogo } from '../types';
 import { exportarExcel } from '../lib/excel';
@@ -29,6 +30,7 @@ interface Props {
 export function Configuracion({ config, setConfig, empresas, borrarTodo, mostrarToast }: Props) {
   const [borrador, setBorrador] = useState<ConfigApp>(config);
   const [mostrarClave, setMostrarClave] = useState(false);
+  const [mostrarClaveBrevo, setMostrarClaveBrevo] = useState(false);
 
   const hayCambios = JSON.stringify(borrador) !== JSON.stringify(config);
 
@@ -347,7 +349,71 @@ export function Configuracion({ config, setConfig, empresas, borrarTodo, mostrar
         </div>
       </section>
 
-      {/* 6. Mis datos */}
+      {/* 6. Brevo */}
+      <section className="tarjeta space-y-4">
+        <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
+          <Zap className="h-6 w-6 text-blue-700" aria-hidden="true" />
+          Envío automático de correos con Brevo (opcional)
+        </h3>
+        <p className="text-slate-600">
+          Sin esto, la app abre Gmail y tú das el clic final. Con una clave de Brevo, la campaña
+          puede enviar los correos directamente, uno a uno o todos de una vez (gratis hasta 300
+          correos al día).
+        </p>
+        <div>
+          <label htmlFor="conf-clave-brevo" className="etiqueta">
+            Clave de Brevo
+          </label>
+          <div className="flex gap-2">
+            <input
+              id="conf-clave-brevo"
+              type={mostrarClaveBrevo ? 'text' : 'password'}
+              className="campo"
+              autoComplete="off"
+              value={borrador.brevoApiKey}
+              onChange={(e) => cambiar('brevoApiKey', e.target.value)}
+            />
+            <button
+              type="button"
+              className="btn-icono h-auto w-12 shrink-0 border border-slate-300"
+              aria-label={mostrarClaveBrevo ? 'Ocultar la clave de Brevo' : 'Mostrar la clave de Brevo'}
+              onClick={() => setMostrarClaveBrevo((v) => !v)}
+            >
+              {mostrarClaveBrevo ? (
+                <EyeOff className="h-5 w-5" aria-hidden="true" />
+              ) : (
+                <Eye className="h-5 w-5" aria-hidden="true" />
+              )}
+            </button>
+          </div>
+        </div>
+        <div className="rounded-2xl bg-slate-50 p-4 text-slate-700">
+          <p className="mb-2 font-semibold">¿Cómo conseguir la clave? (una sola vez, 10 minutos)</p>
+          <ol className="list-inside list-decimal space-y-1">
+            <li>
+              Crea una cuenta gratis en{' '}
+              <a
+                href="https://www.brevo.com"
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-700 underline"
+              >
+                brevo.com
+              </a>
+              .
+            </li>
+            <li>
+              En Brevo, ve a «Senders» y agrega como remitente el MISMO correo que pusiste arriba en
+              «Datos de tu empresa». Confírmalo desde tu bandeja de entrada.
+            </li>
+            <li>Menú de tu perfil → «SMTP &amp; API» → pestaña «API Keys» → «Generate a new API key».</li>
+            <li>Pégala aquí y guarda los cambios.</li>
+          </ol>
+          <p className="mt-2 font-semibold">La clave se guarda solo en este navegador. No la compartas.</p>
+        </div>
+      </section>
+
+      {/* 7. Mis datos */}
       <section className="tarjeta space-y-4">
         <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
           <Database className="h-6 w-6 text-blue-700" aria-hidden="true" />

@@ -120,6 +120,30 @@ Si Google falla en algún momento (clave vencida, sin cupo), la app usa OpenStre
 
 ---
 
+## Envío automático de correos con Brevo (opcional)
+
+Por defecto la app abre Gmail con todo escrito y **tú das el clic final** —
+máximo control. Si prefieres que los correos salgan solos (uno a uno o todos
+de una vez desde la campaña), configura Brevo (gratis hasta **300 correos al
+día**, de sobra para la meta de 50-100):
+
+1. Crea una cuenta gratis en [brevo.com](https://www.brevo.com).
+2. En Brevo agrega como **remitente verificado** el mismo correo que pusiste
+   en «Datos de tu empresa» (Senders → Add a sender) y confírmalo desde tu
+   bandeja. Sin este paso Brevo rechaza los envíos.
+3. Menú del perfil → **SMTP & API → API Keys → Generate a new API key**.
+4. Pega la clave en la pantalla de **Configuración** de la app y guarda.
+
+Con la clave puesta, la campaña muestra el botón **«Enviar correo ya»** y la
+opción **«Enviar TODOS los pendientes con correo de una vez»** (con barra de
+progreso, pausa de ~1 segundo entre envíos y botón Detener).
+
+**Advertencias:** la clave queda guardada solo en el navegador — no la
+compartas; y aunque el envío sea automático, empieza con lotes pequeños
+(20-30/día) para que el dominio del correo gane reputación y no caiga en spam.
+
+---
+
 ## Formato del Excel de importación
 
 La app lee la **primera hoja** del archivo (.xlsx o .csv). La primera fila debe traer los encabezados; no importan mayúsculas, tildes ni espacios. Columnas aceptadas y sus sinónimos:

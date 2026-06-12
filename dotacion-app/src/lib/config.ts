@@ -15,6 +15,7 @@ export const CONFIG_DEFAULT: ConfigApp = {
     'Manejamos descuentos especiales por volumen y precios mayoristas a partir de 20 unidades.',
   diasSeguimiento: 5,
   googleMapsApiKey: '',
+  brevoApiKey: '',
   productos: [
     { nombre: 'Guantes industriales (nitrilo, cuero, PVC, vaqueta)', precioDesde: 0, unidad: 'par' },
     { nombre: 'Cascos de seguridad y protección para la cabeza', precioDesde: 0, unidad: 'unidad' },

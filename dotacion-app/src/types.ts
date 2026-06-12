@@ -79,6 +79,8 @@ export interface ConfigApp {
   diasSeguimiento: number;
   /** Clave opcional de Google Maps Platform (Places API New) para búsqueda. */
   googleMapsApiKey: string;
+  /** Clave opcional de Brevo para enviar correos reales desde la app. */
+  brevoApiKey: string;
   productos: ProductoCatalogo[];
 }
 
