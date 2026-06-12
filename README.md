@@ -1,5 +1,9 @@
 # Dotacion Papa
 
+> **NUEVA VERSIÓN (junio 2026): la app vigente es [DotaciónPro](dotacion-app/README.md), una aplicación web React que vive en `dotacion-app/`.**
+> Corre con `cd dotacion-app && npm install && npm run dev` y se despliega gratis en Vercel (instrucciones paso a paso en su README).
+> Todo lo que sigue abajo (Apps Script + Google Sheets) es la versión anterior y queda como referencia.
+
 Sistema de prospeccion B2B y envio de cotizaciones automatizado para una PYME de dotacion en Bogota.
 
 > **Arquitectura actual: Google Sheets + Apps Script + servicio Node externo de WhatsApp.**
