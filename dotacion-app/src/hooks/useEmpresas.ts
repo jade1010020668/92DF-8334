@@ -81,6 +81,8 @@ export interface UsoEmpresas {
   cambiarEstado: (id: string, estado: EstadoEmpresa) => void;
   eliminarEmpresa: (id: string) => void;
   borrarTodo: () => void;
+  /** Reemplaza toda la lista (restauración de un respaldo completo). */
+  reemplazarTodo: (nuevas: Empresa[]) => void;
 }
 
 export function useEmpresas(): UsoEmpresas {
@@ -127,5 +129,18 @@ export function useEmpresas(): UsoEmpresas {
 
   const borrarTodo = useCallback(() => setEmpresas([]), [setEmpresas]);
 
-  return { empresas, agregarEmpresas, actualizarEmpresa, cambiarEstado, eliminarEmpresa, borrarTodo };
+  const reemplazarTodo = useCallback(
+    (nuevas: Empresa[]) => setEmpresas(sanearEmpresas(nuevas)),
+    [setEmpresas],
+  );
+
+  return {
+    empresas,
+    agregarEmpresas,
+    actualizarEmpresa,
+    cambiarEstado,
+    eliminarEmpresa,
+    borrarTodo,
+    reemplazarTodo,
+  };
 }

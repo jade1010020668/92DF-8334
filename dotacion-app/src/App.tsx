@@ -59,8 +59,15 @@ export default function App() {
   const [campanaAbierta, setCampanaAbierta] = useState(false);
   const [toast, setToast] = useState<Toast | null>(null);
 
-  const { empresas, agregarEmpresas, actualizarEmpresa, cambiarEstado, eliminarEmpresa, borrarTodo } =
-    useEmpresas();
+  const {
+    empresas,
+    agregarEmpresas,
+    actualizarEmpresa,
+    cambiarEstado,
+    eliminarEmpresa,
+    borrarTodo,
+    reemplazarTodo,
+  } = useEmpresas();
 
   const [config, setConfig] = useLocalStorageState<ConfigApp>(CLAVE_CONFIG, CONFIG_DEFAULT, (guardado) =>
     combinarConfig(guardado as Partial<ConfigApp> | null),
@@ -158,6 +165,7 @@ export default function App() {
             setConfig={setConfig}
             empresas={empresas}
             borrarTodo={borrarTodo}
+            reemplazarTodo={reemplazarTodo}
             mostrarToast={mostrarToast}
           />
         )}

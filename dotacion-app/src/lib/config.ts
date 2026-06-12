@@ -39,6 +39,8 @@ export const CONFIG_DEFAULT: ConfigApp = {
   diasSeguimiento: 5,
   googleMapsApiKey: '',
   brevoApiKey: '',
+  plantillaEmail: '',
+  plantillaWhatsApp: '',
   productos: [
     { nombre: 'Guantes industriales (nitrilo, cuero, PVC, vaqueta)', precioDesde: 0, unidad: 'par' },
     { nombre: 'Cascos de seguridad y protección para la cabeza', precioDesde: 0, unidad: 'unidad' },

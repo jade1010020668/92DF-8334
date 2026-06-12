@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import {
   BadgePercent,
@@ -8,15 +8,19 @@ import {
   Download,
   Eye,
   EyeOff,
+  FileDown,
+  FileText,
   MapPinned,
   Package,
   Plus,
   Save,
   Trash2,
+  Upload,
   Zap,
 } from 'lucide-react';
 import type { ConfigApp, Empresa, ProductoCatalogo } from '../types';
 import { exportarExcel } from '../lib/excel';
+import { descargarRespaldo, parsearRespaldo } from '../lib/respaldo';
 import type { MostrarToast } from '../App';
 
 interface Props {
@@ -24,13 +28,51 @@ interface Props {
   setConfig: Dispatch<SetStateAction<ConfigApp>>;
   empresas: Empresa[];
   borrarTodo: () => void;
+  reemplazarTodo: (nuevas: Empresa[]) => void;
   mostrarToast: MostrarToast;
 }
 
-export function Configuracion({ config, setConfig, empresas, borrarTodo, mostrarToast }: Props) {
+export function Configuracion({
+  config,
+  setConfig,
+  empresas,
+  borrarTodo,
+  reemplazarTodo,
+  mostrarToast,
+}: Props) {
   const [borrador, setBorrador] = useState<ConfigApp>(config);
   const [mostrarClave, setMostrarClave] = useState(false);
   const [mostrarClaveBrevo, setMostrarClaveBrevo] = useState(false);
+  const inputRespaldo = useRef<HTMLInputElement>(null);
+
+  const restaurarRespaldo = async (evento: React.ChangeEvent<HTMLInputElement>) => {
+    const input = evento.target;
+    const archivo = input.files?.[0];
+    input.value = '';
+    if (!archivo) return;
+    const leido = parsearRespaldo(await archivo.text());
+    if (!leido) {
+      mostrarToast('Ese archivo no es un respaldo de DotaciónPro.', 'error');
+      return;
+    }
+    if (
+      !window.confirm(
+        `Esto reemplaza tu lista actual (${empresas.length} empresas) por la del respaldo (${leido.empresas.length} empresas) y los datos del negocio. Las claves de Google/Brevo de este dispositivo se conservan. ¿Continuar?`,
+      )
+    ) {
+      return;
+    }
+    // Las claves no viajan en el archivo: se conservan las de este dispositivo.
+    const mezclada: ConfigApp = {
+      ...leido.config,
+      googleMapsApiKey: config.googleMapsApiKey,
+      brevoApiKey: config.brevoApiKey,
+    };
+    reemplazarTodo(leido.empresas);
+    setConfig(mezclada);
+    setBorrador(mezclada);
+    mostrarToast(`Respaldo restaurado: ${leido.empresas.length} empresas.`, 'exito');
+  };
 
   const hayCambios = JSON.stringify(borrador) !== JSON.stringify(config);
 
@@ -177,6 +219,52 @@ export function Configuracion({ config, setConfig, empresas, borrarTodo, mostrar
             rows={3}
             value={borrador.textoDescuentos}
             onChange={(e) => cambiar('textoDescuentos', e.target.value)}
+          />
+        </div>
+      </section>
+
+      {/* 2.5 Plantillas personalizadas */}
+      <section className="tarjeta space-y-4">
+        <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
+          <FileText className="h-6 w-6 text-blue-700" aria-hidden="true" />
+          Plantillas de mensajes (opcional)
+        </h3>
+        <p className="text-slate-600">
+          Si las dejas vacías, la app usa su mensaje automático. Si escribes tu propio texto, puedes
+          usar estos marcadores y la app los reemplaza por los datos de cada empresa:{' '}
+          <code className="rounded bg-slate-100 px-1">[saludo]</code>{' '}
+          <code className="rounded bg-slate-100 px-1">[empresa]</code>{' '}
+          <code className="rounded bg-slate-100 px-1">[contacto]</code>{' '}
+          <code className="rounded bg-slate-100 px-1">[sector]</code>{' '}
+          <code className="rounded bg-slate-100 px-1">[productos]</code>{' '}
+          <code className="rounded bg-slate-100 px-1">[descuentos]</code>{' '}
+          <code className="rounded bg-slate-100 px-1">[remitente]</code>{' '}
+          <code className="rounded bg-slate-100 px-1">[firma]</code>
+        </p>
+        <div>
+          <label htmlFor="conf-plantilla-email" className="etiqueta">
+            Cuerpo del correo personalizado
+          </label>
+          <textarea
+            id="conf-plantilla-email"
+            className="campo font-mono text-sm"
+            rows={6}
+            placeholder={'Ej:\n[saludo]\n\nLes escribimos de... \n\n[productos]\n\n[firma]'}
+            value={borrador.plantillaEmail}
+            onChange={(e) => cambiar('plantillaEmail', e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="conf-plantilla-whatsapp" className="etiqueta">
+            Mensaje de WhatsApp personalizado
+          </label>
+          <textarea
+            id="conf-plantilla-whatsapp"
+            className="campo font-mono text-sm"
+            rows={5}
+            placeholder="Ej: ¡Hola! Le escribo de [remitente] para [empresa]…"
+            value={borrador.plantillaWhatsApp}
+            onChange={(e) => cambiar('plantillaWhatsApp', e.target.value)}
           />
         </div>
       </section>
@@ -431,6 +519,28 @@ export function Configuracion({ config, setConfig, empresas, borrarTodo, mostrar
           </button>
           <button
             type="button"
+            className="btn-secundario"
+            onClick={() => descargarRespaldo(empresas, config)}
+            disabled={empresas.length === 0}
+          >
+            <FileDown className="h-5 w-5" aria-hidden="true" />
+            Guardar respaldo completo
+          </button>
+          <button type="button" className="btn-secundario" onClick={() => inputRespaldo.current?.click()}>
+            <Upload className="h-5 w-5" aria-hidden="true" />
+            Restaurar respaldo
+          </button>
+          <input
+            ref={inputRespaldo}
+            type="file"
+            accept=".json,application/json"
+            className="hidden"
+            aria-hidden="true"
+            tabIndex={-1}
+            onChange={restaurarRespaldo}
+          />
+          <button
+            type="button"
             className="btn-peligro"
             onClick={borrarTodas}
             disabled={empresas.length === 0}
@@ -439,6 +549,12 @@ export function Configuracion({ config, setConfig, empresas, borrarTodo, mostrar
             Borrar todas las empresas
           </button>
         </div>
+        <p className="text-slate-600">
+          <strong>Para pasar todo al celular (o al revés):</strong> toca «Guardar respaldo completo»,
+          envíate el archivo por WhatsApp o correo, ábrelo en el otro dispositivo y usa «Restaurar
+          respaldo». Lleva la lista completa (con estados y fechas) y los datos del negocio; las
+          claves de Google/Brevo no viajan en el archivo.
+        </p>
       </section>
     </div>
   );

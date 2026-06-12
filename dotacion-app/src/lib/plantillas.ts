@@ -31,8 +31,40 @@ function firmaEmail(config: ConfigApp): string {
   return lineas.filter(Boolean).join('\n');
 }
 
+/**
+ * Marcadores disponibles en las plantillas personalizadas:
+ * [saludo] [empresa] [contacto] [sector] [productos] [descuentos] [remitente] [firma]
+ */
+export function reemplazarMarcadores(
+  plantilla: string,
+  empresa: Empresa,
+  config: ConfigApp,
+  productos: string,
+): string {
+  return plantilla
+    .replaceAll('[saludo]', saludoFormal(empresa))
+    .replaceAll('[empresa]', empresa.nombre)
+    .replaceAll('[contacto]', empresa.contacto.trim() || `equipo de ${empresa.nombre}`)
+    .replaceAll('[sector]', empresa.sector.trim() || 'su sector')
+    .replaceAll('[productos]', productos)
+    .replaceAll('[descuentos]', config.textoDescuentos)
+    .replaceAll('[remitente]', config.remitente.trim() || config.nombreEmpresa)
+    .replaceAll('[firma]', firmaEmail(config));
+}
+
 /** Email de primera cotización, personalizado por empresa y sector. */
 export function generarEmail(empresa: Empresa, config: ConfigApp): { asunto: string; cuerpo: string } {
+  const personalizada = config.plantillaEmail.trim();
+  if (personalizada) {
+    return {
+      asunto: `Cotización de dotación industrial y EPP para ${empresa.nombre}`,
+      cuerpo: reemplazarMarcadores(personalizada, empresa, config, listaProductosEmail(config)),
+    };
+  }
+  return generarEmailAutomatico_(empresa, config);
+}
+
+function generarEmailAutomatico_(empresa: Empresa, config: ConfigApp): { asunto: string; cuerpo: string } {
   const sector = empresa.sector.trim();
   const fraseSector = sector
     ? `Sabemos que en el sector de ${sector} la seguridad y la dotación del personal son prioridad, `
@@ -100,6 +132,17 @@ export function emojiProducto(nombre: string): string {
 
 /** Mensaje de WhatsApp de primer contacto, cercano y con emojis. */
 export function generarWhatsApp(empresa: Empresa, config: ConfigApp): string {
+  const personalizada = config.plantillaWhatsApp.trim();
+  if (personalizada) {
+    const productos = config.productos
+      .map((p) => `${emojiProducto(p.nombre)} ${p.nombre}`)
+      .join('\n');
+    return reemplazarMarcadores(personalizada, empresa, config, productos);
+  }
+  return generarWhatsAppAutomatico_(empresa, config);
+}
+
+function generarWhatsAppAutomatico_(empresa: Empresa, config: ConfigApp): string {
   const contacto = empresa.contacto.trim();
   const saludo = contacto ? `¡Hola, ${contacto}! 👋` : '¡Hola! 👋';
   const sector = empresa.sector.trim();
