@@ -75,12 +75,14 @@ describe('plantillas personalizadas', () => {
   });
 
   it('generarEmail usa la plantilla personalizada cuando existe', () => {
-    const conPlantilla = { ...config, plantillaEmail: 'Hola [contacto], oferta para [empresa]\n[productos]' };
+    const conPlantilla: ConfigApp = {
+      ...config,
+      plantillaEmail: 'Hola [contacto], oferta para [empresa]\n[productos]',
+      productos: [{ nombre: 'Guantes de carnaza', precioDesde: 0, unidad: 'par' }],
+    };
     const { cuerpo } = generarEmail(empresa, conPlantilla);
     expect(cuerpo).toBe(
-      `Hola María Pérez, oferta para Plásticos Andinos S.A.S.\n${conPlantilla.productos
-        .map((p) => `  • ${p.nombre}`)
-        .join('\n')}`,
+      'Hola María Pérez, oferta para Plásticos Andinos S.A.S.\n  • Guantes de carnaza',
     );
   });
 

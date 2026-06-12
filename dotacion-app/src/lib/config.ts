@@ -35,21 +35,23 @@ export const CONFIG_DEFAULT: ConfigApp = {
   email: '',
   remitente: '',
   textoDescuentos:
-    'Manejamos descuentos especiales por volumen y precios mayoristas a partir de 20 unidades.',
+    'Manejamos descuentos especiales por volumen y precios mayoristas a partir de 20 unidades. Vea el catálogo completo con precios en: https://morales101002-dotacionpro.static.hf.space/catalogo.html',
   diasSeguimiento: 5,
   googleMapsApiKey: '',
   brevoApiKey: '',
   plantillaEmail: '',
   plantillaWhatsApp: '',
+  // Precios "desde" según lista 2023 de la empresa con incremento del 20%
+  // (valores sin IVA). Editables en Configuración.
   productos: [
-    { nombre: 'Guantes industriales (nitrilo, cuero, PVC, vaqueta)', precioDesde: 0, unidad: 'par' },
-    { nombre: 'Cascos de seguridad y protección para la cabeza', precioDesde: 0, unidad: 'unidad' },
-    { nombre: 'Calzado de seguridad con puntera de acero y dieléctrico', precioDesde: 0, unidad: 'par' },
-    { nombre: 'Overoles, uniformes y ropa de trabajo', precioDesde: 0, unidad: 'unidad' },
-    { nombre: 'Gafas y caretas de protección visual', precioDesde: 0, unidad: 'unidad' },
-    { nombre: 'Tapabocas, respiradores y protección respiratoria', precioDesde: 0, unidad: 'caja' },
-    { nombre: 'Arneses y equipos para trabajo en alturas', precioDesde: 0, unidad: 'unidad' },
-    { nombre: 'Chalecos reflectivos y señalización', precioDesde: 0, unidad: 'unidad' },
+    { nombre: 'Overoles y ropa de trabajo en dril (2 piezas, enterizo, piloto)', precioDesde: 46200, unidad: 'unidad' },
+    { nombre: 'Dotación de vendedores: jeans, camisas Oxford, polos y camisetas', precioDesde: 19800, unidad: 'unidad' },
+    { nombre: 'Botas y calzado de seguridad (livianas, dieléctricas, soldador)', precioDesde: 33000, unidad: 'par' },
+    { nombre: 'Guantes industriales (neopreno, ingeniero, carnaza)', precioDesde: 9400, unidad: 'par' },
+    { nombre: 'Cascos, gafas y protección (casco blanco, gafas, tapaoídos)', precioDesde: 2800, unidad: 'unidad' },
+    { nombre: 'Tapabocas industrial (paquete x 100 unidades)', precioDesde: 66000, unidad: 'paquete' },
+    { nombre: 'Petos y delantales (caucho, carnaza)', precioDesde: 30000, unidad: 'unidad' },
+    { nombre: 'Bordado y estampado con el logo de su empresa', precioDesde: 1800, unidad: 'unidad' },
   ],
 };
 
