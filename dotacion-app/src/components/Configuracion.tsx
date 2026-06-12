@@ -497,7 +497,10 @@ export function Configuracion({
             <li>Menú de tu perfil → «SMTP &amp; API» → pestaña «API Keys» → «Generate a new API key».</li>
             <li>Pégala aquí y guarda los cambios.</li>
           </ol>
-          <p className="mt-2 font-semibold">La clave se guarda solo en este navegador. No la compartas.</p>
+          <p className="mt-2 font-semibold">
+            La clave se guarda solo en este navegador. No la compartas. Crea una clave exclusiva
+            para esta app y, si cambias o pierdes el equipo, bórrala en Brevo y genera una nueva.
+          </p>
         </div>
       </section>
 

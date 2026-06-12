@@ -1,4 +1,5 @@
-import type { ConfigApp, Empresa } from '../types';
+import type { ConfigApp, Empresa, EstadoEmpresa, FuenteEmpresa } from '../types';
+import { ESTADOS } from '../types';
 import { combinarConfig } from './config';
 
 /**
@@ -33,18 +34,48 @@ export interface RespaldoLeido {
   config: ConfigApp;
 }
 
-/** Valida y lee un respaldo. Devuelve null si el archivo no es de DotaciónPro. */
+/**
+ * Valida y lee un respaldo. Devuelve null si el archivo no es de DotaciónPro.
+ * Cada campo se sanea a su tipo esperado: un .json manipulado no puede meter
+ * estructuras raras a la app.
+ */
 export function parsearRespaldo(texto: string): RespaldoLeido | null {
   try {
     const datos = JSON.parse(texto) as Partial<Respaldo>;
     if (datos?.app !== 'dotacionpro' || !Array.isArray(datos.empresas)) return null;
-    const empresas = datos.empresas.filter(
-      (e): e is Empresa =>
-        typeof e === 'object' &&
-        e !== null &&
-        typeof (e as Empresa).id === 'string' &&
-        typeof (e as Empresa).nombre === 'string',
-    );
+
+    const cadena = (v: unknown): string => (typeof v === 'string' ? v : '');
+    const fechaOpcional = (v: unknown): string | undefined =>
+      typeof v === 'string' && v ? v : undefined;
+
+    const empresas: Empresa[] = [];
+    for (const cruda of datos.empresas as Partial<Empresa>[]) {
+      if (!cruda || typeof cruda !== 'object') continue;
+      const id = cadena(cruda.id);
+      const nombre = cadena(cruda.nombre).trim();
+      if (!id || !nombre) continue;
+      empresas.push({
+        id,
+        nombre,
+        sector: cadena(cruda.sector),
+        email: cadena(cruda.email),
+        telefono: cadena(cruda.telefono),
+        contacto: cadena(cruda.contacto),
+        direccion: cadena(cruda.direccion),
+        estado: ESTADOS.includes(cruda.estado as EstadoEmpresa)
+          ? (cruda.estado as EstadoEmpresa)
+          : 'pendiente',
+        fechaCreacion: cadena(cruda.fechaCreacion) || new Date().toISOString(),
+        fechaEnvio: fechaOpcional(cruda.fechaEnvio),
+        fechaRespuesta: fechaOpcional(cruda.fechaRespuesta),
+        notas: cadena(cruda.notas) || undefined,
+        fuente: (['manual', 'excel', 'maps'] as FuenteEmpresa[]).includes(
+          cruda.fuente as FuenteEmpresa,
+        )
+          ? (cruda.fuente as FuenteEmpresa)
+          : 'manual',
+      });
+    }
     return { empresas, config: combinarConfig(datos.config ?? null) };
   } catch {
     return null;
