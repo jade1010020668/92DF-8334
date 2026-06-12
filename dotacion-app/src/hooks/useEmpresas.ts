@@ -31,6 +31,49 @@ export interface ResultadoAgregar {
   duplicadas: number;
 }
 
+interface PlanInsercion extends ResultadoAgregar {
+  lista: Empresa[];
+}
+
+/** Calcula la inserción con dedup de forma pura (segura ante StrictMode). */
+function planificarInsercion(
+  actuales: Empresa[],
+  nuevas: NuevaEmpresa[],
+  fuente: FuenteEmpresa,
+): PlanInsercion {
+  const existentes = new Set(actuales.map((e) => claveDuplicado(e.nombre, e.direccion)));
+  const aInsertar: Empresa[] = [];
+  let duplicadas = 0;
+  for (const nueva of nuevas) {
+    const nombre = nueva.nombre.trim();
+    if (!nombre) continue;
+    const clave = claveDuplicado(nombre, nueva.direccion ?? '');
+    if (existentes.has(clave)) {
+      duplicadas++;
+      continue;
+    }
+    existentes.add(clave);
+    aInsertar.push({
+      id: generarId(),
+      nombre,
+      sector: (nueva.sector ?? '').trim(),
+      email: (nueva.email ?? '').trim(),
+      telefono: (nueva.telefono ?? '').trim(),
+      contacto: (nueva.contacto ?? '').trim(),
+      direccion: (nueva.direccion ?? '').trim(),
+      estado: nueva.estado ?? 'pendiente',
+      fechaCreacion: new Date().toISOString(),
+      notas: (nueva.notas ?? '').trim() || undefined,
+      fuente,
+    });
+  }
+  return {
+    lista: aInsertar.length > 0 ? [...aInsertar, ...actuales] : actuales,
+    agregadas: aInsertar.length,
+    duplicadas,
+  };
+}
+
 export interface UsoEmpresas {
   empresas: Empresa[];
   agregarEmpresas: (nuevas: NuevaEmpresa[], fuente: FuenteEmpresa) => ResultadoAgregar;
@@ -45,40 +88,11 @@ export function useEmpresas(): UsoEmpresas {
 
   const agregarEmpresas = useCallback(
     (nuevas: NuevaEmpresa[], fuente: FuenteEmpresa): ResultadoAgregar => {
-      let agregadas = 0;
-      let duplicadas = 0;
-      setEmpresas((actuales) => {
-        const existentes = new Set(actuales.map((e) => claveDuplicado(e.nombre, e.direccion)));
-        const aInsertar: Empresa[] = [];
-        for (const nueva of nuevas) {
-          const nombre = nueva.nombre.trim();
-          if (!nombre) continue;
-          const clave = claveDuplicado(nombre, nueva.direccion ?? '');
-          if (existentes.has(clave)) {
-            duplicadas++;
-            continue;
-          }
-          existentes.add(clave);
-          aInsertar.push({
-            id: generarId(),
-            nombre,
-            sector: (nueva.sector ?? '').trim(),
-            email: (nueva.email ?? '').trim(),
-            telefono: (nueva.telefono ?? '').trim(),
-            contacto: (nueva.contacto ?? '').trim(),
-            direccion: (nueva.direccion ?? '').trim(),
-            estado: nueva.estado ?? 'pendiente',
-            fechaCreacion: new Date().toISOString(),
-            notas: (nueva.notas ?? '').trim() || undefined,
-            fuente,
-          });
-          agregadas++;
-        }
-        return aInsertar.length > 0 ? [...aInsertar, ...actuales] : actuales;
-      });
-      return { agregadas, duplicadas };
+      const plan = planificarInsercion(empresas, nuevas, fuente);
+      setEmpresas(plan.lista);
+      return { agregadas: plan.agregadas, duplicadas: plan.duplicadas };
     },
-    [setEmpresas],
+    [empresas, setEmpresas],
   );
 
   const actualizarEmpresa = useCallback(
