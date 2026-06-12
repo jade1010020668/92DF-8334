@@ -1,6 +1,7 @@
 import * as XLSX from 'xlsx';
 import type { Empresa, EstadoEmpresa, NuevaEmpresa } from '../types';
 import { ESTADOS, ETIQUETA_ESTADO } from '../types';
+import { registrarExportacion } from './config';
 
 /** Quita tildes, espacios y mayúsculas para comparar encabezados de Excel. */
 export function normalizarEncabezado(texto: string): string {
@@ -150,6 +151,7 @@ export function exportarExcel(empresas: Empresa[]): void {
   XLSX.utils.book_append_sheet(libro, hoja, 'Empresas');
   const fecha = new Date().toISOString().slice(0, 10);
   XLSX.writeFile(libro, `DotacionPro empresas ${fecha}.xlsx`);
+  registrarExportacion();
 }
 
 /** Descarga una plantilla vacía con las columnas correctas y una fila de ejemplo. */

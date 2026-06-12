@@ -127,6 +127,8 @@ export default function App() {
             actualizarEmpresa={actualizarEmpresa}
             onAbrirCampana={() => setCampanaAbierta(true)}
             onIrAConfiguracion={() => setPestana('configuracion')}
+            onIrAEmpresas={() => setPestana('empresas')}
+            onIrABuscar={() => setPestana('buscar')}
           />
         )}
         {pestana === 'empresas' && (

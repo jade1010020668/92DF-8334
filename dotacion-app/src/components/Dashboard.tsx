@@ -1,17 +1,21 @@
+import { useState } from 'react';
 import {
   AlertTriangle,
   Bell,
   Building2,
   Clock,
+  Download,
   Mail,
   MessageCircle,
   Reply,
+  Rocket,
   Send,
   Trophy,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { ConfigApp, Empresa } from '../types';
-import { faltanDatosContacto } from '../lib/config';
+import { diasDesdeUltimaExportacion, faltanDatosContacto } from '../lib/config';
+import { exportarExcel } from '../lib/excel';
 import { calcularKpis, seguimientosPendientes } from '../lib/stats';
 import {
   generarEmailSeguimiento,
@@ -26,6 +30,8 @@ interface Props {
   actualizarEmpresa: (id: string, cambios: Partial<Empresa>) => void;
   onAbrirCampana: () => void;
   onIrAConfiguracion: () => void;
+  onIrAEmpresas: () => void;
+  onIrABuscar: () => void;
 }
 
 interface TarjetaKpi {
@@ -36,9 +42,21 @@ interface TarjetaKpi {
   fondoIcono: string;
 }
 
-export function Dashboard({ empresas, config, actualizarEmpresa, onAbrirCampana, onIrAConfiguracion }: Props) {
+export function Dashboard({
+  empresas,
+  config,
+  actualizarEmpresa,
+  onAbrirCampana,
+  onIrAConfiguracion,
+  onIrAEmpresas,
+  onIrABuscar,
+}: Props) {
   const kpis = calcularKpis(empresas);
   const seguimientos = seguimientosPendientes(empresas, config.diasSeguimiento);
+  // Cambia tras exportar para recalcular el aviso de copia de seguridad.
+  const [, setRefrescoRespaldo] = useState(0);
+  const diasSinRespaldo = diasDesdeUltimaExportacion();
+  const sugerirRespaldo = empresas.length >= 10 && (diasSinRespaldo === null || diasSinRespaldo >= 7);
 
   const tarjetas: TarjetaKpi[] = [
     {
@@ -96,6 +114,64 @@ export function Dashboard({ empresas, config, actualizarEmpresa, onAbrirCampana,
           </p>
           <button type="button" className="btn-primario" onClick={onIrAConfiguracion}>
             Completar ahora
+          </button>
+        </div>
+      )}
+
+      {/* Primeros pasos (solo cuando la lista está vacía) */}
+      {kpis.total === 0 && (
+        <div className="tarjeta space-y-4">
+          <h2 className="flex items-center gap-2 text-xl font-bold text-slate-800">
+            <Rocket className="h-6 w-6 text-blue-700" aria-hidden="true" />
+            Primeros pasos
+          </h2>
+          <ol className="list-inside list-decimal space-y-2 text-lg text-slate-700">
+            <li>
+              Completa los datos de tu empresa en <strong>Configuración</strong> (teléfono, correo y
+              quién firma).
+            </li>
+            <li>
+              Carga tus primeras empresas: <strong>importa un Excel</strong> o{' '}
+              <strong>búscalas en el mapa</strong>.
+            </li>
+            <li>
+              Vuelve aquí y toca <strong>«Enviar a X pendientes»</strong>. La app te muestra cada
+              correo y WhatsApp ya escritos.
+            </li>
+          </ol>
+          <div className="flex flex-wrap gap-2">
+            <button type="button" className="btn-primario" onClick={onIrAConfiguracion}>
+              1. Ir a Configuración
+            </button>
+            <button type="button" className="btn-secundario" onClick={onIrAEmpresas}>
+              2. Importar Excel
+            </button>
+            <button type="button" className="btn-verde" onClick={onIrABuscar}>
+              2. Buscar en el mapa
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Recordatorio de copia de seguridad */}
+      {sugerirRespaldo && (
+        <div className="flex flex-col items-start gap-3 rounded-2xl border border-blue-200 bg-blue-50 p-5 sm:flex-row sm:items-center">
+          <Download className="h-7 w-7 shrink-0 text-blue-700" aria-hidden="true" />
+          <p className="flex-1 text-lg text-blue-900">
+            {diasSinRespaldo === null
+              ? 'Aún no has guardado una copia de seguridad de tu lista.'
+              : `Llevas ${diasSinRespaldo} días sin guardar copia de seguridad.`}{' '}
+            Tu lista vive en este navegador: exporta el Excel para no perderla.
+          </p>
+          <button
+            type="button"
+            className="btn-primario"
+            onClick={() => {
+              exportarExcel(empresas);
+              setRefrescoRespaldo((n) => n + 1);
+            }}
+          >
+            Exportar ahora
           </button>
         </div>
       )}
