@@ -8,6 +8,7 @@ import {
   Mail,
   MessageCircle,
   PartyPopper,
+  Phone,
   X,
   Zap,
 } from 'lucide-react';
@@ -339,6 +340,18 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
                 >
                   <MessageCircle className="h-5 w-5" aria-hidden="true" />
                   Abrir WhatsApp
+                </button>
+                <button
+                  type="button"
+                  className="btn-secundario"
+                  disabled={!actual.telefono}
+                  title={actual.telefono ? undefined : 'Esta empresa no tiene teléfono'}
+                  onClick={() => {
+                    window.location.href = `tel:${actual.telefono.replace(/[^+\d]/g, '')}`;
+                  }}
+                >
+                  <Phone className="h-5 w-5" aria-hidden="true" />
+                  Llamar
                 </button>
                 <button
                   type="button"
