@@ -17,6 +17,13 @@ interface RespuestaNominatim {
   extratags?: Record<string, string> | null;
 }
 
+/** Asegura protocolo en la URL del sitio web (OSM a veces guarda "www.x.com"). */
+export function normalizarUrlWeb(url: string): string {
+  const limpia = url.trim();
+  if (!limpia) return '';
+  return /^https?:\/\//i.test(limpia) ? limpia : `https://${limpia}`;
+}
+
 /** Convierte la respuesta cruda de Nominatim en resultados de la app (pura). */
 export function parsearNominatim(json: unknown): ResultadoMaps[] {
   if (!Array.isArray(json)) return [];
@@ -35,7 +42,7 @@ export function parsearNominatim(json: unknown): ResultadoMaps[] {
       nombre: nombre || display.split(',')[0].trim(),
       direccion,
       telefono: (extra['phone'] ?? extra['contact:phone'] ?? '').trim(),
-      website: (extra['website'] ?? extra['contact:website'] ?? '').trim(),
+      website: normalizarUrlWeb(extra['website'] ?? extra['contact:website'] ?? ''),
       categoria: (item.type ?? item.class ?? '').replace(/_/g, ' '),
     });
   }
@@ -78,7 +85,7 @@ export function parsearGooglePlaces(json: unknown): ResultadoMaps[] {
       nombre,
       direccion: (lugar.formattedAddress ?? '').trim(),
       telefono: (lugar.nationalPhoneNumber ?? lugar.internationalPhoneNumber ?? '').trim(),
-      website: (lugar.websiteUri ?? '').trim(),
+      website: normalizarUrlWeb(lugar.websiteUri ?? ''),
       categoria: (lugar.primaryTypeDisplayName?.text ?? '').trim(),
     });
   }

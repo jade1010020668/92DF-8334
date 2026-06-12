@@ -1,0 +1,30 @@
+# Garantiza que la app siempre funcione: pruebas + build en cada cambio.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pruebas-y-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: dotacion-app/package-lock.json
+
+      - name: Instalar dependencias
+        working-directory: dotacion-app
+        run: npm ci
+
+      - name: Pruebas (vitest)
+        working-directory: dotacion-app
+        run: npm test
+
+      - name: Build de producción
+        working-directory: dotacion-app
+        run: npm run build

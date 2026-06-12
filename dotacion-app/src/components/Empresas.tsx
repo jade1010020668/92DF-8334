@@ -7,6 +7,7 @@ import {
   MapPinned,
   MessageCircle,
   Pencil,
+  Phone,
   Plus,
   Search,
   Trash2,
@@ -59,13 +60,16 @@ export function Empresas({
   }, [empresas]);
 
   const filtradas = useMemo(() => {
-    const texto = busqueda.trim().toLowerCase();
+    // Sin tildes ni mayúsculas: buscar "plasticos" encuentra "Plásticos".
+    const normalizar = (t: string) =>
+      t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const texto = normalizar(busqueda.trim());
     return empresas.filter((e) => {
       if (filtroSector !== 'todos' && e.sector.trim() !== filtroSector) return false;
       if (filtroEstado !== 'todos' && e.estado !== filtroEstado) return false;
       if (!texto) return true;
       return [e.nombre, e.contacto, e.email, e.direccion].some((campo) =>
-        campo.toLowerCase().includes(texto),
+        normalizar(campo).includes(texto),
       );
     });
   }, [empresas, busqueda, filtroSector, filtroEstado]);
@@ -158,6 +162,18 @@ export function Empresas({
           onClick={() => whatsapp && window.open(whatsapp, '_blank', 'noopener')}
         >
           <MessageCircle className="h-5 w-5" aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          className="btn-icono"
+          aria-label={`Llamar a ${e.nombre}`}
+          title="Llamar"
+          disabled={!e.telefono}
+          onClick={() => {
+            window.location.href = `tel:${e.telefono.replace(/[^+\d]/g, '')}`;
+          }}
+        >
+          <Phone className="h-5 w-5" aria-hidden="true" />
         </button>
         <button
           type="button"
