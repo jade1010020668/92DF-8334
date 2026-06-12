@@ -23,11 +23,11 @@ function siguienteNumeroCotizacion(): string {
   return `COT-${ymd}-${String(consecutivo).padStart(3, '0')}`;
 }
 
-/**
- * Genera y descarga el PDF de cotización para una empresa, con los datos
- * y catálogo configurados. No depende de ningún archivo externo.
- */
-export function generarPdfCotizacion(empresa: Empresa, config: ConfigApp): void {
+/** Construye el documento de cotización con los datos y catálogo configurados. */
+function crearDocumentoCotizacion(
+  empresa: Empresa,
+  config: ConfigApp,
+): { doc: jsPDF; nombreArchivo: string } {
   const doc = new jsPDF();
   const anchoPagina = doc.internal.pageSize.getWidth();
   const margen = 14;
@@ -141,6 +141,25 @@ export function generarPdfCotizacion(empresa: Empresa, config: ConfigApp): void 
   doc.setTextColor(...GRIS);
   doc.text(config.nombreEmpresa, margen, yCond + 5);
 
-  const nombreArchivo = empresa.nombre.replace(/[\\/:*?"<>|]/g, '').slice(0, 60);
-  doc.save(`Cotizacion ${nombreArchivo}.pdf`);
+  const nombreLimpio = empresa.nombre.replace(/[\\/:*?"<>|]/g, '').slice(0, 60);
+  return { doc, nombreArchivo: `Cotizacion ${nombreLimpio}.pdf` };
+}
+
+/**
+ * Genera y descarga el PDF de cotización para una empresa. No depende de
+ * ningún archivo externo.
+ */
+export function generarPdfCotizacion(empresa: Empresa, config: ConfigApp): void {
+  const { doc, nombreArchivo } = crearDocumentoCotizacion(empresa, config);
+  doc.save(nombreArchivo);
+}
+
+/** El mismo PDF en base64, para adjuntarlo en los envíos por la API de Brevo. */
+export function pdfCotizacionBase64(
+  empresa: Empresa,
+  config: ConfigApp,
+): { nombre: string; contenidoBase64: string } {
+  const { doc, nombreArchivo } = crearDocumentoCotizacion(empresa, config);
+  const dataUri = doc.output('datauristring');
+  return { nombre: nombreArchivo, contenidoBase64: dataUri.slice(dataUri.indexOf(',') + 1) };
 }

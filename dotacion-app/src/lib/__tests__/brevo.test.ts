@@ -43,6 +43,18 @@ describe('construirPayloadBrevo', () => {
     expect(payload.sender.name).toBe(CONFIG_DEFAULT.nombreEmpresa);
   });
 
+  it('incluye el PDF adjunto cuando se entrega', () => {
+    const payload = construirPayloadBrevo(empresa, config, {
+      name: 'Cotizacion Demo.pdf',
+      content: 'JVBERi0xLjc=',
+    });
+    expect(payload.attachment).toEqual([{ name: 'Cotizacion Demo.pdf', content: 'JVBERi0xLjc=' }]);
+  });
+
+  it('sin adjunto no incluye el campo attachment', () => {
+    expect(construirPayloadBrevo(empresa, config).attachment).toBeUndefined();
+  });
+
   it('recorta espacios en los correos', () => {
     const payload = construirPayloadBrevo(
       { ...empresa, email: '  compras@plasticosandinos.com  ' },

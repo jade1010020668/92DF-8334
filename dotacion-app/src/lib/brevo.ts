@@ -1,5 +1,6 @@
 import type { ConfigApp, Empresa } from '../types';
 import { generarEmail } from './plantillas';
+import { pdfCotizacionBase64 } from './pdf';
 
 /**
  * Envío real de correos vía la API transaccional de Brevo (plan gratis:
@@ -9,16 +10,27 @@ import { generarEmail } from './plantillas';
 
 const URL_API = 'https://api.brevo.com/v3/smtp/email';
 
+export interface AdjuntoBrevo {
+  name: string;
+  /** Contenido del archivo en base64. */
+  content: string;
+}
+
 export interface PayloadBrevo {
   sender: { name: string; email: string };
   to: { email: string; name: string }[];
   replyTo: { email: string };
   subject: string;
   textContent: string;
+  attachment?: AdjuntoBrevo[];
 }
 
 /** Arma el cuerpo del envío para la API de Brevo (puro, cubierto por tests). */
-export function construirPayloadBrevo(empresa: Empresa, config: ConfigApp): PayloadBrevo {
+export function construirPayloadBrevo(
+  empresa: Empresa,
+  config: ConfigApp,
+  adjunto?: AdjuntoBrevo,
+): PayloadBrevo {
   const { asunto, cuerpo } = generarEmail(empresa, config);
   const remitente = config.remitente.trim() || config.nombreEmpresa;
   const correoEmpresa = config.email.trim();
@@ -28,6 +40,7 @@ export function construirPayloadBrevo(empresa: Empresa, config: ConfigApp): Payl
     replyTo: { email: correoEmpresa },
     subject: asunto,
     textContent: cuerpo,
+    ...(adjunto ? { attachment: [adjunto] } : {}),
   };
 }
 
@@ -48,6 +61,16 @@ export async function enviarCorreoBrevo(empresa: Empresa, config: ConfigApp): Pr
     return { ok: false, error: `${empresa.nombre} no tiene correo.` };
   }
 
+  // La cotización en PDF va adjunta; si su generación fallara, el correo
+  // sale sin adjunto en lugar de no salir.
+  let adjunto: AdjuntoBrevo | undefined;
+  try {
+    const pdf = pdfCotizacionBase64(empresa, config);
+    adjunto = { name: pdf.nombre, content: pdf.contenidoBase64 };
+  } catch {
+    adjunto = undefined;
+  }
+
   try {
     const respuesta = await fetch(URL_API, {
       method: 'POST',
@@ -56,7 +79,7 @@ export async function enviarCorreoBrevo(empresa: Empresa, config: ConfigApp): Pr
         'content-type': 'application/json',
         'api-key': config.brevoApiKey.trim(),
       },
-      body: JSON.stringify(construirPayloadBrevo(empresa, config)),
+      body: JSON.stringify(construirPayloadBrevo(empresa, config, adjunto)),
     });
     if (respuesta.ok) return { ok: true };
 
