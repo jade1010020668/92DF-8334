@@ -175,18 +175,32 @@ export function parsearOverpass(json: unknown): ResultadoMaps[] {
   return resultados;
 }
 
+/** Servidor principal y espejo: si uno falla o limita, se intenta el otro. */
+const SERVIDORES_OVERPASS = [
+  'https://overpass-api.de/api/interpreter',
+  'https://overpass.kumi.systems/api/interpreter',
+];
+
 async function buscarOverpass(regex: string, bbox: string): Promise<ResultadoMaps[]> {
   if (!regex) return [];
   const consulta = `[out:json][timeout:25];(node["name"~"${regex}",i](${bbox});way["name"~"${regex}",i](${bbox}););out tags center 60;`;
-  const respuesta = await fetch('https://overpass-api.de/api/interpreter', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `data=${encodeURIComponent(consulta)}`,
-  });
-  if (!respuesta.ok) {
-    throw new Error(`OpenStreetMap respondió ${respuesta.status}. Espera un minuto y reintenta.`);
+  let ultimoError = new Error('OpenStreetMap no respondió. Intenta de nuevo en un minuto.');
+  for (const servidor of SERVIDORES_OVERPASS) {
+    try {
+      const respuesta = await fetch(servidor, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `data=${encodeURIComponent(consulta)}`,
+      });
+      if (!respuesta.ok) {
+        throw new Error(`OpenStreetMap respondió ${respuesta.status}. Espera un minuto y reintenta.`);
+      }
+      return parsearOverpass(await respuesta.json());
+    } catch (error) {
+      ultimoError = error instanceof Error ? error : new Error(String(error));
+    }
   }
-  return parsearOverpass(await respuesta.json());
+  throw ultimoError;
 }
 
 /** Búsqueda gratuita: Overpass (por nombre) + Nominatim (por lugar), combinadas. */
