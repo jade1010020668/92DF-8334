@@ -40,7 +40,19 @@ const SINONIMOS: Record<string, CampoImportable> = {
   estado: 'estado',
   notas: 'notas',
   observaciones: 'notas',
+  fechaenvio: 'fechaEnvio',
+  fechaderespuesta: 'fechaRespuesta',
+  fecharespuesta: 'fechaRespuesta',
 };
+
+/** Acepta fechas ISO o d/m/aaaa (como las exporta esta misma app). */
+function parsearFecha(texto: string): string | undefined {
+  const dmy = texto.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  const fecha = dmy
+    ? new Date(Number(dmy[3]), Number(dmy[2]) - 1, Number(dmy[1]))
+    : new Date(texto);
+  return Number.isNaN(fecha.getTime()) ? undefined : fecha.toISOString();
+}
 
 function parsearEstado(valor: string): EstadoEmpresa | undefined {
   const v = normalizarEncabezado(valor);
@@ -49,7 +61,9 @@ function parsearEstado(valor: string): EstadoEmpresa | undefined {
     if (v === estado || v === normalizarEncabezado(ETIQUETA_ESTADO[estado])) return estado;
   }
   if (v === 'venta' || v === 'vendido') return 'cliente';
-  if (v === 'nointeresado' || v === 'norespondio') return 'rechazado';
+  if (v === 'nointeresado') return 'rechazado';
+  // "No respondió" significa que se le envió y sigue sin contestar.
+  if (v === 'norespondio') return 'enviado';
   return undefined;
 }
 
@@ -69,6 +83,9 @@ export function filasAEmpresas(filas: Record<string, unknown>[]): NuevaEmpresa[]
       if (campo === 'estado') {
         const estado = parsearEstado(texto);
         if (estado) empresa.estado = estado;
+      } else if (campo === 'fechaEnvio' || campo === 'fechaRespuesta') {
+        const fecha = parsearFecha(texto);
+        if (fecha) empresa[campo] = fecha;
       } else {
         empresa[campo] = texto;
       }

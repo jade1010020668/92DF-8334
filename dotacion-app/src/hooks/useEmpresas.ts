@@ -8,15 +8,13 @@ function generarId(): string {
   return `id-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
-/** Clave de deduplicación: nombre normalizado (+ dirección si existe). */
-function claveDuplicado(nombre: string, direccion: string): string {
-  const limpiar = (t: string) =>
-    t
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]/g, '');
-  return `${limpiar(nombre)}|${limpiar(direccion)}`;
+/** Normaliza nombre/dirección para comparar duplicados. */
+function limpiarClave(texto: string): string {
+  return texto
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]/g, '');
 }
 
 function sanearEmpresas(guardado: unknown): Empresa[] {
@@ -41,18 +39,45 @@ function planificarInsercion(
   nuevas: NuevaEmpresa[],
   fuente: FuenteEmpresa,
 ): PlanInsercion {
-  const existentes = new Set(actuales.map((e) => claveDuplicado(e.nombre, e.direccion)));
+  // nombre normalizado → direcciones normalizadas conocidas. Si cualquiera de
+  // las dos direcciones está vacía, basta el nombre para considerarla repetida.
+  const porNombre = new Map<string, string[]>();
+  const registrar = (nombre: string, direccion: string) => {
+    const lista = porNombre.get(nombre) ?? [];
+    lista.push(direccion);
+    porNombre.set(nombre, lista);
+  };
+  const esDuplicada = (nombre: string, direccion: string): boolean => {
+    const direcciones = porNombre.get(nombre);
+    if (!direcciones) return false;
+    return direccion === '' || direcciones.some((d) => d === '' || d === direccion);
+  };
+  for (const e of actuales) registrar(limpiarClave(e.nombre), limpiarClave(e.direccion));
+
   const aInsertar: Empresa[] = [];
   let duplicadas = 0;
   for (const nueva of nuevas) {
     const nombre = nueva.nombre.trim();
     if (!nombre) continue;
-    const clave = claveDuplicado(nombre, nueva.direccion ?? '');
-    if (existentes.has(clave)) {
+    const claveNombre = limpiarClave(nombre);
+    const claveDir = limpiarClave(nueva.direccion ?? '');
+    if (esDuplicada(claveNombre, claveDir)) {
       duplicadas++;
       continue;
     }
-    existentes.add(clave);
+    registrar(claveNombre, claveDir);
+
+    const ahora = new Date().toISOString();
+    const estado = nueva.estado ?? 'pendiente';
+    // Una empresa importada como ya contactada necesita fechas para que
+    // seguimientos y estadísticas la vean.
+    let fechaEnvio = nueva.fechaEnvio;
+    let fechaRespuesta = nueva.fechaRespuesta;
+    if (estado !== 'pendiente' && !fechaEnvio) fechaEnvio = ahora;
+    if ((estado === 'respondio' || estado === 'cliente' || estado === 'rechazado') && !fechaRespuesta) {
+      fechaRespuesta = ahora;
+    }
+
     aInsertar.push({
       id: generarId(),
       nombre,
@@ -61,8 +86,10 @@ function planificarInsercion(
       telefono: (nueva.telefono ?? '').trim(),
       contacto: (nueva.contacto ?? '').trim(),
       direccion: (nueva.direccion ?? '').trim(),
-      estado: nueva.estado ?? 'pendiente',
-      fechaCreacion: new Date().toISOString(),
+      estado,
+      fechaCreacion: ahora,
+      fechaEnvio,
+      fechaRespuesta,
       notas: (nueva.notas ?? '').trim() || undefined,
       fuente,
     });
@@ -111,7 +138,16 @@ export function useEmpresas(): UsoEmpresas {
           if (e.id !== id) return e;
           const ahora = new Date().toISOString();
           const cambios: Partial<Empresa> = { estado };
-          if (estado === 'enviado') cambios.fechaEnvio = ahora;
+          if (estado === 'pendiente') {
+            // Retroceder a pendiente limpia la historia para no falsear reportes.
+            cambios.fechaEnvio = undefined;
+            cambios.fechaRespuesta = undefined;
+          }
+          if (estado === 'enviado') {
+            cambios.fechaEnvio = ahora;
+            // Re-cotizar borra la respuesta anterior para que el ciclo arranque limpio.
+            cambios.fechaRespuesta = undefined;
+          }
           if ((estado === 'respondio' || estado === 'cliente' || estado === 'rechazado') && !e.fechaRespuesta) {
             cambios.fechaRespuesta = ahora;
           }

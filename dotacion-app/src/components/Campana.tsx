@@ -81,6 +81,7 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
   };
 
   const enviarTodosPorBrevo = async () => {
+    if (masivo || enviandoBrevo) return;
     const porEnviar = cola
       .slice(posicion)
       .map((id) => empresas.find((e) => e.id === id))

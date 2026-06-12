@@ -96,10 +96,16 @@ export function Dashboard({
     },
   ];
 
-  /** Abre el mensaje de seguimiento y registra que se volvió a escribir hoy. */
+  /** Abre el mensaje de seguimiento y, si se envió, reinicia el contador. */
   const abrirSeguimiento = (empresa: Empresa, url: string) => {
     window.open(url, '_blank', 'noopener');
-    actualizarEmpresa(empresa.id, { fechaEnvio: new Date().toISOString() });
+    if (
+      window.confirm(
+        `¿Enviaste el mensaje de seguimiento a ${empresa.nombre}? Acepta para reiniciar el contador de días.`,
+      )
+    ) {
+      actualizarEmpresa(empresa.id, { fechaEnvio: new Date().toISOString() });
+    }
   };
 
   return (

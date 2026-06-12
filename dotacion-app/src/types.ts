@@ -53,6 +53,9 @@ export interface NuevaEmpresa {
   direccion?: string;
   estado?: EstadoEmpresa;
   notas?: string;
+  /** ISO 8601; se respeta al importar un Excel que ya traía historia. */
+  fechaEnvio?: string;
+  fechaRespuesta?: string;
 }
 
 export interface ProductoCatalogo {

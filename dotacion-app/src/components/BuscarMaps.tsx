@@ -151,8 +151,8 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
           <div className="tarjeta space-y-2 py-8 text-center">
             <p className="text-xl font-bold text-slate-700">No encontramos resultados.</p>
             <p className="text-lg text-slate-600">
-              Prueba con otras palabras, por ejemplo «fábrica de plásticos Bogotá» o «metalmecánica
-              Fontibón».
+              Revisa la ortografía (por ejemplo «plásticos», con s) o prueba con otras palabras:
+              «fábrica de plásticos», «metalmecánica», «alimentos».
             </p>
             {!hayClave && (
               <p className="text-lg text-slate-600">
