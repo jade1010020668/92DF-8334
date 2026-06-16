@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<base target="_top">
+<?!= incluir('Layout') ?>
+</head>
+<body>
+<main class="app-main">
+  <h2 style="margin-top:0;">Respuestas de clientes</h2>
+
+  <div class="panel">
+    <label for="filtro"><strong>Mostrar:</strong></label>
+    <select id="filtro" class="entrada" style="max-width:300px; margin-top:10px;" onchange="recargar()">
+      <option value="interesado">Solo interesados</option>
+      <option value="todas">Todas</option>
+      <option value="no_interesado">No interesados</option>
+      <option value="fuera_oficina">Fuera de oficina</option>
+      <option value="spam">Spam</option>
+    </select>
+  </div>
+
+  <div id="lista-respuestas" aria-live="polite">
+    <div class="mensaje info" role="status"><span class="cargando" aria-hidden="true"></span> Cargando respuestas...</div>
+  </div>
+</main>
+
+<script>
+function recargar() {
+  var filtro = document.getElementById('filtro').value;
+  var contenedor = document.getElementById('lista-respuestas');
+  contenedor.innerHTML = '<div class="mensaje info"><span class="cargando"></span> Cargando...</div>';
+
+  google.script.run
+    .withSuccessHandler(function (lista) {
+      if (lista.length === 0) {
+        contenedor.innerHTML = '<div class="mensaje info">No hay respuestas en esta categoria todavia.</div>';
+        return;
+      }
+      var html = '';
+      for (var i = 0; i < lista.length; i++) {
+        var r = lista[i];
+        var clase = ({
+          interesado: 'verde',
+          no_interesado: 'rojo',
+          fuera_oficina: 'amarillo',
+          spam: 'gris'
+        })[r.clasificacion] || 'gris';
+        html += '<div class="panel">';
+        html += '<div style="display:flex; justify-content:space-between; align-items:start; gap:12px;">';
+        html += '<div><h3 style="margin:0;">' + escapar(r.empresa) + '</h3>';
+        html += '<div class="ayuda">' + escapar(r.fecha || '') + '</div></div>';
+        html += '<span class="semaforo ' + clase + '">' + escapar(r.clasificacion) + '</span>';
+        html += '</div>';
+        html += '<p><strong>Resumen IA:</strong> ' + escapar(r.resumen || '(sin resumen)') + '</p>';
+        html += '<p><strong>Contacto:</strong> ' + escapar(r.correo || '') +
+                ' | ' + escapar(r.telefono || '') + '</p>';
+        html += '<details><summary>Ver correo completo</summary>';
+        html += '<pre style="white-space:pre-wrap; background:#f9fafb; padding:12px; border-radius:6px;">' +
+                escapar(r.cuerpo || '') + '</pre></details>';
+        html += '<p style="margin-top:12px;">';
+        html += '<button class="boton" onclick="marcar(' + r.id + ', this)">Marcar como gestionada</button>';
+        html += '</p></div>';
+      }
+      contenedor.innerHTML = html;
+    })
+    .withFailureHandler(function (err) {
+      contenedor.innerHTML = '<div class="mensaje error">Algo salio mal: ' + escapar(err.message) + '</div>';
+    })
+    .apiListarRespuestas(filtro);
+}
+
+function marcar(id, boton) {
+  boton.disabled = true;
+  boton.textContent = 'Marcando...';
+  google.script.run
+    .withSuccessHandler(function () { recargar(); })
+    .withFailureHandler(function (err) {
+      boton.disabled = false;
+      boton.textContent = 'Reintentar';
+      alert('Fallo: ' + err.message);
+    })
+    .apiMarcarRespuestaGestionada(id);
+}
+
+function escapar(texto) {
+  if (texto === undefined || texto === null) return '';
+  return String(texto)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+recargar();
+</script>
+</body>
+</html>

@@ -2,168 +2,138 @@
 
 Sistema de prospeccion B2B y envio de cotizaciones automatizado para una PYME de dotacion en Bogota.
 
-> Este README es para **Diego** (operador tecnico).
-> El papa tiene un manual aparte (`MANUAL_PAPA.pdf`) con capturas y lenguaje sencillo.
+> **Arquitectura actual: Google Sheets + Apps Script + servicio Node externo de WhatsApp.**
+> El plan original con Python/Streamlit/SQLite quedo archivado (ver carpeta `src/` y `tests/`).
 
 ---
 
 ## Que hace
 
-1. Busca empresas reales de un sector en Google Maps Bogota.
-2. Visita sus paginas web y extrae el correo de contacto con IA (Gemini).
-3. Envia cotizaciones personalizadas por Gmail.
-4. Lee respuestas por IMAP y clasifica el interes con IA.
-5. Notifica al WhatsApp del papa cuando alguien responde interesado.
+1. **Busca empresas** en internet con Gemini 2.5 Pro + Google Search grounding, segun el sector que Diego indique.
+2. **Valida cada empresa** con un fetch a su sitio web para descartar las que Gemini "alucina".
+3. **Enriquece** los datos visitando la web y extrayendo el correo con IA.
+4. **Envia cotizaciones personalizadas** por Gmail (sin SMTP ni App Password — usa el OAuth integrado de Apps Script).
+5. **Lee respuestas** entrantes via Gmail API y las clasifica con IA en interesado / no interesado / fuera de oficina / spam.
+6. **Notifica al WhatsApp del papa** cuando llega un interesado, via un servicio Node externo.
 
-Todo desde un acceso directo en el escritorio. El papa nunca ve la terminal.
-
----
-
-## Estado actual
-
-| Hito | Descripcion | Estado |
-|---|---|---|
-| 0 | Estructura del repo, logger, configuracion | en curso |
-| 1 | Capa de datos (SQLite + CRUD) | pendiente |
-| 2 | Cliente Gemini hibrido Pro/Flash | pendiente |
-| 3 | Scraper Google Maps con Playwright | pendiente |
-| 4 | Enriquecimiento web | pendiente |
-| 5 | Envio SMTP + lectura IMAP | pendiente |
-| 6 | Servicio WhatsApp (Node) | pendiente |
-| 7 | Cliente WhatsApp (Python) | pendiente |
-| 8 | Scheduler automatico | pendiente |
-| 9 | UI Streamlit (4 pantallas) | pendiente |
-| 10 | Empaquetado Windows (.bat + acceso directo) | pendiente |
-| 11 | Manual del papa (PDF) | pendiente |
+El papa abre un enlace en su navegador (PC o celular) y ve 4 pantallas grandes en espanol. Nada que instalar.
 
 ---
 
-## Setup inicial (lo hace Diego una sola vez en el PC del papa)
+## Arquitectura
 
-### Requisitos
-
-- Python 3.11 o superior.
-- Node.js 18 o superior (para el servicio de WhatsApp).
-- Conexion estable a internet.
-- Windows 10/11 (objetivo de produccion). En Linux/Mac funciona para desarrollo pero los scripts `.bat` no.
-
-### Pasos
-
-1. Clonar el repo:
-   ```bash
-   git clone <url-del-repo>
-   cd 92DF-8334
-   ```
-
-2. Crear entorno virtual de Python:
-   ```bash
-   python -m venv venv
-   # Windows:
-   venv\Scripts\activate
-   # Linux/Mac:
-   source venv/bin/activate
-   ```
-
-3. Instalar dependencias:
-   ```bash
-   pip install -r requirements.txt
-   playwright install chromium
-   ```
-
-4. Copiar `.env.ejemplo` a `.env` y llenar los valores:
-   - `GEMINI_API_KEY`: obtenida en https://aistudio.google.com/apikey
-   - `GMAIL_USUARIO`: correo Gmail del papa
-   - `GMAIL_APP_PASSWORD`: generada en https://myaccount.google.com/apppasswords (requiere 2FA activado)
-   - `WHATSAPP_NUMERO_PAPA`: numero con codigo de pais, ej. `+573001234567`
-   - `CONFIG_PIN`: PIN de 4 digitos para entrar a la pantalla de configuracion
-
-5. Llenar `config/configuracion.yaml` con los productos reales de la empresa y el primer sector objetivo.
-
-6. (Cuando este implementado el servicio Node)
-   ```bash
-   cd whatsapp_service
-   npm install
-   ```
-
-### Probar instalacion
-
-```bash
-pytest tests/
+```
++----------------------------------------------------------+
+|  GOOGLE SHEETS (base de datos)                           |
+|  7 hojas: Sectores, Empresas, CorreosEnviados,           |
+|           Respuestas, Config, Logs, ConsumoGemini        |
++----------------------------------------------------------+
+              |
+              v
++----------------------------------------------------------+
+|  APPS SCRIPT (toda la app)                               |
+|  - 12 archivos .gs  (logica de negocio)                  |
+|  - 6 archivos .html (UI con 4 pantallas)                 |
+|  - Triggers automaticos (cada hora / diario)             |
+|  - Llama a Gemini via UrlFetchApp                        |
++----------------------------------------------------------+
+              |
+              v
++----------------------------------------------------------+
+|  SERVICIO NODE EXTERNO (en PC de Diego o servidor)       |
+|  whatsapp-web.js                                         |
+|  Recibe POST /enviar desde Apps Script                   |
+|  Dispara mensaje al WhatsApp del papa                    |
++----------------------------------------------------------+
 ```
 
-Debe pasar todos los tests sin errores.
+---
+
+## Estructura del repo
+
+| Carpeta | Proposito |
+|---|---|
+| `apps_script/` | **Codigo de la aplicacion** (Apps Script + HTML). |
+| `whatsapp_service/` | Servicio Node con whatsapp-web.js. |
+| `docs/` | Capturas para el manual del papa. |
+| `src/`, `tests/`, `db/`, `config/`, `plantillas/`, `requirements.txt` | Codigo Python del plan original (archivado, no se usa en la arquitectura actual). |
 
 ---
 
-## Como arrancar (futuro)
+## Setup (Diego, una sola vez)
 
-Cuando esten implementados los hitos 9 y 10, el papa solo hara doble clic al acceso directo `Dotacion Papa` en el escritorio. Eso arrancara:
+Lee `apps_script/README.md`. Resumen:
 
-1. El servicio Node de WhatsApp en `localhost:3000`.
-2. La app Streamlit en `localhost:8501`.
-3. El navegador apuntando a la app.
+1. Crear Sheet en `sheets.google.com`.
+2. Abrir `Extensiones > Apps Script`, pegar los archivos de `apps_script/` (o usar `clasp push`).
+3. En Apps Script: `Configuracion del proyecto > Propiedades del script`, agregar:
+   - `GEMINI_API_KEY` (la clave rotada, limpia)
+   - `WHATSAPP_NUMERO_PAPA`
+   - `WHATSAPP_SERVICE_URL`
+   - `CONFIG_PIN`
+4. En el Sheet: menu `Dotacion Papa > 1. Inicializar todo`.
+5. Llenar la hoja Config con datos del negocio.
+6. Menu `Dotacion Papa > Configurar triggers automaticos`.
+7. Levantar el servicio Node (`whatsapp_service/`).
+8. `Implementar > Nueva implementacion > Aplicacion web`. Copiar URL para el papa.
 
-Para detener todo: doble clic en `detener.bat`.
+---
+
+## Estado actual del proyecto
+
+| Hito (plan ejecutable) | Estado | Comentario |
+|---|---|---|
+| 0 - Bootstrap repo | listo | Estructura, .gitignore, requirements |
+| 1 - Capa de datos | listo (Python) + listo (Apps Script) | El usuario pivoto a Sheets en lugar de SQLite |
+| 2 - Cliente Gemini | listo (Apps Script con Pro/Flash + grounding + tokens) | |
+| 3 - Scraper | listo (Apps Script con Gemini grounding) | Reemplaza Playwright |
+| 4 - Enriquecimiento | listo (Apps Script) | UrlFetchApp + IA |
+| 5 - Correos | listo (Apps Script con GmailApp) | Sin SMTP/IMAP |
+| 6 - Servicio Node WhatsApp | pendiente | Se mantiene del plan original |
+| 7 - Cliente WhatsApp | listo (Apps Script POST al servicio Node) | |
+| 8 - Scheduler | listo (triggers Apps Script) | |
+| 9 - UI | listo (4 pantallas HtmlService) | |
+| 10 - Empaquetado | N/A | Apps Script vive en la nube, no se empaqueta |
+| 11 - Manual del papa | pendiente | PDF con capturas |
 
 ---
 
 ## Seguridad
 
-- **Nunca** subir el archivo `.env` a git. El `.gitignore` ya lo bloquea, pero verificar antes de cada commit.
-- **Nunca** compartir la `GEMINI_API_KEY` por chat, captura o repositorio publico. Si se filtra, rotarla **inmediatamente** en https://aistudio.google.com/apikey.
-- La contrasena de Gmail va como App Password, no como contrasena normal.
-- La sesion de WhatsApp se guarda en `whatsapp_service/.wwebjs_auth/`. Ese directorio nunca se sube a git ni se comparte.
-
-Antes de cualquier commit, ejecutar:
-```bash
-grep -rE "AIza|password|secret" --exclude-dir=venv --exclude-dir=.git .
-```
-para detectar secretos olvidados.
+- La API key de Gemini se guarda en `PropertiesService` (visible solo para Diego). **Nunca en codigo, nunca en chat, nunca en captura.**
+- Si una clave se filtra: rotarla en `https://aistudio.google.com/apikey` inmediatamente.
+- El PIN de Configuracion en el mismo `PropertiesService`.
+- La sesion de WhatsApp del servicio Node queda en `.wwebjs_auth/` (gitignored).
+- El Sheet de base de datos solo se comparte con Diego y el papa.
 
 ---
 
 ## Creditos Gemini
 
-El proyecto tiene aproximadamente **$1.000.000 COP (~$250 USD)** en creditos prepago de Gemini, validos por 2 meses. El dashboard muestra el saldo estimado restante.
+Proyecto con ~$1.000.000 COP (~$250 USD) en creditos prepago, validos por 2 meses.
 
-Cuando se agoten:
-1. Abrir `config/configuracion.yaml`.
-2. Cambiar `apis.forzar_flash` a `true`.
-3. Reiniciar la app.
-
-El sistema sigue operando con el tier gratuito de `gemini-2.5-flash`, con calidad menor pero suficiente.
-
----
-
-## Estructura del proyecto
-
-```
-.
-├── .env                      # SECRETOS, no se sube
-├── .env.ejemplo              # plantilla publica
-├── .gitignore
-├── README.md                 # este archivo (para Diego)
-├── MANUAL_PAPA.pdf           # para el papa, generado en hito 11
-├── iniciar.bat               # arranque por doble clic (hito 10)
-├── detener.bat
-├── requirements.txt
-├── config/
-│   └── configuracion.yaml
-├── src/
-│   ├── app_streamlit.py      # entrada UI
-│   ├── paginas/              # 4 pantallas Streamlit
-│   ├── servicios/            # scraper, ia, correos, whatsapp, scheduler
-│   ├── modelos/              # dataclasses tipadas
-│   └── utilidades/           # db, logger, plantillas
-├── plantillas/               # plantillas de cotizacion en texto
-├── whatsapp_service/         # servicio Node con whatsapp-web.js
-├── db/                       # SQLite local, no se sube
-├── logs/                     # rotacion diaria, no se sube
-└── tests/                    # pytest
-```
+- Modelo Pro (`gemini-2.5-pro`) para tareas sensibles: scraping con grounding, redaccion, clasificacion.
+- Modelo Flash (`gemini-2.5-flash`) para extraccion masiva de correos.
+- Consumo registrado por llamada en hoja `ConsumoGemini`.
+- Dashboard muestra saldo restante en USD y porcentaje.
+- Cuando se agoten: en hoja Config poner `ia.forzar_flash = true`. Todo cae a Flash (tier gratis ~1500 req/dia).
 
 ---
 
 ## Soporte
 
-Si algo falla en produccion: revisar `logs/sistema.log` (las ultimas 50 lineas las muestra la pantalla de Configuracion). Si el problema persiste, abrir issue en el repo.
+- Logs del sistema: hoja `Logs` o `View > Executions` en el editor de Apps Script.
+- Consumo de Gemini: hoja `ConsumoGemini`.
+- Para problemas, abrir issue en el repo.
+
+---
+
+## Codigo Python archivado
+
+La carpeta `src/`, `tests/`, etc. contiene la implementacion Python que se hizo
+en los hitos 0-1 antes de que el usuario pivotara a Apps Script. Se conserva
+como referencia / fallback. Si en el futuro se quiere migrar de vuelta a
+Python local, esta base ya esta hecha (incluye scraper Playwright, capa SQLite,
+modelos, 16 tests verdes).
+
+Para correr la version Python: `pip install -r requirements.txt && pytest tests/`.

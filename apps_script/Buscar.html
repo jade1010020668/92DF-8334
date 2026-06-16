@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<base target="_top">
+<?!= incluir('Layout') ?>
+</head>
+<body>
+<main class="app-main">
+  <h2 style="margin-top:0;">Buscar empresas nuevas</h2>
+
+  <div class="panel">
+    <label for="sector"><strong>Que tipo de empresas quiere buscar?</strong></label>
+    <div class="ayuda">Ejemplo: "empresas de plasticos", "fabricas de muebles", "talleres mecanicos"</div>
+    <input id="sector" class="entrada" type="text" placeholder="empresas de plasticos" style="margin-top:10px;">
+
+    <label for="instruccion" style="margin-top:20px; display:block;">
+      <strong>Instrucciones extras (opcional)</strong>
+    </label>
+    <div class="ayuda">Ej: "Que sean pequenas y medianas, evita multinacionales"</div>
+    <input id="instruccion" class="entrada"
+           value="Pequenas y medianas, con presencia web verificable"
+           style="margin-top:10px;">
+
+    <label for="limite" style="margin-top:20px; display:block;"><strong>Cantidad maxima</strong></label>
+    <input id="limite" class="entrada" type="number" value="30" min="5" max="200" style="margin-top:10px; max-width:200px;">
+
+    <p style="margin-top:24px;">
+      <button id="boton-buscar" class="boton verde" onclick="buscar()">Buscar en internet</button>
+    </p>
+    <div id="mensaje" style="margin-top:16px;" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="panel" id="panel-enriquecer" style="display:none;">
+    <p><strong>Empresas encontradas. Quieres que extraiga sus correos automaticamente?</strong></p>
+    <p class="ayuda">Esto visita la web de cada empresa y usa IA para encontrar el correo de contacto.</p>
+    <p>
+      <button class="boton verde" onclick="enriquecer()">Si, conseguir correos</button>
+      <button class="boton" onclick="window.location.href='?pagina=dashboard'">Mas tarde</button>
+    </p>
+    <div id="mensaje-enriquecer" style="margin-top:16px;" role="status" aria-live="polite"></div>
+  </div>
+</main>
+
+<script>
+function buscar() {
+  var sector = document.getElementById('sector').value.trim();
+  var instruccion = document.getElementById('instruccion').value.trim();
+  var limite = parseInt(document.getElementById('limite').value, 10) || 30;
+  if (!sector) {
+    mostrarMensaje('mensaje', 'error', 'Escribe que tipo de empresas buscar.');
+    return;
+  }
+  if (!confirm('Voy a buscar hasta ' + limite + ' empresas de "' + sector + '" en internet.\n' +
+               'Esto puede demorar 2-3 minutos. Sigues?')) return;
+
+  document.getElementById('boton-buscar').disabled = true;
+  mostrarMensaje('mensaje', 'info',
+    '<span class="cargando"></span> Buscando empresas... no cierres esta ventana.');
+
+  google.script.run
+    .withSuccessHandler(function (r) {
+      document.getElementById('boton-buscar').disabled = false;
+      mostrarMensaje('mensaje', 'exito',
+        'Listo. ' + r.validadas + ' empresas guardadas (' + r.descartadas + ' descartadas).');
+      document.getElementById('panel-enriquecer').style.display = 'block';
+      document.getElementById('panel-enriquecer').setAttribute('data-sector-id', r.sectorId);
+    })
+    .withFailureHandler(function (err) {
+      document.getElementById('boton-buscar').disabled = false;
+      mostrarMensaje('mensaje', 'error',
+        'Algo salio mal, avisale a Diego. Detalle: ' + err.message);
+    })
+    .apiBuscarEmpresas(sector, instruccion, limite);
+}
+
+function enriquecer() {
+  var sectorId = parseInt(document.getElementById('panel-enriquecer').getAttribute('data-sector-id'), 10);
+  mostrarMensaje('mensaje-enriquecer', 'info',
+    '<span class="cargando"></span> Visitando cada pagina web y buscando correos...');
+
+  google.script.run
+    .withSuccessHandler(function (r) {
+      mostrarMensaje('mensaje-enriquecer', 'exito',
+        'Listo. ' + r.conCorreo + ' con correo. ' +
+        r.sinCorreo + ' sin correo. ' +
+        r.descartadas + ' descartadas. ' +
+        'Ya estan listas para enviarles cotizacion manana en la manana.');
+    })
+    .withFailureHandler(function (err) {
+      mostrarMensaje('mensaje-enriquecer', 'error',
+        'Algo salio mal, avisale a Diego. Detalle: ' + err.message);
+    })
+    .apiEnriquecerEmpresas(sectorId, 100);
+}
+
+function mostrarMensaje(id, tipo, html) {
+  var el = document.getElementById(id);
+  el.className = 'mensaje ' + tipo;
+  el.innerHTML = html;
+}
+</script>
+</body>
+</html>

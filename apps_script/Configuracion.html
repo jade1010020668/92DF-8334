@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<base target="_top">
+<?!= incluir('Layout') ?>
+</head>
+<body>
+<main class="app-main">
+  <h2 style="margin-top:0;">Configuracion (solo Diego)</h2>
+
+  <div id="pantalla-pin" class="panel">
+    <label for="pin"><strong>PIN de 4 digitos</strong></label>
+    <input id="pin" class="entrada" type="password" maxlength="4"
+           inputmode="numeric" autocomplete="off" pattern="[0-9]*"
+           style="max-width:200px; margin-top:10px;"
+           onkeydown="if (event.key === 'Enter') verificarPin();">
+    <p><button class="boton" onclick="verificarPin()">Entrar</button></p>
+    <div id="pin-error" aria-live="polite"></div>
+  </div>
+
+  <div id="pantalla-config" style="display:none;">
+    <div class="panel">
+      <h3>Estado de servicios</h3>
+      <div id="estado-servicios">
+        <span class="cargando"></span> Verificando...
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Recordatorios</h3>
+      <ul style="font-size:18px; line-height:1.8;">
+        <li>La API key de Gemini se guarda en <strong>Apps Script &gt; Configuracion del proyecto &gt; Propiedades del script</strong>. Nunca en codigo.</li>
+        <li>Los datos del negocio (productos, telefono, etc.) se editan directo en la hoja <strong>Config</strong>.</li>
+        <li>Los logs del sistema estan en la hoja <strong>Logs</strong>.</li>
+        <li>El consumo de Gemini esta en la hoja <strong>ConsumoGemini</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h3>Enlaces utiles</h3>
+      <p>
+        <a class="boton" target="_blank" id="enlace-sheet">Abrir Sheet (BD)</a>
+        <a class="boton" target="_blank" id="enlace-script">Abrir editor Apps Script</a>
+      </p>
+    </div>
+  </div>
+</main>
+
+<script>
+function verificarPin() {
+  var pin = document.getElementById('pin').value.trim();
+  if (!pin) return;
+  google.script.run
+    .withSuccessHandler(function (ok) {
+      if (!ok) {
+        document.getElementById('pin-error').innerHTML =
+          '<div class="mensaje error">PIN incorrecto.</div>';
+        document.getElementById('pin').value = '';
+        return;
+      }
+      document.getElementById('pantalla-pin').style.display = 'none';
+      document.getElementById('pantalla-config').style.display = 'block';
+      cargarEstado();
+      cargarEnlaces();
+    })
+    .withFailureHandler(function (err) {
+      document.getElementById('pin-error').innerHTML =
+        '<div class="mensaje error">' + err.message + '</div>';
+    })
+    .apiValidarPin(pin);
+}
+
+function cargarEstado() {
+  google.script.run
+    .withSuccessHandler(function (s) {
+      var html = '<ul style="font-size:18px;">';
+      html += '<li>Gemini: ' + estadoTexto(s.gemini.conectado) + '</li>';
+      html += '<li>Gmail: ' + estadoTexto(s.gmail.conectado) + ' <span class="ayuda">(' + s.gmail.nota + ')</span></li>';
+      html += '<li>WhatsApp (servicio Node): ' + estadoTexto(s.whatsapp.conectado);
+      if (s.whatsapp.error) html += ' <span class="ayuda">' + s.whatsapp.error + '</span>';
+      html += '</li>';
+      html += '<li>Hojas del Sheet: ' + estadoTexto(s.hojaConfigExiste) + '</li>';
+      if (s.propiedadesFaltantes.length > 0) {
+        html += '<li class="mensaje error">Faltan propiedades: ' + s.propiedadesFaltantes.join(', ') + '</li>';
+      }
+      html += '</ul>';
+      document.getElementById('estado-servicios').innerHTML = html;
+    })
+    .apiVerificarServicios();
+}
+
+function cargarEnlaces() {
+  google.script.run
+    .withSuccessHandler(function (enlaces) {
+      var sheet = document.getElementById('enlace-sheet');
+      var script = document.getElementById('enlace-script');
+      if (enlaces.sheet) {
+        sheet.href = enlaces.sheet;
+      } else {
+        sheet.classList.add('boton');
+        sheet.style.opacity = '0.5';
+        sheet.removeAttribute('href');
+        sheet.title = 'No se encontro la URL de la hoja';
+      }
+      script.href = enlaces.script;
+    })
+    .withFailureHandler(function (err) {
+      console.error('No se pudieron cargar los enlaces: ' + err.message);
+    })
+    .apiObtenerEnlaces();
+}
+
+function estadoTexto(ok) {
+  return ok
+    ? '<span class="semaforo verde">OK</span>'
+    : '<span class="semaforo rojo">NO</span>';
+}
+</script>
+</body>
+</html>
