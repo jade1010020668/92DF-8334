@@ -10,9 +10,12 @@
 
   <div id="pantalla-pin" class="panel">
     <label for="pin"><strong>PIN de 4 digitos</strong></label>
-    <input id="pin" class="entrada" type="password" maxlength="4" style="max-width:200px; margin-top:10px;">
+    <input id="pin" class="entrada" type="password" maxlength="4"
+           inputmode="numeric" autocomplete="off" pattern="[0-9]*"
+           style="max-width:200px; margin-top:10px;"
+           onkeydown="if (event.key === 'Enter') verificarPin();">
     <p><button class="boton" onclick="verificarPin()">Entrar</button></p>
-    <div id="pin-error"></div>
+    <div id="pin-error" aria-live="polite"></div>
   </div>
 
   <div id="pantalla-config" style="display:none;">
@@ -58,6 +61,7 @@ function verificarPin() {
       document.getElementById('pantalla-pin').style.display = 'none';
       document.getElementById('pantalla-config').style.display = 'block';
       cargarEstado();
+      cargarEnlaces();
     })
     .withFailureHandler(function (err) {
       document.getElementById('pin-error').innerHTML =
@@ -83,6 +87,27 @@ function cargarEstado() {
       document.getElementById('estado-servicios').innerHTML = html;
     })
     .apiVerificarServicios();
+}
+
+function cargarEnlaces() {
+  google.script.run
+    .withSuccessHandler(function (enlaces) {
+      var sheet = document.getElementById('enlace-sheet');
+      var script = document.getElementById('enlace-script');
+      if (enlaces.sheet) {
+        sheet.href = enlaces.sheet;
+      } else {
+        sheet.classList.add('boton');
+        sheet.style.opacity = '0.5';
+        sheet.removeAttribute('href');
+        sheet.title = 'No se encontro la URL de la hoja';
+      }
+      script.href = enlaces.script;
+    })
+    .withFailureHandler(function (err) {
+      console.error('No se pudieron cargar los enlaces: ' + err.message);
+    })
+    .apiObtenerEnlaces();
 }
 
 function estadoTexto(ok) {

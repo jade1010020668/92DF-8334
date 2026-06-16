@@ -106,6 +106,24 @@ function apiValidarPin(pinIngresado) {
   return String(pinIngresado) === String(real);
 }
 
+/**
+ * Devuelve los enlaces utiles para la pantalla de Configuracion.
+ * Antes los botones "Abrir Sheet" / "Abrir editor" quedaban sin destino.
+ */
+function apiObtenerEnlaces() {
+  let urlSheet = '';
+  try {
+    urlSheet = SpreadsheetApp.getActiveSpreadsheet().getUrl();
+  } catch (e) {
+    // En contexto web no siempre hay hoja activa; se intenta por propiedad.
+    urlSheet = leerSecretoOpcional('SPREADSHEET_URL') || '';
+  }
+  return {
+    sheet: urlSheet,
+    script: 'https://script.google.com/home/projects/' + ScriptApp.getScriptId() + '/edit',
+  };
+}
+
 function calcularCreditoRestante_() {
   const config = leerConfig();
   const saldoInicial = parseFloat(config['ia.saldo_inicial_usd']) || 250;
