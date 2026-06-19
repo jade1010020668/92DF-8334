@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { CheckCircle2, Globe, Loader2, MapPinned, Plus, Search } from 'lucide-react';
+import { CheckCircle2, Globe, Loader2, MapPin, MapPinned, Navigation, Plus, Search } from 'lucide-react';
 import type { ConfigApp, FuenteEmpresa, NuevaEmpresa, ResultadoMaps } from '../types';
-import { buscarEmpresasEnMapa } from '../lib/maps';
+import { buscarCercaDelNegocio, buscarEmpresasEnMapa, formatearDistancia } from '../lib/maps';
 import type { ResultadoAgregar } from '../hooks/useEmpresas';
 import type { MostrarToast } from '../App';
 
@@ -12,22 +12,50 @@ interface Props {
   onIrAConfiguracion: () => void;
 }
 
+type Modo = 'cerca' | 'palabra';
+
+const RADIOS = [2, 5, 10] as const;
+
 export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfiguracion }: Props) {
+  const [modo, setModo] = useState<Modo>('cerca');
   const [consulta, setConsulta] = useState('');
   const [sectorEtiqueta, setSectorEtiqueta] = useState('');
+  const [radioKm, setRadioKm] = useState<number>(5);
   const [cargando, setCargando] = useState(false);
   const [resultados, setResultados] = useState<ResultadoMaps[] | null>(null);
   const [seleccion, setSeleccion] = useState<Set<number>>(new Set());
 
   const hayClave = Boolean(config.googleMapsApiKey.trim());
+  const hayDireccion = Boolean(config.direccion.trim());
 
-  const buscar = async () => {
+  const recibirResultados = (lista: ResultadoMaps[]) => {
+    setResultados(lista);
+    setSeleccion(new Set(lista.map((_, i) => i)));
+  };
+
+  const buscarCerca = async () => {
+    if (cargando) return;
+    setCargando(true);
+    try {
+      const { resultados: lista } = await buscarCercaDelNegocio(config, radioKm);
+      recibirResultados(lista);
+      if (lista.length > 0) {
+        mostrarToast(`${lista.length} clientes potenciales a menos de ${radioKm} km de tu negocio.`, 'exito');
+      }
+    } catch (error) {
+      const detalle = error instanceof Error ? error.message : 'Inténtalo de nuevo en un momento.';
+      mostrarToast(detalle, 'error');
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  const buscarPorPalabra = async () => {
     if (!consulta.trim() || cargando) return;
     setCargando(true);
     try {
       const res = await buscarEmpresasEnMapa(consulta, config);
-      setResultados(res.resultados);
-      setSeleccion(new Set(res.resultados.map((_, i) => i)));
+      recibirResultados(res.resultados);
       if (res.aviso) mostrarToast(res.aviso, 'info');
     } catch (error) {
       const detalle = error instanceof Error ? error.message : 'Inténtalo de nuevo en un momento.';
@@ -50,13 +78,22 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
     if (!resultados) return;
     const elegidos = resultados.filter((_, i) => seleccion.has(i));
     const { agregadas, duplicadas } = agregarEmpresas(
-      elegidos.map((r) => ({
-        nombre: r.nombre,
-        direccion: r.direccion,
-        telefono: r.telefono,
-        sector: sectorEtiqueta.trim() || consulta.trim(),
-        notas: r.website ? `Sitio web: ${r.website}` : undefined,
-      })),
+      elegidos.map((r) => {
+        const notas = [
+          r.distanciaMetros != null ? `A ${formatearDistancia(r.distanciaMetros)} del negocio` : '',
+          r.prioridad === 1 ? 'Prioridad ALTA' : '',
+          r.website ? `Sitio web: ${r.website}` : '',
+        ]
+          .filter(Boolean)
+          .join(' · ');
+        return {
+          nombre: r.nombre,
+          direccion: r.direccion,
+          telefono: r.telefono,
+          sector: sectorEtiqueta.trim() || r.categoria || consulta.trim(),
+          notas: notas || undefined,
+        };
+      }),
       'maps',
     );
     mostrarToast(
@@ -69,9 +106,11 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
     setSeleccion(new Set());
   };
 
+  const conContacto = resultados?.filter((r) => seleccion.has(resultados.indexOf(r))) ?? [];
+
   return (
     <div className="space-y-4">
-      {/* Hero de búsqueda */}
+      {/* Selector de modo */}
       <div className="tarjeta space-y-4">
         <div>
           <h2 className="flex items-center gap-2 text-2xl font-bold text-slate-800">
@@ -79,53 +118,147 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
             Buscar empresas en el mapa
           </h2>
           <p className="mt-1 text-lg text-slate-600">
-            Escribe qué tipo de empresas buscas y la app las encuentra con dirección y teléfono.
+            Encuentra clientes nuevos cerca de tu negocio o por tipo de empresa.
           </p>
         </div>
 
-        <div className="grid gap-3 md:grid-cols-2">
-          <div>
-            <label htmlFor="maps-consulta" className="etiqueta">
-              ¿Qué empresas buscas?
-            </label>
-            <input
-              id="maps-consulta"
-              className="campo"
-              placeholder="Ej: empresas de plásticos en Bogotá"
-              value={consulta}
-              onChange={(e) => setConsulta(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') void buscar();
-              }}
-            />
-          </div>
-          <div>
-            <label htmlFor="maps-sector" className="etiqueta">
-              Sector para etiquetarlas
-            </label>
-            <input
-              id="maps-sector"
-              className="campo"
-              placeholder="Ej: plásticos"
-              value={sectorEtiqueta}
-              onChange={(e) => setSectorEtiqueta(e.target.value)}
-            />
-          </div>
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              setModo('cerca');
+              setResultados(null);
+            }}
+            className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 font-semibold transition ${
+              modo === 'cerca'
+                ? 'border-blue-700 bg-blue-50 text-blue-700'
+                : 'border-slate-300 bg-white text-slate-600 hover:bg-slate-50'
+            }`}
+          >
+            <Navigation className="h-5 w-5" aria-hidden="true" />
+            Cerca de mi negocio
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setModo('palabra');
+              setResultados(null);
+            }}
+            className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 font-semibold transition ${
+              modo === 'palabra'
+                ? 'border-blue-700 bg-blue-50 text-blue-700'
+                : 'border-slate-300 bg-white text-slate-600 hover:bg-slate-50'
+            }`}
+          >
+            <Search className="h-5 w-5" aria-hidden="true" />
+            Por tipo de empresa
+          </button>
         </div>
 
-        <button
-          type="button"
-          className="btn-primario w-full text-lg sm:w-auto sm:px-8"
-          onClick={() => void buscar()}
-          disabled={cargando || !consulta.trim()}
-        >
-          {cargando ? (
-            <Loader2 className="h-6 w-6 animate-spin" aria-hidden="true" />
-          ) : (
-            <Search className="h-6 w-6" aria-hidden="true" />
-          )}
-          {cargando ? 'Buscando…' : 'Buscar empresas'}
-        </button>
+        {/* Modo cercanía */}
+        {modo === 'cerca' && (
+          <div className="space-y-4">
+            <p className="rounded-2xl bg-slate-50 p-4 text-slate-700">
+              Buscamos empresas que necesitan dotación (talleres, ferreterías, fábricas, restaurantes…)
+              alrededor de <strong>{config.direccion || 'tu negocio'}</strong> y te las mostramos
+              ordenadas de la más cercana a la más lejana.
+            </p>
+
+            {!hayDireccion ? (
+              <div className="flex flex-col items-start gap-3 rounded-2xl border border-amber-300 bg-amber-50 p-4 sm:flex-row sm:items-center">
+                <p className="flex-1 text-amber-900">
+                  Primero escribe la dirección de tu negocio en Configuración para buscar a su alrededor.
+                </p>
+                <button type="button" className="btn-primario shrink-0" onClick={onIrAConfiguracion}>
+                  Ir a Configuración
+                </button>
+              </div>
+            ) : (
+              <>
+                <div>
+                  <span className="etiqueta">¿A qué distancia?</span>
+                  <div className="flex flex-wrap gap-2">
+                    {RADIOS.map((r) => (
+                      <button
+                        key={r}
+                        type="button"
+                        onClick={() => setRadioKm(r)}
+                        className={`rounded-xl border px-5 py-2.5 font-semibold transition ${
+                          radioKm === r
+                            ? 'border-blue-700 bg-blue-700 text-white'
+                            : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+                        }`}
+                      >
+                        {r} km a la redonda
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="btn-primario w-full text-lg sm:w-auto sm:px-8"
+                  onClick={() => void buscarCerca()}
+                  disabled={cargando}
+                >
+                  {cargando ? (
+                    <Loader2 className="h-6 w-6 animate-spin" aria-hidden="true" />
+                  ) : (
+                    <Navigation className="h-6 w-6" aria-hidden="true" />
+                  )}
+                  {cargando ? 'Buscando cerca…' : 'Buscar clientes cerca de mi negocio'}
+                </button>
+              </>
+            )}
+          </div>
+        )}
+
+        {/* Modo por palabra */}
+        {modo === 'palabra' && (
+          <div className="space-y-4">
+            <div className="grid gap-3 md:grid-cols-2">
+              <div>
+                <label htmlFor="maps-consulta" className="etiqueta">
+                  ¿Qué empresas buscas?
+                </label>
+                <input
+                  id="maps-consulta"
+                  className="campo"
+                  placeholder="Ej: empresas de plásticos en Bogotá"
+                  value={consulta}
+                  onChange={(e) => setConsulta(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') void buscarPorPalabra();
+                  }}
+                />
+              </div>
+              <div>
+                <label htmlFor="maps-sector" className="etiqueta">
+                  Sector para etiquetarlas
+                </label>
+                <input
+                  id="maps-sector"
+                  className="campo"
+                  placeholder="Ej: plásticos"
+                  value={sectorEtiqueta}
+                  onChange={(e) => setSectorEtiqueta(e.target.value)}
+                />
+              </div>
+            </div>
+            <button
+              type="button"
+              className="btn-primario w-full text-lg sm:w-auto sm:px-8"
+              onClick={() => void buscarPorPalabra()}
+              disabled={cargando || !consulta.trim()}
+            >
+              {cargando ? (
+                <Loader2 className="h-6 w-6 animate-spin" aria-hidden="true" />
+              ) : (
+                <Search className="h-6 w-6" aria-hidden="true" />
+              )}
+              {cargando ? 'Buscando…' : 'Buscar empresas'}
+            </button>
+          </div>
+        )}
 
         {hayClave ? (
           <p className="insignia border-emerald-300 bg-emerald-100 text-emerald-800">
@@ -151,8 +284,9 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
           <div className="tarjeta space-y-2 py-8 text-center">
             <p className="text-xl font-bold text-slate-700">No encontramos resultados.</p>
             <p className="text-lg text-slate-600">
-              Revisa la ortografía (por ejemplo «plásticos», con s) o prueba con otras palabras:
-              «fábrica de plásticos», «metalmecánica», «alimentos».
+              {modo === 'cerca'
+                ? 'Prueba con un radio mayor (10 km) o revisa que la dirección de tu negocio esté bien escrita en Configuración.'
+                : 'Revisa la ortografía (por ejemplo «plásticos», con s) o prueba otras palabras: «fábrica de plásticos», «metalmecánica», «alimentos».'}
             </p>
             {!hayClave && (
               <p className="text-lg text-slate-600">
@@ -198,6 +332,17 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
                     <span className="flex-1">
                       <span className="flex flex-wrap items-center gap-2">
                         <span className="text-lg font-bold text-slate-800">{r.nombre}</span>
+                        {r.distanciaMetros != null && (
+                          <span className="insignia border-blue-300 bg-blue-100 text-blue-800">
+                            <MapPin className="h-4 w-4" aria-hidden="true" />
+                            {formatearDistancia(r.distanciaMetros)}
+                          </span>
+                        )}
+                        {r.prioridad === 1 && (
+                          <span className="insignia border-emerald-300 bg-emerald-100 text-emerald-800">
+                            Prioridad alta
+                          </span>
+                        )}
                         {r.categoria && (
                           <span className="insignia border-slate-300 bg-slate-100 text-slate-600">
                             {r.categoria}
@@ -229,7 +374,7 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
             <button
               type="button"
               className="btn-verde w-full text-lg sm:w-auto sm:px-8"
-              disabled={seleccion.size === 0}
+              disabled={conContacto.length === 0}
               onClick={agregarSeleccionados}
             >
               <Plus className="h-6 w-6" aria-hidden="true" />

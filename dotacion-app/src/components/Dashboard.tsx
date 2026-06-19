@@ -137,8 +137,8 @@ export function Dashboard({
               quién firma).
             </li>
             <li>
-              Carga tus primeras empresas: <strong>importa un Excel</strong> o{' '}
-              <strong>búscalas en el mapa</strong>.
+              Carga tus primeras empresas: <strong>busca clientes cerca de tu negocio</strong> en el
+              mapa o <strong>importa un Excel</strong>.
             </li>
             <li>
               Vuelve aquí y toca <strong>«Enviar a X pendientes»</strong>. La app te muestra cada

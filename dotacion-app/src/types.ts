@@ -98,4 +98,8 @@ export interface ResultadoMaps {
   telefono: string;
   website: string;
   categoria: string;
+  /** Distancia al negocio en metros (solo en la búsqueda por cercanía). */
+  distanciaMetros?: number;
+  /** Prioridad como cliente de dotación: 1 = alta, 2 = media, 3 = baja. */
+  prioridad?: 1 | 2 | 3;
 }

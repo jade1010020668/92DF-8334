@@ -324,3 +324,194 @@ export async function buscarEmpresasEnMapa(
   }
   return { resultados: await buscarGratuita_(texto, consultaCompleta, config.ciudad), proveedor: 'osm' };
 }
+
+/* ================================================================== */
+/* BÚSQUEDA POR CERCANÍA — el corazón del producto:                   */
+/* encontrar clientes reales cerca del negocio para no gastar el día  */
+/* en transporte. Geolocaliza la dirección del negocio y trae         */
+/* empresas en un radio, ordenadas por relevancia para dotación y     */
+/* por distancia.                                                     */
+/* ================================================================== */
+
+export interface Coordenada {
+  lat: number;
+  lon: number;
+}
+
+/** Distancia en metros entre dos coordenadas (fórmula de Haversine, pura). */
+export function distanciaMetros(a: Coordenada, b: Coordenada): number {
+  const R = 6371000;
+  const rad = Math.PI / 180;
+  const dLat = (b.lat - a.lat) * rad;
+  const dLon = (b.lon - a.lon) * rad;
+  const s =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(dLon / 2) ** 2;
+  return Math.round(2 * R * Math.asin(Math.sqrt(s)));
+}
+
+/** Texto amable de distancia: "120 m" o "2.4 km". */
+export function formatearDistancia(metros: number): string {
+  return metros < 1000 ? `${metros} m` : `${(metros / 1000).toFixed(1)} km`;
+}
+
+// Palabras que delatan un buen cliente de dotación (alta necesidad de uniforme/EPP).
+const SECTORES_ALTA = [
+  'metal', 'soldad', 'carpinter', 'madera', 'ornamenta', 'industr', 'fabrica', 'works', 'taller',
+  'car repair', 'car_repair', 'construc', 'builder', 'machin', 'welder', 'electric', 'hvac',
+  'painter', 'scaffold', 'andamio', 'ferret', 'hardware', 'doityourself', 'trade', 'plast',
+  'aluminio', 'vidrio', 'glazier', 'mecanic', 'moto', 'automot', 'llanta', 'lavader', 'manufactur',
+  'bodega', 'warehouse', 'clothes', 'fabric', 'logist',
+];
+const SECTORES_MEDIA = [
+  'restaurant', 'fast food', 'fast_food', 'cafe', 'panad', 'bakery', 'food', 'carnicer', 'butcher',
+  'fruver', 'supermarket', 'convenience', 'clinic', 'hospital', 'pharmacy', 'health', 'dentist',
+  'veterinar', 'laundry', 'cleaning', 'segur', 'transport', 'hotel', 'gym', 'fitness', 'beauty',
+  'peluquer', 'hairdresser', 'spa', 'estetica',
+];
+
+/** Prioridad de un prospecto para dotación según su categoría/nombre (pura). */
+export function prioridadProspecto(categoria: string, nombre: string): 1 | 2 | 3 {
+  const txt = quitarTildes_(`${categoria} ${nombre}`);
+  if (SECTORES_ALTA.some((k) => txt.includes(k))) return 1;
+  if (SECTORES_MEDIA.some((k) => txt.includes(k))) return 2;
+  return 3;
+}
+
+interface ElementoOverpassCercano extends ElementoOverpass {
+  lat?: number;
+  lon?: number;
+  center?: { lat: number; lon: number };
+}
+
+/**
+ * Convierte la respuesta de un Overpass "around" en prospectos con distancia
+ * y prioridad, ordenados por (prioridad, distancia). Pura y testeable.
+ */
+export function parsearProspectosCercanos(json: unknown, origen: Coordenada): ResultadoMaps[] {
+  const elementos = (json as { elements?: ElementoOverpassCercano[] })?.elements;
+  if (!Array.isArray(elementos)) return [];
+  const resultados: ResultadoMaps[] = [];
+  const vistos = new Set<string>();
+  for (const el of elementos) {
+    const tags = el.tags ?? {};
+    const nombre = (tags['name'] ?? '').trim();
+    if (!nombre) continue;
+    if (TAGS_DESCARTE.some((t) => tags[t])) continue;
+    const clave = quitarTildes_(nombre);
+    if (vistos.has(clave)) continue;
+    const punto = el.center ?? (el.lat != null && el.lon != null ? { lat: el.lat, lon: el.lon } : null);
+    if (!punto) continue;
+    vistos.add(clave);
+    const categoria = (
+      tags['craft'] ||
+      tags['shop'] ||
+      tags['industrial'] ||
+      tags['office'] ||
+      tags['amenity'] ||
+      (tags['man_made'] === 'works' ? 'fábrica' : '') ||
+      (tags['building'] === 'industrial' ? 'industrial' : '')
+    ).replace(/_/g, ' ');
+    resultados.push({
+      nombre,
+      direccion: [tags['addr:street'], tags['addr:housenumber']].filter(Boolean).join(' '),
+      telefono: (tags['phone'] ?? tags['contact:phone'] ?? '').trim(),
+      website: normalizarUrlWeb(tags['website'] ?? tags['contact:website'] ?? ''),
+      categoria,
+      distanciaMetros: distanciaMetros(origen, punto),
+      prioridad: prioridadProspecto(categoria, nombre),
+    });
+  }
+  return resultados
+    .filter((r) => (r.prioridad ?? 3) <= 2)
+    .sort(
+      (a, b) =>
+        (a.prioridad ?? 3) - (b.prioridad ?? 3) ||
+        (a.distanciaMetros ?? 0) - (b.distanciaMetros ?? 0),
+    );
+}
+
+const cacheGeocodificacion_ = new Map<string, Coordenada>();
+
+/** Geolocaliza una dirección con Nominatim (con caché). Null si no la ubica. */
+export async function geocodificarDireccion(direccion: string): Promise<Coordenada | null> {
+  const consulta = direccion.trim();
+  if (!consulta) return null;
+  const cacheada = cacheGeocodificacion_.get(consulta);
+  if (cacheada) return cacheada;
+  try {
+    const url = new URL('https://nominatim.openstreetmap.org/search');
+    url.searchParams.set('q', consulta);
+    url.searchParams.set('format', 'jsonv2');
+    url.searchParams.set('limit', '1');
+    url.searchParams.set('countrycodes', 'co');
+    const respuesta = await fetch(url.toString(), { headers: { Accept: 'application/json' } });
+    if (!respuesta.ok) return null;
+    const datos = (await respuesta.json()) as { lat?: string; lon?: string }[];
+    const primero = datos[0];
+    if (!primero?.lat || !primero?.lon) return null;
+    const punto = { lat: Number(primero.lat), lon: Number(primero.lon) };
+    cacheGeocodificacion_.set(consulta, punto);
+    return punto;
+  } catch {
+    return null;
+  }
+}
+
+async function buscarOverpassCercano(origen: Coordenada, radioMetros: number): Promise<ResultadoMaps[]> {
+  const { lat, lon } = origen;
+  const a = `around:${radioMetros},${lat},${lon}`;
+  const consulta =
+    `[out:json][timeout:40];(` +
+    `nwr["shop"]["name"](${a});nwr["craft"]["name"](${a});` +
+    `nwr["office"]["name"](${a});nwr["industrial"]["name"](${a});` +
+    `nwr["man_made"="works"]["name"](${a});nwr["building"="industrial"]["name"](${a});` +
+    `nwr["amenity"~"car_repair|fuel|marketplace|restaurant|cafe|fast_food|pharmacy"]["name"](${a});` +
+    `);out tags center;`;
+  let ultimoError = new Error('No pudimos buscar cerca del negocio. Intenta de nuevo en un minuto.');
+  for (const servidor of SERVIDORES_OVERPASS) {
+    try {
+      const respuesta = await fetch(servidor, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `data=${encodeURIComponent(consulta)}`,
+      });
+      if (!respuesta.ok) {
+        throw new Error(`OpenStreetMap respondió ${respuesta.status}. Espera un minuto y reintenta.`);
+      }
+      return parsearProspectosCercanos(await respuesta.json(), origen);
+    } catch (error) {
+      ultimoError = error instanceof Error ? error : new Error(String(error));
+    }
+  }
+  throw ultimoError;
+}
+
+export interface BusquedaCercana {
+  resultados: ResultadoMaps[];
+  origen: Coordenada;
+}
+
+/**
+ * Busca clientes potenciales cerca del negocio. Geolocaliza la dirección de
+ * Configuración (dirección + ciudad) y trae empresas dentro de `radioKm`,
+ * ordenadas por prioridad para dotación y distancia.
+ */
+export async function buscarCercaDelNegocio(
+  config: ConfigApp,
+  radioKm: number,
+): Promise<BusquedaCercana> {
+  const direccionCompleta = [config.direccion, config.ciudad].filter((s) => s.trim()).join(', ');
+  if (!direccionCompleta.trim()) {
+    throw new Error('Primero escribe la dirección de tu negocio en Configuración.');
+  }
+  const origen = await geocodificarDireccion(direccionCompleta);
+  if (!origen) {
+    throw new Error(
+      `No pudimos ubicar "${direccionCompleta}" en el mapa. Revisa la dirección en Configuración.`,
+    );
+  }
+  const radio = Math.round(Math.min(Math.max(radioKm, 0.5), 15) * 1000);
+  const resultados = await buscarOverpassCercano(origen, radio);
+  return { resultados, origen };
+}

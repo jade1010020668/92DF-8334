@@ -92,14 +92,27 @@ corre `npm run build` y arrastra el **contenido** de la carpeta `dist/` a
 
 ## Búsqueda de empresas en el mapa
 
-### Sin configurar nada (gratis)
+### Cerca de mi negocio (lo más útil para vender)
 
-Por defecto la búsqueda usa **OpenStreetMap (Nominatim)**: es gratis y no pide registro ni clave. A cambio:
+La pestaña **Buscar en el mapa** abre por defecto en el modo **"Cerca de mi negocio"**:
+toma la dirección que pusiste en Configuración, la ubica en el mapa y trae las
+empresas que **necesitan dotación** (talleres, ferreterías, fábricas, carpinterías,
+restaurantes…) dentro de un radio de **2, 5 o 10 km**, ordenadas de la más cercana
+a la más lejana y marcando las de **prioridad alta**. Así el vendedor visita
+clientes a pocas cuadras en lugar de cruzar la ciudad. Funciona gratis con
+OpenStreetMap; no requiere clave.
 
-- La cobertura de empresas en Colombia es limitada — trae menos resultados que Google y pocos teléfonos.
-- Es un servicio de cortesía: admite más o menos **1 búsqueda por segundo**. Si buscas muy seguido puede responder con error; espera un momento y reintenta.
+### Por tipo de empresa (gratis)
 
-Si en la búsqueda no escribes ciudad, la app le agrega sola la ciudad configurada (Bogotá por defecto).
+El otro modo busca por palabra (p. ej. "plásticos") usando **OpenStreetMap
+(Overpass + Nominatim)**: gratis y sin registro. A cambio:
+
+- La cobertura de teléfonos en Colombia es limitada (OSM tiene pocos); los nombres,
+  direcciones y tipos sí están bien.
+- Es un servicio de cortesía: si buscas muy seguido puede pedir esperar un momento;
+  la app reintenta sola en un servidor espejo.
+
+Si no escribes ciudad, la app le agrega sola la ciudad configurada (Bogotá por defecto).
 
 ### Mejorarla con Google Places API (New)
 
