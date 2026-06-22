@@ -119,11 +119,13 @@ export default function App() {
         mostrarToast('La base de datos está vacía o no se pudo leer.', 'error');
         return;
       }
+      const conContacto = nuevas.filter((e) => (e.telefono ?? '').trim() || (e.email ?? '').trim()).length;
       const { agregadas, duplicadas } = agregarEmpresas(nuevas, 'maps');
       mostrarToast(
-        `${agregadas} empresas reales de Bogotá agregadas a tu lista${duplicadas ? `, ${duplicadas} ya estaban` : ''}.`,
+        `${agregadas} empresas reales agregadas (${conContacto} con teléfono o correo, listas para contactar). Usa el filtro "Solo con teléfono/correo".`,
         'exito',
       );
+      void duplicadas;
       setPestana('empresas');
     } catch (error) {
       mostrarToast(error instanceof Error ? error.message : 'No se pudo cargar la base.', 'error');

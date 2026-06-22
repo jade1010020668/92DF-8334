@@ -69,10 +69,16 @@ export function Empresas({
   const [busqueda, setBusqueda] = useState('');
   const [filtroSector, setFiltroSector] = useState('todos');
   const [filtroEstado, setFiltroEstado] = useState('todos');
+  const [soloContacto, setSoloContacto] = useState(false);
   const [formAbierto, setFormAbierto] = useState(false);
   const [editando, setEditando] = useState<Empresa | null>(null);
   const [ficha, setFicha] = useState<Empresa | null>(null);
   const inputArchivo = useRef<HTMLInputElement>(null);
+
+  const totalContactables = useMemo(
+    () => empresas.filter((e) => e.telefono.trim() || e.email.trim()).length,
+    [empresas],
+  );
 
   const sectores = useMemo(() => {
     const unicos = new Set<string>();
@@ -89,6 +95,7 @@ export function Empresas({
       t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
     const texto = normalizar(busqueda.trim());
     return empresas.filter((e) => {
+      if (soloContacto && !e.telefono.trim() && !e.email.trim()) return false;
       if (filtroSector !== 'todos' && e.sector.trim() !== filtroSector) return false;
       if (filtroEstado !== 'todos' && e.estado !== filtroEstado) return false;
       if (!texto) return true;
@@ -96,7 +103,7 @@ export function Empresas({
         normalizar(campo).includes(texto),
       );
     });
-  }, [empresas, busqueda, filtroSector, filtroEstado]);
+  }, [empresas, busqueda, filtroSector, filtroEstado, soloContacto]);
 
   const importar = async (evento: React.ChangeEvent<HTMLInputElement>) => {
     const input = evento.target;
@@ -325,6 +332,23 @@ export function Empresas({
             ))}
           </select>
         </div>
+
+        {/* Filtro de oro: solo las que tienen teléfono o correo real (se pueden contactar). */}
+        {totalContactables > 0 && (
+          <button
+            type="button"
+            onClick={() => setSoloContacto((v) => !v)}
+            aria-pressed={soloContacto}
+            className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2 font-semibold transition ${
+              soloContacto
+                ? 'border-emerald-600 bg-emerald-600 text-white'
+                : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+            }`}
+          >
+            <Phone className="h-5 w-5" aria-hidden="true" />
+            {soloContacto ? 'Mostrando solo con contacto' : `Solo con teléfono/correo (${totalContactables})`}
+          </button>
+        )}
 
         <div className="flex flex-wrap gap-2">
           <button
