@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   FileDown,
+  Loader2,
   Mail,
   MessageCircle,
   NotebookPen,
@@ -8,6 +9,7 @@ import {
   Plus,
   Search,
   ShoppingCart,
+  Sparkles,
   X,
 } from 'lucide-react';
 import type { ConfigApp, Empresa, EventoHistorial, NuevoPedido, Pedido } from '../types';
@@ -19,6 +21,7 @@ import {
   urlWhatsApp,
   formatearPesos,
 } from '../lib/plantillas';
+import { buscarDatosContacto } from '../lib/enriquecerGoogle';
 import { generarPdfCotizacion } from '../lib/pdf';
 import { saldoPedido, totalPedido } from '../lib/pedidos';
 import { ETIQUETA_ESTADO_PEDIDO } from '../types';
@@ -30,6 +33,7 @@ interface Props {
   config: ConfigApp;
   pedidos: Pedido[];
   registrarEvento: (id: string, tipo: EventoHistorial['tipo'], texto: string) => void;
+  actualizarEmpresa: (id: string, cambios: Partial<Empresa>) => void;
   crearPedido: (datos: NuevoPedido) => Pedido;
   mostrarToast: MostrarToast;
   onCerrar: () => void;
@@ -56,12 +60,36 @@ export function FichaEmpresa({
   config,
   pedidos,
   registrarEvento,
+  actualizarEmpresa,
   crearPedido,
   mostrarToast,
   onCerrar,
 }: Props) {
   const [nota, setNota] = useState('');
   const [pedidoAbierto, setPedidoAbierto] = useState(false);
+  const [buscandoTel, setBuscandoTel] = useState(false);
+
+  const conseguirTelefono = async () => {
+    setBuscandoTel(true);
+    const r = await buscarDatosContacto(empresa, config.googleMapsApiKey, config.ciudad.split(',')[0] || 'Bogotá');
+    setBuscandoTel(false);
+    if (r.ok) {
+      const cambios: Partial<Empresa> = {};
+      if (r.datos.telefono) cambios.telefono = r.datos.telefono;
+      if (r.datos.website && !empresa.notas?.includes(r.datos.website)) {
+        cambios.notas = [empresa.notas, `Sitio web: ${r.datos.website}`].filter(Boolean).join(' · ');
+      }
+      if (Object.keys(cambios).length > 0) {
+        actualizarEmpresa(empresa.id, cambios);
+        registrarEvento(empresa.id, 'nota', 'Teléfono/web completados con Google');
+        mostrarToast(r.datos.telefono ? `Teléfono encontrado: ${r.datos.telefono}` : 'Sitio web encontrado.', 'exito');
+      } else {
+        mostrarToast('Google no trae datos nuevos para esta empresa.', 'info');
+      }
+    } else {
+      mostrarToast(r.error, 'error');
+    }
+  };
   const historial = empresa.historial ?? [];
   const whatsapp = urlWhatsApp(empresa.telefono, generarWhatsApp(empresa, config));
   const correo = generarEmail(empresa, config);
@@ -143,6 +171,22 @@ export function FichaEmpresa({
               <Search className="h-5 w-5" aria-hidden="true" />
               Buscar contacto
             </button>
+            {config.googleMapsApiKey.trim() !== '' && !empresa.telefono.trim() && (
+              <button
+                type="button"
+                className="btn-secundario px-4 py-2"
+                disabled={buscandoTel}
+                onClick={() => void conseguirTelefono()}
+                title="Conseguir el teléfono automáticamente con Google"
+              >
+                {buscandoTel ? (
+                  <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                ) : (
+                  <Sparkles className="h-5 w-5 text-amber-500" aria-hidden="true" />
+                )}
+                {buscandoTel ? 'Buscando…' : 'Conseguir teléfono'}
+              </button>
+            )}
             <button
               type="button"
               className="btn-secundario px-4 py-2"

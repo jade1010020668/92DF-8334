@@ -500,8 +500,14 @@ export function Configuracion({
       <section className="tarjeta space-y-4">
         <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
           <MapPinned className="h-6 w-6 text-slate-700" aria-hidden="true" />
-          Búsqueda con Google Maps (opcional)
+          Google Maps: búsqueda y llenado de teléfonos (opcional)
         </h3>
+        <p className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-900">
+          Con esta clave la app puede <strong>conseguir el teléfono y sitio web reales</strong> de las
+          empresas que no los traen (botón «Completar teléfonos» en Empresas, o «Conseguir teléfono» en
+          cada ficha). Es lo que convierte la base en contactos para vender. Google da un crédito mensual
+          gratuito amplio; aun así, hazlo por lotes. Google entrega teléfono y web, no correos.
+        </p>
         <div>
           <label htmlFor="conf-clave-maps" className="etiqueta">
             Clave de Google Maps

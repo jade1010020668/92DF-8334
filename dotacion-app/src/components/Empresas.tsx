@@ -13,6 +13,7 @@ import {
   Phone,
   Plus,
   Search,
+  Sparkles,
   Trash2,
   Upload,
 } from 'lucide-react';
@@ -30,6 +31,7 @@ import { ESTADOS, ETIQUETA_ESTADO, COLOR_ESTADO } from '../types';
 import { generarEmail, generarWhatsApp, urlBuscarContacto, urlGmail, urlWhatsApp } from '../lib/plantillas';
 import { generarPdfCotizacion } from '../lib/pdf';
 import { descargarPlantilla, exportarExcel, importarExcel } from '../lib/excel';
+import { buscarDatosContacto } from '../lib/enriquecerGoogle';
 import type { ResultadoAgregar } from '../hooks/useEmpresas';
 import type { MostrarToast } from '../App';
 import { EmpresaForm } from './EmpresaForm';
@@ -73,7 +75,13 @@ export function Empresas({
   const [formAbierto, setFormAbierto] = useState(false);
   const [editando, setEditando] = useState<Empresa | null>(null);
   const [ficha, setFicha] = useState<Empresa | null>(null);
+  const [enriqueciendo, setEnriqueciendo] = useState<{ hecho: number; total: number; hallados: number } | null>(
+    null,
+  );
+  const detenerEnriq = useRef(false);
   const inputArchivo = useRef<HTMLInputElement>(null);
+
+  const hayClaveGoogle = config.googleMapsApiKey.trim() !== '';
 
   const totalContactables = useMemo(
     () => empresas.filter((e) => e.telefono.trim() || e.email.trim()).length,
@@ -164,6 +172,57 @@ export function Empresas({
       eliminarEmpresa(e.id);
       mostrarToast(`${e.nombre} se eliminó de tu lista.`, 'info');
     }
+  };
+
+  /** Llena con Google el teléfono/web de las empresas visibles que no lo tengan. */
+  const completarConGoogle = async () => {
+    if (enriqueciendo) return;
+    const sinTelefono = filtradas.filter((e) => !e.telefono.trim());
+    if (sinTelefono.length === 0) {
+      mostrarToast('Las empresas que ves ya tienen teléfono. Usa los filtros para elegir otras.', 'info');
+      return;
+    }
+    const LOTE = 150;
+    const objetivo = sinTelefono.slice(0, LOTE);
+    if (
+      !window.confirm(
+        `Google buscará el teléfono y sitio web de ${objetivo.length} empresas (de las que ves sin teléfono). ` +
+          `Usa el crédito gratuito de tu cuenta de Google. ¿Continuar?`,
+      )
+    ) {
+      return;
+    }
+    detenerEnriq.current = false;
+    const ciudad = config.ciudad.split(',')[0] || 'Bogotá';
+    let hecho = 0;
+    let hallados = 0;
+    setEnriqueciendo({ hecho, total: objetivo.length, hallados });
+    for (const e of objetivo) {
+      if (detenerEnriq.current) break;
+      const r = await buscarDatosContacto(e, config.googleMapsApiKey, ciudad);
+      hecho++;
+      if (r.ok) {
+        const cambios: Partial<Empresa> = {};
+        if (r.datos.telefono) cambios.telefono = r.datos.telefono;
+        if (r.datos.website && !e.notas?.includes(r.datos.website)) {
+          cambios.notas = [e.notas, `Sitio web: ${r.datos.website}`].filter(Boolean).join(' · ');
+        }
+        if (Object.keys(cambios).length > 0) {
+          actualizarEmpresa(e.id, cambios);
+          registrarEvento(e.id, 'nota', 'Teléfono/web completados con Google');
+          hallados++;
+        }
+      }
+      setEnriqueciendo({ hecho, total: objetivo.length, hallados });
+      if (hecho < objetivo.length && !detenerEnriq.current) {
+        await new Promise((res) => setTimeout(res, 250));
+      }
+    }
+    setEnriqueciendo(null);
+    mostrarToast(
+      `Listo: se completó el teléfono de ${hallados} de ${hecho} empresas.`,
+      hallados > 0 ? 'exito' : 'info',
+    );
   };
 
   /** Botones de acción de una empresa (compartidos entre tabla y tarjetas). */
@@ -396,7 +455,47 @@ export function Empresas({
             <FileSpreadsheet className="h-5 w-5" aria-hidden="true" />
             Plantilla
           </button>
+          {hayClaveGoogle && (
+            <button
+              type="button"
+              className="btn-secundario"
+              onClick={() => void completarConGoogle()}
+              disabled={enriqueciendo !== null}
+              title="Buscar en Google el teléfono y sitio web de las empresas que ves sin teléfono"
+            >
+              <Sparkles className="h-5 w-5 text-amber-500" aria-hidden="true" />
+              Completar teléfonos (Google)
+            </button>
+          )}
         </div>
+
+        {/* Progreso del llenado con Google */}
+        {enriqueciendo && (
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div className="flex items-center justify-between gap-3">
+              <p className="flex items-center gap-2 font-semibold text-slate-700">
+                <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                Buscando teléfonos en Google… {enriqueciendo.hecho} de {enriqueciendo.total}
+                {enriqueciendo.hallados > 0 && ` · ${enriqueciendo.hallados} encontrados`}
+              </p>
+              <button
+                type="button"
+                className="btn-secundario px-3 py-1.5"
+                onClick={() => {
+                  detenerEnriq.current = true;
+                }}
+              >
+                Detener
+              </button>
+            </div>
+            <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-200">
+              <div
+                className="h-full rounded-full bg-emerald-500 transition-all"
+                style={{ width: `${Math.round((enriqueciendo.hecho / enriqueciendo.total) * 100)}%` }}
+              />
+            </div>
+          </div>
+        )}
       </div>
 
       {empresas.length === 0 ? (
@@ -526,6 +625,7 @@ export function Empresas({
           config={config}
           pedidos={pedidos.filter((p) => p.empresaId === ficha.id)}
           registrarEvento={registrarEvento}
+          actualizarEmpresa={actualizarEmpresa}
           crearPedido={crearPedido}
           mostrarToast={mostrarToast}
           onCerrar={() => setFicha(null)}
