@@ -18,7 +18,7 @@ import {
   Upload,
   Zap,
 } from 'lucide-react';
-import type { ConfigApp, Empresa, ProductoCatalogo } from '../types';
+import type { ConfigApp, Empresa, Pedido, ProductoCatalogo } from '../types';
 import { exportarExcel } from '../lib/excel';
 import { descargarRespaldo, parsearRespaldo } from '../lib/respaldo';
 import type { MostrarToast } from '../App';
@@ -27,8 +27,10 @@ interface Props {
   config: ConfigApp;
   setConfig: Dispatch<SetStateAction<ConfigApp>>;
   empresas: Empresa[];
+  pedidos: Pedido[];
   borrarTodo: () => void;
   reemplazarTodo: (nuevas: Empresa[]) => void;
+  reemplazarPedidos: (nuevos: Pedido[]) => void;
   mostrarToast: MostrarToast;
 }
 
@@ -36,8 +38,10 @@ export function Configuracion({
   config,
   setConfig,
   empresas,
+  pedidos,
   borrarTodo,
   reemplazarTodo,
+  reemplazarPedidos,
   mostrarToast,
 }: Props) {
   const [borrador, setBorrador] = useState<ConfigApp>(config);
@@ -57,7 +61,7 @@ export function Configuracion({
     }
     if (
       !window.confirm(
-        `Esto reemplaza tu lista actual (${empresas.length} empresas) por la del respaldo (${leido.empresas.length} empresas) y los datos del negocio. Las claves de Google/Brevo de este dispositivo se conservan. ¿Continuar?`,
+        `Esto reemplaza tu lista actual (${empresas.length} empresas, ${pedidos.length} pedidos) por la del respaldo (${leido.empresas.length} empresas, ${leido.pedidos.length} pedidos) y los datos del negocio. Las claves de Google/Brevo de este dispositivo se conservan. ¿Continuar?`,
       )
     ) {
       return;
@@ -69,9 +73,13 @@ export function Configuracion({
       brevoApiKey: config.brevoApiKey,
     };
     reemplazarTodo(leido.empresas);
+    reemplazarPedidos(leido.pedidos);
     setConfig(mezclada);
     setBorrador(mezclada);
-    mostrarToast(`Respaldo restaurado: ${leido.empresas.length} empresas.`, 'exito');
+    mostrarToast(
+      `Respaldo restaurado: ${leido.empresas.length} empresas y ${leido.pedidos.length} pedidos.`,
+      'exito',
+    );
   };
 
   const hayCambios = JSON.stringify(borrador) !== JSON.stringify(config);
@@ -523,7 +531,7 @@ export function Configuracion({
           <button
             type="button"
             className="btn-secundario"
-            onClick={() => descargarRespaldo(empresas, config)}
+            onClick={() => descargarRespaldo(empresas, config, pedidos)}
             disabled={empresas.length === 0}
           >
             <FileDown className="h-5 w-5" aria-hidden="true" />

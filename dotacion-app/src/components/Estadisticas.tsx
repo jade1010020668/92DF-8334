@@ -1,10 +1,13 @@
-import { Building2, Lightbulb, Reply, Send, Trophy } from 'lucide-react';
+import { Building2, CircleDollarSign, Lightbulb, Reply, Send, Trophy, Wallet } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import type { Empresa } from '../types';
+import type { Empresa, Pedido } from '../types';
 import { calcularKpis, estadisticasPorSector } from '../lib/stats';
+import { resumenPedidos } from '../lib/pedidos';
+import { formatearPesos } from '../lib/plantillas';
 
 interface Props {
   empresas: Empresa[];
+  pedidos?: Pedido[];
 }
 
 interface PasoEmbudo {
@@ -14,10 +17,11 @@ interface PasoEmbudo {
   color: string;
 }
 
-export function Estadisticas({ empresas }: Props) {
+export function Estadisticas({ empresas, pedidos = [] }: Props) {
   const kpis = calcularKpis(empresas);
   const stats = estadisticasPorSector(empresas);
   const mejorSector = stats[0];
+  const ventas = resumenPedidos(pedidos);
 
   const embudo: PasoEmbudo[] = [
     { etiqueta: 'Empresas en total', valor: kpis.total, Icono: Building2, color: 'text-blue-700' },
@@ -46,6 +50,30 @@ export function Estadisticas({ empresas }: Props) {
           </div>
         ))}
       </div>
+
+      {/* Ventas (pedidos) */}
+      {pedidos.length > 0 && (
+        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+          <div className="tarjeta flex items-center gap-4">
+            <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-green-100 text-green-700">
+              <CircleDollarSign className="h-7 w-7" aria-hidden="true" />
+            </span>
+            <div>
+              <p className="text-2xl font-bold text-green-700">{formatearPesos(ventas.ventasTotales)}</p>
+              <p className="font-semibold text-slate-600">Ventas cerradas</p>
+            </div>
+          </div>
+          <div className="tarjeta flex items-center gap-4">
+            <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100 text-amber-600">
+              <Wallet className="h-7 w-7" aria-hidden="true" />
+            </span>
+            <div>
+              <p className="text-2xl font-bold text-amber-600">{formatearPesos(ventas.porCobrar)}</p>
+              <p className="font-semibold text-slate-600">Por cobrar</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Tasas */}
       <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">

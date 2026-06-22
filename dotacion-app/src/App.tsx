@@ -9,21 +9,24 @@ import {
   Info,
   MapPinned,
   Settings,
+  ShoppingCart,
   X,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { ConfigApp } from './types';
 import { CLAVE_CONFIG, CONFIG_DEFAULT, combinarConfig } from './lib/config';
 import { useEmpresas } from './hooks/useEmpresas';
-import { useLocalStorageState } from './hooks/useLocalStorageState';
+import { usePedidos } from './hooks/usePedidos';
+import { useLocalStorageState, registrarAvisoFalloGuardado } from './hooks/useLocalStorageState';
 import { Dashboard } from './components/Dashboard';
 import { Campana } from './components/Campana';
 import { Empresas } from './components/Empresas';
 import { BuscarMaps } from './components/BuscarMaps';
 import { Estadisticas } from './components/Estadisticas';
 import { Configuracion } from './components/Configuracion';
+import { Pedidos } from './components/Pedidos';
 
-export type Pestana = 'inicio' | 'empresas' | 'buscar' | 'estadisticas' | 'configuracion';
+export type Pestana = 'inicio' | 'empresas' | 'buscar' | 'pedidos' | 'estadisticas' | 'configuracion';
 
 export type TipoToast = 'exito' | 'error' | 'info';
 
@@ -38,6 +41,7 @@ const PESTANAS: { id: Pestana; etiqueta: string; Icono: LucideIcon }[] = [
   { id: 'inicio', etiqueta: 'Inicio', Icono: Home },
   { id: 'empresas', etiqueta: 'Empresas', Icono: Building2 },
   { id: 'buscar', etiqueta: 'Buscar en el mapa', Icono: MapPinned },
+  { id: 'pedidos', etiqueta: 'Pedidos', Icono: ShoppingCart },
   { id: 'estadisticas', etiqueta: 'Estadísticas', Icono: BarChart3 },
   { id: 'configuracion', etiqueta: 'Configuración', Icono: Settings },
 ];
@@ -67,7 +71,10 @@ export default function App() {
     eliminarEmpresa,
     borrarTodo,
     reemplazarTodo,
+    registrarEvento,
   } = useEmpresas();
+
+  const { pedidos, crearPedido, actualizarPedido, eliminarPedido, reemplazarPedidos } = usePedidos();
 
   const [config, setConfig] = useLocalStorageState<ConfigApp>(CLAVE_CONFIG, CONFIG_DEFAULT, (guardado) =>
     combinarConfig(guardado as Partial<ConfigApp> | null),
@@ -76,6 +83,17 @@ export default function App() {
   const mostrarToast: MostrarToast = useCallback((mensaje, tipo = 'info') => {
     setToast({ mensaje, tipo });
   }, []);
+
+  // Aviso cuando el navegador no puede guardar (cuota llena / almacenamiento bloqueado).
+  useEffect(() => {
+    registrarAvisoFalloGuardado(() =>
+      mostrarToast(
+        'No pudimos guardar en este navegador (memoria llena o bloqueada). Exporta una copia en Excel y libera espacio.',
+        'error',
+      ),
+    );
+    return () => registrarAvisoFalloGuardado(null);
+  }, [mostrarToast]);
 
   useEffect(() => {
     if (!toast) return;
@@ -142,10 +160,13 @@ export default function App() {
           <Empresas
             empresas={empresas}
             config={config}
+            pedidos={pedidos}
             agregarEmpresas={agregarEmpresas}
             actualizarEmpresa={actualizarEmpresa}
             cambiarEstado={cambiarEstado}
             eliminarEmpresa={eliminarEmpresa}
+            registrarEvento={registrarEvento}
+            crearPedido={crearPedido}
             mostrarToast={mostrarToast}
             onIrABuscar={() => setPestana('buscar')}
           />
@@ -158,14 +179,29 @@ export default function App() {
             onIrAConfiguracion={() => setPestana('configuracion')}
           />
         )}
-        {pestana === 'estadisticas' && <Estadisticas empresas={empresas} />}
+        {pestana === 'pedidos' && (
+          <Pedidos
+            pedidos={pedidos}
+            empresas={empresas}
+            config={config}
+            crearPedido={crearPedido}
+            actualizarPedido={actualizarPedido}
+            eliminarPedido={eliminarPedido}
+            registrarEvento={registrarEvento}
+            mostrarToast={mostrarToast}
+            onIrAEmpresas={() => setPestana('empresas')}
+          />
+        )}
+        {pestana === 'estadisticas' && <Estadisticas empresas={empresas} pedidos={pedidos} />}
         {pestana === 'configuracion' && (
           <Configuracion
             config={config}
             setConfig={setConfig}
             empresas={empresas}
+            pedidos={pedidos}
             borrarTodo={borrarTodo}
             reemplazarTodo={reemplazarTodo}
+            reemplazarPedidos={reemplazarPedidos}
             mostrarToast={mostrarToast}
           />
         )}

@@ -420,6 +420,8 @@ export function parsearProspectosCercanos(json: unknown, origen: Coordenada): Re
       categoria,
       distanciaMetros: distanciaMetros(origen, punto),
       prioridad: prioridadProspecto(categoria, nombre),
+      lat: punto.lat,
+      lon: punto.lon,
     });
   }
   return resultados

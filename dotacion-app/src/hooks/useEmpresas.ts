@@ -1,11 +1,22 @@
 import { useCallback } from 'react';
-import type { Empresa, EstadoEmpresa, FuenteEmpresa, NuevaEmpresa } from '../types';
+import type { Empresa, EstadoEmpresa, EventoHistorial, FuenteEmpresa, NuevaEmpresa } from '../types';
+import { ETIQUETA_ESTADO } from '../types';
 import { CLAVE_EMPRESAS } from '../lib/config';
 import { useLocalStorageState } from './useLocalStorageState';
 
 function generarId(): string {
   if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) return crypto.randomUUID();
   return `id-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
+/** Antepone un evento al historial (lo más reciente primero, máx. 100). */
+function agregarEvento(
+  historial: EventoHistorial[] | undefined,
+  tipo: EventoHistorial['tipo'],
+  texto: string,
+): EventoHistorial[] {
+  const evento: EventoHistorial = { id: generarId(), fecha: new Date().toISOString(), tipo, texto };
+  return [evento, ...(historial ?? [])].slice(0, 100);
 }
 
 /** Normaliza nombre/dirección para comparar duplicados. */
@@ -92,6 +103,8 @@ function planificarInsercion(
       fechaRespuesta,
       notas: (nueva.notas ?? '').trim() || undefined,
       fuente,
+      lat: typeof nueva.lat === 'number' ? nueva.lat : undefined,
+      lon: typeof nueva.lon === 'number' ? nueva.lon : undefined,
     });
   }
   return {
@@ -110,6 +123,8 @@ export interface UsoEmpresas {
   borrarTodo: () => void;
   /** Reemplaza toda la lista (restauración de un respaldo completo). */
   reemplazarTodo: (nuevas: Empresa[]) => void;
+  /** Anota un evento en el historial de gestión de una empresa. */
+  registrarEvento: (id: string, tipo: EventoHistorial['tipo'], texto: string) => void;
 }
 
 export function useEmpresas(): UsoEmpresas {
@@ -151,6 +166,7 @@ export function useEmpresas(): UsoEmpresas {
           if ((estado === 'respondio' || estado === 'cliente' || estado === 'rechazado') && !e.fechaRespuesta) {
             cambios.fechaRespuesta = ahora;
           }
+          cambios.historial = agregarEvento(e.historial, 'estado', `Estado → ${ETIQUETA_ESTADO[estado]}`);
           return { ...e, ...cambios };
         }),
       );
@@ -170,6 +186,15 @@ export function useEmpresas(): UsoEmpresas {
     [setEmpresas],
   );
 
+  const registrarEvento = useCallback(
+    (id: string, tipo: EventoHistorial['tipo'], texto: string) => {
+      setEmpresas((actuales) =>
+        actuales.map((e) => (e.id === id ? { ...e, historial: agregarEvento(e.historial, tipo, texto) } : e)),
+      );
+    },
+    [setEmpresas],
+  );
+
   return {
     empresas,
     agregarEmpresas,
@@ -178,5 +203,6 @@ export function useEmpresas(): UsoEmpresas {
     eliminarEmpresa,
     borrarTodo,
     reemplazarTodo,
+    registrarEvento,
   };
 }

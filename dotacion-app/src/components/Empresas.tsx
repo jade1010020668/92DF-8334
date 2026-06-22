@@ -3,6 +3,7 @@ import {
   Download,
   FileDown,
   FileSpreadsheet,
+  IdCard,
   Mail,
   MapPinned,
   MessageCircle,
@@ -13,7 +14,16 @@ import {
   Trash2,
   Upload,
 } from 'lucide-react';
-import type { ConfigApp, Empresa, EstadoEmpresa, FuenteEmpresa, NuevaEmpresa } from '../types';
+import type {
+  ConfigApp,
+  Empresa,
+  EstadoEmpresa,
+  EventoHistorial,
+  FuenteEmpresa,
+  NuevaEmpresa,
+  NuevoPedido,
+  Pedido,
+} from '../types';
 import { ESTADOS, ETIQUETA_ESTADO, COLOR_ESTADO } from '../types';
 import { generarEmail, generarWhatsApp, urlGmail, urlWhatsApp } from '../lib/plantillas';
 import { generarPdfCotizacion } from '../lib/pdf';
@@ -21,14 +31,18 @@ import { descargarPlantilla, exportarExcel, importarExcel } from '../lib/excel';
 import type { ResultadoAgregar } from '../hooks/useEmpresas';
 import type { MostrarToast } from '../App';
 import { EmpresaForm } from './EmpresaForm';
+import { FichaEmpresa } from './FichaEmpresa';
 
 interface Props {
   empresas: Empresa[];
   config: ConfigApp;
+  pedidos: Pedido[];
   agregarEmpresas: (nuevas: NuevaEmpresa[], fuente: FuenteEmpresa) => ResultadoAgregar;
   actualizarEmpresa: (id: string, cambios: Partial<Empresa>) => void;
   cambiarEstado: (id: string, estado: EstadoEmpresa) => void;
   eliminarEmpresa: (id: string) => void;
+  registrarEvento: (id: string, tipo: EventoHistorial['tipo'], texto: string) => void;
+  crearPedido: (datos: NuevoPedido) => Pedido;
   mostrarToast: MostrarToast;
   onIrABuscar: () => void;
 }
@@ -36,10 +50,13 @@ interface Props {
 export function Empresas({
   empresas,
   config,
+  pedidos,
   agregarEmpresas,
   actualizarEmpresa,
   cambiarEstado,
   eliminarEmpresa,
+  registrarEvento,
+  crearPedido,
   mostrarToast,
   onIrABuscar,
 }: Props) {
@@ -48,6 +65,7 @@ export function Empresas({
   const [filtroEstado, setFiltroEstado] = useState('todos');
   const [formAbierto, setFormAbierto] = useState(false);
   const [editando, setEditando] = useState<Empresa | null>(null);
+  const [ficha, setFicha] = useState<Empresa | null>(null);
   const inputArchivo = useRef<HTMLInputElement>(null);
 
   const sectores = useMemo(() => {
@@ -144,12 +162,22 @@ export function Empresas({
         <button
           type="button"
           className="btn-icono"
+          aria-label={`Ver ficha de ${e.nombre}`}
+          title="Ver ficha e historial"
+          onClick={() => setFicha(e)}
+        >
+          <IdCard className="h-5 w-5" aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          className="btn-icono"
           aria-label={`Enviar correo a ${e.nombre}`}
           title="Enviar correo (Gmail)"
           disabled={!e.email}
-          onClick={() =>
-            window.open(urlGmail(e.email, correo.asunto, correo.cuerpo), '_blank', 'noopener')
-          }
+          onClick={() => {
+            window.open(urlGmail(e.email, correo.asunto, correo.cuerpo), '_blank', 'noopener');
+            registrarEvento(e.id, 'correo', 'Correo abierto en Gmail');
+          }}
         >
           <Mail className="h-5 w-5" aria-hidden="true" />
         </button>
@@ -159,7 +187,11 @@ export function Empresas({
           aria-label={`Enviar WhatsApp a ${e.nombre}`}
           title="Enviar WhatsApp"
           disabled={!whatsapp}
-          onClick={() => whatsapp && window.open(whatsapp, '_blank', 'noopener')}
+          onClick={() => {
+            if (!whatsapp) return;
+            window.open(whatsapp, '_blank', 'noopener');
+            registrarEvento(e.id, 'whatsapp', 'WhatsApp abierto');
+          }}
         >
           <MessageCircle className="h-5 w-5" aria-hidden="true" />
         </button>
@@ -170,6 +202,7 @@ export function Empresas({
           title="Llamar"
           disabled={!e.telefono}
           onClick={() => {
+            registrarEvento(e.id, 'llamada', 'Llamada realizada');
             window.location.href = `tel:${e.telefono.replace(/[^+\d]/g, '')}`;
           }}
         >
@@ -422,6 +455,18 @@ export function Empresas({
             setFormAbierto(false);
             setEditando(null);
           }}
+        />
+      )}
+
+      {ficha && (
+        <FichaEmpresa
+          empresa={empresas.find((e) => e.id === ficha.id) ?? ficha}
+          config={config}
+          pedidos={pedidos.filter((p) => p.empresaId === ficha.id)}
+          registrarEvento={registrarEvento}
+          crearPedido={crearPedido}
+          mostrarToast={mostrarToast}
+          onCerrar={() => setFicha(null)}
         />
       )}
     </div>

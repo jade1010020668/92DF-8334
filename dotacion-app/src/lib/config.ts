@@ -2,6 +2,7 @@ import type { ConfigApp } from '../types';
 
 export const CLAVE_EMPRESAS = 'dotacionpro.empresas';
 export const CLAVE_CONFIG = 'dotacionpro.config';
+export const CLAVE_PEDIDOS = 'dotacionpro.pedidos';
 export const CLAVE_CONSECUTIVO = 'dotacionpro.consecutivoCotizacion';
 export const CLAVE_ULTIMA_EXPORTACION = 'dotacionpro.ultimaExportacion';
 

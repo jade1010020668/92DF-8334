@@ -12,7 +12,8 @@ export function normalizarEncabezado(texto: string): string {
     .replace(/[^a-z0-9]/g, '');
 }
 
-type CampoImportable = keyof NuevaEmpresa;
+// Solo los campos de texto/estado que se importan desde Excel (no lat/lon).
+type CampoImportable = Exclude<keyof NuevaEmpresa, 'lat' | 'lon'>;
 
 /** Sinónimos aceptados por columna para que cualquier Excel razonable funcione. */
 const SINONIMOS: Record<string, CampoImportable> = {

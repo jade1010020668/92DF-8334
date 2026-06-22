@@ -1,9 +1,15 @@
-import { useState } from 'react';
-import { CheckCircle2, Globe, Loader2, MapPin, MapPinned, Navigation, Plus, Search } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { CheckCircle2, Globe, List, Loader2, Map, MapPin, MapPinned, Navigation, Plus, Search } from 'lucide-react';
 import type { ConfigApp, FuenteEmpresa, NuevaEmpresa, ResultadoMaps } from '../types';
-import { buscarCercaDelNegocio, buscarEmpresasEnMapa, formatearDistancia } from '../lib/maps';
+import {
+  buscarCercaDelNegocio,
+  buscarEmpresasEnMapa,
+  formatearDistancia,
+  type Coordenada,
+} from '../lib/maps';
 import type { ResultadoAgregar } from '../hooks/useEmpresas';
 import type { MostrarToast } from '../App';
+import { MapaProspectos, type PinMapa } from './MapaProspectos';
 
 interface Props {
   config: ConfigApp;
@@ -24,6 +30,8 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
   const [cargando, setCargando] = useState(false);
   const [resultados, setResultados] = useState<ResultadoMaps[] | null>(null);
   const [seleccion, setSeleccion] = useState<Set<number>>(new Set());
+  const [origen, setOrigen] = useState<Coordenada | null>(null);
+  const [vista, setVista] = useState<'lista' | 'mapa'>('lista');
 
   const hayClave = Boolean(config.googleMapsApiKey.trim());
   const hayDireccion = Boolean(config.direccion.trim());
@@ -37,8 +45,9 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
     if (cargando) return;
     setCargando(true);
     try {
-      const { resultados: lista } = await buscarCercaDelNegocio(config, radioKm);
+      const { resultados: lista, origen: punto } = await buscarCercaDelNegocio(config, radioKm);
       recibirResultados(lista);
+      setOrigen(punto);
       if (lista.length > 0) {
         mostrarToast(`${lista.length} clientes potenciales a menos de ${radioKm} km de tu negocio.`, 'exito');
       }
@@ -56,6 +65,7 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
     try {
       const res = await buscarEmpresasEnMapa(consulta, config);
       recibirResultados(res.resultados);
+      setOrigen(null);
       if (res.aviso) mostrarToast(res.aviso, 'info');
     } catch (error) {
       const detalle = error instanceof Error ? error.message : 'Inténtalo de nuevo en un momento.';
@@ -92,6 +102,8 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
           telefono: r.telefono,
           sector: sectorEtiqueta.trim() || r.categoria || consulta.trim(),
           notas: notas || undefined,
+          lat: r.lat,
+          lon: r.lon,
         };
       }),
       'maps',
@@ -105,6 +117,62 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
     setResultados(null);
     setSeleccion(new Set());
   };
+
+  /** Agrega una sola empresa desde un clic en el mapa. */
+  const agregarUnoPorMapa = (indiceTexto: string) => {
+    if (!resultados) return;
+    const i = Number(indiceTexto);
+    const r = resultados[i];
+    if (!r) return;
+    const notas = [
+      r.distanciaMetros != null ? `A ${formatearDistancia(r.distanciaMetros)} del negocio` : '',
+      r.prioridad === 1 ? 'Prioridad ALTA' : '',
+      r.website ? `Sitio web: ${r.website}` : '',
+    ]
+      .filter(Boolean)
+      .join(' · ');
+    const { agregadas, duplicadas } = agregarEmpresas(
+      [
+        {
+          nombre: r.nombre,
+          direccion: r.direccion,
+          telefono: r.telefono,
+          sector: sectorEtiqueta.trim() || r.categoria || consulta.trim(),
+          notas: notas || undefined,
+          lat: r.lat,
+          lon: r.lon,
+        },
+      ],
+      'maps',
+    );
+    mostrarToast(
+      agregadas > 0 ? `${r.nombre} agregada a tu lista.` : `${r.nombre} ya estaba en tu lista.`,
+      agregadas > 0 ? 'exito' : 'info',
+    );
+    void duplicadas;
+  };
+
+  const pines: PinMapa[] = useMemo(
+    () =>
+      (resultados ?? [])
+        .map((r, i): PinMapa | null =>
+          r.lat != null && r.lon != null
+            ? {
+                id: String(i),
+                nombre: r.nombre,
+                lat: r.lat,
+                lon: r.lon,
+                prioridad: r.prioridad,
+                detalle: [r.categoria, r.distanciaMetros != null ? formatearDistancia(r.distanciaMetros) : '']
+                  .filter(Boolean)
+                  .join(' · '),
+              }
+            : null,
+        )
+        .filter((p): p is PinMapa => p !== null),
+    [resultados],
+  );
+  const hayPines = pines.length > 0;
 
   const conContacto = resultados?.filter((r) => seleccion.has(resultados.indexOf(r))) ?? [];
 
@@ -301,7 +369,29 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
                 {resultados.length} {resultados.length === 1 ? 'resultado' : 'resultados'} —{' '}
                 {seleccion.size} {seleccion.size === 1 ? 'seleccionado' : 'seleccionados'}
               </p>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
+                {hayPines && (
+                  <div className="flex overflow-hidden rounded-xl border border-slate-300">
+                    <button
+                      type="button"
+                      aria-pressed={vista === 'lista'}
+                      onClick={() => setVista('lista')}
+                      className={`inline-flex items-center gap-1 px-3 py-2 font-semibold ${vista === 'lista' ? 'bg-blue-700 text-white' : 'bg-white text-slate-600'}`}
+                    >
+                      <List className="h-5 w-5" aria-hidden="true" />
+                      Lista
+                    </button>
+                    <button
+                      type="button"
+                      aria-pressed={vista === 'mapa'}
+                      onClick={() => setVista('mapa')}
+                      className={`inline-flex items-center gap-1 px-3 py-2 font-semibold ${vista === 'mapa' ? 'bg-blue-700 text-white' : 'bg-white text-slate-600'}`}
+                    >
+                      <Map className="h-5 w-5" aria-hidden="true" />
+                      Mapa
+                    </button>
+                  </div>
+                )}
                 <button
                   type="button"
                   className="btn-secundario px-4 py-2"
@@ -319,7 +409,22 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
               </div>
             </div>
 
-            <ul className="divide-y divide-slate-100">
+            {vista === 'mapa' && hayPines && (
+              <div className="space-y-2">
+                <MapaProspectos
+                  negocio={origen ? { ...origen, nombre: config.nombreEmpresa } : undefined}
+                  pines={pines}
+                  onSeleccionar={agregarUnoPorMapa}
+                  textoBotonPin="Agregar a mi lista"
+                />
+                <p className="text-sm text-slate-500">
+                  🟢 prioridad alta · 🔵 media · 🟠 tu negocio. Toca un punto para ver la empresa y
+                  agregarla.
+                </p>
+              </div>
+            )}
+
+            <ul className={`divide-y divide-slate-100 ${vista === 'mapa' && hayPines ? 'hidden' : ''}`}>
               {resultados.map((r, i) => (
                 <li key={`${r.nombre}-${i}`}>
                   <label className="flex cursor-pointer items-start gap-3 py-3">

@@ -13,11 +13,15 @@ Reemplaza dos procesos manuales que desgastaban al negocio: recorrer zonas indus
 - **Mensajes generados automáticamente**: correo formal de cotización y mensaje de WhatsApp cercano con emojis, personalizados con el nombre de la empresa, el contacto y el sector. Incluye variantes cortas de seguimiento.
 - **Gmail y WhatsApp con un clic**: la app abre Gmail con el correo ya redactado (destinatario, asunto y cuerpo) o WhatsApp con el mensaje listo. Los celulares colombianos se normalizan solos al formato que exige WhatsApp (agrega el indicativo 57).
 - **Importar y exportar Excel**: sube tu lista existente de empresas (acepta varios nombres de columna, ver tabla más abajo) y descarga toda la lista como copia de seguridad.
-- **Búsqueda de empresas en el mapa**: escribe por ejemplo "plásticos Bogotá" y la app trae empresas reales con dirección, teléfono y sitio web. Funciona gratis con OpenStreetMap y mejora mucho con una clave de Google (ver sección dedicada).
+- **Buscar clientes cerca del negocio**: ubica la dirección de tu negocio en el mapa y trae las empresas que necesitan dotación (talleres, ferreterías, fábricas…) dentro de 2, 5 o 10 km, ordenadas por cercanía y prioridad. También puedes buscar por palabra (p. ej. "plásticos").
+- **Mapa visual interactivo**: ve los prospectos como puntos de colores alrededor de tu negocio (verde = prioridad alta, azul = media, naranja = tu negocio). Toca un punto para ver la empresa y agregarla con un clic.
 - **PDF de cotización**: genera y descarga una cotización formal con membrete, número consecutivo (formato `COT-fecha-NNN`), tabla del catálogo con precios "desde" en COP, condiciones comerciales y validez de 15 días.
+- **Módulo de pedidos**: registra las ventas con líneas de producto (cantidad × precio), IVA, abono y saldo por cobrar, fecha de entrega y estado (cotizado → confirmado → entregado → pagado). KPIs de ventas cerradas, por cobrar y cotizado abierto; aviso de entregas próximas o vencidas; PDF de cada pedido.
+- **Ficha e historial por empresa**: cada correo, WhatsApp, llamada, cambio de estado, nota o pedido queda registrado con su fecha. Desde la ficha contactas, anotas y creas pedidos.
 - **Recordatorios de seguimiento**: la app avisa qué empresas llevan X días (configurable, 5 por defecto) sin responder desde el envío, para mandarles el mensaje de seguimiento.
-- **Estadísticas de conversión**: totales por estado, tasa de respuesta, tasa de conversión y desglose por sector para saber dónde funciona mejor la prospección.
-- **Configuración del negocio**: datos de la empresa (nombre, dirección, teléfono, correo), quién firma los mensajes, frase de descuentos por volumen, días de seguimiento, catálogo de productos con precio de referencia (0 = "a convenir") y clave opcional de Google Maps.
+- **Estadísticas de conversión y ventas**: totales por estado, tasa de respuesta, tasa de conversión, desglose por sector, ventas cerradas y por cobrar.
+- **Plantillas de mensaje editables**, **envío automático por Brevo** (con PDF adjunto), **respaldo completo** (empresas + pedidos + configuración) entre dispositivos, **sincronización entre pestañas** y aviso si el navegador se queda sin espacio.
+- **Configuración del negocio**: datos de la empresa, quién firma los mensajes, frase de descuentos, días de seguimiento, catálogo de productos con precios, y claves opcionales de Google Maps y Brevo.
 
 ---
 

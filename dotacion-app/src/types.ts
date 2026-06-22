@@ -23,6 +23,15 @@ export const COLOR_ESTADO: Record<EstadoEmpresa, string> = {
 
 export type FuenteEmpresa = 'manual' | 'excel' | 'maps';
 
+/** Un evento del historial de gestión de una empresa (llamada, correo, nota…). */
+export interface EventoHistorial {
+  id: string;
+  /** ISO 8601. */
+  fecha: string;
+  tipo: 'nota' | 'correo' | 'whatsapp' | 'llamada' | 'estado' | 'pedido';
+  texto: string;
+}
+
 export interface Empresa {
   id: string;
   nombre: string;
@@ -41,6 +50,11 @@ export interface Empresa {
   fechaRespuesta?: string;
   notas?: string;
   fuente: FuenteEmpresa;
+  /** Coordenadas para el mapa (de la búsqueda por cercanía o geocodificación). */
+  lat?: number;
+  lon?: number;
+  /** Historial de gestión, lo más reciente primero. */
+  historial?: EventoHistorial[];
 }
 
 /** Datos mínimos para crear una empresa (el resto se completa al insertar). */
@@ -56,6 +70,8 @@ export interface NuevaEmpresa {
   /** ISO 8601; se respeta al importar un Excel que ya traía historia. */
   fechaEnvio?: string;
   fechaRespuesta?: string;
+  lat?: number;
+  lon?: number;
 }
 
 export interface ProductoCatalogo {
@@ -102,4 +118,66 @@ export interface ResultadoMaps {
   distanciaMetros?: number;
   /** Prioridad como cliente de dotación: 1 = alta, 2 = media, 3 = baja. */
   prioridad?: 1 | 2 | 3;
+  /** Coordenadas del prospecto (para el mapa visual). */
+  lat?: number;
+  lon?: number;
+}
+
+/* ===================== Módulo de pedidos ===================== */
+
+export const ESTADOS_PEDIDO = ['cotizado', 'confirmado', 'entregado', 'pagado', 'anulado'] as const;
+
+export type EstadoPedido = (typeof ESTADOS_PEDIDO)[number];
+
+export const ETIQUETA_ESTADO_PEDIDO: Record<EstadoPedido, string> = {
+  cotizado: 'Cotizado',
+  confirmado: 'Confirmado',
+  entregado: 'Entregado',
+  pagado: 'Pagado',
+  anulado: 'Anulado',
+};
+
+export const COLOR_ESTADO_PEDIDO: Record<EstadoPedido, string> = {
+  cotizado: 'border-slate-300 bg-slate-100 text-slate-700',
+  confirmado: 'border-blue-300 bg-blue-100 text-blue-800',
+  entregado: 'border-amber-300 bg-amber-100 text-amber-800',
+  pagado: 'border-green-400 bg-green-200 text-green-900',
+  anulado: 'border-rose-300 bg-rose-100 text-rose-700',
+};
+
+/** Una línea de un pedido: producto, cantidad y precio unitario en COP. */
+export interface ItemPedido {
+  id: string;
+  descripcion: string;
+  cantidad: number;
+  precioUnitario: number;
+}
+
+export interface Pedido {
+  id: string;
+  empresaId: string;
+  /** Nombre de la empresa congelado al crear (por si se borra la empresa). */
+  empresaNombre: string;
+  /** ISO 8601. */
+  fecha: string;
+  items: ItemPedido[];
+  estado: EstadoPedido;
+  /** Abono recibido en COP. El saldo se calcula contra el total. */
+  abono: number;
+  /** % de IVA a aplicar sobre el subtotal (0 = sin IVA). */
+  iva: number;
+  /** ISO 8601 de la entrega comprometida. */
+  fechaEntrega?: string;
+  notas?: string;
+}
+
+export interface NuevoPedido {
+  empresaId: string;
+  empresaNombre: string;
+  items: ItemPedido[];
+  estado?: EstadoPedido;
+  abono?: number;
+  iva?: number;
+  fechaEntrega?: string;
+  notas?: string;
 }

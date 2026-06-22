@@ -1,8 +1,9 @@
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import type { ConfigApp, Empresa } from '../types';
+import type { ConfigApp, Empresa, Pedido } from '../types';
 import { CLAVE_CONSECUTIVO } from './config';
 import { formatearPesos } from './plantillas';
+import { ivaPedido, saldoPedido, subtotalItem, subtotalPedido, totalPedido } from './pedidos';
 
 const AZUL: [number, number, number] = [29, 78, 216];
 const GRIS: [number, number, number] = [100, 116, 139];
@@ -162,4 +163,108 @@ export function pdfCotizacionBase64(
   const { doc, nombreArchivo } = crearDocumentoCotizacion(empresa, config);
   const dataUri = doc.output('datauristring');
   return { nombre: nombreArchivo, contenidoBase64: dataUri.slice(dataUri.indexOf(',') + 1) };
+}
+
+function fechaLarga(iso?: string): string {
+  if (!iso) return '';
+  const f = new Date(iso);
+  return Number.isNaN(f.getTime())
+    ? ''
+    : f.toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+/** Genera y descarga el PDF de un pedido / orden de venta. */
+export function generarPdfPedido(pedido: Pedido, config: ConfigApp): void {
+  const doc = new jsPDF();
+  const ancho = doc.internal.pageSize.getWidth();
+  const margen = 14;
+
+  doc.setFillColor(...AZUL);
+  doc.rect(0, 0, ancho, 34, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(19);
+  doc.text(config.nombreEmpresa, margen, 14);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9.5);
+  [
+    'Dotación industrial y elementos de protección personal (EPP)',
+    [config.direccion, config.ciudad].filter(Boolean).join(', '),
+    [
+      config.telefono.trim() ? `Tel/WhatsApp: ${config.telefono.trim()}` : '',
+      config.email.trim() ? `Correo: ${config.email.trim()}` : '',
+    ]
+      .filter(Boolean)
+      .join('   |   '),
+  ]
+    .filter(Boolean)
+    .forEach((linea, i) => doc.text(linea, margen, 20 + i * 4.5));
+
+  let y = 46;
+  doc.setTextColor(0, 0, 0);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(15);
+  doc.text('PEDIDO / ORDEN', margen, y);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(...GRIS);
+  doc.text(`Fecha: ${fechaLarga(pedido.fecha)}`, ancho - margen, y - 4, { align: 'right' });
+  if (pedido.fechaEntrega) {
+    doc.text(`Entrega: ${fechaLarga(pedido.fechaEntrega)}`, ancho - margen, y + 1, { align: 'right' });
+  }
+
+  y += 8;
+  doc.setTextColor(0, 0, 0);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(12);
+  doc.text('Cliente:', margen, y);
+  doc.setFont('helvetica', 'normal');
+  doc.text(pedido.empresaNombre, margen + 22, y);
+
+  y += 8;
+  autoTable(doc, {
+    startY: y,
+    head: [['Producto', 'Cant.', 'Precio c/u', 'Subtotal']],
+    body: pedido.items.map((it) => [
+      it.descripcion,
+      String(it.cantidad),
+      formatearPesos(it.precioUnitario),
+      formatearPesos(subtotalItem(it)),
+    ]),
+    margin: { left: margen, right: margen },
+    styles: { fontSize: 10, cellPadding: 2.5 },
+    headStyles: { fillColor: AZUL },
+    columnStyles: { 1: { halign: 'right' }, 2: { halign: 'right' }, 3: { halign: 'right' } },
+    alternateRowStyles: { fillColor: [241, 245, 249] },
+  });
+
+  const finTabla = (doc as unknown as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY;
+  let yt = finTabla + 8;
+  const filaTotal = (etiqueta: string, valor: string, negrita = false) => {
+    doc.setFont('helvetica', negrita ? 'bold' : 'normal');
+    doc.setFontSize(negrita ? 12 : 10);
+    doc.text(etiqueta, ancho - margen - 60, yt);
+    doc.text(valor, ancho - margen, yt, { align: 'right' });
+    yt += negrita ? 7 : 5.5;
+  };
+  filaTotal('Subtotal', formatearPesos(subtotalPedido(pedido)));
+  if (pedido.iva > 0) filaTotal(`IVA (${pedido.iva}%)`, formatearPesos(ivaPedido(pedido)));
+  filaTotal('TOTAL', formatearPesos(totalPedido(pedido)), true);
+  if (pedido.abono > 0) {
+    filaTotal('Abono', formatearPesos(pedido.abono));
+    filaTotal('Saldo', formatearPesos(saldoPedido(pedido)), true);
+  }
+
+  if (pedido.notas) {
+    yt += 6;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.text('Notas:', margen, yt);
+    doc.setFont('helvetica', 'normal');
+    const partes = doc.splitTextToSize(pedido.notas, ancho - margen * 2) as string[];
+    doc.text(partes, margen, yt + 5);
+  }
+
+  const limpio = pedido.empresaNombre.replace(/[\\/:*?"<>|]/g, '').slice(0, 50);
+  doc.save(`Pedido ${limpio}.pdf`);
 }
