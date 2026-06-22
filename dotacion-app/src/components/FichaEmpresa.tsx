@@ -6,11 +6,19 @@ import {
   NotebookPen,
   Phone,
   Plus,
+  Search,
   ShoppingCart,
   X,
 } from 'lucide-react';
 import type { ConfigApp, Empresa, EventoHistorial, NuevoPedido, Pedido } from '../types';
-import { generarEmail, generarWhatsApp, urlGmail, urlWhatsApp, formatearPesos } from '../lib/plantillas';
+import {
+  generarEmail,
+  generarWhatsApp,
+  urlBuscarContacto,
+  urlGmail,
+  urlWhatsApp,
+  formatearPesos,
+} from '../lib/plantillas';
 import { generarPdfCotizacion } from '../lib/pdf';
 import { saldoPedido, totalPedido } from '../lib/pedidos';
 import { ETIQUETA_ESTADO_PEDIDO } from '../types';
@@ -123,6 +131,17 @@ export function FichaEmpresa({
             >
               <Phone className="h-5 w-5" aria-hidden="true" />
               Llamar
+            </button>
+            <button
+              type="button"
+              className="btn-secundario px-4 py-2"
+              title="Buscar el teléfono y datos de esta empresa en Google Maps"
+              onClick={() =>
+                abrir(urlBuscarContacto(empresa, config.ciudad.split(',')[0] || 'Bogotá'), 'nota', 'Buscó contacto en Google')
+              }
+            >
+              <Search className="h-5 w-5" aria-hidden="true" />
+              Buscar contacto
             </button>
             <button
               type="button"

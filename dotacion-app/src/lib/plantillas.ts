@@ -222,3 +222,21 @@ export function urlWhatsApp(telefono: string, mensaje: string): string | null {
   if (!numero) return null;
   return `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
 }
+
+/**
+ * URL de Google Maps buscando la empresa por nombre + dirección + ciudad.
+ * Sirve para conseguir el teléfono/sitio web de empresas que no lo traen:
+ * Maps muestra la ficha del negocio con su número directamente.
+ */
+export function urlBuscarContacto(
+  empresa: { nombre: string; direccion?: string },
+  ciudad = 'Bogotá',
+): string {
+  const partes = [empresa.nombre.trim(), (empresa.direccion ?? '').trim()];
+  let consulta = partes.filter(Boolean).join(' ');
+  if (!consulta.toLowerCase().includes(ciudad.toLowerCase())) {
+    consulta = `${consulta} ${ciudad}`.trim();
+  }
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(consulta)}`;
+}
+

@@ -27,7 +27,7 @@ import type {
   Pedido,
 } from '../types';
 import { ESTADOS, ETIQUETA_ESTADO, COLOR_ESTADO } from '../types';
-import { generarEmail, generarWhatsApp, urlGmail, urlWhatsApp } from '../lib/plantillas';
+import { generarEmail, generarWhatsApp, urlBuscarContacto, urlGmail, urlWhatsApp } from '../lib/plantillas';
 import { generarPdfCotizacion } from '../lib/pdf';
 import { descargarPlantilla, exportarExcel, importarExcel } from '../lib/excel';
 import type { ResultadoAgregar } from '../hooks/useEmpresas';
@@ -213,6 +213,22 @@ export function Empresas({
           }}
         >
           <Phone className="h-5 w-5" aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          className="btn-icono"
+          aria-label={`Buscar el contacto de ${e.nombre} en Google`}
+          title="Buscar teléfono y datos en Google Maps"
+          onClick={() => {
+            window.open(
+              urlBuscarContacto(e, config.ciudad.split(',')[0] || 'Bogotá'),
+              '_blank',
+              'noopener',
+            );
+            registrarEvento(e.id, 'nota', 'Buscó contacto en Google');
+          }}
+        >
+          <Search className="h-5 w-5" aria-hidden="true" />
         </button>
         <button
           type="button"
