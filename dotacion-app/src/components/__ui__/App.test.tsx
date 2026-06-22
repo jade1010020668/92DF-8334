@@ -20,7 +20,7 @@ function pestana(nombre: RegExp) {
 describe('App — arranque y navegación', () => {
   it('muestra el encabezado y la pantalla de inicio', () => {
     render(<App />);
-    expect(screen.getByRole('heading', { name: /DotaciónPro/i, level: 1 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Dotación\s*Pro/i, level: 1 })).toBeInTheDocument();
     expect(screen.getByText(/Primeros pasos/i)).toBeInTheDocument();
   });
 

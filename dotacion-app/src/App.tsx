@@ -51,9 +51,9 @@ const PESTANAS: { id: Pestana; etiqueta: string; Icono: LucideIcon }[] = [
 ];
 
 const ESTILO_TOAST: Record<TipoToast, string> = {
-  exito: 'bg-emerald-600 text-white',
-  error: 'bg-rose-600 text-white',
-  info: 'bg-blue-700 text-white',
+  exito: 'bg-emerald-700 text-white',
+  error: 'bg-rose-700 text-white',
+  info: 'bg-[#14181f] text-white',
 };
 
 const ICONO_TOAST: Record<TipoToast, LucideIcon> = {
@@ -130,23 +130,25 @@ export default function App() {
   return (
     <div className="min-h-screen pb-12">
       {/* Encabezado */}
-      <header className="bg-gradient-to-r from-blue-800 to-blue-600 text-white shadow-md">
-        <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-5 sm:px-6">
-          <div className="rounded-2xl bg-white/15 p-3">
-            <HardHat className="h-9 w-9" aria-hidden="true" />
+      <header className="bg-[#14181f] text-white">
+        <div className="mx-auto flex max-w-6xl items-center gap-3.5 px-4 py-4 sm:px-6">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/15">
+            <HardHat className="h-6 w-6 text-amber-300" aria-hidden="true" />
           </div>
           <div className="flex-1">
-            <h1 className="text-2xl font-bold sm:text-3xl">DotaciónPro</h1>
-            <p className="text-sm text-blue-100 sm:text-base">{config.nombreEmpresa}</p>
+            <h1 className="text-xl font-bold tracking-tight sm:text-2xl">
+              Dotación<span className="text-amber-300">Pro</span>
+            </h1>
+            <p className="text-sm text-slate-400">{config.nombreEmpresa}</p>
           </div>
           {acceso.claveHash !== '' && (
             <button
               type="button"
               onClick={() => setDesbloqueado(false)}
-              className="inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2 font-semibold text-white transition hover:bg-white/25"
+              className="inline-flex items-center gap-2 rounded-lg bg-white/10 px-3.5 py-2 text-sm font-semibold text-white ring-1 ring-white/15 transition hover:bg-white/20"
               title="Bloquear la app (pedirá tu clave para volver a entrar)"
             >
-              <Lock className="h-5 w-5" aria-hidden="true" />
+              <Lock className="h-4 w-4" aria-hidden="true" />
               <span className="hidden sm:inline">Bloquear</span>
             </button>
           )}
@@ -154,7 +156,11 @@ export default function App() {
       </header>
 
       {/* Navegación */}
-      <nav className="border-b border-slate-200 bg-white shadow-sm" aria-label="Secciones de la aplicación">
+      <nav
+        className="sticky top-0 z-30 border-b bg-white/90 backdrop-blur"
+        style={{ borderColor: 'var(--linea)' }}
+        aria-label="Secciones de la aplicación"
+      >
         <div className="mx-auto max-w-6xl overflow-x-auto whitespace-nowrap px-2 sm:px-4">
           {PESTANAS.map(({ id, etiqueta, Icono }) => {
             const activa = pestana === id;
@@ -164,10 +170,10 @@ export default function App() {
                 type="button"
                 onClick={() => setPestana(id)}
                 aria-current={activa ? 'page' : undefined}
-                className={`inline-flex items-center gap-2 border-b-4 px-4 py-3 font-semibold transition ${
+                className={`inline-flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-semibold transition ${
                   activa
-                    ? 'border-blue-700 bg-blue-50 text-blue-700'
-                    : 'border-transparent text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                    ? 'border-[#14181f] text-[#14181f]'
+                    : 'border-transparent text-slate-500 hover:text-slate-900'
                 }`}
               >
                 <Icono className="h-5 w-5" aria-hidden="true" />

@@ -165,7 +165,7 @@ export function Configuracion({
       {/* 0. Acceso con clave */}
       <section className="tarjeta space-y-4">
         <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
-          <Lock className="h-6 w-6 text-blue-700" aria-hidden="true" />
+          <Lock className="h-6 w-6 text-slate-700" aria-hidden="true" />
           Acceso con clave (solo tú)
         </h3>
         {acceso.claveHash === '' ? (
@@ -230,7 +230,7 @@ export function Configuracion({
       {/* 1. Datos de la empresa */}
       <section className="tarjeta space-y-4">
         <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
-          <Building2 className="h-6 w-6 text-blue-700" aria-hidden="true" />
+          <Building2 className="h-6 w-6 text-slate-700" aria-hidden="true" />
           Datos de tu empresa
         </h3>
         <p className="text-slate-600">Estos datos salen en cada correo, WhatsApp y PDF de cotización.</p>
@@ -321,7 +321,7 @@ export function Configuracion({
       {/* 2. Descuentos */}
       <section className="tarjeta space-y-4">
         <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
-          <BadgePercent className="h-6 w-6 text-blue-700" aria-hidden="true" />
+          <BadgePercent className="h-6 w-6 text-slate-700" aria-hidden="true" />
           Mensaje de descuentos
         </h3>
         <div>
@@ -341,7 +341,7 @@ export function Configuracion({
       {/* 2.5 Plantillas personalizadas */}
       <section className="tarjeta space-y-4">
         <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
-          <FileText className="h-6 w-6 text-blue-700" aria-hidden="true" />
+          <FileText className="h-6 w-6 text-slate-700" aria-hidden="true" />
           Plantillas de mensajes (opcional)
         </h3>
         <p className="text-slate-600">
@@ -387,7 +387,7 @@ export function Configuracion({
       {/* 3. Catálogo */}
       <section className="tarjeta space-y-4">
         <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
-          <Package className="h-6 w-6 text-blue-700" aria-hidden="true" />
+          <Package className="h-6 w-6 text-slate-700" aria-hidden="true" />
           Catálogo de productos
         </h3>
         <p className="text-slate-600">
@@ -471,7 +471,7 @@ export function Configuracion({
       {/* 4. Seguimiento */}
       <section className="tarjeta space-y-4">
         <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
-          <Bell className="h-6 w-6 text-blue-700" aria-hidden="true" />
+          <Bell className="h-6 w-6 text-slate-700" aria-hidden="true" />
           Seguimiento
         </h3>
         <div>
@@ -499,7 +499,7 @@ export function Configuracion({
       {/* 5. Google Maps */}
       <section className="tarjeta space-y-4">
         <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
-          <MapPinned className="h-6 w-6 text-blue-700" aria-hidden="true" />
+          <MapPinned className="h-6 w-6 text-slate-700" aria-hidden="true" />
           Búsqueda con Google Maps (opcional)
         </h3>
         <div>
@@ -555,7 +555,7 @@ export function Configuracion({
       {/* 6. Brevo */}
       <section className="tarjeta space-y-4">
         <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
-          <Zap className="h-6 w-6 text-blue-700" aria-hidden="true" />
+          <Zap className="h-6 w-6 text-slate-700" aria-hidden="true" />
           Envío automático de correos con Brevo (opcional)
         </h3>
         <p className="text-slate-600">
@@ -622,7 +622,7 @@ export function Configuracion({
       {/* 7. Mis datos */}
       <section className="tarjeta space-y-4">
         <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
-          <Database className="h-6 w-6 text-blue-700" aria-hidden="true" />
+          <Database className="h-6 w-6 text-slate-700" aria-hidden="true" />
           Mis datos
         </h3>
         <div className="flex flex-wrap gap-2">

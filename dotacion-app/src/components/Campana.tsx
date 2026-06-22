@@ -155,7 +155,7 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
             </h2>
             <div className="mt-3 h-3 w-full overflow-hidden rounded-full bg-slate-200">
               <div
-                className="h-full rounded-full bg-blue-600 transition-all"
+                className="h-full rounded-full bg-[#14181f] transition-all"
                 style={{ width: `${actual ? progreso : 100}%` }}
               />
             </div>
@@ -168,7 +168,7 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
         {masivo ? (
           /* Envío masivo en curso */
           <div className="flex flex-col items-center gap-4 px-6 py-12 text-center">
-            <Loader2 className="h-14 w-14 animate-spin text-blue-700" aria-hidden="true" />
+            <Loader2 className="h-14 w-14 animate-spin text-slate-700" aria-hidden="true" />
             <h3 className="text-2xl font-bold text-slate-800">Enviando correos…</h3>
             <p className="text-lg text-slate-600">
               {masivo.hecho} de {masivo.total}
@@ -232,7 +232,7 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
                       onClick={() => setSubPestana(id)}
                       className={`rounded-t-xl px-5 py-2.5 font-semibold transition ${
                         subPestana === id
-                          ? 'border border-b-0 border-slate-200 bg-white text-blue-700'
+                          ? 'border border-b-0 border-slate-200 bg-white text-[#14181f]'
                           : 'bg-slate-100 text-slate-500 hover:text-slate-800'
                       }`}
                     >

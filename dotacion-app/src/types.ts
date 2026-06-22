@@ -12,13 +12,13 @@ export const ETIQUETA_ESTADO: Record<EstadoEmpresa, string> = {
   rechazado: 'Rechazado',
 };
 
-/** Clases Tailwind para la insignia de cada estado. */
+/** Clases Tailwind para la insignia de cada estado (paleta sobria). */
 export const COLOR_ESTADO: Record<EstadoEmpresa, string> = {
-  pendiente: 'border-amber-300 bg-amber-100 text-amber-800',
-  enviado: 'border-blue-300 bg-blue-100 text-blue-800',
-  respondio: 'border-emerald-300 bg-emerald-100 text-emerald-800',
-  cliente: 'border-green-400 bg-green-200 text-green-900',
-  rechazado: 'border-rose-300 bg-rose-100 text-rose-700',
+  pendiente: 'border-slate-200 bg-slate-100 text-slate-600',
+  enviado: 'border-sky-200 bg-sky-50 text-sky-700',
+  respondio: 'border-emerald-200 bg-emerald-50 text-emerald-700',
+  cliente: 'border-emerald-300 bg-emerald-600 text-white',
+  rechazado: 'border-rose-200 bg-rose-50 text-rose-600',
 };
 
 export type FuenteEmpresa = 'manual' | 'excel' | 'maps';
@@ -138,11 +138,11 @@ export const ETIQUETA_ESTADO_PEDIDO: Record<EstadoPedido, string> = {
 };
 
 export const COLOR_ESTADO_PEDIDO: Record<EstadoPedido, string> = {
-  cotizado: 'border-slate-300 bg-slate-100 text-slate-700',
-  confirmado: 'border-blue-300 bg-blue-100 text-blue-800',
-  entregado: 'border-amber-300 bg-amber-100 text-amber-800',
-  pagado: 'border-green-400 bg-green-200 text-green-900',
-  anulado: 'border-rose-300 bg-rose-100 text-rose-700',
+  cotizado: 'border-slate-200 bg-slate-100 text-slate-600',
+  confirmado: 'border-sky-200 bg-sky-50 text-sky-700',
+  entregado: 'border-amber-200 bg-amber-50 text-amber-700',
+  pagado: 'border-emerald-300 bg-emerald-600 text-white',
+  anulado: 'border-rose-200 bg-rose-50 text-rose-600',
 };
 
 /** Una línea de un pedido: producto, cantidad y precio unitario en COP. */

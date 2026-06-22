@@ -24,23 +24,25 @@ export function Login({ acceso, nombreEmpresa, onDesbloquear }: Props) {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-800 to-blue-600 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-[#14181f] p-4">
       <form
         onSubmit={entrar}
-        className="w-full max-w-sm space-y-5 rounded-3xl bg-white p-7 shadow-2xl"
+        className="w-full max-w-sm space-y-5 rounded-3xl bg-white p-8 shadow-2xl"
         aria-label="Iniciar sesión"
       >
         <div className="flex flex-col items-center text-center">
-          <span className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-700 text-white">
-            <HardHat className="h-9 w-9" aria-hidden="true" />
+          <span className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-[#14181f]">
+            <HardHat className="h-9 w-9 text-amber-300" aria-hidden="true" />
           </span>
-          <h1 className="mt-3 text-2xl font-bold text-slate-800">DotaciónPro</h1>
+          <h1 className="mt-3 text-2xl font-bold tracking-tight text-slate-900">
+            Dotación<span className="text-amber-500">Pro</span>
+          </h1>
           <p className="text-slate-500">{nombreEmpresa}</p>
         </div>
 
         <div>
           <label htmlFor="login-clave" className="etiqueta flex items-center gap-2">
-            <Lock className="h-5 w-5 text-blue-700" aria-hidden="true" />
+            <Lock className="h-4 w-4 text-slate-500" aria-hidden="true" />
             Ingresa tu clave
           </label>
           <input

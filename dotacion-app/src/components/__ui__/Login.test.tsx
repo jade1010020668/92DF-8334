@@ -18,7 +18,7 @@ function pestana(nombre: RegExp) {
 describe('Acceso con clave', () => {
   it('sin clave configurada, la app abre directo (sin login)', () => {
     render(<App />);
-    expect(screen.getByRole('heading', { name: /DotaciónPro/i, level: 1 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Dotación\s*Pro/i, level: 1 })).toBeInTheDocument();
     // No hay pantalla de "Ingresa tu clave".
     expect(screen.queryByLabelText(/Ingresa tu clave/i)).not.toBeInTheDocument();
   });
@@ -48,7 +48,7 @@ describe('Acceso con clave', () => {
     // Clave correcta: entra a la app.
     await user.type(screen.getByLabelText(/Ingresa tu clave/i), '2468');
     await user.click(screen.getByRole('button', { name: /Entrar/i }));
-    expect(screen.getByRole('heading', { name: /DotaciónPro/i, level: 1 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Dotación\s*Pro/i, level: 1 })).toBeInTheDocument();
   });
 
   it('si ya hay clave y la sesión no está desbloqueada, arranca pidiendo la clave', () => {

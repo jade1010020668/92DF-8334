@@ -58,41 +58,42 @@ export function Dashboard({
   const diasSinRespaldo = diasDesdeUltimaExportacion();
   const sugerirRespaldo = empresas.length >= 10 && (diasSinRespaldo === null || diasSinRespaldo >= 7);
 
+  // Paleta sobria: tarjetas neutras; solo "Clientes" lleva el acento esmeralda.
   const tarjetas: TarjetaKpi[] = [
     {
       etiqueta: 'Empresas totales',
       valor: kpis.total,
       Icono: Building2,
-      acento: 'text-blue-700',
-      fondoIcono: 'bg-blue-100 text-blue-700',
+      acento: 'text-slate-900',
+      fondoIcono: 'bg-slate-100 text-slate-700',
     },
     {
       etiqueta: 'Pendientes',
       valor: kpis.pendientes,
       Icono: Clock,
-      acento: 'text-amber-600',
-      fondoIcono: 'bg-amber-100 text-amber-600',
+      acento: 'text-slate-900',
+      fondoIcono: 'bg-slate-100 text-slate-700',
     },
     {
       etiqueta: 'Cotizaciones enviadas',
       valor: kpis.enviadas,
       Icono: Send,
-      acento: 'text-indigo-600',
-      fondoIcono: 'bg-indigo-100 text-indigo-600',
+      acento: 'text-slate-900',
+      fondoIcono: 'bg-slate-100 text-slate-700',
     },
     {
       etiqueta: 'Respondieron',
       valor: kpis.respondieron + kpis.clientes,
       Icono: Reply,
-      acento: 'text-emerald-600',
-      fondoIcono: 'bg-emerald-100 text-emerald-600',
+      acento: 'text-slate-900',
+      fondoIcono: 'bg-slate-100 text-slate-700',
     },
     {
       etiqueta: 'Clientes',
       valor: kpis.clientes,
       Icono: Trophy,
-      acento: 'text-green-700',
-      fondoIcono: 'bg-green-100 text-green-700',
+      acento: 'text-emerald-700',
+      fondoIcono: 'bg-emerald-50 text-emerald-700',
     },
   ];
 
@@ -128,7 +129,7 @@ export function Dashboard({
       {kpis.total === 0 && (
         <div className="tarjeta space-y-4">
           <h2 className="flex items-center gap-2 text-xl font-bold text-slate-800">
-            <Rocket className="h-6 w-6 text-blue-700" aria-hidden="true" />
+            <Rocket className="h-6 w-6 text-slate-700" aria-hidden="true" />
             Primeros pasos
           </h2>
           <ol className="list-inside list-decimal space-y-2 text-lg text-slate-700">
@@ -161,9 +162,9 @@ export function Dashboard({
 
       {/* Recordatorio de copia de seguridad */}
       {sugerirRespaldo && (
-        <div className="flex flex-col items-start gap-3 rounded-2xl border border-blue-200 bg-blue-50 p-5 sm:flex-row sm:items-center">
-          <Download className="h-7 w-7 shrink-0 text-blue-700" aria-hidden="true" />
-          <p className="flex-1 text-lg text-blue-900">
+        <div className="flex flex-col items-start gap-3 rounded-2xl border bg-slate-50 p-5 sm:flex-row sm:items-center">
+          <Download className="h-7 w-7 shrink-0 text-slate-700" aria-hidden="true" />
+          <p className="flex-1 text-lg text-slate-700">
             {diasSinRespaldo === null
               ? 'Aún no has guardado una copia de seguridad de tu lista.'
               : `Llevas ${diasSinRespaldo} días sin guardar copia de seguridad.`}{' '}
@@ -216,7 +217,7 @@ export function Dashboard({
       {/* Seguimientos sugeridos */}
       <section className="tarjeta">
         <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-slate-800">
-          <Bell className="h-6 w-6 text-blue-700" aria-hidden="true" />
+          <Bell className="h-6 w-6 text-slate-700" aria-hidden="true" />
           Seguimientos sugeridos
         </h2>
         {seguimientos.length === 0 ? (

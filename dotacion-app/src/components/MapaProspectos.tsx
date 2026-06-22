@@ -24,7 +24,7 @@ interface Props {
   textoBotonPin?: string;
 }
 
-const COLOR_PIN: Record<number, string> = { 1: '#059669', 2: '#1d4ed8', 3: '#64748b' };
+const COLOR_PIN: Record<number, string> = { 1: '#047857', 2: '#334155', 3: '#94a3b8' };
 
 function iconoCirculo(color: string, radio = 11): L.DivIcon {
   return L.divIcon({
@@ -89,7 +89,7 @@ export function MapaProspectos({
     const puntos: L.LatLngExpression[] = [];
 
     if (negocio) {
-      L.marker([negocio.lat, negocio.lon], { icon: iconoCirculo('#f97316', 13), zIndexOffset: 1000 })
+      L.marker([negocio.lat, negocio.lon], { icon: iconoCirculo('#d97706', 13), zIndexOffset: 1000 })
         .bindPopup(`<strong>${escapar(negocio.nombre)}</strong><br/>📍 Tu negocio`)
         .addTo(capa);
       puntos.push([negocio.lat, negocio.lon]);

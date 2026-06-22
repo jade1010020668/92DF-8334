@@ -187,7 +187,7 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
       <div className="tarjeta space-y-4">
         <div>
           <h2 className="flex items-center gap-2 text-2xl font-bold text-slate-800">
-            <MapPinned className="h-7 w-7 text-blue-700" aria-hidden="true" />
+            <MapPinned className="h-7 w-7 text-slate-700" aria-hidden="true" />
             Buscar empresas en el mapa
           </h2>
           <p className="mt-1 text-lg text-slate-600">
@@ -204,7 +204,7 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
             }}
             className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 font-semibold transition ${
               modo === 'cerca'
-                ? 'border-blue-700 bg-blue-50 text-blue-700'
+                ? 'border-[#14181f] bg-slate-100 text-[#14181f]'
                 : 'border-slate-300 bg-white text-slate-600 hover:bg-slate-50'
             }`}
           >
@@ -219,7 +219,7 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
             }}
             className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 font-semibold transition ${
               modo === 'palabra'
-                ? 'border-blue-700 bg-blue-50 text-blue-700'
+                ? 'border-[#14181f] bg-slate-100 text-[#14181f]'
                 : 'border-slate-300 bg-white text-slate-600 hover:bg-slate-50'
             }`}
           >
@@ -419,7 +419,7 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
                 <Suspense
                   fallback={
                     <div className="flex h-96 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50">
-                      <Loader2 className="h-8 w-8 animate-spin text-blue-700" aria-hidden="true" />
+                      <Loader2 className="h-8 w-8 animate-spin text-slate-700" aria-hidden="true" />
                     </div>
                   }
                 >
@@ -431,7 +431,7 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
                   />
                 </Suspense>
                 <p className="text-sm text-slate-500">
-                  🟢 prioridad alta · 🔵 media · 🟠 tu negocio. Toca un punto para ver la empresa y
+                  🟢 prioridad alta · ⚫ media · 🟠 tu negocio. Toca un punto para ver la empresa y
                   agregarla.
                 </p>
               </div>
@@ -443,7 +443,7 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
                   <label className="flex cursor-pointer items-start gap-3 py-3">
                     <input
                       type="checkbox"
-                      className="mt-1.5 h-5 w-5 shrink-0 rounded border-slate-300 text-blue-700 focus:ring-blue-400"
+                      className="mt-1.5 h-5 w-5 shrink-0 rounded border-slate-300 text-[#14181f] focus:ring-slate-400"
                       checked={seleccion.has(i)}
                       onChange={() => alternar(i)}
                     />

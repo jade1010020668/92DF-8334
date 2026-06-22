@@ -24,15 +24,15 @@ export function Estadisticas({ empresas, pedidos = [] }: Props) {
   const ventas = resumenPedidos(pedidos);
 
   const embudo: PasoEmbudo[] = [
-    { etiqueta: 'Empresas en total', valor: kpis.total, Icono: Building2, color: 'text-blue-700' },
-    { etiqueta: 'Contactadas', valor: kpis.enviadas, Icono: Send, color: 'text-indigo-600' },
+    { etiqueta: 'Empresas en total', valor: kpis.total, Icono: Building2, color: 'text-slate-900' },
+    { etiqueta: 'Contactadas', valor: kpis.enviadas, Icono: Send, color: 'text-slate-900' },
     {
       etiqueta: 'Respondieron',
       valor: kpis.respondieron + kpis.clientes,
       Icono: Reply,
-      color: 'text-emerald-600',
+      color: 'text-slate-900',
     },
-    { etiqueta: 'Clientes', valor: kpis.clientes, Icono: Trophy, color: 'text-green-700' },
+    { etiqueta: 'Clientes', valor: kpis.clientes, Icono: Trophy, color: 'text-emerald-700' },
   ];
 
   return (
@@ -78,12 +78,12 @@ export function Estadisticas({ empresas, pedidos = [] }: Props) {
       {/* Tasas */}
       <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
         <div className="tarjeta text-center">
-          <p className="text-5xl font-bold text-emerald-600">{kpis.tasaRespuesta}%</p>
+          <p className="text-5xl font-bold text-slate-900">{kpis.tasaRespuesta}%</p>
           <p className="mt-2 text-xl font-semibold text-slate-700">Tasa de respuesta</p>
           <p className="text-slate-500">De cada 100 empresas contactadas, cuántas te contestan.</p>
         </div>
         <div className="tarjeta text-center">
-          <p className="text-5xl font-bold text-blue-700">{kpis.tasaConversion}%</p>
+          <p className="text-5xl font-bold text-emerald-700">{kpis.tasaConversion}%</p>
           <p className="mt-2 text-xl font-semibold text-slate-700">Tasa de conversión</p>
           <p className="text-slate-500">De cada 100 empresas contactadas, cuántas se vuelven clientes.</p>
         </div>

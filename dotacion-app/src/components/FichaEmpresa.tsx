@@ -165,7 +165,7 @@ export function FichaEmpresa({
           {/* Agregar nota */}
           <section>
             <h3 className="mb-2 flex items-center gap-2 font-bold text-slate-700">
-              <NotebookPen className="h-5 w-5 text-blue-700" aria-hidden="true" />
+              <NotebookPen className="h-5 w-5 text-slate-700" aria-hidden="true" />
               Anotar en el historial
             </h3>
             <div className="flex gap-2">
