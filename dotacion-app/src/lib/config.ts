@@ -5,6 +5,9 @@ export const CLAVE_CONFIG = 'dotacionpro.config';
 export const CLAVE_PEDIDOS = 'dotacionpro.pedidos';
 export const CLAVE_CONSECUTIVO = 'dotacionpro.consecutivoCotizacion';
 export const CLAVE_ULTIMA_EXPORTACION = 'dotacionpro.ultimaExportacion';
+export const CLAVE_ACCESO = 'dotacionpro.acceso';
+/** Bandera de sesión desbloqueada en este equipo. */
+export const CLAVE_DESBLOQUEADO = 'dotacionpro.desbloqueado';
 
 /** Días desde la última copia en Excel; null si nunca se ha exportado. */
 export function diasDesdeUltimaExportacion(ahora: Date = new Date()): number | null {

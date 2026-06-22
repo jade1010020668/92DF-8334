@@ -7,6 +7,7 @@ import {
   HardHat,
   Home,
   Info,
+  Lock,
   MapPinned,
   Settings,
   ShoppingCart,
@@ -25,6 +26,9 @@ import { BuscarMaps } from './components/BuscarMaps';
 import { Estadisticas } from './components/Estadisticas';
 import { Configuracion } from './components/Configuracion';
 import { Pedidos } from './components/Pedidos';
+import { Login } from './components/Login';
+import { CLAVE_ACCESO, CLAVE_DESBLOQUEADO } from './lib/config';
+import { ACCESO_DEFAULT, combinarAcceso, type Acceso } from './lib/acceso';
 
 export type Pestana = 'inicio' | 'empresas' | 'buscar' | 'pedidos' | 'estadisticas' | 'configuracion';
 
@@ -80,6 +84,15 @@ export default function App() {
     combinarConfig(guardado as Partial<ConfigApp> | null),
   );
 
+  // Acceso con clave (opcional). Si hay clave puesta, la app pide ingresar.
+  const [acceso, setAcceso] = useLocalStorageState<Acceso>(CLAVE_ACCESO, ACCESO_DEFAULT, combinarAcceso);
+  const [desbloqueado, setDesbloqueado] = useLocalStorageState<boolean>(
+    CLAVE_DESBLOQUEADO,
+    false,
+    (g) => g === true,
+  );
+  const requiereClave = acceso.claveHash !== '' && !(acceso.recordar && desbloqueado);
+
   const mostrarToast: MostrarToast = useCallback((mensaje, tipo = 'info') => {
     setToast({ mensaje, tipo });
   }, []);
@@ -103,6 +116,17 @@ export default function App() {
 
   const IconoToast = toast ? ICONO_TOAST[toast.tipo] : null;
 
+  // Si hay clave y no está desbloqueada, mostramos solo la pantalla de acceso.
+  if (requiereClave) {
+    return (
+      <Login
+        acceso={acceso}
+        nombreEmpresa={config.nombreEmpresa}
+        onDesbloquear={() => setDesbloqueado(true)}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen pb-12">
       {/* Encabezado */}
@@ -111,10 +135,21 @@ export default function App() {
           <div className="rounded-2xl bg-white/15 p-3">
             <HardHat className="h-9 w-9" aria-hidden="true" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-2xl font-bold sm:text-3xl">DotaciónPro</h1>
             <p className="text-sm text-blue-100 sm:text-base">{config.nombreEmpresa}</p>
           </div>
+          {acceso.claveHash !== '' && (
+            <button
+              type="button"
+              onClick={() => setDesbloqueado(false)}
+              className="inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2 font-semibold text-white transition hover:bg-white/25"
+              title="Bloquear la app (pedirá tu clave para volver a entrar)"
+            >
+              <Lock className="h-5 w-5" aria-hidden="true" />
+              <span className="hidden sm:inline">Bloquear</span>
+            </button>
+          )}
         </div>
       </header>
 
@@ -202,6 +237,9 @@ export default function App() {
             borrarTodo={borrarTodo}
             reemplazarTodo={reemplazarTodo}
             reemplazarPedidos={reemplazarPedidos}
+            acceso={acceso}
+            setAcceso={setAcceso}
+            desbloquear={() => setDesbloqueado(true)}
             mostrarToast={mostrarToast}
           />
         )}

@@ -10,6 +10,7 @@ import {
   EyeOff,
   FileDown,
   FileText,
+  Lock,
   MapPinned,
   Package,
   Plus,
@@ -21,6 +22,7 @@ import {
 import type { ConfigApp, Empresa, Pedido, ProductoCatalogo } from '../types';
 import { exportarExcel } from '../lib/excel';
 import { descargarRespaldo, parsearRespaldo } from '../lib/respaldo';
+import { hashClave, type Acceso } from '../lib/acceso';
 import type { MostrarToast } from '../App';
 
 interface Props {
@@ -31,6 +33,10 @@ interface Props {
   borrarTodo: () => void;
   reemplazarTodo: (nuevas: Empresa[]) => void;
   reemplazarPedidos: (nuevos: Pedido[]) => void;
+  acceso: Acceso;
+  setAcceso: Dispatch<SetStateAction<Acceso>>;
+  /** Marca la sesión como activa (al crear la clave no debe sacarte). */
+  desbloquear: () => void;
   mostrarToast: MostrarToast;
 }
 
@@ -42,12 +48,39 @@ export function Configuracion({
   borrarTodo,
   reemplazarTodo,
   reemplazarPedidos,
+  acceso,
+  setAcceso,
+  desbloquear,
   mostrarToast,
 }: Props) {
   const [borrador, setBorrador] = useState<ConfigApp>(config);
   const [mostrarClave, setMostrarClave] = useState(false);
   const [mostrarClaveBrevo, setMostrarClaveBrevo] = useState(false);
+  const [claveNueva, setClaveNueva] = useState('');
+  const [claveConfirma, setClaveConfirma] = useState('');
   const inputRespaldo = useRef<HTMLInputElement>(null);
+
+  const guardarClave = () => {
+    if (claveNueva.length < 4) {
+      mostrarToast('La clave debe tener al menos 4 caracteres.', 'error');
+      return;
+    }
+    if (claveNueva !== claveConfirma) {
+      mostrarToast('Las dos claves no coinciden.', 'error');
+      return;
+    }
+    setAcceso({ claveHash: hashClave(claveNueva), recordar: true });
+    desbloquear(); // no te saca: quedas dentro con la sesión activa.
+    setClaveNueva('');
+    setClaveConfirma('');
+    mostrarToast('Clave activada. Desde ahora la app pedirá tu clave para abrirse.', 'exito');
+  };
+
+  const quitarClave = () => {
+    if (!window.confirm('¿Quitar la clave? Cualquiera con el enlace podrá abrir la app.')) return;
+    setAcceso({ claveHash: '', recordar: true });
+    mostrarToast('Clave eliminada.', 'info');
+  };
 
   const restaurarRespaldo = async (evento: React.ChangeEvent<HTMLInputElement>) => {
     const input = evento.target;
@@ -129,6 +162,71 @@ export function Configuracion({
         </button>
       </div>
 
+      {/* 0. Acceso con clave */}
+      <section className="tarjeta space-y-4">
+        <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
+          <Lock className="h-6 w-6 text-blue-700" aria-hidden="true" />
+          Acceso con clave (solo tú)
+        </h3>
+        {acceso.claveHash === '' ? (
+          <>
+            <p className="text-slate-600">
+              Pon una clave para que solo tú puedas abrir la app. Una vez dentro, la sesión queda
+              activa en este equipo; puedes bloquearla cuando quieras con el botón «Bloquear» de
+              arriba.
+            </p>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div>
+                <label htmlFor="clave-nueva" className="etiqueta">
+                  Crea tu clave (mín. 4)
+                </label>
+                <input
+                  id="clave-nueva"
+                  type="password"
+                  inputMode="numeric"
+                  className="campo"
+                  autoComplete="new-password"
+                  value={claveNueva}
+                  onChange={(e) => setClaveNueva(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="clave-confirma" className="etiqueta">
+                  Repite la clave
+                </label>
+                <input
+                  id="clave-confirma"
+                  type="password"
+                  inputMode="numeric"
+                  className="campo"
+                  autoComplete="new-password"
+                  value={claveConfirma}
+                  onChange={(e) => setClaveConfirma(e.target.value)}
+                />
+              </div>
+            </div>
+            <button type="button" className="btn-primario" onClick={guardarClave}>
+              <Lock className="h-5 w-5" aria-hidden="true" />
+              Activar clave
+            </button>
+          </>
+        ) : (
+          <>
+            <p className="flex items-center gap-2 font-semibold text-emerald-700">
+              <Lock className="h-5 w-5" aria-hidden="true" />
+              La app está protegida con tu clave.
+            </p>
+            <p className="text-slate-600">
+              Para cambiarla, quítala y crea una nueva. Si la olvidas, no se puede recuperar (es
+              privada y local), pero puedes quitarla aquí mientras la sesión esté abierta.
+            </p>
+            <button type="button" className="btn-peligro" onClick={quitarClave}>
+              Quitar la clave
+            </button>
+          </>
+        )}
+      </section>
+
       {/* 1. Datos de la empresa */}
       <section className="tarjeta space-y-4">
         <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
@@ -136,6 +234,15 @@ export function Configuracion({
           Datos de tu empresa
         </h3>
         <p className="text-slate-600">Estos datos salen en cada correo, WhatsApp y PDF de cotización.</p>
+        <div className="rounded-2xl border border-blue-200 bg-blue-50 p-4 text-blue-900">
+          <p className="font-semibold">📧 ¿Cómo se envían los correos?</p>
+          <p className="mt-1">
+            Pon abajo el <strong>correo desde el que vendes</strong> (tu Gmail). Cuando envíes una
+            cotización, la app abre Gmail con todo escrito y tú solo das «Enviar» — usa tu sesión de
+            Gmail de siempre, sin claves ni configuraciones. Si quieres que salgan solos (sin abrir
+            Gmail), más abajo está la opción de Brevo.
+          </p>
+        </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="conf-nombre" className="etiqueta">
