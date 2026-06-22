@@ -65,7 +65,7 @@ export async function enviarCorreoBrevo(empresa: Empresa, config: ConfigApp): Pr
   // sale sin adjunto en lugar de no salir.
   let adjunto: AdjuntoBrevo | undefined;
   try {
-    const pdf = pdfCotizacionBase64(empresa, config);
+    const pdf = await pdfCotizacionBase64(empresa, config);
     adjunto = { name: pdf.nombre, content: pdf.contenidoBase64 };
   } catch {
     adjunto = undefined;

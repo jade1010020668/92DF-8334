@@ -1,7 +1,9 @@
-import * as XLSX from 'xlsx';
 import type { Empresa, EstadoEmpresa, NuevaEmpresa } from '../types';
 import { ESTADOS, ETIQUETA_ESTADO } from '../types';
 import { registrarExportacion } from './config';
+
+// xlsx es pesado: se carga solo cuando de verdad se importa/exporta un Excel.
+const cargarXLSX = () => import('xlsx');
 
 /** Quita tildes, espacios y mayúsculas para comparar encabezados de Excel. */
 export function normalizarEncabezado(texto: string): string {
@@ -98,6 +100,7 @@ export function filasAEmpresas(filas: Record<string, unknown>[]): NuevaEmpresa[]
 
 /** Lee el primer Excel/CSV del archivo subido y devuelve las empresas. */
 export async function importarExcel(archivo: File): Promise<NuevaEmpresa[]> {
+  const XLSX = await cargarXLSX();
   const datos = await archivo.arrayBuffer();
   const libro = XLSX.read(datos);
   const primeraHoja = libro.Sheets[libro.SheetNames[0]];
@@ -161,7 +164,8 @@ function autoAncho(filas: (string | number)[][]): { wch: number }[] {
 }
 
 /** Descarga toda la lista como Excel. */
-export function exportarExcel(empresas: Empresa[]): void {
+export async function exportarExcel(empresas: Empresa[]): Promise<void> {
+  const XLSX = await cargarXLSX();
   const filas = empresasAFilas(empresas);
   const hoja = XLSX.utils.aoa_to_sheet(filas);
   hoja['!cols'] = autoAncho(filas);
@@ -173,7 +177,8 @@ export function exportarExcel(empresas: Empresa[]): void {
 }
 
 /** Descarga una plantilla vacía con las columnas correctas y una fila de ejemplo. */
-export function descargarPlantilla(): void {
+export async function descargarPlantilla(): Promise<void> {
+  const XLSX = await cargarXLSX();
   const filas: (string | number)[][] = [
     ['nombre', 'sector', 'email', 'telefono', 'contacto', 'direccion'],
     [

@@ -7,7 +7,11 @@ export default defineConfig({
   base: './',
   plugins: [react()],
   test: {
+    // Por defecto node (rápido, para la lógica pura). Los tests de componentes
+    // (.tsx en __ui__) corren en jsdom para tener DOM.
     environment: 'node',
-    include: ['src/**/*.test.ts'],
+    environmentMatchGlobs: [['src/**/__ui__/**', 'jsdom']],
+    setupFiles: ['./src/test/setup.ts'],
+    include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],
   },
 });

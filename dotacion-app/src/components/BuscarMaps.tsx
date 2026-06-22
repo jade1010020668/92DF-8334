@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { lazy, Suspense, useMemo, useState } from 'react';
 import { CheckCircle2, Globe, List, Loader2, Map, MapPin, MapPinned, Navigation, Plus, Search } from 'lucide-react';
 import type { ConfigApp, FuenteEmpresa, NuevaEmpresa, ResultadoMaps } from '../types';
 import {
@@ -9,7 +9,12 @@ import {
 } from '../lib/maps';
 import type { ResultadoAgregar } from '../hooks/useEmpresas';
 import type { MostrarToast } from '../App';
-import { MapaProspectos, type PinMapa } from './MapaProspectos';
+import type { PinMapa } from './MapaProspectos';
+
+// El mapa (Leaflet) es pesado: se carga solo cuando el usuario abre la vista de mapa.
+const MapaProspectos = lazy(() =>
+  import('./MapaProspectos').then((m) => ({ default: m.MapaProspectos })),
+);
 
 interface Props {
   config: ConfigApp;
@@ -411,12 +416,20 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
 
             {vista === 'mapa' && hayPines && (
               <div className="space-y-2">
-                <MapaProspectos
-                  negocio={origen ? { ...origen, nombre: config.nombreEmpresa } : undefined}
-                  pines={pines}
-                  onSeleccionar={agregarUnoPorMapa}
-                  textoBotonPin="Agregar a mi lista"
-                />
+                <Suspense
+                  fallback={
+                    <div className="flex h-96 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50">
+                      <Loader2 className="h-8 w-8 animate-spin text-blue-700" aria-hidden="true" />
+                    </div>
+                  }
+                >
+                  <MapaProspectos
+                    negocio={origen ? { ...origen, nombre: config.nombreEmpresa } : undefined}
+                    pines={pines}
+                    onSeleccionar={agregarUnoPorMapa}
+                    textoBotonPin="Agregar a mi lista"
+                  />
+                </Suspense>
                 <p className="text-sm text-slate-500">
                   🟢 prioridad alta · 🔵 media · 🟠 tu negocio. Toca un punto para ver la empresa y
                   agregarla.

@@ -1,5 +1,4 @@
-import { jsPDF } from 'jspdf';
-import autoTable from 'jspdf-autotable';
+import type { jsPDF } from 'jspdf';
 import type { ConfigApp, Empresa, Pedido } from '../types';
 import { CLAVE_CONSECUTIVO } from './config';
 import { formatearPesos } from './plantillas';
@@ -7,6 +6,12 @@ import { ivaPedido, saldoPedido, subtotalItem, subtotalPedido, totalPedido } fro
 
 const AZUL: [number, number, number] = [29, 78, 216];
 const GRIS: [number, number, number] = [100, 116, 139];
+
+// jsPDF + autotable pesan bastante: se cargan solo al generar un PDF.
+async function cargarPdf() {
+  const [{ jsPDF }, autoTable] = await Promise.all([import('jspdf'), import('jspdf-autotable')]);
+  return { jsPDF, autoTable: autoTable.default };
+}
 
 /** Número consecutivo de cotización, persistido en el navegador. */
 function siguienteNumeroCotizacion(): string {
@@ -25,10 +30,11 @@ function siguienteNumeroCotizacion(): string {
 }
 
 /** Construye el documento de cotización con los datos y catálogo configurados. */
-function crearDocumentoCotizacion(
+async function crearDocumentoCotizacion(
   empresa: Empresa,
   config: ConfigApp,
-): { doc: jsPDF; nombreArchivo: string } {
+): Promise<{ doc: jsPDF; nombreArchivo: string }> {
+  const { jsPDF, autoTable } = await cargarPdf();
   const doc = new jsPDF();
   const anchoPagina = doc.internal.pageSize.getWidth();
   const margen = 14;
@@ -150,17 +156,17 @@ function crearDocumentoCotizacion(
  * Genera y descarga el PDF de cotización para una empresa. No depende de
  * ningún archivo externo.
  */
-export function generarPdfCotizacion(empresa: Empresa, config: ConfigApp): void {
-  const { doc, nombreArchivo } = crearDocumentoCotizacion(empresa, config);
+export async function generarPdfCotizacion(empresa: Empresa, config: ConfigApp): Promise<void> {
+  const { doc, nombreArchivo } = await crearDocumentoCotizacion(empresa, config);
   doc.save(nombreArchivo);
 }
 
 /** El mismo PDF en base64, para adjuntarlo en los envíos por la API de Brevo. */
-export function pdfCotizacionBase64(
+export async function pdfCotizacionBase64(
   empresa: Empresa,
   config: ConfigApp,
-): { nombre: string; contenidoBase64: string } {
-  const { doc, nombreArchivo } = crearDocumentoCotizacion(empresa, config);
+): Promise<{ nombre: string; contenidoBase64: string }> {
+  const { doc, nombreArchivo } = await crearDocumentoCotizacion(empresa, config);
   const dataUri = doc.output('datauristring');
   return { nombre: nombreArchivo, contenidoBase64: dataUri.slice(dataUri.indexOf(',') + 1) };
 }
@@ -174,7 +180,8 @@ function fechaLarga(iso?: string): string {
 }
 
 /** Genera y descarga el PDF de un pedido / orden de venta. */
-export function generarPdfPedido(pedido: Pedido, config: ConfigApp): void {
+export async function generarPdfPedido(pedido: Pedido, config: ConfigApp): Promise<void> {
+  const { jsPDF, autoTable } = await cargarPdf();
   const doc = new jsPDF();
   const ancho = doc.internal.pageSize.getWidth();
   const margen = 14;
