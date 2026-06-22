@@ -4,7 +4,9 @@ import {
   Bell,
   Building2,
   Clock,
+  Database,
   Download,
+  Loader2,
   Mail,
   MessageCircle,
   Reply,
@@ -30,8 +32,9 @@ interface Props {
   actualizarEmpresa: (id: string, cambios: Partial<Empresa>) => void;
   onAbrirCampana: () => void;
   onIrAConfiguracion: () => void;
-  onIrAEmpresas: () => void;
   onIrABuscar: () => void;
+  onCargarBase: () => void;
+  cargandoBase: boolean;
 }
 
 interface TarjetaKpi {
@@ -48,8 +51,9 @@ export function Dashboard({
   actualizarEmpresa,
   onAbrirCampana,
   onIrAConfiguracion,
-  onIrAEmpresas,
   onIrABuscar,
+  onCargarBase,
+  cargandoBase,
 }: Props) {
   const kpis = calcularKpis(empresas);
   const seguimientos = seguimientosPendientes(empresas, config.diasSeguimiento);
@@ -150,13 +154,22 @@ export function Dashboard({
             <button type="button" className="btn-primario" onClick={onIrAConfiguracion}>
               1. Ir a Configuración
             </button>
-            <button type="button" className="btn-secundario" onClick={onIrAEmpresas}>
-              2. Importar Excel
+            <button type="button" className="btn-verde" onClick={onCargarBase} disabled={cargandoBase}>
+              {cargandoBase ? (
+                <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+              ) : (
+                <Database className="h-5 w-5" aria-hidden="true" />
+              )}
+              {cargandoBase ? 'Cargando…' : '2. Cargar 3.000 empresas reales de Bogotá'}
             </button>
-            <button type="button" className="btn-verde" onClick={onIrABuscar}>
-              2. Buscar en el mapa
+            <button type="button" className="btn-secundario" onClick={onIrABuscar}>
+              o buscar en el mapa
             </button>
           </div>
+          <p className="text-sm text-slate-500">
+            La base trae empresas reales (talleres, ferreterías, fábricas, restaurantes…) cercanas a tu
+            negocio, listas para cotizarles. También puedes importar tu propio Excel desde «Empresas».
+          </p>
         </div>
       )}
 

@@ -1,9 +1,11 @@
 import { useMemo, useRef, useState } from 'react';
 import {
+  Database,
   Download,
   FileDown,
   FileSpreadsheet,
   IdCard,
+  Loader2,
   Mail,
   MapPinned,
   MessageCircle,
@@ -45,6 +47,8 @@ interface Props {
   crearPedido: (datos: NuevoPedido) => Pedido;
   mostrarToast: MostrarToast;
   onIrABuscar: () => void;
+  onCargarBase: () => void;
+  cargandoBase: boolean;
 }
 
 export function Empresas({
@@ -59,6 +63,8 @@ export function Empresas({
   crearPedido,
   mostrarToast,
   onIrABuscar,
+  onCargarBase,
+  cargandoBase,
 }: Props) {
   const [busqueda, setBusqueda] = useState('');
   const [filtroSector, setFiltroSector] = useState('todos');
@@ -316,6 +322,14 @@ export function Empresas({
             <Plus className="h-5 w-5" aria-hidden="true" />
             Agregar empresa
           </button>
+          <button type="button" className="btn-verde" onClick={onCargarBase} disabled={cargandoBase}>
+            {cargandoBase ? (
+              <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+            ) : (
+              <Database className="h-5 w-5" aria-hidden="true" />
+            )}
+            {cargandoBase ? 'Cargando…' : 'Cargar 3.000 reales'}
+          </button>
           <button type="button" className="btn-secundario" onClick={() => inputArchivo.current?.click()}>
             <Upload className="h-5 w-5" aria-hidden="true" />
             Importar Excel
@@ -348,14 +362,22 @@ export function Empresas({
       {empresas.length === 0 ? (
         <div className="tarjeta flex flex-col items-center gap-4 py-12 text-center">
           <p className="max-w-md text-xl text-slate-600">
-            Aún no tienes empresas. Impórtalas desde Excel o búscalas en el mapa.
+            Empieza con la base de 3.000 empresas reales de Bogotá, o importa tu propio Excel.
           </p>
           <div className="flex flex-wrap justify-center gap-2">
-            <button type="button" className="btn-primario" onClick={() => inputArchivo.current?.click()}>
+            <button type="button" className="btn-verde" onClick={onCargarBase} disabled={cargandoBase}>
+              {cargandoBase ? (
+                <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+              ) : (
+                <Database className="h-5 w-5" aria-hidden="true" />
+              )}
+              {cargandoBase ? 'Cargando…' : 'Cargar 3.000 empresas reales'}
+            </button>
+            <button type="button" className="btn-secundario" onClick={() => inputArchivo.current?.click()}>
               <Upload className="h-5 w-5" aria-hidden="true" />
               Importar Excel
             </button>
-            <button type="button" className="btn-verde" onClick={onIrABuscar}>
+            <button type="button" className="btn-secundario" onClick={onIrABuscar}>
               <MapPinned className="h-5 w-5" aria-hidden="true" />
               Buscar en el mapa
             </button>

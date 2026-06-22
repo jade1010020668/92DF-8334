@@ -29,6 +29,7 @@ import { Pedidos } from './components/Pedidos';
 import { Login } from './components/Login';
 import { CLAVE_ACCESO, CLAVE_DESBLOQUEADO } from './lib/config';
 import { ACCESO_DEFAULT, combinarAcceso, type Acceso } from './lib/acceso';
+import { cargarBaseInicial } from './lib/baseInicial';
 
 export type Pestana = 'inicio' | 'empresas' | 'buscar' | 'pedidos' | 'estadisticas' | 'configuracion';
 
@@ -107,6 +108,29 @@ export default function App() {
     );
     return () => registrarAvisoFalloGuardado(null);
   }, [mostrarToast]);
+
+  const [cargandoBase, setCargandoBase] = useState(false);
+  const cargarBase = useCallback(async () => {
+    if (cargandoBase) return;
+    setCargandoBase(true);
+    try {
+      const { empresas: nuevas } = await cargarBaseInicial();
+      if (nuevas.length === 0) {
+        mostrarToast('La base de datos está vacía o no se pudo leer.', 'error');
+        return;
+      }
+      const { agregadas, duplicadas } = agregarEmpresas(nuevas, 'maps');
+      mostrarToast(
+        `${agregadas} empresas reales de Bogotá agregadas a tu lista${duplicadas ? `, ${duplicadas} ya estaban` : ''}.`,
+        'exito',
+      );
+      setPestana('empresas');
+    } catch (error) {
+      mostrarToast(error instanceof Error ? error.message : 'No se pudo cargar la base.', 'error');
+    } finally {
+      setCargandoBase(false);
+    }
+  }, [cargandoBase, agregarEmpresas, mostrarToast]);
 
   useEffect(() => {
     if (!toast) return;
@@ -193,8 +217,9 @@ export default function App() {
             actualizarEmpresa={actualizarEmpresa}
             onAbrirCampana={() => setCampanaAbierta(true)}
             onIrAConfiguracion={() => setPestana('configuracion')}
-            onIrAEmpresas={() => setPestana('empresas')}
             onIrABuscar={() => setPestana('buscar')}
+            onCargarBase={cargarBase}
+            cargandoBase={cargandoBase}
           />
         )}
         {pestana === 'empresas' && (
@@ -210,6 +235,8 @@ export default function App() {
             crearPedido={crearPedido}
             mostrarToast={mostrarToast}
             onIrABuscar={() => setPestana('buscar')}
+            onCargarBase={cargarBase}
+            cargandoBase={cargandoBase}
           />
         )}
         {pestana === 'buscar' && (
