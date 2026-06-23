@@ -57,6 +57,10 @@ export function Dashboard({
 }: Props) {
   const kpis = calcularKpis(empresas);
   const seguimientos = seguimientosPendientes(empresas, config.diasSeguimiento);
+  // Solo cuentan las pendientes que se pueden contactar (WhatsApp o correo).
+  const contactablesPend = empresas.filter(
+    (e) => e.estado === 'pendiente' && (e.email.trim() !== '' || urlWhatsApp(e.telefono, 'x') !== null),
+  ).length;
   // Cambia tras exportar para recalcular el aviso de copia de seguridad.
   const [, setRefrescoRespaldo] = useState(0);
   const diasSinRespaldo = diasDesdeUltimaExportacion();
@@ -209,21 +213,28 @@ export function Dashboard({
         ))}
       </div>
 
-      {/* CTA de campaña */}
+      {/* CTA de campaña — solo cuenta las empresas que sí se pueden contactar */}
       <div className="tarjeta flex flex-col items-center gap-3 py-8 text-center">
         <button
           type="button"
-          className="btn-primario w-full max-w-xl px-8 py-5 text-xl sm:text-2xl"
+          className="btn-verde w-full max-w-xl px-8 py-5 text-xl sm:text-2xl"
           onClick={onAbrirCampana}
-          disabled={kpis.pendientes === 0}
+          disabled={contactablesPend === 0}
         >
           <Send className="h-7 w-7" aria-hidden="true" />
-          {kpis.pendientes > 0
-            ? `Enviar a ${kpis.pendientes} pendiente${kpis.pendientes === 1 ? '' : 's'}`
-            : 'No hay empresas pendientes'}
+          {contactablesPend > 0
+            ? `Contactar a ${contactablesPend} cliente${contactablesPend === 1 ? '' : 's'}`
+            : 'No hay clientes con contacto'}
         </button>
         <p className="max-w-xl text-lg text-slate-600">
-          Abre cada empresa con su correo y WhatsApp ya escritos; tú solo revisas y envías.
+          La app abre cada empresa con el <strong>WhatsApp ya escrito</strong>. Tú solo das «Enviar».
+          {kpis.pendientes > contactablesPend && contactablesPend >= 0 && (
+            <>
+              {' '}
+              {kpis.pendientes - contactablesPend} empresas más no tienen teléfono ni correo todavía;
+              consíguelos con el botón «Buscar contacto» en cada una.
+            </>
+          )}
         </p>
       </div>
 

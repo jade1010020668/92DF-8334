@@ -69,7 +69,7 @@ describe('Campaña de envío', () => {
     const user = userEvent.setup();
     render(<App />);
     // En Inicio, con 1 empresa pendiente, el botón invita a enviar.
-    const botonCampana = screen.getByRole('button', { name: /Enviar a 1 pendiente/i });
+    const botonCampana = screen.getByRole('button', { name: /Contactar a 1 cliente/i });
     expect(botonCampana).toBeInTheDocument();
     await user.click(botonCampana);
 
@@ -83,7 +83,7 @@ describe('Campaña de envío', () => {
   it('marcar como enviada mueve la empresa a estado Enviado', async () => {
     const user = userEvent.setup();
     render(<App />);
-    await user.click(screen.getByRole('button', { name: /Enviar a 1 pendiente/i }));
+    await user.click(screen.getByRole('button', { name: /Contactar a 1 cliente/i }));
     const dialogo = await screen.findByRole('dialog', { name: /Campaña de cotizaciones/i });
     await user.click(within(dialogo).getByRole('button', { name: /Marcar como enviada y seguir/i }));
 

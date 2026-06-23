@@ -29,13 +29,21 @@ interface Props {
 type SubPestana = 'correo' | 'whatsapp';
 
 export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerrar }: Props) {
-  // La cola se captura una sola vez al abrir la campaña.
+  // La cola se captura una sola vez al abrir la campaña: SOLO empresas que se
+  // pueden contactar (WhatsApp o correo). Así no hay que saltar las que no tienen.
   const [cola] = useState<string[]>(() =>
-    empresas.filter((e) => e.estado === 'pendiente').map((e) => e.id),
+    empresas
+      .filter(
+        (e) =>
+          e.estado === 'pendiente' &&
+          (e.email.trim() !== '' || urlWhatsApp(e.telefono, 'x') !== null),
+      )
+      .map((e) => e.id),
   );
   const [indice, setIndice] = useState(0);
   const [enviadas, setEnviadas] = useState(0);
-  const [subPestana, setSubPestana] = useState<SubPestana>('correo');
+  // WhatsApp primero: es el canal que de verdad funciona para esta empresa.
+  const [subPestana, setSubPestana] = useState<SubPestana>('whatsapp');
   const [enviandoBrevo, setEnviandoBrevo] = useState(false);
   const [masivo, setMasivo] = useState<{ hecho: number; total: number; fallidas: number } | null>(
     null,
@@ -222,8 +230,8 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
                 <div className="flex gap-2">
                   {(
                     [
-                      { id: 'correo' as const, etiqueta: 'Correo' },
                       { id: 'whatsapp' as const, etiqueta: 'WhatsApp' },
+                      { id: 'correo' as const, etiqueta: 'Correo' },
                     ]
                   ).map(({ id, etiqueta }) => (
                     <button
@@ -302,46 +310,20 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
                 </div>
               </div>
 
-              {/* Acciones de envío */}
+              {/* Acción principal: WhatsApp, grande y de primero */}
+              <button
+                type="button"
+                className="btn-verde w-full py-4 text-xl"
+                disabled={!linkWhatsApp}
+                title={linkWhatsApp ? undefined : 'Esta empresa no tiene un celular válido'}
+                onClick={() => linkWhatsApp && window.open(linkWhatsApp, '_blank', 'noopener')}
+              >
+                <MessageCircle className="h-6 w-6" aria-hidden="true" />
+                Enviar por WhatsApp
+              </button>
+
+              {/* Acciones secundarias */}
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                {brevoActivo && (
-                  <button
-                    type="button"
-                    className="btn-primario"
-                    disabled={!actual.email || enviandoBrevo}
-                    title={actual.email ? undefined : 'Esta empresa no tiene correo'}
-                    onClick={enviarActualPorBrevo}
-                  >
-                    {enviandoBrevo ? (
-                      <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
-                    ) : (
-                      <Zap className="h-5 w-5" aria-hidden="true" />
-                    )}
-                    {enviandoBrevo ? 'Enviando…' : 'Enviar correo ya'}
-                  </button>
-                )}
-                <button
-                  type="button"
-                  className={brevoActivo ? 'btn-secundario' : 'btn-primario'}
-                  disabled={!actual.email}
-                  title={actual.email ? undefined : 'Esta empresa no tiene correo'}
-                  onClick={() =>
-                    window.open(urlGmail(actual.email, email.asunto, email.cuerpo), '_blank', 'noopener')
-                  }
-                >
-                  <Mail className="h-5 w-5" aria-hidden="true" />
-                  Abrir Gmail
-                </button>
-                <button
-                  type="button"
-                  className="btn-verde"
-                  disabled={!linkWhatsApp}
-                  title={linkWhatsApp ? undefined : 'Esta empresa no tiene un celular válido'}
-                  onClick={() => linkWhatsApp && window.open(linkWhatsApp, '_blank', 'noopener')}
-                >
-                  <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                  Abrir WhatsApp
-                </button>
                 <button
                   type="button"
                   className="btn-secundario"
@@ -354,6 +336,35 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
                   <Phone className="h-5 w-5" aria-hidden="true" />
                   Llamar
                 </button>
+                {brevoActivo ? (
+                  <button
+                    type="button"
+                    className="btn-secundario"
+                    disabled={!actual.email || enviandoBrevo}
+                    title={actual.email ? undefined : 'Esta empresa no tiene correo'}
+                    onClick={enviarActualPorBrevo}
+                  >
+                    {enviandoBrevo ? (
+                      <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                    ) : (
+                      <Zap className="h-5 w-5" aria-hidden="true" />
+                    )}
+                    {enviandoBrevo ? 'Enviando…' : 'Enviar correo ya'}
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="btn-secundario"
+                    disabled={!actual.email}
+                    title={actual.email ? undefined : 'Esta empresa no tiene correo'}
+                    onClick={() =>
+                      window.open(urlGmail(actual.email, email.asunto, email.cuerpo), '_blank', 'noopener')
+                    }
+                  >
+                    <Mail className="h-5 w-5" aria-hidden="true" />
+                    Abrir Gmail
+                  </button>
+                )}
                 <button
                   type="button"
                   className="btn-secundario"

@@ -585,23 +585,40 @@ export function Empresas({
 
               {/* Tarjetas en celular */}
               <div className="space-y-3 md:hidden">
-                {filtradas.map((e) => (
-                  <div key={e.id} className="tarjeta space-y-2">
-                    <div className="flex items-start justify-between gap-2">
-                      <div>
-                        <p className="text-lg font-bold text-slate-800">{e.nombre}</p>
-                        {e.sector && <p className="text-slate-600">Sector: {e.sector}</p>}
-                        {e.contacto && <p className="text-slate-600">{e.contacto}</p>}
+                {filtradas.map((e) => {
+                  const whatsapp = urlWhatsApp(e.telefono, generarWhatsApp(e, config));
+                  return (
+                    <div key={e.id} className="tarjeta space-y-2">
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <p className="text-lg font-bold text-slate-800">{e.nombre}</p>
+                          {e.sector && <p className="text-slate-600">Sector: {e.sector}</p>}
+                          {e.contacto && <p className="text-slate-600">{e.contacto}</p>}
+                        </div>
+                        {selectorEstado(e)}
                       </div>
-                      {selectorEstado(e)}
+                      {e.email && <p className="break-all text-sm text-slate-600">{e.email}</p>}
+                      {e.telefono && <p className="text-sm text-slate-600">{e.telefono}</p>}
+                      {e.direccion && <p className="text-sm text-slate-600">{e.direccion}</p>}
+                      {e.notas && <p className="text-sm italic text-slate-400">{e.notas}</p>}
+                      {/* Acción principal grande: WhatsApp */}
+                      {whatsapp && (
+                        <button
+                          type="button"
+                          className="btn-verde w-full py-3 text-lg"
+                          onClick={() => {
+                            window.open(whatsapp, '_blank', 'noopener');
+                            registrarEvento(e.id, 'whatsapp', 'WhatsApp abierto');
+                          }}
+                        >
+                          <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                          Enviar WhatsApp
+                        </button>
+                      )}
+                      {acciones(e)}
                     </div>
-                    {e.email && <p className="break-all text-sm text-slate-600">{e.email}</p>}
-                    {e.telefono && <p className="text-sm text-slate-600">{e.telefono}</p>}
-                    {e.direccion && <p className="text-sm text-slate-600">{e.direccion}</p>}
-                    {e.notas && <p className="text-sm italic text-slate-400">{e.notas}</p>}
-                    {acciones(e)}
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </>
           )}
