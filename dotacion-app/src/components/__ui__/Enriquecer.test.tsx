@@ -15,6 +15,7 @@ const EMPRESAS = [
 
 beforeEach(() => {
   localStorage.clear();
+  localStorage.setItem('dotacionpro.vioGuia', 'true');
   localStorage.setItem('dotacionpro.empresas', JSON.stringify(EMPRESAS));
   // Configuración con clave de Google
   localStorage.setItem('dotacionpro.config', JSON.stringify({ googleMapsApiKey: 'clave-prueba' }));

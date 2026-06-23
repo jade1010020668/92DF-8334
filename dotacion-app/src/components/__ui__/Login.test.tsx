@@ -9,7 +9,10 @@ vi.mock('../MapaProspectos', () => ({
   MapaProspectos: () => <div data-testid="mapa-mock">mapa</div>,
 }));
 
-beforeEach(() => localStorage.clear());
+beforeEach(() => {
+  localStorage.clear();
+  localStorage.setItem('dotacionpro.vioGuia', 'true');
+});
 
 function pestana(nombre: RegExp) {
   return screen.getAllByRole('button', { name: nombre })[0];

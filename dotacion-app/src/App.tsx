@@ -5,6 +5,7 @@ import {
   Building2,
   CheckCircle2,
   HardHat,
+  HelpCircle,
   Home,
   Info,
   Lock,
@@ -27,7 +28,8 @@ import { Estadisticas } from './components/Estadisticas';
 import { Configuracion } from './components/Configuracion';
 import { Pedidos } from './components/Pedidos';
 import { Login } from './components/Login';
-import { CLAVE_ACCESO, CLAVE_DESBLOQUEADO } from './lib/config';
+import { Guia } from './components/Guia';
+import { CLAVE_ACCESO, CLAVE_DESBLOQUEADO, CLAVE_VIO_GUIA } from './lib/config';
 import { ACCESO_DEFAULT, combinarAcceso, type Acceso } from './lib/acceso';
 import { cargarBaseInicial } from './lib/baseInicial';
 
@@ -93,6 +95,15 @@ export default function App() {
     (g) => g === true,
   );
   const requiereClave = acceso.claveHash !== '' && !(acceso.recordar && desbloqueado);
+
+  // Guía de bienvenida: se muestra la primera vez (y se puede reabrir).
+  const [vioGuia, setVioGuia] = useLocalStorageState<boolean>(CLAVE_VIO_GUIA, false, (g) => g === true);
+  const [guiaAbierta, setGuiaAbierta] = useState(false);
+  const mostrarGuia = guiaAbierta || (!vioGuia && !requiereClave);
+  const cerrarGuia = useCallback(() => {
+    setVioGuia(true);
+    setGuiaAbierta(false);
+  }, [setVioGuia]);
 
   const mostrarToast: MostrarToast = useCallback((mensaje, tipo = 'info') => {
     setToast({ mensaje, tipo });
@@ -167,6 +178,15 @@ export default function App() {
             </h1>
             <p className="text-sm text-slate-400">{config.nombreEmpresa}</p>
           </div>
+          <button
+            type="button"
+            onClick={() => setGuiaAbierta(true)}
+            className="inline-flex items-center gap-2 rounded-lg bg-white/10 px-3.5 py-2 text-sm font-semibold text-white ring-1 ring-white/15 transition hover:bg-white/20"
+            title="Ver la guía de cómo funciona la app"
+          >
+            <HelpCircle className="h-4 w-4" aria-hidden="true" />
+            <span className="hidden sm:inline">¿Cómo funciona?</span>
+          </button>
           {acceso.claveHash !== '' && (
             <button
               type="button"
@@ -279,6 +299,9 @@ export default function App() {
           />
         )}
       </main>
+
+      {/* Guía de bienvenida */}
+      {mostrarGuia && <Guia onCerrar={cerrarGuia} />}
 
       {/* Modal de campaña */}
       {campanaAbierta && (

@@ -15,6 +15,7 @@ const BASE = [
 
 beforeEach(() => {
   localStorage.clear();
+  localStorage.setItem('dotacionpro.vioGuia', 'true');
   vi.stubGlobal('fetch', vi.fn(async (url: string) => {
     if (String(url).includes('empresas-bogota.json')) {
       return { ok: true, json: async () => BASE } as Response;

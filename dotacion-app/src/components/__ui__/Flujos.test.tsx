@@ -23,6 +23,7 @@ const empresaGuardada = {
 
 beforeEach(() => {
   localStorage.clear();
+  localStorage.setItem('dotacionpro.vioGuia', 'true');
   localStorage.setItem('dotacionpro.empresas', JSON.stringify([empresaGuardada]));
 });
 

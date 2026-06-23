@@ -10,7 +10,10 @@ vi.mock('../MapaProspectos', () => ({
   MapaProspectos: () => <div data-testid="mapa-mock">mapa</div>,
 }));
 
-beforeEach(() => localStorage.clear());
+beforeEach(() => {
+  localStorage.clear();
+  localStorage.setItem('dotacionpro.vioGuia', 'true');
+});
 
 function pestana(nombre: RegExp) {
   // El nombre de la pestaña aparece como botón en la navegación.

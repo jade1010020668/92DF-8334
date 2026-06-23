@@ -8,6 +8,8 @@ export const CLAVE_ULTIMA_EXPORTACION = 'dotacionpro.ultimaExportacion';
 export const CLAVE_ACCESO = 'dotacionpro.acceso';
 /** Bandera de sesión desbloqueada en este equipo. */
 export const CLAVE_DESBLOQUEADO = 'dotacionpro.desbloqueado';
+/** Bandera: ya se mostró la guía de bienvenida. */
+export const CLAVE_VIO_GUIA = 'dotacionpro.vioGuia';
 
 /** Días desde la última copia en Excel; null si nunca se ha exportado. */
 export function diasDesdeUltimaExportacion(ahora: Date = new Date()): number | null {
