@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   FileDown,
+  Footprints,
   Loader2,
   Mail,
   MessageCircle,
@@ -46,6 +47,7 @@ const ICONO_EVENTO: Record<EventoHistorial['tipo'], string> = {
   llamada: '📞',
   estado: '🔄',
   pedido: '🛒',
+  visita: '🚶',
 };
 
 function fechaHora(iso: string): string {
@@ -159,6 +161,18 @@ export function FichaEmpresa({
             >
               <Phone className="h-5 w-5" aria-hidden="true" />
               Llamar
+            </button>
+            <button
+              type="button"
+              className="btn-secundario px-4 py-2"
+              title="Registrar que visitaste esta empresa hoy"
+              onClick={() => {
+                registrarEvento(empresa.id, 'visita', 'Visitada hoy');
+                mostrarToast(`Visita a ${empresa.nombre} registrada.`, 'exito');
+              }}
+            >
+              <Footprints className="h-5 w-5" aria-hidden="true" />
+              Visitada hoy
             </button>
             <button
               type="button"

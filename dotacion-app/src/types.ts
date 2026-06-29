@@ -28,7 +28,7 @@ export interface EventoHistorial {
   id: string;
   /** ISO 8601. */
   fecha: string;
-  tipo: 'nota' | 'correo' | 'whatsapp' | 'llamada' | 'estado' | 'pedido';
+  tipo: 'nota' | 'correo' | 'whatsapp' | 'llamada' | 'estado' | 'pedido' | 'visita';
   texto: string;
 }
 

@@ -52,7 +52,7 @@ const numero = (v: unknown, def = 0): number => (typeof v === 'number' && Number
 
 function sanearHistorial(v: unknown): EventoHistorial[] | undefined {
   if (!Array.isArray(v)) return undefined;
-  const tipos: EventoHistorial['tipo'][] = ['nota', 'correo', 'whatsapp', 'llamada', 'estado', 'pedido'];
+  const tipos: EventoHistorial['tipo'][] = ['nota', 'correo', 'whatsapp', 'llamada', 'estado', 'pedido', 'visita'];
   const eventos = v
     .filter((e): e is Partial<EventoHistorial> => !!e && typeof e === 'object')
     .map((e) => ({
