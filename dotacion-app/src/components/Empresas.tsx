@@ -432,7 +432,7 @@ export function Empresas({
             ) : (
               <Database className="h-5 w-5" aria-hidden="true" />
             )}
-            {cargandoBase ? 'Cargando…' : 'Cargar 6.000 reales'}
+            {cargandoBase ? 'Cargando…' : 'Cargar +6.000 reales'}
           </button>
           <button type="button" className="btn-secundario" onClick={() => inputArchivo.current?.click()}>
             <Upload className="h-5 w-5" aria-hidden="true" />
@@ -506,7 +506,7 @@ export function Empresas({
       {empresas.length === 0 ? (
         <div className="tarjeta flex flex-col items-center gap-4 py-12 text-center">
           <p className="max-w-md text-xl text-slate-600">
-            Empieza con la base de 6.000 empresas reales de Bogotá, o importa tu propio Excel.
+            Empieza con la base de más de 6.000 empresas reales de Bogotá, o importa tu propio Excel.
           </p>
           <div className="flex flex-wrap justify-center gap-2">
             <button type="button" className="btn-verde" onClick={onCargarBase} disabled={cargandoBase}>
@@ -515,7 +515,7 @@ export function Empresas({
               ) : (
                 <Database className="h-5 w-5" aria-hidden="true" />
               )}
-              {cargandoBase ? 'Cargando…' : 'Cargar 6.000 empresas reales'}
+              {cargandoBase ? 'Cargando…' : 'Cargar +6.000 empresas reales'}
             </button>
             <button type="button" className="btn-secundario" onClick={() => inputArchivo.current?.click()}>
               <Upload className="h-5 w-5" aria-hidden="true" />

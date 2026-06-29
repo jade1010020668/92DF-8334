@@ -32,7 +32,7 @@ const PASOS: Paso[] = [
     Icono: Building2,
     titulo: '1. Empresas — su lista de clientes',
     texto:
-      'Aquí vive su lista de empresas a contactar. Toque «Cargar 6.000 empresas reales» para empezar con negocios reales cercanos, o importe su propio Excel. Cada empresa tiene botones para escribir, llamar y ver su ficha.',
+      'Aquí vive su lista de empresas a contactar. Toque «Cargar +6.000 empresas reales» para empezar con negocios reales cercanos, o importe su propio Excel. Cada empresa tiene botones para escribir, llamar y ver su ficha.',
     porque: 'Use el filtro «Solo con teléfono/correo» para ver únicamente a las que sí puede contactar hoy.',
   },
   {
