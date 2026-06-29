@@ -245,10 +245,12 @@ export default function App() {
           <Dashboard
             empresas={empresas}
             config={config}
+            pedidos={pedidos}
             actualizarEmpresa={actualizarEmpresa}
             onAbrirCampana={() => setCampanaAbierta(true)}
             onIrAConfiguracion={() => setPestana('configuracion')}
             onIrABuscar={() => setPestana('buscar')}
+            onIrAPedidos={() => setPestana('pedidos')}
             onCargarBase={cargarBase}
             cargandoBase={cargandoBase}
           />

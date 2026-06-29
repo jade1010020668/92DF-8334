@@ -3,6 +3,7 @@ import {
   AlertTriangle,
   Bell,
   Building2,
+  CalendarCheck,
   Clock,
   Database,
   Download,
@@ -13,12 +14,16 @@ import {
   Rocket,
   Send,
   Trophy,
+  Truck,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import type { ConfigApp, Empresa } from '../types';
+import type { ConfigApp, Empresa, Pedido } from '../types';
 import { diasDesdeUltimaExportacion, faltanDatosContacto } from '../lib/config';
 import { exportarExcel } from '../lib/excel';
 import { calcularKpis, seguimientosPendientes } from '../lib/stats';
+import { entregasDeHoy, textoDiasEntrega } from '../lib/agenda';
+import { formatearPesos } from '../lib/plantillas';
+import { totalPedido } from '../lib/pedidos';
 import {
   generarEmailSeguimiento,
   generarWhatsAppSeguimiento,
@@ -29,10 +34,12 @@ import {
 interface Props {
   empresas: Empresa[];
   config: ConfigApp;
+  pedidos: Pedido[];
   actualizarEmpresa: (id: string, cambios: Partial<Empresa>) => void;
   onAbrirCampana: () => void;
   onIrAConfiguracion: () => void;
   onIrABuscar: () => void;
+  onIrAPedidos: () => void;
   onCargarBase: () => void;
   cargandoBase: boolean;
 }
@@ -48,15 +55,18 @@ interface TarjetaKpi {
 export function Dashboard({
   empresas,
   config,
+  pedidos,
   actualizarEmpresa,
   onAbrirCampana,
   onIrAConfiguracion,
   onIrABuscar,
+  onIrAPedidos,
   onCargarBase,
   cargandoBase,
 }: Props) {
   const kpis = calcularKpis(empresas);
   const seguimientos = seguimientosPendientes(empresas, config.diasSeguimiento);
+  const entregasHoy = entregasDeHoy(pedidos);
   // Solo cuentan las pendientes que se pueden contactar (WhatsApp o correo).
   const contactablesPend = empresas.filter(
     (e) => e.estado === 'pendiente' && (e.email.trim() !== '' || urlWhatsApp(e.telefono, 'x') !== null),
@@ -131,6 +141,44 @@ export function Dashboard({
             Completar ahora
           </button>
         </div>
+      )}
+
+      {/* Para hoy: entregas comprometidas para hoy o atrasadas */}
+      {entregasHoy.length > 0 && (
+        <section className="rounded-2xl border border-amber-300 bg-amber-50 p-5">
+          <h2 className="mb-3 flex items-center gap-2 text-xl font-bold text-amber-900">
+            <CalendarCheck className="h-6 w-6 text-amber-700" aria-hidden="true" />
+            Para hoy: {entregasHoy.length} entrega{entregasHoy.length === 1 ? '' : 's'}
+          </h2>
+          <ul className="divide-y divide-amber-200">
+            {entregasHoy.map(({ pedido, dias, atrasada }) => (
+              <li
+                key={pedido.id}
+                className="flex flex-col gap-2 py-3 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div className="flex flex-wrap items-center gap-2">
+                  <Truck className="h-5 w-5 text-amber-700" aria-hidden="true" />
+                  <span className="text-lg font-bold text-slate-800">{pedido.empresaNombre}</span>
+                  <span className="font-semibold text-slate-600">
+                    {formatearPesos(totalPedido(pedido))}
+                  </span>
+                  <span
+                    className={`insignia ${
+                      atrasada
+                        ? 'border-rose-300 bg-rose-100 text-rose-700'
+                        : 'border-amber-300 bg-amber-100 text-amber-800'
+                    }`}
+                  >
+                    {atrasada ? `Atrasada (${textoDiasEntrega(dias)})` : 'Entrega hoy'}
+                  </span>
+                </div>
+                <button type="button" className="btn-secundario px-4 py-2" onClick={onIrAPedidos}>
+                  Ver pedido
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
 
       {/* Primeros pasos (solo cuando la lista está vacía) */}
