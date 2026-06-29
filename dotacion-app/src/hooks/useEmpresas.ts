@@ -120,6 +120,8 @@ export interface UsoEmpresas {
   actualizarEmpresa: (id: string, cambios: Partial<Empresa>) => void;
   cambiarEstado: (id: string, estado: EstadoEmpresa) => void;
   eliminarEmpresa: (id: string) => void;
+  /** Vuelve a insertar una empresa eliminada (para "Deshacer"). */
+  restaurarEmpresa: (empresa: Empresa) => void;
   borrarTodo: () => void;
   /** Reemplaza toda la lista (restauración de un respaldo completo). */
   reemplazarTodo: (nuevas: Empresa[]) => void;
@@ -179,6 +181,15 @@ export function useEmpresas(): UsoEmpresas {
     [setEmpresas],
   );
 
+  /** Vuelve a insertar una empresa eliminada (para "Deshacer"). */
+  const restaurarEmpresa = useCallback(
+    (empresa: Empresa) =>
+      setEmpresas((actuales) =>
+        actuales.some((e) => e.id === empresa.id) ? actuales : [empresa, ...actuales],
+      ),
+    [setEmpresas],
+  );
+
   const borrarTodo = useCallback(() => setEmpresas([]), [setEmpresas]);
 
   const reemplazarTodo = useCallback(
@@ -201,6 +212,7 @@ export function useEmpresas(): UsoEmpresas {
     actualizarEmpresa,
     cambiarEstado,
     eliminarEmpresa,
+    restaurarEmpresa,
     borrarTodo,
     reemplazarTodo,
     registrarEvento,

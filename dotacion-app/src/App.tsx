@@ -37,11 +37,18 @@ export type Pestana = 'inicio' | 'empresas' | 'buscar' | 'pedidos' | 'estadistic
 
 export type TipoToast = 'exito' | 'error' | 'info';
 
-export type MostrarToast = (mensaje: string, tipo?: TipoToast) => void;
+/** Acción opcional del aviso (p. ej. "Deshacer"). */
+export interface AccionToast {
+  etiqueta: string;
+  fn: () => void;
+}
+
+export type MostrarToast = (mensaje: string, tipo?: TipoToast, accion?: AccionToast) => void;
 
 interface Toast {
   mensaje: string;
   tipo: TipoToast;
+  accion?: AccionToast;
 }
 
 const PESTANAS: { id: Pestana; etiqueta: string; Icono: LucideIcon }[] = [
@@ -76,6 +83,7 @@ export default function App() {
     actualizarEmpresa,
     cambiarEstado,
     eliminarEmpresa,
+    restaurarEmpresa,
     borrarTodo,
     reemplazarTodo,
     registrarEvento,
@@ -105,8 +113,8 @@ export default function App() {
     setGuiaAbierta(false);
   }, [setVioGuia]);
 
-  const mostrarToast: MostrarToast = useCallback((mensaje, tipo = 'info') => {
-    setToast({ mensaje, tipo });
+  const mostrarToast: MostrarToast = useCallback((mensaje, tipo = 'info', accion) => {
+    setToast({ mensaje, tipo, accion });
   }, []);
 
   // Aviso cuando el navegador no puede guardar (cuota llena / almacenamiento bloqueado).
@@ -147,7 +155,8 @@ export default function App() {
 
   useEffect(() => {
     if (!toast) return;
-    const temporizador = setTimeout(() => setToast(null), 4500);
+    // Más tiempo si hay acción ("Deshacer"): el papá necesita alcanzar a tocarla.
+    const temporizador = setTimeout(() => setToast(null), toast.accion ? 8000 : 7000);
     return () => clearTimeout(temporizador);
   }, [toast]);
 
@@ -253,6 +262,7 @@ export default function App() {
             actualizarEmpresa={actualizarEmpresa}
             cambiarEstado={cambiarEstado}
             eliminarEmpresa={eliminarEmpresa}
+            restaurarEmpresa={restaurarEmpresa}
             registrarEvento={registrarEvento}
             crearPedido={crearPedido}
             mostrarToast={mostrarToast}
@@ -323,6 +333,18 @@ export default function App() {
         >
           <IconoToast className="mt-0.5 h-6 w-6 shrink-0" aria-hidden="true" />
           <span className="flex-1">{toast.mensaje}</span>
+          {toast.accion && (
+            <button
+              type="button"
+              onClick={() => {
+                toast.accion?.fn();
+                setToast(null);
+              }}
+              className="shrink-0 rounded-lg bg-white/20 px-3 py-1.5 font-bold underline-offset-2 transition hover:bg-white/30"
+            >
+              {toast.accion.etiqueta}
+            </button>
+          )}
           <button
             type="button"
             onClick={() => setToast(null)}

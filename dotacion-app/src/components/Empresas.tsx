@@ -45,6 +45,7 @@ interface Props {
   actualizarEmpresa: (id: string, cambios: Partial<Empresa>) => void;
   cambiarEstado: (id: string, estado: EstadoEmpresa) => void;
   eliminarEmpresa: (id: string) => void;
+  restaurarEmpresa: (empresa: Empresa) => void;
   registrarEvento: (id: string, tipo: EventoHistorial['tipo'], texto: string) => void;
   crearPedido: (datos: NuevoPedido) => Pedido;
   mostrarToast: MostrarToast;
@@ -61,6 +62,7 @@ export function Empresas({
   actualizarEmpresa,
   cambiarEstado,
   eliminarEmpresa,
+  restaurarEmpresa,
   registrarEvento,
   crearPedido,
   mostrarToast,
@@ -168,9 +170,12 @@ export function Empresas({
   };
 
   const eliminar = (e: Empresa) => {
-    if (window.confirm(`¿Eliminar ${e.nombre}? Esta acción no se puede deshacer.`)) {
+    if (window.confirm(`¿Eliminar ${e.nombre}?`)) {
       eliminarEmpresa(e.id);
-      mostrarToast(`${e.nombre} se eliminó de tu lista.`, 'info');
+      mostrarToast(`${e.nombre} se eliminó.`, 'info', {
+        etiqueta: 'Deshacer',
+        fn: () => restaurarEmpresa(e),
+      });
     }
   };
 
