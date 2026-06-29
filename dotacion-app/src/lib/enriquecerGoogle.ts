@@ -1,4 +1,5 @@
 import type { Empresa } from '../types';
+import { fetchConTimeout } from './red';
 
 /**
  * Enriquecimiento de contactos con Google Places API (New).
@@ -60,7 +61,7 @@ export async function buscarDatosContacto(
   if (!consulta.toLowerCase().includes(ciudad.toLowerCase())) consulta = `${consulta}, ${ciudad}`;
 
   try {
-    const respuesta = await fetch('https://places.googleapis.com/v1/places:searchText', {
+    const respuesta = await fetchConTimeout('https://places.googleapis.com/v1/places:searchText', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

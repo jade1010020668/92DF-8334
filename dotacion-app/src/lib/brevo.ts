@@ -1,6 +1,7 @@
 import type { ConfigApp, Empresa } from '../types';
 import { generarEmail } from './plantillas';
 import { pdfCotizacionBase64 } from './pdf';
+import { fetchConTimeout } from './red';
 
 /**
  * Envío real de correos vía la API transaccional de Brevo (plan gratis:
@@ -72,7 +73,7 @@ export async function enviarCorreoBrevo(empresa: Empresa, config: ConfigApp): Pr
   }
 
   try {
-    const respuesta = await fetch(URL_API, {
+    const respuesta = await fetchConTimeout(URL_API, {
       method: 'POST',
       headers: {
         accept: 'application/json',

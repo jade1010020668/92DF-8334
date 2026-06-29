@@ -1,4 +1,5 @@
 import type { NuevaEmpresa } from '../types';
+import { fetchConTimeout } from './red';
 
 /**
  * Base de datos inicial: empresas reales cercanas al negocio, extraídas de
@@ -31,7 +32,7 @@ function aMetros(m?: number): string {
 
 /** Descarga e interpreta la base inicial de empresas (ruta relativa al sitio). */
 export async function cargarBaseInicial(): Promise<BaseInicial> {
-  const respuesta = await fetch('./empresas-bogota.json', { cache: 'no-cache' });
+  const respuesta = await fetchConTimeout('./empresas-bogota.json', { cache: 'no-cache' }, 30000);
   if (!respuesta.ok) {
     throw new Error('No pudimos cargar la base de datos. Revisa tu internet e intenta de nuevo.');
   }

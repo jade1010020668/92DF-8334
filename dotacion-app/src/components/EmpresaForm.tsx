@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Save, X } from 'lucide-react';
 import type { Empresa, EstadoEmpresa, NuevaEmpresa } from '../types';
 import { ESTADOS, ETIQUETA_ESTADO } from '../types';
+import { correoValido, telefonoValido } from '../lib/validar';
 
 interface Props {
   /** Empresa a editar; null/undefined para crear una nueva. */
@@ -21,6 +22,7 @@ export function EmpresaForm({ inicial, onGuardar, onCerrar }: Props) {
   const [notas, setNotas] = useState(inicial?.notas ?? '');
   const [errorNombre, setErrorNombre] = useState(false);
   const [errorEmail, setErrorEmail] = useState(false);
+  const [errorTel, setErrorTel] = useState(false);
 
   const editando = Boolean(inicial);
 
@@ -28,19 +30,22 @@ export function EmpresaForm({ inicial, onGuardar, onCerrar }: Props) {
     e.preventDefault();
     const nombreLimpio = nombre.trim();
     const emailLimpio = email.trim();
+    const telLimpio = telefono.trim();
 
     const nombreInvalido = !nombreLimpio;
-    const emailInvalido = Boolean(emailLimpio) && !emailLimpio.includes('@');
+    const emailInvalido = !correoValido(emailLimpio);
+    const telInvalido = !telefonoValido(telLimpio);
     setErrorNombre(nombreInvalido);
     setErrorEmail(emailInvalido);
-    if (nombreInvalido || emailInvalido) return;
+    setErrorTel(telInvalido);
+    if (nombreInvalido || emailInvalido || telInvalido) return;
 
     onGuardar({
       nombre: nombreLimpio,
       sector: sector.trim(),
       contacto: contacto.trim(),
       email: emailLimpio,
-      telefono: telefono.trim(),
+      telefono: telLimpio,
       direccion: direccion.trim(),
       estado: editando ? estado : undefined,
       notas: notas.trim() || undefined,
@@ -120,12 +125,15 @@ export function EmpresaForm({ inicial, onGuardar, onCerrar }: Props) {
                 type="email"
                 className={`campo ${errorEmail ? 'border-rose-500 ring-2 ring-rose-200' : ''}`}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setErrorEmail(false);
+                }}
                 placeholder="Ej: compras@empresa.com"
               />
               {errorEmail && (
                 <p className="mt-1 font-semibold text-rose-600">
-                  Ese correo no parece válido: debe tener una @.
+                  Ese correo no parece válido (ej: nombre@empresa.com).
                 </p>
               )}
             </div>
@@ -136,11 +144,19 @@ export function EmpresaForm({ inicial, onGuardar, onCerrar }: Props) {
               <input
                 id="form-telefono"
                 type="tel"
-                className="campo"
+                className={`campo ${errorTel ? 'border-rose-500 ring-2 ring-rose-200' : ''}`}
                 value={telefono}
-                onChange={(e) => setTelefono(e.target.value)}
+                onChange={(e) => {
+                  setTelefono(e.target.value);
+                  setErrorTel(false);
+                }}
                 placeholder="Ej: 300 123 4567"
               />
+              {errorTel && (
+                <p className="mt-1 font-semibold text-rose-600">
+                  Ese teléfono no parece válido (mínimo 7 dígitos, sin números repetidos).
+                </p>
+              )}
             </div>
           </div>
 

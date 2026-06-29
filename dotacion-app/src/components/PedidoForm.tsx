@@ -59,10 +59,16 @@ export function PedidoForm({
       return;
     }
     const itemsLimpios = items
-      .map((i) => ({ ...i, descripcion: i.descripcion.trim() }))
+      .map((i) => ({ ...i, descripcion: i.descripcion.trim(), cantidad: Math.max(1, Math.round(i.cantidad)) }))
       .filter((i) => i.descripcion && i.cantidad > 0);
     if (itemsLimpios.length === 0) {
       setError('Agrega al menos un producto con descripción y cantidad.');
+      return;
+    }
+    const ivaLimpio = Math.min(100, Math.max(0, iva));
+    const totalConIva = totalPedido({ items: itemsLimpios, iva: ivaLimpio });
+    if (abono > totalConIva) {
+      setError(`El abono (${formatearPesos(abono)}) no puede ser mayor que el total (${formatearPesos(totalConIva)}).`);
       return;
     }
     const empresa = empresas.find((x) => x.id === empresaId);
@@ -73,7 +79,7 @@ export function PedidoForm({
         items: itemsLimpios,
         estado,
         abono: Math.max(0, abono),
-        iva: Math.max(0, iva),
+        iva: ivaLimpio,
         fechaEntrega: fechaEntrega ? new Date(fechaEntrega).toISOString() : undefined,
         notas: notas.trim() || undefined,
       },

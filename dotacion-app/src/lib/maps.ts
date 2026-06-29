@@ -1,4 +1,5 @@
 import type { ConfigApp, ResultadoMaps } from '../types';
+import { fetchConTimeout } from './red';
 
 /**
  * Búsqueda de empresas en el mapa.
@@ -57,7 +58,7 @@ async function buscarNominatim(consulta: string): Promise<ResultadoMaps[]> {
   url.searchParams.set('limit', '30');
   url.searchParams.set('countrycodes', 'co');
   url.searchParams.set('accept-language', 'es');
-  const respuesta = await fetch(url.toString(), { headers: { Accept: 'application/json' } });
+  const respuesta = await fetchConTimeout(url.toString(), { headers: { Accept: 'application/json' } });
   if (!respuesta.ok) {
     throw new Error(`OpenStreetMap respondió ${respuesta.status}. Intenta de nuevo en un minuto.`);
   }
@@ -118,7 +119,7 @@ async function bboxCiudad_(ciudad: string): Promise<string> {
     url.searchParams.set('q', `${nombre}, Colombia`);
     url.searchParams.set('format', 'jsonv2');
     url.searchParams.set('limit', '1');
-    const respuesta = await fetch(url.toString(), { headers: { Accept: 'application/json' } });
+    const respuesta = await fetchConTimeout(url.toString(), { headers: { Accept: 'application/json' } });
     const datos = (await respuesta.json()) as { boundingbox?: [string, string, string, string] }[];
     const bb = datos[0]?.boundingbox;
     if (bb) {
@@ -187,11 +188,15 @@ async function buscarOverpass(regex: string, bbox: string): Promise<ResultadoMap
   let ultimoError = new Error('OpenStreetMap no respondió. Intenta de nuevo en un minuto.');
   for (const servidor of SERVIDORES_OVERPASS) {
     try {
-      const respuesta = await fetch(servidor, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `data=${encodeURIComponent(consulta)}`,
-      });
+      const respuesta = await fetchConTimeout(
+        servidor,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `data=${encodeURIComponent(consulta)}`,
+        },
+        45000,
+      );
       if (!respuesta.ok) {
         throw new Error(`OpenStreetMap respondió ${respuesta.status}. Espera un minuto y reintenta.`);
       }
@@ -261,7 +266,7 @@ export function parsearGooglePlaces(json: unknown): ResultadoMaps[] {
 }
 
 async function buscarGooglePlaces(consulta: string, apiKey: string): Promise<ResultadoMaps[]> {
-  const respuesta = await fetch('https://places.googleapis.com/v1/places:searchText', {
+  const respuesta = await fetchConTimeout('https://places.googleapis.com/v1/places:searchText', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -447,7 +452,7 @@ export async function geocodificarDireccion(direccion: string): Promise<Coordena
     url.searchParams.set('format', 'jsonv2');
     url.searchParams.set('limit', '1');
     url.searchParams.set('countrycodes', 'co');
-    const respuesta = await fetch(url.toString(), { headers: { Accept: 'application/json' } });
+    const respuesta = await fetchConTimeout(url.toString(), { headers: { Accept: 'application/json' } });
     if (!respuesta.ok) return null;
     const datos = (await respuesta.json()) as { lat?: string; lon?: string }[];
     const primero = datos[0];
@@ -473,11 +478,15 @@ async function buscarOverpassCercano(origen: Coordenada, radioMetros: number): P
   let ultimoError = new Error('No pudimos buscar cerca del negocio. Intenta de nuevo en un minuto.');
   for (const servidor of SERVIDORES_OVERPASS) {
     try {
-      const respuesta = await fetch(servidor, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `data=${encodeURIComponent(consulta)}`,
-      });
+      const respuesta = await fetchConTimeout(
+        servidor,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `data=${encodeURIComponent(consulta)}`,
+        },
+        45000,
+      );
       if (!respuesta.ok) {
         throw new Error(`OpenStreetMap respondió ${respuesta.status}. Espera un minuto y reintenta.`);
       }
