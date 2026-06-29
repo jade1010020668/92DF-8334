@@ -187,6 +187,29 @@ export function generarWhatsAppSeguimiento(empresa: Empresa, config: ConfigApp):
   ].join('\n');
 }
 
+/** URL pública del catálogo compartible (se publica junto con la app). */
+export const URL_CATALOGO = 'https://morales101002-dotacionpro.static.hf.space/catalogo.html';
+
+/** Mensaje corto para enviar el catálogo por WhatsApp a una empresa. */
+export function mensajeCatalogo(empresa: Empresa, config: ConfigApp): string {
+  const contacto = empresa.contacto.trim();
+  const saludo = contacto ? `¡Hola, ${contacto}! 👋` : '¡Hola! 👋';
+  return [
+    saludo,
+    '',
+    `Le comparto el catálogo de *${config.nombreEmpresa}* con nuestra dotación industrial y EPP (overoles, botas, guantes, protección y más) 👷‍♂️:`,
+    '',
+    `📋 ${URL_CATALOGO}`,
+    '',
+    '¿Le preparo una cotización con lo que necesite? 😊',
+  ].join('\n');
+}
+
+/** URL de WhatsApp para enviar el catálogo. Null si el teléfono no sirve. */
+export function urlWhatsAppCatalogo(empresa: Empresa, config: ConfigApp): string | null {
+  return urlWhatsApp(empresa.telefono, mensajeCatalogo(empresa, config));
+}
+
 /**
  * Normaliza un teléfono colombiano al formato que exige wa.me (solo dígitos,
  * con indicativo de país). Devuelve null si no sirve para WhatsApp.

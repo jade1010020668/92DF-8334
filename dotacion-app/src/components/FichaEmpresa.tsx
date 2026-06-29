@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {
+  BookOpen,
   FileDown,
   Footprints,
   Loader2,
@@ -20,6 +21,7 @@ import {
   urlBuscarContacto,
   urlGmail,
   urlWhatsApp,
+  urlWhatsAppCatalogo,
   formatearPesos,
 } from '../lib/plantillas';
 import { buscarDatosContacto } from '../lib/enriquecerGoogle';
@@ -94,6 +96,7 @@ export function FichaEmpresa({
   };
   const historial = empresa.historial ?? [];
   const whatsapp = urlWhatsApp(empresa.telefono, generarWhatsApp(empresa, config));
+  const whatsappCatalogo = urlWhatsAppCatalogo(empresa, config);
   const correo = generarEmail(empresa, config);
 
   const abrir = (url: string, tipo: EventoHistorial['tipo'], texto: string) => {
@@ -149,6 +152,16 @@ export function FichaEmpresa({
             >
               <MessageCircle className="h-5 w-5" aria-hidden="true" />
               WhatsApp
+            </button>
+            <button
+              type="button"
+              className="btn-secundario px-4 py-2"
+              disabled={!whatsappCatalogo}
+              title={whatsappCatalogo ? 'Enviar el catálogo por WhatsApp' : 'Esta empresa no tiene un celular válido'}
+              onClick={() => whatsappCatalogo && abrir(whatsappCatalogo, 'whatsapp', 'Catálogo enviado por WhatsApp')}
+            >
+              <BookOpen className="h-5 w-5" aria-hidden="true" />
+              Catálogo
             </button>
             <button
               type="button"
