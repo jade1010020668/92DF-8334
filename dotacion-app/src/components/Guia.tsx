@@ -72,7 +72,8 @@ const PASOS: Paso[] = [
 ];
 
 interface Props {
-  onCerrar: () => void;
+  /** Cierra el tutorial. Si `noMostrarMas` es true, no vuelve a salir al entrar. */
+  onCerrar: (noMostrarMas: boolean) => void;
 }
 
 export function Guia({ onCerrar }: Props) {
@@ -89,18 +90,27 @@ export function Guia({ onCerrar }: Props) {
       aria-label="Cómo funciona la aplicación"
     >
       <div className="flex w-full max-w-lg flex-col overflow-hidden rounded-3xl bg-white shadow-2xl">
-        <div className="flex items-center justify-between bg-[#14181f] px-6 py-3 text-white">
+        <div className="flex items-center justify-between bg-[#14181f] px-4 py-3 text-white sm:px-6">
           <span className="text-sm font-semibold text-slate-300">
-            Guía rápida · {i + 1} de {PASOS.length}
+            Tutorial · paso {i + 1} de {PASOS.length}
           </span>
-          <button
-            type="button"
-            onClick={onCerrar}
-            aria-label="Cerrar guía"
-            className="rounded-lg p-1 text-slate-300 transition hover:bg-white/10 hover:text-white"
-          >
-            <X className="h-5 w-5" aria-hidden="true" />
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={() => onCerrar(true)}
+              className="rounded-lg px-3 py-1 text-sm font-semibold text-slate-200 transition hover:bg-white/10 hover:text-white"
+            >
+              Saltar tutorial
+            </button>
+            <button
+              type="button"
+              onClick={() => onCerrar(false)}
+              aria-label="Cerrar tutorial"
+              className="rounded-lg p-1 text-slate-300 transition hover:bg-white/10 hover:text-white"
+            >
+              <X className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
         </div>
 
         <div className="flex flex-col items-center gap-4 px-6 py-8 text-center sm:px-10">
@@ -133,21 +143,16 @@ export function Guia({ onCerrar }: Props) {
           <button
             type="button"
             className="btn-secundario"
-            onClick={() => (i === 0 ? onCerrar() : setI(i - 1))}
+            disabled={i === 0}
+            onClick={() => setI(i - 1)}
           >
-            {i === 0 ? (
-              'Saltar'
-            ) : (
-              <>
-                <ArrowLeft className="h-5 w-5" aria-hidden="true" />
-                Atrás
-              </>
-            )}
+            <ArrowLeft className="h-5 w-5" aria-hidden="true" />
+            Atrás
           </button>
           <button
             type="button"
             className={ultimo ? 'btn-verde' : 'btn-primario'}
-            onClick={() => (ultimo ? onCerrar() : setI(i + 1))}
+            onClick={() => (ultimo ? onCerrar(false) : setI(i + 1))}
           >
             {ultimo ? (
               '¡Empezar!'
@@ -159,6 +164,11 @@ export function Guia({ onCerrar }: Props) {
             )}
           </button>
         </div>
+
+        <p className="border-t border-slate-100 bg-slate-50 px-6 py-2.5 text-center text-sm text-slate-500">
+          Este tutorial aparece cada vez que entra. Toque <strong>«Saltar tutorial»</strong> para no
+          volver a verlo.
+        </p>
       </div>
     </div>
   );

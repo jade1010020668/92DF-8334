@@ -104,14 +104,26 @@ export default function App() {
   );
   const requiereClave = acceso.claveHash !== '' && !(acceso.recordar && desbloqueado);
 
-  // Guía de bienvenida: se muestra la primera vez (y se puede reabrir).
-  const [vioGuia, setVioGuia] = useLocalStorageState<boolean>(CLAVE_VIO_GUIA, false, (g) => g === true);
+  // Tutorial de bienvenida: aparece CADA vez que se entra, salvo que el usuario
+  // haya elegido "Saltar tutorial / No volver a mostrar". `guiaCerradaSesion`
+  // lo oculta solo en esta sesión (al recargar vuelve a salir si no se saltó).
+  const [saltarTutorial, setSaltarTutorial] = useLocalStorageState<boolean>(
+    CLAVE_VIO_GUIA,
+    false,
+    (g) => g === true,
+  );
   const [guiaAbierta, setGuiaAbierta] = useState(false);
-  const mostrarGuia = guiaAbierta || (!vioGuia && !requiereClave);
-  const cerrarGuia = useCallback(() => {
-    setVioGuia(true);
-    setGuiaAbierta(false);
-  }, [setVioGuia]);
+  const [guiaCerradaSesion, setGuiaCerradaSesion] = useState(false);
+  const mostrarGuia =
+    guiaAbierta || (!saltarTutorial && !guiaCerradaSesion && !requiereClave);
+  const cerrarGuia = useCallback(
+    (noMostrarMas: boolean) => {
+      if (noMostrarMas) setSaltarTutorial(true);
+      setGuiaCerradaSesion(true);
+      setGuiaAbierta(false);
+    },
+    [setSaltarTutorial],
+  );
 
   const mostrarToast: MostrarToast = useCallback((mensaje, tipo = 'info', accion) => {
     setToast({ mensaje, tipo, accion });
