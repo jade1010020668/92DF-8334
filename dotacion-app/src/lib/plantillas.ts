@@ -239,6 +239,20 @@ export function urlGmail(destinatario: string, asunto: string, cuerpo: string): 
   return `https://mail.google.com/mail/?${params.toString()}`;
 }
 
+/**
+ * URL para abrir Outlook / Hotmail con el correo ya escrito. Es el correo del
+ * negocio (dot.manantial@hotmail.com): el papá solo da «Enviar», sin guardar
+ * ninguna contraseña en la app.
+ */
+export function urlOutlook(destinatario: string, asunto: string, cuerpo: string): string {
+  const params = new URLSearchParams({
+    to: destinatario,
+    subject: asunto,
+    body: cuerpo,
+  });
+  return `https://outlook.live.com/mail/0/deeplink/compose?${params.toString()}`;
+}
+
 /** URL para abrir WhatsApp con el mensaje ya cargado. Null si el teléfono no sirve. */
 export function urlWhatsApp(telefono: string, mensaje: string): string | null {
   const numero = normalizarTelefonoWhatsApp(telefono);

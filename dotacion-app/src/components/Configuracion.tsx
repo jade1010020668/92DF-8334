@@ -237,10 +237,11 @@ export function Configuracion({
         <div className="rounded-2xl border border-blue-200 bg-blue-50 p-4 text-blue-900">
           <p className="font-semibold">📧 ¿Cómo se envían los correos?</p>
           <p className="mt-1">
-            Pon abajo el <strong>correo desde el que vendes</strong> (tu Gmail). Cuando envíes una
-            cotización, la app abre Gmail con todo escrito y tú solo das «Enviar» — usa tu sesión de
-            Gmail de siempre, sin claves ni configuraciones. Si quieres que salgan solos (sin abrir
-            Gmail), más abajo está la opción de Brevo.
+            Pon abajo el <strong>correo desde el que vendes</strong> (tu Outlook/Hotmail:
+            dot.manantial@hotmail.com). Cuando envíes una cotización, la app abre tu Outlook con todo
+            escrito y tú solo das «Enviar» — usa tu sesión de Hotmail de siempre, sin claves ni
+            configuraciones. Si quieres que salgan solos (sin abrir el correo), más abajo está la
+            opción de Brevo.
           </p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -565,7 +566,7 @@ export function Configuracion({
           Envío automático de correos con Brevo (opcional)
         </h3>
         <p className="text-slate-600">
-          Sin esto, la app abre Gmail y tú das el clic final. Con una clave de Brevo, la campaña
+          Sin esto, la app abre tu Outlook/Hotmail y tú das el clic final. Con una clave de Brevo, la campaña
           puede enviar los correos directamente, uno a uno o todos de una vez (gratis hasta 300
           correos al día).
         </p>

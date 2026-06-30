@@ -13,7 +13,7 @@ import {
   Zap,
 } from 'lucide-react';
 import type { ConfigApp, Empresa, EstadoEmpresa } from '../types';
-import { generarEmail, generarWhatsApp, urlGmail, urlWhatsApp } from '../lib/plantillas';
+import { generarEmail, generarWhatsApp, urlOutlook, urlWhatsApp } from '../lib/plantillas';
 import { enviarCorreoBrevo } from '../lib/brevo';
 import { generarPdfCotizacion } from '../lib/pdf';
 import type { MostrarToast } from '../App';
@@ -358,11 +358,11 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
                     disabled={!actual.email}
                     title={actual.email ? undefined : 'Esta empresa no tiene correo'}
                     onClick={() =>
-                      window.open(urlGmail(actual.email, email.asunto, email.cuerpo), '_blank', 'noopener')
+                      window.open(urlOutlook(actual.email, email.asunto, email.cuerpo), '_blank', 'noopener')
                     }
                   >
                     <Mail className="h-5 w-5" aria-hidden="true" />
-                    Abrir Gmail
+                    Abrir correo
                   </button>
                 )}
                 <button

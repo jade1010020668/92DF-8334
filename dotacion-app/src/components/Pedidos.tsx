@@ -19,6 +19,7 @@ import {
   totalPedido,
 } from '../lib/pedidos';
 import { generarPdfPedido } from '../lib/pdf';
+import { catalogoParaPedidos } from '../lib/catalogo';
 import type { MostrarToast } from '../App';
 import { PedidoForm } from './PedidoForm';
 
@@ -277,7 +278,7 @@ export function Pedidos({
         <PedidoForm
           empresas={empresas}
           inicial={editando}
-          catalogo={config.productos}
+          catalogo={catalogoParaPedidos(config)}
           onGuardar={guardar}
           onCerrar={() => {
             setFormAbierto(false);

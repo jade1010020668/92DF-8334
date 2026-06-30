@@ -1,57 +1,74 @@
-# Lista de precios 2026 — Dotaciones El Manantial
+# Lista de precios 2026 — Dotaciones El Manantial S.A.S
 
-Fuente: cotización oficial de la empresa (documento "A. LISTADO DIEGO_ 23.doc",
-enero 2023, valores sin IVA) **con incremento del 20%** aplicado y redondeado
-a la centena. Es la base del brochure público
-(`dotacion-app/public/catalogo.html`) y del catálogo por defecto de la app.
+Fuente: **cotización oficial de la empresa, Ref. Cotización ENERO 2026**
+(valores **sin IVA**). Es la base del brochure público
+(`dotacion-app/public/catalogo.html`), del catálogo de precios del formulario de
+pedidos (`dotacion-app/src/lib/catalogo.ts`) y de los precios "desde" del
+catálogo por defecto de la app.
 
-Contacto real del negocio: Tel (601) 407 06 54 · Cel 313 860 59 41 / 313 574 50 63
-· jose.manantial@hotmail.com · www.dotacionesmanantial.com
+Empresa: **Dotaciones El Manantial S.A.S** · NIT 830.137.919-3 ·
+Confección y distribución de prendas de trabajo.
+Contacto real: Tel (601) 721 3566 · Cel 313 574 5063 / 313 860 59 41 ·
+dot.manantial@hotmail.com · www.dotacionesmanantial.com ·
+Carrera 34 No. 2-62, Bogotá D.C. · Firma: José Manuel Morales Quintana.
 
-| Producto | Precio 2023 | +20% (2026) |
-|---|---:|---:|
-| **Overoles y ropa en dril** | | |
-| Overol 2 piezas en dril (hasta talla 42) | $54.000 | $64.800 |
-| Overol enterizo 3 cremalleras en dril (hasta 42) | $54.000 | $64.800 |
-| Overol piloto en dril (hasta talla 42) | $69.500 | $83.400 |
-| Blusa en dril (hasta talla 42) | $38.500 | $46.200 |
-| Chaleco tipo periodista en dril (hasta XL) | $39.000 | $46.800 |
-| Conjunto 2 piezas antifluido (hasta XL) | $55.000 | $66.000 |
-| **Dotación de vendedores tipo calle** | | |
-| Pantalón en jeans prelavado (hasta talla 36) | $28.700 | $34.400 |
-| Chaqueta en jeans prelavado (hasta XL) | $42.500 | $51.000 |
-| Camisa cuello corbata Oxford (hasta XL) | $39.000 | $46.800 |
-| Camisa en jean prelavada (hasta XL) | $31.700 | $38.000 |
-| Camiseta polo manga larga (hasta XL) | $27.500 | $33.000 |
-| Camiseta polo manga corta (hasta XL) | $21.500 | $25.800 |
-| Camiseta cuello redondo manga corta (hasta XL) | $16.500 | $19.800 |
-| Camiseta cuello redondo manga larga (hasta XL) | $21.500 | $25.800 |
-| Chaqueta impermeable (hasta XL) | $62.000 | $74.400 |
-| **Botas y calzado** | | |
-| Bota de seguridad liviana (BR) | $46.000 | $55.200 |
-| Bota dieléctrica con punta de seguridad | $58.500 | $70.200 |
-| Bota suela liviana con puntera (920) | $55.500 | $66.600 |
-| Bota soldador | $55.000 | $66.000 |
-| Bota puntera dieléctrica tipo ingeniero | $66.000 | $79.200 |
-| Zapato en goma | $27.500 | $33.000 |
-| Zapato dama | $39.000 | $46.800 |
-| **Guantes** | | |
-| Guante en neopreno | $8.500 | $10.200 |
-| Guante tipo ingeniero sencillo | $7.800 | $9.400 |
-| Guante tipo ingeniero reforzado | $8.800 | $10.600 |
-| Guante en carnaza corto | $7.900 | $9.500 |
-| Guante en carnaza largo | $9.500 | $11.400 |
-| **Gorros, tapabocas y protección** | | |
-| Tapabocas industrial x 100 unidades | $55.000 | $66.000 |
-| Cachucha | $12.000 | $14.400 |
-| Casco blanco | $23.000 | $27.600 |
-| Gafas transparentes | $8.500 | $10.200 |
-| Tapaoídos tipo llavero | $2.300 | $2.800 |
-| Cofia en lino | $7.000 | $8.400 |
-| Peto en caucho largo | $25.500 | $30.600 |
-| Peto en carnaza | $25.000 | $30.000 |
-| **Bordado y estampado** | | |
-| Bordado tamaño bolsillo (aprox.) | $3.500 | $4.200 |
-| Bordado tamaño espalda (aprox.) | $6.500 | $7.800 |
-| Estampado en espalda a una tinta | $2.300 | $2.800 |
-| Estampado en bolsillo a una tinta | $1.500 | $1.800 |
+## Dotaciones
+| Producto | Valor |
+|---|---|
+| Overol 2 piezas en dril (hasta talla 42) | $58.500 |
+| Overol enterizo tres cremalleras en dril (hasta talla 42) | $58.800 |
+| Overol piloto en dril (hasta talla 42) | $72.500 |
+| Blusa 3/4 en dril (hasta talla 42) | $40.900 |
+| Chaleco tipo periodista en dril (hasta talla XL) | $41.500 |
+| Conjunto 2 piezas en antifluido — servicios generales (hasta talla XL) | $63.000 |
+
+## Dotación de vendedores tipo calle
+| Producto | Valor |
+|---|---|
+| Pantalón en jeans prelavado (hasta talla 36) | $31.500 |
+| Chaqueta en jeans prelavado (hasta talla XL) | $46.900 |
+| Camisa cuello para corbata Oxford (hasta talla XL) | $41.500 |
+| Camisa en jean prelavado (hasta talla XL) | $33.000 |
+| Camiseta tipo polo manga larga (hasta talla XL) | $30.500 |
+| Camiseta tipo polo manga corta (hasta talla XL) | $25.600 |
+| Camiseta cuello redondo manga corta (hasta talla XL) | $18.100 |
+| Camiseta cuello redondo manga larga (hasta talla XL) | $23.100 |
+| Chaqueta impermeable (hasta talla XL) | $68.000 |
+
+## Botas y calzado
+| Producto | Valor |
+|---|---|
+| Bota de seguridad liviana negra referencia 820 | $61.500 |
+| Bota de seguridad liviana negra referencia 920 | $65.000 |
+| Bota de seguridad liviana negra referencia GM | $68.000 |
+| Bota soldador | $55.500 |
+| Zapato en goma | $50.500 |
+| Zapato dama | $46.500 |
+
+## Guantes
+| Producto | Valor |
+|---|---|
+| Guante tipo ingeniero reforzado | $9.800 |
+| Guante en carnaza corto | $8.800 |
+| Guante en carnaza largo | $10.500 |
+
+## Gorros y tapabocas
+| Producto | Valor |
+|---|---|
+| Tapa boca industrial (paquete x 100 unidades) | $51.500 |
+| Cachucha | $13.000 |
+| Casco | $24.500 |
+| Gafas transparentes | $9.500 |
+| Tapa oídos tipo llavero | $4.000 |
+| Cofia en lino | $8.500 |
+| Peto en carnaza | $26.000 |
+
+## Servicio de estampado y bordado
+| Producto | Valor |
+|---|---|
+| Bordado tamaño bolsillo (según cantidad y puntada) | $4.000 |
+| Bordado tamaño espalda (según cantidad y puntada) | $7.000 |
+| Estampado en espalda a una tinta (según cantidad) | $2.900 |
+| Estampado en bolsillo a una tinta (según cantidad) | $1.900 |
+
+> Valores sin IVA. Descuentos especiales por volumen a partir de 20 unidades.

@@ -28,7 +28,7 @@ import type {
   Pedido,
 } from '../types';
 import { ESTADOS, ETIQUETA_ESTADO, COLOR_ESTADO } from '../types';
-import { generarEmail, generarWhatsApp, urlBuscarContacto, urlGmail, urlWhatsApp } from '../lib/plantillas';
+import { generarEmail, generarWhatsApp, urlBuscarContacto, urlOutlook, urlWhatsApp } from '../lib/plantillas';
 import { generarPdfCotizacion } from '../lib/pdf';
 import { descargarPlantilla, exportarExcel, importarExcel } from '../lib/excel';
 import { buscarDatosContacto } from '../lib/enriquecerGoogle';
@@ -249,11 +249,11 @@ export function Empresas({
           type="button"
           className="btn-icono"
           aria-label={`Enviar correo a ${e.nombre}`}
-          title="Enviar correo (Gmail)"
+          title="Enviar correo (Outlook/Hotmail)"
           disabled={!e.email}
           onClick={() => {
-            window.open(urlGmail(e.email, correo.asunto, correo.cuerpo), '_blank', 'noopener');
-            registrarEvento(e.id, 'correo', 'Correo abierto en Gmail');
+            window.open(urlOutlook(e.email, correo.asunto, correo.cuerpo), '_blank', 'noopener');
+            registrarEvento(e.id, 'correo', 'Correo abierto en Outlook');
           }}
         >
           <Mail className="h-5 w-5" aria-hidden="true" />

@@ -46,7 +46,7 @@ const PASOS: Paso[] = [
     Icono: Rocket,
     titulo: '3. Enviar cotizaciones',
     texto:
-      'En Inicio, toque «Enviar a X pendientes». La app le muestra cada empresa con el correo y el WhatsApp ya escritos. Usted solo revisa y da Enviar (en Gmail o WhatsApp).',
+      'En Inicio, toque «Enviar a X pendientes». La app le muestra cada empresa con el correo y el WhatsApp ya escritos. Usted solo revisa y da Enviar (en su Outlook/Hotmail o en WhatsApp).',
     porque: 'Despacha muchas cotizaciones en minutos, en vez de escribirlas una por una.',
   },
   {

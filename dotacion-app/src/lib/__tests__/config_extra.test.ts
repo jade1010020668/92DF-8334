@@ -74,7 +74,7 @@ describe('combinarConfig (parciales y basura)', () => {
   it('el resultado es independiente de CONFIG_DEFAULT (no muta el default)', () => {
     const r = combinarConfig({ nombreEmpresa: 'Mutante' });
     expect(r).not.toBe(CONFIG_DEFAULT);
-    expect(CONFIG_DEFAULT.nombreEmpresa).toBe('Dotaciones El Manantial');
+    expect(CONFIG_DEFAULT.nombreEmpresa).toBe('Dotaciones El Manantial S.A.S');
   });
 });
 

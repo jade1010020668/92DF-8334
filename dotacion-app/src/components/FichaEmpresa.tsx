@@ -19,12 +19,13 @@ import {
   generarEmail,
   generarWhatsApp,
   urlBuscarContacto,
-  urlGmail,
+  urlOutlook,
   urlWhatsApp,
   urlWhatsAppCatalogo,
   formatearPesos,
 } from '../lib/plantillas';
 import { buscarDatosContacto } from '../lib/enriquecerGoogle';
+import { catalogoParaPedidos } from '../lib/catalogo';
 import { generarPdfCotizacion } from '../lib/pdf';
 import { saldoPedido, totalPedido } from '../lib/pedidos';
 import { ETIQUETA_ESTADO_PEDIDO } from '../types';
@@ -139,7 +140,7 @@ export function FichaEmpresa({
               type="button"
               className="btn-primario px-4 py-2"
               disabled={!empresa.email}
-              onClick={() => abrir(urlGmail(empresa.email, correo.asunto, correo.cuerpo), 'correo', 'Correo enviado')}
+              onClick={() => abrir(urlOutlook(empresa.email, correo.asunto, correo.cuerpo), 'correo', 'Correo enviado')}
             >
               <Mail className="h-5 w-5" aria-hidden="true" />
               Correo
@@ -304,7 +305,7 @@ export function FichaEmpresa({
         <PedidoForm
           empresas={[empresa]}
           empresaIdInicial={empresa.id}
-          catalogo={config.productos}
+          catalogo={catalogoParaPedidos(config)}
           onGuardar={(datos) => {
             crearPedido(datos);
             registrarEvento(empresa.id, 'pedido', `Pedido por ${formatearPesos(totalPedido(datos))}`);

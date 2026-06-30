@@ -27,7 +27,7 @@ import { totalPedido } from '../lib/pedidos';
 import {
   generarEmailSeguimiento,
   generarWhatsAppSeguimiento,
-  urlGmail,
+  urlOutlook,
   urlWhatsApp,
 } from '../lib/plantillas';
 
@@ -326,7 +326,7 @@ export function Dashboard({
                       className="btn-secundario px-4 py-2"
                       disabled={!empresa.email}
                       title={empresa.email ? undefined : 'Esta empresa no tiene correo'}
-                      onClick={() => abrirSeguimiento(empresa, urlGmail(empresa.email, asunto, cuerpo))}
+                      onClick={() => abrirSeguimiento(empresa, urlOutlook(empresa.email, asunto, cuerpo))}
                     >
                       <Mail className="h-5 w-5" aria-hidden="true" />
                       Correo
