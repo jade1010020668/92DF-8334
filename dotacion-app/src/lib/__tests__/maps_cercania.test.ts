@@ -93,3 +93,22 @@ describe('parsearProspectosCercanos', () => {
     expect(parsearProspectosCercanos({}, negocio)).toEqual([]);
   });
 });
+
+describe('buscarCercaDelNegocio — usa coordenadas del negocio sin geocodificar', () => {
+  it('toma el origen de config.negocioLat/Lon y no falla por la dirección', async () => {
+    const { buscarCercaDelNegocio } = await import('../maps');
+    const { CONFIG_DEFAULT } = await import('../config');
+    // Stub de la red: cualquier llamada Overpass devuelve 0 elementos.
+    const fetchOriginal = globalThis.fetch;
+    globalThis.fetch = (async () =>
+      ({ ok: true, json: async () => ({ elements: [] }) }) as unknown as Response) as typeof fetch;
+    try {
+      const r = await buscarCercaDelNegocio(CONFIG_DEFAULT, 5);
+      expect(r.origen.lat).toBeCloseTo(CONFIG_DEFAULT.negocioLat as number, 4);
+      expect(r.origen.lon).toBeCloseTo(CONFIG_DEFAULT.negocioLon as number, 4);
+      expect(Array.isArray(r.resultados)).toBe(true);
+    } finally {
+      globalThis.fetch = fetchOriginal;
+    }
+  });
+});

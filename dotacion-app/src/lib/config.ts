@@ -43,6 +43,10 @@ export const CONFIG_DEFAULT: ConfigApp = {
   textoDescuentos:
     'Manejamos descuentos especiales por volumen y precios mayoristas a partir de 20 unidades. Vea el catálogo completo con precios en: https://morales101002-dotacionpro.static.hf.space/catalogo.html',
   diasSeguimiento: 5,
+  // Ubicación real del negocio (Carrera 34 No. 2-62, Bogotá), para que el mapa
+  // "cerca de mi negocio" funcione sin depender de geolocalizar el texto.
+  negocioLat: 4.5855,
+  negocioLon: -74.1355,
   googleMapsApiKey: '',
   brevoApiKey: '',
   plantillaEmail: '',
@@ -84,6 +88,11 @@ export function combinarConfig(guardada: Partial<ConfigApp> | null | undefined):
     if (typeof combinada[campo] !== 'string' || combinada[campo].trim() === '') {
       combinada[campo] = CONFIG_DEFAULT[campo];
     }
+  }
+  // Si faltan o están dañadas las coordenadas del negocio, usar las reales.
+  if (!Number.isFinite(combinada.negocioLat) || !Number.isFinite(combinada.negocioLon)) {
+    combinada.negocioLat = CONFIG_DEFAULT.negocioLat;
+    combinada.negocioLon = CONFIG_DEFAULT.negocioLon;
   }
   return combinada;
 }

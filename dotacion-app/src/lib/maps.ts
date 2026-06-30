@@ -176,9 +176,11 @@ export function parsearOverpass(json: unknown): ResultadoMaps[] {
   return resultados;
 }
 
-/** Servidor principal y espejo: si uno falla o limita, se intenta el otro. */
+/** Varios espejos de Overpass: si uno falla o limita, se intenta el siguiente. */
 const SERVIDORES_OVERPASS = [
+  'https://maps.mail.ru/osm/tools/overpass/api/interpreter',
   'https://overpass-api.de/api/interpreter',
+  'https://overpass.osm.ch/api/interpreter',
   'https://overpass.kumi.systems/api/interpreter',
 ];
 
@@ -512,15 +514,24 @@ export async function buscarCercaDelNegocio(
   config: ConfigApp,
   radioKm: number,
 ): Promise<BusquedaCercana> {
-  const direccionCompleta = [config.direccion, config.ciudad].filter((s) => s.trim()).join(', ');
-  if (!direccionCompleta.trim()) {
-    throw new Error('Primero escribe la dirección de tu negocio en Configuración.');
-  }
-  const origen = await geocodificarDireccion(direccionCompleta);
+  // 1) Si tenemos las coordenadas del negocio (vienen por defecto), úsalas:
+  //    es instantáneo y no depende de geolocalizar el texto de la dirección.
+  let origen: Coordenada | null =
+    Number.isFinite(config.negocioLat) && Number.isFinite(config.negocioLon)
+      ? { lat: config.negocioLat as number, lon: config.negocioLon as number }
+      : null;
+  // 2) Si no hay coordenadas, intenta ubicar la dirección escrita.
   if (!origen) {
-    throw new Error(
-      `No pudimos ubicar "${direccionCompleta}" en el mapa. Revisa la dirección en Configuración.`,
-    );
+    const direccionCompleta = [config.direccion, config.ciudad].filter((s) => s.trim()).join(', ');
+    if (!direccionCompleta.trim()) {
+      throw new Error('Primero escribe la dirección de tu negocio en Configuración.');
+    }
+    origen = await geocodificarDireccion(direccionCompleta);
+    if (!origen) {
+      throw new Error(
+        `No pudimos ubicar "${direccionCompleta}" en el mapa. Revisa la dirección en Configuración.`,
+      );
+    }
   }
   const radio = Math.round(Math.min(Math.max(radioKm, 0.5), 15) * 1000);
   const resultados = await buscarOverpassCercano(origen, radio);

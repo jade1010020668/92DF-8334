@@ -96,6 +96,9 @@ export interface ConfigApp {
   textoDescuentos: string;
   /** Días sin respuesta tras los cuales se sugiere hacer seguimiento. */
   diasSeguimiento: number;
+  /** Coordenadas del negocio (origen del mapa "cerca de mi negocio"). */
+  negocioLat?: number;
+  negocioLon?: number;
   /** Clave opcional de Google Maps Platform (Places API New) para búsqueda. */
   googleMapsApiKey: string;
   /** Clave opcional de Brevo para enviar correos reales desde la app. */
