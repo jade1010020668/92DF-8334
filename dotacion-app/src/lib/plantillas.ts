@@ -94,6 +94,34 @@ function generarEmailAutomatico_(empresa: Empresa, config: ConfigApp): { asunto:
   return { asunto, cuerpo };
 }
 
+/**
+ * Correo de cotización genérico para envío MASIVO a varias empresas a la vez
+ * (sin personalizar por empresa, porque va a muchos destinatarios en copia
+ * oculta). Lleva el portafolio, descuentos y la firma del negocio.
+ */
+export function generarEmailMasivo(config: ConfigApp): { asunto: string; cuerpo: string } {
+  const asunto = `Cotización de dotación industrial y EPP — ${config.nombreEmpresa}`;
+  const cuerpo = [
+    'Buen día:',
+    '',
+    `Le escribo de ${config.nombreEmpresa}, empresa bogotana especializada en dotación industrial y elementos de protección personal (EPP).`,
+    '',
+    'Con gusto ponemos a su disposición nuestro portafolio:',
+    '',
+    listaProductosEmail(config),
+    '',
+    config.textoDescuentos,
+    'Atendemos pedidos desde 10 unidades, con entrega en Bogotá y alrededores.',
+    '',
+    '¿Me indican qué productos y cantidades necesitan y les preparamos una cotización formal sin ningún compromiso?',
+    '',
+    'Cordial saludo,',
+    '',
+    firmaEmail(config),
+  ].join('\n');
+  return { asunto, cuerpo };
+}
+
 /** Email corto de seguimiento cuando la empresa no ha respondido. */
 export function generarEmailSeguimiento(
   empresa: Empresa,
@@ -250,6 +278,25 @@ export function urlOutlook(destinatario: string, asunto: string, cuerpo: string)
     subject: asunto,
     body: cuerpo,
   });
+  return `https://outlook.live.com/mail/0/deeplink/compose?${params.toString()}`;
+}
+
+/**
+ * URL de Outlook para un envío MASIVO: los destinatarios van en copia oculta
+ * (BCC) para que no vean los correos de los demás. `remitente` (el correo del
+ * negocio) va en "Para" como copia para uno mismo. Filtra correos vacíos y
+ * repetidos.
+ */
+export function urlOutlookMasivo(
+  destinatarios: string[],
+  asunto: string,
+  cuerpo: string,
+  remitente = '',
+): string {
+  const bcc = [...new Set(destinatarios.map((d) => d.trim()).filter(Boolean))].join(',');
+  const params = new URLSearchParams({ subject: asunto, body: cuerpo });
+  if (remitente.trim()) params.set('to', remitente.trim());
+  if (bcc) params.set('bcc', bcc);
   return `https://outlook.live.com/mail/0/deeplink/compose?${params.toString()}`;
 }
 

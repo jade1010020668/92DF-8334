@@ -28,7 +28,15 @@ import type {
   Pedido,
 } from '../types';
 import { ESTADOS, ETIQUETA_ESTADO, COLOR_ESTADO } from '../types';
-import { generarEmail, generarWhatsApp, urlBuscarContacto, urlOutlook, urlWhatsApp } from '../lib/plantillas';
+import {
+  generarEmail,
+  generarEmailMasivo,
+  generarWhatsApp,
+  urlBuscarContacto,
+  urlOutlook,
+  urlOutlookMasivo,
+  urlWhatsApp,
+} from '../lib/plantillas';
 import { generarPdfCotizacion } from '../lib/pdf';
 import { descargarPlantilla, exportarExcel, importarExcel } from '../lib/excel';
 import { buscarDatosContacto } from '../lib/enriquecerGoogle';
@@ -74,6 +82,7 @@ export function Empresas({
   const [filtroSector, setFiltroSector] = useState('todos');
   const [filtroEstado, setFiltroEstado] = useState('todos');
   const [soloContacto, setSoloContacto] = useState(false);
+  const [seleccion, setSeleccion] = useState<Set<string>>(() => new Set());
   const [formAbierto, setFormAbierto] = useState(false);
   const [editando, setEditando] = useState<Empresa | null>(null);
   const [ficha, setFicha] = useState<Empresa | null>(null);
@@ -114,6 +123,62 @@ export function Empresas({
       );
     });
   }, [empresas, busqueda, filtroSector, filtroEstado, soloContacto]);
+
+  // --- Selección múltiple para envío masivo ---
+  const alternarSeleccion = (id: string) =>
+    setSeleccion((actual) => {
+      const nueva = new Set(actual);
+      if (nueva.has(id)) nueva.delete(id);
+      else nueva.add(id);
+      return nueva;
+    });
+
+  const idsFiltradas = filtradas.map((e) => e.id);
+  const todasVisiblesSeleccionadas =
+    idsFiltradas.length > 0 && idsFiltradas.every((id) => seleccion.has(id));
+
+  const alternarTodasVisibles = () =>
+    setSeleccion((actual) => {
+      const nueva = new Set(actual);
+      if (todasVisiblesSeleccionadas) idsFiltradas.forEach((id) => nueva.delete(id));
+      else idsFiltradas.forEach((id) => nueva.add(id));
+      return nueva;
+    });
+
+  const limpiarSeleccion = () => setSeleccion(new Set());
+
+  const empresasSeleccionadas = empresas.filter((e) => seleccion.has(e.id));
+  const seleccionadasConCorreo = empresasSeleccionadas.filter((e) => e.email.trim() !== '');
+
+  /** Envío masivo de la cotización por correo: un solo mensaje con todos en CCO. */
+  const enviarCorreoMasivo = () => {
+    if (seleccionadasConCorreo.length === 0) {
+      mostrarToast('Ninguna de las empresas seleccionadas tiene correo. Usa WhatsApp para esas.', 'info');
+      return;
+    }
+    if (
+      seleccionadasConCorreo.length > 40 &&
+      !window.confirm(
+        `Vas a escribir a ${seleccionadasConCorreo.length} empresas en un solo correo. Hotmail puede limitar los envíos muy grandes; si falla, hazlo en grupos más pequeños. ¿Continuar?`,
+      )
+    ) {
+      return;
+    }
+    const { asunto, cuerpo } = generarEmailMasivo(config);
+    const correos = seleccionadasConCorreo.map((e) => e.email.trim());
+    window.open(urlOutlookMasivo(correos, asunto, cuerpo, config.email), '_blank', 'noopener');
+    seleccionadasConCorreo.forEach((e) => {
+      if (e.estado === 'pendiente') cambiarEstado(e.id, 'enviado');
+      registrarEvento(e.id, 'correo', 'Cotización enviada (correo masivo)');
+    });
+    mostrarToast(
+      `Se abrió tu correo con ${seleccionadasConCorreo.length} ${
+        seleccionadasConCorreo.length === 1 ? 'empresa' : 'empresas'
+      } en copia oculta. Revisa y da «Enviar».`,
+      'exito',
+    );
+    limpiarSeleccion();
+  };
 
   const importar = async (evento: React.ChangeEvent<HTMLInputElement>) => {
     const input = evento.target;
@@ -529,10 +594,45 @@ export function Empresas({
         </div>
       ) : (
         <>
-          <p className="text-lg font-semibold text-slate-600">
-            Mostrando {filtradas.length} de {empresas.length}{' '}
-            {empresas.length === 1 ? 'empresa' : 'empresas'}
-          </p>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="text-lg font-semibold text-slate-600">
+              Mostrando {filtradas.length} de {empresas.length}{' '}
+              {empresas.length === 1 ? 'empresa' : 'empresas'}
+            </p>
+            {filtradas.length > 0 && (
+              <button type="button" className="btn-secundario px-3 py-1.5 text-sm" onClick={alternarTodasVisibles}>
+                {todasVisiblesSeleccionadas ? 'Quitar selección' : 'Seleccionar todas'}
+              </button>
+            )}
+          </div>
+
+          {/* Barra de envío masivo: aparece al seleccionar empresas */}
+          {seleccion.size > 0 && (
+            <div className="sticky top-2 z-20 flex flex-col gap-3 rounded-2xl border border-emerald-300 bg-emerald-50 p-4 shadow-md sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-lg font-semibold text-emerald-900">
+                {seleccion.size} {seleccion.size === 1 ? 'empresa seleccionada' : 'empresas seleccionadas'}
+                {seleccionadasConCorreo.length < seleccion.size && (
+                  <span className="ml-1 text-sm font-normal text-emerald-700">
+                    ({seleccionadasConCorreo.length} con correo)
+                  </span>
+                )}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  className="btn-verde px-4 py-2"
+                  disabled={seleccionadasConCorreo.length === 0}
+                  onClick={enviarCorreoMasivo}
+                >
+                  <Mail className="h-5 w-5" aria-hidden="true" />
+                  Enviar cotización por correo ({seleccionadasConCorreo.length})
+                </button>
+                <button type="button" className="btn-secundario px-4 py-2" onClick={limpiarSeleccion}>
+                  Limpiar
+                </button>
+              </div>
+            </div>
+          )}
 
           {filtradas.length === 0 ? (
             <div className="tarjeta py-10 text-center text-lg text-slate-600">
@@ -545,6 +645,15 @@ export function Empresas({
                 <table className="w-full text-left">
                   <thead>
                     <tr className="border-b border-slate-200 text-sm uppercase tracking-wide text-slate-500">
+                      <th scope="col" className="px-4 py-3">
+                        <input
+                          type="checkbox"
+                          className="h-5 w-5 cursor-pointer accent-emerald-600"
+                          checked={todasVisiblesSeleccionadas}
+                          onChange={alternarTodasVisibles}
+                          aria-label="Seleccionar todas las empresas visibles"
+                        />
+                      </th>
                       <th scope="col" className="px-4 py-3">
                         Empresa
                       </th>
@@ -565,6 +674,15 @@ export function Empresas({
                   <tbody className="divide-y divide-slate-100">
                     {filtradas.map((e) => (
                       <tr key={e.id} className="align-top hover:bg-slate-50" title={e.notas}>
+                        <td className="px-4 py-3">
+                          <input
+                            type="checkbox"
+                            className="h-5 w-5 cursor-pointer accent-emerald-600"
+                            checked={seleccion.has(e.id)}
+                            onChange={() => alternarSeleccion(e.id)}
+                            aria-label={`Seleccionar ${e.nombre}`}
+                          />
+                        </td>
                         <td className="px-4 py-3">
                           <p className="font-bold text-slate-800">{e.nombre}</p>
                           {e.contacto && <p className="text-sm text-slate-500">{e.contacto}</p>}
@@ -595,11 +713,20 @@ export function Empresas({
                   return (
                     <div key={e.id} className="tarjeta space-y-2">
                       <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <p className="text-lg font-bold text-slate-800">{e.nombre}</p>
-                          {e.sector && <p className="text-slate-600">Sector: {e.sector}</p>}
-                          {e.contacto && <p className="text-slate-600">{e.contacto}</p>}
-                        </div>
+                        <label className="flex items-start gap-2">
+                          <input
+                            type="checkbox"
+                            className="mt-1 h-5 w-5 shrink-0 cursor-pointer accent-emerald-600"
+                            checked={seleccion.has(e.id)}
+                            onChange={() => alternarSeleccion(e.id)}
+                            aria-label={`Seleccionar ${e.nombre}`}
+                          />
+                          <span>
+                            <span className="block text-lg font-bold text-slate-800">{e.nombre}</span>
+                            {e.sector && <span className="block text-slate-600">Sector: {e.sector}</span>}
+                            {e.contacto && <span className="block text-slate-600">{e.contacto}</span>}
+                          </span>
+                        </label>
                         {selectorEstado(e)}
                       </div>
                       {e.email && <p className="break-all text-sm text-slate-600">{e.email}</p>}
