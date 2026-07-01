@@ -4,183 +4,286 @@
 <meta charset="UTF-8" />
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'self'" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Catálogo 2026 — Dotaciones El Manantial</title>
-<meta name="description" content="Catálogo de dotación industrial y EPP: overoles, botas de seguridad, guantes, protección y bordado. Bogotá, Colombia." />
+<title>Catálogo 2026 — Dotaciones El Manantial S.A.S</title>
+<meta name="description" content="Catálogo de dotación industrial y EPP: overoles, botas de seguridad, guantes, protección, bordado y estampado. Bogotá, Colombia." />
 <style>
-  :root { --azul:#1d4ed8; --azul-osc:#1e3a8a; --ambar:#f59e0b; --gris:#475569; }
-  * { box-sizing:border-box; margin:0; }
-  body { font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; background:#f1f5f9; color:#1e293b; font-size:17px; line-height:1.5; }
-  .lienzo { max-width:760px; margin:0 auto; padding:0 14px 60px; }
-  header.hero { background:linear-gradient(135deg,var(--azul-osc),var(--azul)); color:#fff; border-radius:0 0 24px 24px; padding:34px 22px 28px; text-align:center; }
-  .hero svg { width:74px; height:74px; }
-  .hero h1 { font-size:2rem; margin-top:10px; }
-  .hero p.lema { color:#dbeafe; font-size:1.1rem; margin-top:6px; }
-  .chips { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:16px; }
-  .chip { background:rgba(255,255,255,.16); border-radius:999px; padding:7px 14px; font-size:.95rem; color:#fff; text-decoration:none; }
-  nav.indice { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:18px 0; }
-  nav.indice a { background:#fff; border:1px solid #cbd5e1; border-radius:999px; padding:8px 14px; font-weight:600; color:var(--azul); text-decoration:none; font-size:.95rem; }
-  section.cat { background:#fff; border:1px solid #e2e8f0; border-radius:20px; padding:20px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,.05); }
-  .cat-cab { display:flex; align-items:center; gap:12px; margin-bottom:6px; }
-  .cat-cab svg { width:44px; height:44px; flex:none; }
-  .cat-cab h2 { font-size:1.3rem; color:var(--azul-osc); }
-  table { width:100%; border-collapse:collapse; margin-top:8px; }
-  td { padding:9px 4px; border-bottom:1px solid #f1f5f9; vertical-align:top; }
-  td.v { text-align:right; font-weight:700; color:var(--azul); white-space:nowrap; }
-  tr:last-child td { border-bottom:none; }
-  .nota { font-size:.92rem; color:var(--gris); margin-top:8px; }
-  .condiciones { background:#fffbeb; border:1px solid #fde68a; border-radius:20px; padding:20px; margin-bottom:16px; }
-  .condiciones h2 { color:#92400e; font-size:1.2rem; margin-bottom:8px; }
-  .condiciones li { margin-left:20px; margin-top:4px; color:#78350f; }
-  .cta { background:linear-gradient(135deg,var(--azul),var(--azul-osc)); color:#fff; border-radius:20px; padding:26px 20px; text-align:center; margin-bottom:16px; }
-  .cta h2 { font-size:1.45rem; }
-  .cta p { color:#dbeafe; margin-top:6px; }
-  .botones { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:16px; }
-  .boton { display:inline-flex; align-items:center; gap:8px; border-radius:14px; padding:13px 22px; font-weight:700; text-decoration:none; font-size:1.05rem; }
-  .b-wa { background:#16a34a; color:#fff; }
-  .b-tel { background:#fff; color:var(--azul-osc); }
-  .b-mail { background:rgba(255,255,255,.16); color:#fff; border:1px solid rgba(255,255,255,.4); }
-  footer { text-align:center; color:var(--gris); font-size:.92rem; padding:18px 10px 0; }
-  footer a { color:var(--azul); }
-  @media print { .cta,.indice{display:none} body{background:#fff} }
+  :root{
+    --tinta:#141210; --carbon:#1d1a16; --oro:#b8923f; --oro-cl:#d9bd7e; --oro-osc:#8f6f2c;
+    --crema:#f6f2ea; --papel:#fffdf9; --texto:#2b2620; --tenue:#8a8072; --linea:#e7ddc9;
+    --serif:Georgia,'Times New Roman',serif;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--texto);line-height:1.6;font-size:16px;
+    background:var(--crema);
+    background-image:radial-gradient(120% 80% at 50% -10%, #fbf8f1 0%, var(--crema) 55%);}
+  .lienzo{max-width:840px;margin:0 auto;background:var(--papel);
+    box-shadow:0 30px 80px rgba(20,16,10,.10);}
+  a{color:inherit;text-decoration:none}
+  .ojo{font-family:var(--sans);text-transform:uppercase;letter-spacing:.32em;font-size:.72rem;
+    font-weight:700;color:var(--oro-osc)}
+
+  /* ---------- Portada ---------- */
+  header.hero{position:relative;background:var(--tinta);color:#f4ecdd;text-align:center;
+    padding:52px 26px 46px;overflow:hidden}
+  header.hero::before{content:"";position:absolute;inset:14px;border:1px solid rgba(184,146,63,.42);
+    pointer-events:none}
+  header.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(60% 60% at 50% 0%, rgba(184,146,63,.16), transparent 70%)}
+  .emblema{position:relative;width:98px;height:98px;margin:0 auto 20px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(145deg,#201c16,#100d0a);
+    border:2px solid var(--oro);box-shadow:0 0 0 6px rgba(184,146,63,.12), inset 0 0 22px rgba(184,146,63,.15)}
+  .emblema span{font-family:var(--serif);font-size:2.5rem;font-weight:700;
+    letter-spacing:.04em;color:var(--oro-cl);line-height:1}
+  .emblema svg{position:absolute;bottom:14px;width:34px;height:16px}
+  header.hero h1{position:relative;font-family:var(--serif);font-weight:700;
+    font-size:2.15rem;letter-spacing:.06em;line-height:1.15;margin-top:6px}
+  header.hero .sas{display:inline-block;font-family:var(--sans);font-size:.8rem;font-weight:700;
+    letter-spacing:.35em;color:var(--oro-cl);margin-top:8px}
+  .filete{width:64px;height:1px;background:linear-gradient(90deg,transparent,var(--oro),transparent);
+    margin:18px auto}
+  .filete.oro{background:linear-gradient(90deg,transparent,var(--oro),transparent)}
+  header.hero .lema{position:relative;color:#cfc4ad;font-size:1.02rem;max-width:460px;margin:0 auto}
+  header.hero .lugar{position:relative;margin-top:6px;font-size:.82rem;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--oro)}
+  .chips{position:relative;display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:22px}
+  .chip{border:1px solid rgba(184,146,63,.5);border-radius:2px;padding:8px 14px;font-size:.86rem;
+    color:#efe6d3;letter-spacing:.02em}
+  .chip:hover{background:rgba(184,146,63,.14)}
+
+  /* ---------- Índice ---------- */
+  nav.indice{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+    padding:20px 18px;background:var(--carbon);border-bottom:1px solid rgba(184,146,63,.25)}
+  nav.indice a{border:1px solid rgba(184,146,63,.4);color:var(--oro-cl);border-radius:2px;
+    padding:7px 15px;font-size:.74rem;text-transform:uppercase;letter-spacing:.16em;font-weight:600}
+  nav.indice a:hover{background:var(--oro);color:#1a1610;border-color:var(--oro)}
+
+  /* ---------- Cuerpo ---------- */
+  main{padding:14px 26px 34px}
+  section.cat{padding:30px 0 6px;border-bottom:1px solid var(--linea)}
+  section.cat:last-of-type{border-bottom:none}
+  .cat-cab{display:flex;align-items:center;gap:14px;margin-bottom:4px}
+  .cat-cab .ico{flex:none;width:44px;height:44px;border:1px solid var(--oro);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;color:var(--oro-osc);
+    background:linear-gradient(145deg,#fffdf8,#f3ebda)}
+  .cat-cab .ico svg{width:24px;height:24px}
+  .cat-cab h2{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--tinta);
+    letter-spacing:.01em}
+  .cat-cab .num{margin-left:auto;font-family:var(--serif);font-size:1.6rem;color:var(--linea);
+    font-style:italic}
+  .lista{margin-top:16px}
+  .item{display:flex;align-items:baseline;gap:8px;padding:9px 0}
+  .item + .item{border-top:1px dotted #ece2cf}
+  .item .nom{font-size:1rem;color:#3a342b}
+  .item .leader{flex:1;border-bottom:1px dotted #cdbf9f;transform:translateY(-4px);min-width:16px}
+  .item .val{font-family:var(--serif);font-size:1.06rem;font-weight:700;color:var(--oro-osc);
+    white-space:nowrap;letter-spacing:.01em}
+  .item .val small{font-family:var(--sans);font-size:.68rem;color:var(--tenue);font-weight:600;
+    letter-spacing:.04em;margin-right:2px}
+
+  /* ---------- Condiciones ---------- */
+  section.cond{margin:28px 0 6px;padding:26px;background:var(--tinta);color:#efe6d3;
+    border-radius:2px;position:relative}
+  section.cond::before{content:"";position:absolute;inset:9px;border:1px solid rgba(184,146,63,.35)}
+  section.cond h2{position:relative;font-family:var(--serif);font-size:1.35rem;text-align:center;
+    color:var(--oro-cl);letter-spacing:.04em}
+  section.cond ul{position:relative;list-style:none;margin-top:16px;display:grid;gap:11px;
+    max-width:620px;margin-left:auto;margin-right:auto}
+  section.cond li{display:flex;gap:11px;font-size:.96rem;color:#d9cfba;line-height:1.5}
+  section.cond li b{color:#fff;font-weight:600}
+  section.cond li .mk{color:var(--oro);flex:none;font-size:1rem;line-height:1.4}
+
+  /* ---------- Llamado a la acción ---------- */
+  section.cta{text-align:center;padding:38px 26px 30px}
+  section.cta h2{font-family:var(--serif);font-size:1.7rem;color:var(--tinta)}
+  section.cta p{color:var(--tenue);margin-top:6px}
+  .botones{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:22px}
+  .boton{padding:13px 24px;border-radius:2px;font-weight:700;font-size:1rem;letter-spacing:.02em;
+    border:1px solid var(--oro);transition:transform .05s ease}
+  .boton:active{transform:translateY(1px)}
+  .b-wa{background:var(--tinta);color:var(--oro-cl)}
+  .b-oro{background:linear-gradient(145deg,var(--oro-cl),var(--oro));color:#1a1409;border-color:var(--oro-osc)}
+  .b-line{background:transparent;color:var(--oro-osc)}
+
+  /* ---------- Pie ---------- */
+  footer{background:var(--carbon);color:#c9bfa8;text-align:center;padding:30px 22px}
+  footer .fm{font-family:var(--serif);color:var(--oro-cl);font-size:1.15rem;letter-spacing:.06em}
+  footer .filete{margin:14px auto}
+  footer p{font-size:.9rem;margin:3px 0;color:#b7ac96}
+  footer a{color:var(--oro-cl)}
+  footer .nit{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:#8f846d}
+
+  @media (max-width:560px){
+    body{font-size:15px}
+    main{padding:10px 18px 26px}
+    header.hero{padding:44px 20px 40px}
+    header.hero h1{font-size:1.72rem}
+    .cat-cab h2{font-size:1.28rem}
+    .cat-cab .num{display:none}
+    section.cond{padding:22px 18px}
+  }
+  @media print{
+    body{background:#fff}
+    .lienzo{box-shadow:none;max-width:none}
+    nav.indice,section.cta{display:none}
+    header.hero,section.cond,footer{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
 </style>
 </head>
 <body>
-<header class="hero">
-  <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#ffffff22"/><path d="M18 38c0-9 6-16 14-16s14 7 14 16" fill="none" stroke="#fbbf24" stroke-width="6" stroke-linecap="round"/><rect x="14" y="38" width="36" height="7" rx="3.5" fill="#fbbf24"/><rect x="29" y="16" width="6" height="10" rx="3" fill="#fbbf24"/></svg>
-  <h1>Dotaciones El Manantial S.A.S</h1>
-  <p class="lema">Confección y distribución de prendas de trabajo · EPP · Bogotá</p>
-  <div class="chips">
-    <span class="chip">📍 Carrera 34 No. 2-62, Bogotá</span>
-    <a class="chip" href="tel:+576017213566">☎ (601) 721 3566</a>
-    <a class="chip" href="https://wa.me/573135745063">📱 313 574 5063</a>
-  </div>
-</header>
-
 <div class="lienzo">
+
+  <header class="hero">
+    <div class="emblema">
+      <span>DM</span>
+      <svg viewBox="0 0 40 18" aria-hidden="true"><path d="M4 14c0-6 5-11 16-11s16 5 16 11" fill="none" stroke="#b8923f" stroke-width="2.4" stroke-linecap="round"/><rect x="2" y="13.5" width="36" height="3" rx="1.5" fill="#b8923f"/></svg>
+    </div>
+    <h1>Dotaciones El&nbsp;Manantial</h1>
+    <span class="sas">S · A · S</span>
+    <div class="filete oro"></div>
+    <p class="lema">Confección y distribución de prendas de trabajo y elementos de protección personal</p>
+    <p class="lugar">Bogotá&nbsp;·&nbsp;Colombia&nbsp;·&nbsp;Catálogo 2026</p>
+    <div class="chips">
+      <span class="chip">Carrera 34 No. 2-62</span>
+      <a class="chip" href="tel:+576017213566">Tel. (601) 721 3566</a>
+      <a class="chip" href="https://wa.me/573135745063">WhatsApp 313 574 5063</a>
+    </div>
+  </header>
+
   <nav class="indice" aria-label="Categorías">
-    <a href="#dotaciones">Overoles y dril</a>
+    <a href="#dotaciones">Dotaciones</a>
     <a href="#vendedores">Vendedores</a>
-    <a href="#botas">Botas</a>
+    <a href="#botas">Calzado</a>
     <a href="#guantes">Guantes</a>
     <a href="#proteccion">Protección</a>
     <a href="#bordado">Bordado</a>
   </nav>
 
-  <section class="cat" id="dotaciones">
-    <div class="cat-cab">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="14" y="6" width="20" height="10" rx="2" fill="#1d4ed8"/><path d="M12 16h24l-2 26H14z" fill="#3b82f6"/><path d="M22 16h4v26h-4z" fill="#1e3a8a"/><circle cx="24" cy="22" r="1.6" fill="#fbbf24"/><circle cx="24" cy="28" r="1.6" fill="#fbbf24"/></svg>
-      <h2>Overoles y ropa en dril</h2>
-    </div>
-    <table>
-      <tr><td>Overol 2 piezas en dril (hasta talla 42)</td><td class="v">$ 58.500</td></tr>
-      <tr><td>Overol enterizo 3 cremalleras en dril (hasta talla 42)</td><td class="v">$ 58.800</td></tr>
-      <tr><td>Overol piloto en dril (hasta talla 42)</td><td class="v">$ 72.500</td></tr>
-      <tr><td>Blusa 3/4 en dril (hasta talla 42)</td><td class="v">$ 40.900</td></tr>
-      <tr><td>Chaleco tipo periodista en dril (hasta talla XL)</td><td class="v">$ 41.500</td></tr>
-      <tr><td>Conjunto 2 piezas antifluido — servicios generales (hasta XL)</td><td class="v">$ 63.000</td></tr>
-    </table>
-  </section>
+  <main>
+    <p class="ojo" style="text-align:center;margin:20px 0 -8px">Portafolio · Precios 2026</p>
 
-  <section class="cat" id="vendedores">
-    <div class="cat-cab">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M16 8l8 4 8-4 6 8-6 4v18H16V20l-6-4z" fill="#0ea5e9"/><path d="M24 12l-3 6h6z" fill="#fff"/><rect x="22" y="20" width="4" height="14" rx="2" fill="#0369a1"/></svg>
-      <h2>Dotación de vendedores tipo calle</h2>
-    </div>
-    <table>
-      <tr><td>Pantalón en jeans prelavado (hasta talla 36)</td><td class="v">$ 31.500</td></tr>
-      <tr><td>Chaqueta en jeans prelavado (hasta talla XL)</td><td class="v">$ 46.900</td></tr>
-      <tr><td>Camisa cuello corbata Oxford (hasta talla XL)</td><td class="v">$ 41.500</td></tr>
-      <tr><td>Camisa en jean prelavada (hasta talla XL)</td><td class="v">$ 33.000</td></tr>
-      <tr><td>Camiseta polo manga larga (hasta talla XL)</td><td class="v">$ 30.500</td></tr>
-      <tr><td>Camiseta polo manga corta (hasta talla XL)</td><td class="v">$ 25.600</td></tr>
-      <tr><td>Camiseta cuello redondo manga corta (hasta XL)</td><td class="v">$ 18.100</td></tr>
-      <tr><td>Camiseta cuello redondo manga larga (hasta XL)</td><td class="v">$ 23.100</td></tr>
-      <tr><td>Chaqueta impermeable (hasta talla XL)</td><td class="v">$ 68.000</td></tr>
-    </table>
-  </section>
+    <section class="cat" id="dotaciones">
+      <div class="cat-cab">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 3l3 2 3-2 3 3-2 2v11H8V8L6 6z"/><path d="M12 5v14"/></svg></span>
+        <h2>Dotaciones</h2><span class="num">I</span>
+      </div>
+      <div class="lista">
+        <div class="item"><span class="nom">Overol 2 piezas en dril <small style="color:var(--tenue)">(hasta talla 42)</small></span><span class="leader"></span><span class="val"><small>$</small>58.500</span></div>
+        <div class="item"><span class="nom">Overol enterizo 3 cremalleras en dril <small style="color:var(--tenue)">(hasta 42)</small></span><span class="leader"></span><span class="val"><small>$</small>58.800</span></div>
+        <div class="item"><span class="nom">Overol piloto en dril <small style="color:var(--tenue)">(hasta talla 42)</small></span><span class="leader"></span><span class="val"><small>$</small>72.500</span></div>
+        <div class="item"><span class="nom">Blusa 3/4 en dril <small style="color:var(--tenue)">(hasta talla 42)</small></span><span class="leader"></span><span class="val"><small>$</small>40.900</span></div>
+        <div class="item"><span class="nom">Chaleco tipo periodista en dril <small style="color:var(--tenue)">(hasta XL)</small></span><span class="leader"></span><span class="val"><small>$</small>41.500</span></div>
+        <div class="item"><span class="nom">Conjunto 2 piezas antifluido — servicios generales</span><span class="leader"></span><span class="val"><small>$</small>63.000</span></div>
+      </div>
+    </section>
 
-  <section class="cat" id="botas">
-    <div class="cat-cab">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 8h12v18l12 6v8H14z" fill="#92400e"/><path d="M14 34h24v6H14z" fill="#451a03"/><path d="M26 22l10 5v3H26z" fill="#b45309"/><rect x="14" y="8" width="12" height="4" fill="#78350f"/></svg>
-      <h2>Botas y calzado de seguridad</h2>
-    </div>
-    <table>
-      <tr><td>Bota de seguridad liviana negra referencia 820</td><td class="v">$ 61.500</td></tr>
-      <tr><td>Bota de seguridad liviana negra referencia 920</td><td class="v">$ 65.000</td></tr>
-      <tr><td>Bota de seguridad liviana negra referencia GM</td><td class="v">$ 68.000</td></tr>
-      <tr><td>Bota soldador</td><td class="v">$ 55.500</td></tr>
-      <tr><td>Zapato en goma</td><td class="v">$ 50.500</td></tr>
-      <tr><td>Zapato dama</td><td class="v">$ 46.500</td></tr>
-    </table>
-  </section>
+    <section class="cat" id="vendedores">
+      <div class="cat-cab">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4l4 2 4-2 3 4-3 2v10H8V10L5 8z"/><path d="M12 6l-1.5 3h3z"/></svg></span>
+        <h2>Vendedores tipo calle</h2><span class="num">II</span>
+      </div>
+      <div class="lista">
+        <div class="item"><span class="nom">Pantalón en jeans prelavado <small style="color:var(--tenue)">(hasta talla 36)</small></span><span class="leader"></span><span class="val"><small>$</small>31.500</span></div>
+        <div class="item"><span class="nom">Chaqueta en jeans prelavado <small style="color:var(--tenue)">(hasta XL)</small></span><span class="leader"></span><span class="val"><small>$</small>46.900</span></div>
+        <div class="item"><span class="nom">Camisa cuello corbata Oxford <small style="color:var(--tenue)">(hasta XL)</small></span><span class="leader"></span><span class="val"><small>$</small>41.500</span></div>
+        <div class="item"><span class="nom">Camisa en jean prelavada <small style="color:var(--tenue)">(hasta XL)</small></span><span class="leader"></span><span class="val"><small>$</small>33.000</span></div>
+        <div class="item"><span class="nom">Camiseta polo manga larga <small style="color:var(--tenue)">(hasta XL)</small></span><span class="leader"></span><span class="val"><small>$</small>30.500</span></div>
+        <div class="item"><span class="nom">Camiseta polo manga corta <small style="color:var(--tenue)">(hasta XL)</small></span><span class="leader"></span><span class="val"><small>$</small>25.600</span></div>
+        <div class="item"><span class="nom">Camiseta cuello redondo manga corta <small style="color:var(--tenue)">(hasta XL)</small></span><span class="leader"></span><span class="val"><small>$</small>18.100</span></div>
+        <div class="item"><span class="nom">Camiseta cuello redondo manga larga <small style="color:var(--tenue)">(hasta XL)</small></span><span class="leader"></span><span class="val"><small>$</small>23.100</span></div>
+        <div class="item"><span class="nom">Chaqueta impermeable <small style="color:var(--tenue)">(hasta talla XL)</small></span><span class="leader"></span><span class="val"><small>$</small>68.000</span></div>
+      </div>
+    </section>
 
-  <section class="cat" id="guantes">
-    <div class="cat-cab">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M16 26V12a3 3 0 016 0v10h2V8a3 3 0 016 0v14h2V12a3 3 0 016 0v18c0 7-5 12-12 12s-12-5-12-12z" fill="#f59e0b"/><path d="M16 30h22v4H16z" fill="#b45309"/></svg>
-      <h2>Guantes industriales</h2>
-    </div>
-    <table>
-      <tr><td>Guante tipo ingeniero reforzado</td><td class="v">$ 9.800</td></tr>
-      <tr><td>Guante en carnaza corto</td><td class="v">$ 8.800</td></tr>
-      <tr><td>Guante en carnaza largo</td><td class="v">$ 10.500</td></tr>
-    </table>
-  </section>
+    <section class="cat" id="botas">
+      <div class="cat-cab">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4h4v9l6 3v4H8z"/><path d="M8 17h10"/></svg></span>
+        <h2>Botas y calzado de seguridad</h2><span class="num">III</span>
+      </div>
+      <div class="lista">
+        <div class="item"><span class="nom">Bota de seguridad liviana negra — ref. 820</span><span class="leader"></span><span class="val"><small>$</small>61.500</span></div>
+        <div class="item"><span class="nom">Bota de seguridad liviana negra — ref. 920</span><span class="leader"></span><span class="val"><small>$</small>65.000</span></div>
+        <div class="item"><span class="nom">Bota de seguridad liviana negra — ref. GM</span><span class="leader"></span><span class="val"><small>$</small>68.000</span></div>
+        <div class="item"><span class="nom">Bota soldador</span><span class="leader"></span><span class="val"><small>$</small>55.500</span></div>
+        <div class="item"><span class="nom">Zapato en goma</span><span class="leader"></span><span class="val"><small>$</small>50.500</span></div>
+        <div class="item"><span class="nom">Zapato dama</span><span class="leader"></span><span class="val"><small>$</small>46.500</span></div>
+      </div>
+    </section>
 
-  <section class="cat" id="proteccion">
-    <div class="cat-cab">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 28c0-8 6-15 14-15s14 7 14 15" fill="#e2e8f0"/><path d="M10 28c0-8 6-15 14-15s14 7 14 15" fill="none" stroke="#1d4ed8" stroke-width="4"/><rect x="7" y="28" width="34" height="6" rx="3" fill="#1d4ed8"/><rect x="21" y="9" width="6" height="8" rx="3" fill="#1d4ed8"/></svg>
-      <h2>Cascos, tapabocas y protección</h2>
-    </div>
-    <table>
-      <tr><td>Tapaboca industrial — paquete x 100 unidades</td><td class="v">$ 51.500</td></tr>
-      <tr><td>Cachucha</td><td class="v">$ 13.000</td></tr>
-      <tr><td>Casco</td><td class="v">$ 24.500</td></tr>
-      <tr><td>Gafas transparentes</td><td class="v">$ 9.500</td></tr>
-      <tr><td>Tapa oídos tipo llavero</td><td class="v">$ 4.000</td></tr>
-      <tr><td>Cofia en lino</td><td class="v">$ 8.500</td></tr>
-      <tr><td>Peto en carnaza</td><td class="v">$ 26.000</td></tr>
-    </table>
-  </section>
+    <section class="cat" id="guantes">
+      <div class="cat-cab">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 13V7a1.5 1.5 0 013 0v5h1V5a1.5 1.5 0 013 0v8c0 4-2.5 6-5 6s-5-2-5-6z"/></svg></span>
+        <h2>Guantes industriales</h2><span class="num">IV</span>
+      </div>
+      <div class="lista">
+        <div class="item"><span class="nom">Guante tipo ingeniero reforzado</span><span class="leader"></span><span class="val"><small>$</small>9.800</span></div>
+        <div class="item"><span class="nom">Guante en carnaza corto</span><span class="leader"></span><span class="val"><small>$</small>8.800</span></div>
+        <div class="item"><span class="nom">Guante en carnaza largo</span><span class="leader"></span><span class="val"><small>$</small>10.500</span></div>
+      </div>
+    </section>
 
-  <section class="cat" id="bordado">
-    <div class="cat-cab">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="15" fill="#fce7f3" stroke="#db2777" stroke-width="3"/><path d="M16 28c3-6 6-9 16-10M18 31c4-4 8-5 12-5" stroke="#db2777" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M34 12l4-4M38 8l2 2-3 3z" stroke="#9d174d" stroke-width="2.5" fill="#9d174d"/></svg>
-      <h2>Bordado y estampado</h2>
-    </div>
-    <table>
-      <tr><td>Bordado tamaño bolsillo (valor aproximado)</td><td class="v">$ 4.000</td></tr>
-      <tr><td>Bordado tamaño espalda (valor aproximado)</td><td class="v">$ 7.000</td></tr>
-      <tr><td>Estampado en espalda a una tinta</td><td class="v">$ 2.900</td></tr>
-      <tr><td>Estampado en bolsillo a una tinta</td><td class="v">$ 1.900</td></tr>
-    </table>
-    <p class="nota">Personalizamos la dotación con el logo de su empresa.</p>
-  </section>
+    <section class="cat" id="proteccion">
+      <div class="cat-cab">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 14c0-5 3-9 7-9s7 4 7 9"/><rect x="3.5" y="14" width="17" height="3" rx="1.5"/><path d="M11 5V3.5h2V5"/></svg></span>
+        <h2>Protección y accesorios</h2><span class="num">V</span>
+      </div>
+      <div class="lista">
+        <div class="item"><span class="nom">Tapaboca industrial <small style="color:var(--tenue)">(paquete x 100)</small></span><span class="leader"></span><span class="val"><small>$</small>51.500</span></div>
+        <div class="item"><span class="nom">Cachucha</span><span class="leader"></span><span class="val"><small>$</small>13.000</span></div>
+        <div class="item"><span class="nom">Casco</span><span class="leader"></span><span class="val"><small>$</small>24.500</span></div>
+        <div class="item"><span class="nom">Gafas transparentes</span><span class="leader"></span><span class="val"><small>$</small>9.500</span></div>
+        <div class="item"><span class="nom">Tapa oídos tipo llavero</span><span class="leader"></span><span class="val"><small>$</small>4.000</span></div>
+        <div class="item"><span class="nom">Cofia en lino</span><span class="leader"></span><span class="val"><small>$</small>8.500</span></div>
+        <div class="item"><span class="nom">Peto en carnaza</span><span class="leader"></span><span class="val"><small>$</small>26.000</span></div>
+      </div>
+    </section>
 
-  <section class="condiciones">
-    <h2>Condiciones comerciales</h2>
-    <ul>
-      <li>Valores <strong>sin IVA</strong>. Precios de referencia 2026, sujetos a confirmación según cantidades y tallas.</li>
-      <li>Descuentos especiales por volumen y precios mayoristas a partir de 20 unidades.</li>
-      <li>Atendemos pedidos desde 10 unidades, con entrega en Bogotá y alrededores.</li>
-      <li>Cotización formal sin compromiso: escríbanos y se la enviamos el mismo día.</li>
-    </ul>
-  </section>
+    <section class="cat" id="bordado">
+      <div class="cat-cab">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="7.5"/><path d="M8 14c2-4 4-5.5 8-6M9 16c2.5-2.5 4.5-3 6-3"/></svg></span>
+        <h2>Bordado y estampado</h2><span class="num">VI</span>
+      </div>
+      <div class="lista">
+        <div class="item"><span class="nom">Bordado tamaño bolsillo <small style="color:var(--tenue)">(valor aprox.)</small></span><span class="leader"></span><span class="val"><small>$</small>4.000</span></div>
+        <div class="item"><span class="nom">Bordado tamaño espalda <small style="color:var(--tenue)">(valor aprox.)</small></span><span class="leader"></span><span class="val"><small>$</small>7.000</span></div>
+        <div class="item"><span class="nom">Estampado en espalda a una tinta</span><span class="leader"></span><span class="val"><small>$</small>2.900</span></div>
+        <div class="item"><span class="nom">Estampado en bolsillo a una tinta</span><span class="leader"></span><span class="val"><small>$</small>1.900</span></div>
+      </div>
+      <p style="margin-top:14px;font-size:.9rem;color:var(--tenue);font-style:italic">Personalizamos su dotación con el logo de su empresa.</p>
+    </section>
+
+    <section class="cond">
+      <h2>Condiciones comerciales</h2>
+      <ul>
+        <li><span class="mk">◆</span><span>Valores <b>sin IVA</b>. Precios de referencia 2026, sujetos a confirmación según cantidades y tallas.</span></li>
+        <li><span class="mk">◆</span><span><b>Descuentos por volumen</b> y precios mayoristas a partir de 20 unidades.</span></li>
+        <li><span class="mk">◆</span><span>Atendemos pedidos <b>desde 10 unidades</b>, con entrega en Bogotá y alrededores.</span></li>
+        <li><span class="mk">◆</span><span><b>Cotización formal sin compromiso:</b> escríbanos y se la enviamos el mismo día.</span></li>
+      </ul>
+    </section>
+  </main>
 
   <section class="cta">
+    <p class="ojo">Estamos para atenderle</p>
     <h2>¿Listo para cotizar su dotación?</h2>
-    <p>Respondemos el mismo día. Pedidos desde 10 unidades.</p>
+    <p>Respondemos el mismo día · Pedidos desde 10 unidades</p>
     <div class="botones">
-      <a class="boton b-wa" href="https://wa.me/573135745063?text=Hola%2C%20vi%20su%20cat%C3%A1logo%20de%20dotaci%C3%B3n%20y%20quiero%20una%20cotizaci%C3%B3n.">📱 Escribir por WhatsApp</a>
-      <a class="boton b-tel" href="tel:+576017213566">☎ Llamar (601) 721 3566</a>
-      <a class="boton b-mail" href="mailto:dot.manantial@hotmail.com?subject=Solicitud%20de%20cotizaci%C3%B3n%20de%20dotaci%C3%B3n">✉ Escribir correo</a>
+      <a class="boton b-wa" href="https://wa.me/573135745063?text=Hola%2C%20vi%20su%20cat%C3%A1logo%20de%20dotaci%C3%B3n%20y%20quiero%20una%20cotizaci%C3%B3n.">Escribir por WhatsApp</a>
+      <a class="boton b-oro" href="tel:+576017213566">Llamar (601) 721 3566</a>
+      <a class="boton b-line" href="mailto:dot.manantial@hotmail.com?subject=Solicitud%20de%20cotizaci%C3%B3n%20de%20dotaci%C3%B3n">Escribir correo</a>
     </div>
   </section>
 
   <footer>
-    <p><strong>Dotaciones El Manantial S.A.S</strong> · NIT 830.137.919-3 · Carrera 34 No. 2-62, Bogotá, Colombia</p>
-    <p>Tel: (601) 721 3566 · Cel: 313 574 5063 · 313 860 59 41 · <a href="https://www.dotacionesmanantial.com/" target="_blank" rel="noreferrer">www.dotacionesmanantial.com</a></p>
-    <p>dot.manantial@hotmail.com</p>
+    <p class="fm">Dotaciones El Manantial S.A.S</p>
+    <div class="filete oro"></div>
+    <p class="nit">NIT 830.137.919-3</p>
+    <p>Carrera 34 No. 2-62 · Bogotá D.C., Colombia</p>
+    <p>Tel. (601) 721 3566 · Cel. 313 574 5063 · 313 860 59 41</p>
+    <p><a href="mailto:dot.manantial@hotmail.com">dot.manantial@hotmail.com</a> · <a href="https://www.dotacionesmanantial.com/" target="_blank" rel="noreferrer">www.dotacionesmanantial.com</a></p>
   </footer>
+
 </div>
 </body>
 </html>
