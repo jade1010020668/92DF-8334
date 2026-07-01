@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import {
   AlertTriangle,
   Bell,
+  BookOpen,
   Building2,
   CalendarCheck,
   Clock,
@@ -30,6 +31,7 @@ import {
   generarWhatsAppSeguimiento,
   urlOutlook,
   urlWhatsApp,
+  urlWhatsAppCatalogo,
 } from '../lib/plantillas';
 import { distanciaMetros, formatearDistancia } from '../lib/maps';
 
@@ -242,14 +244,28 @@ export function Dashboard({
                     <span className="text-sm text-slate-500">{empresa.sector}</span>
                   )}
                 </div>
-                <button
-                  type="button"
-                  className="btn-verde px-4 py-2"
-                  onClick={() => contactarPorWhatsApp(empresa)}
-                >
-                  <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                  WhatsApp
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    className="btn-verde px-4 py-2"
+                    onClick={() => contactarPorWhatsApp(empresa)}
+                  >
+                    <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                    WhatsApp
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-secundario px-4 py-2"
+                    title="Enviar el catálogo con precios por WhatsApp"
+                    onClick={() => {
+                      const url = urlWhatsAppCatalogo(empresa, config);
+                      if (url) window.open(url, '_blank', 'noopener');
+                    }}
+                  >
+                    <BookOpen className="h-5 w-5" aria-hidden="true" />
+                    Catálogo
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
@@ -287,7 +303,7 @@ export function Dashboard({
               ) : (
                 <Database className="h-5 w-5" aria-hidden="true" />
               )}
-              {cargandoBase ? 'Cargando…' : '2. Cargar +6.000 empresas reales de Bogotá'}
+              {cargandoBase ? 'Cargando…' : '2. Cargar empresas de Bogotá (1.400 con teléfono)'}
             </button>
             <button type="button" className="btn-secundario" onClick={onIrABuscar}>
               o buscar en el mapa

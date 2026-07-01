@@ -7,9 +7,11 @@ import {
   Mail,
   MessageCircle,
   NotebookPen,
+  Pencil,
   Phone,
   Plus,
   Search,
+  Trash2,
   ShoppingCart,
   Sparkles,
   X,
@@ -41,6 +43,10 @@ interface Props {
   crearPedido: (datos: NuevoPedido) => Pedido;
   mostrarToast: MostrarToast;
   onCerrar: () => void;
+  /** Abre el formulario de edición de esta empresa. */
+  onEditar?: () => void;
+  /** Elimina esta empresa (con confirmación afuera). */
+  onEliminar?: () => void;
 }
 
 const ICONO_EVENTO: Record<EventoHistorial['tipo'], string> = {
@@ -69,6 +75,8 @@ export function FichaEmpresa({
   crearPedido,
   mostrarToast,
   onCerrar,
+  onEditar,
+  onEliminar,
 }: Props) {
   const [nota, setNota] = useState('');
   const [pedidoAbierto, setPedidoAbierto] = useState(false);
@@ -134,104 +142,129 @@ export function FichaEmpresa({
         </div>
 
         <div className="flex-1 space-y-5 overflow-y-auto px-5 py-4">
-          {/* Acciones rápidas */}
+          {/* Acciones de venta: solo 3 protagonistas. El resto, bajo «Más opciones». */}
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
-              className="btn-primario px-4 py-2"
-              disabled={!empresa.email}
-              onClick={() => abrir(urlOutlook(empresa.email, correo.asunto, correo.cuerpo), 'correo', 'Correo enviado')}
-            >
-              <Mail className="h-5 w-5" aria-hidden="true" />
-              Correo
-            </button>
-            <button
-              type="button"
-              className="btn-verde px-4 py-2"
+              className="btn-verde px-5 py-3 text-lg"
               disabled={!whatsapp}
               onClick={() => whatsapp && abrir(whatsapp, 'whatsapp', 'WhatsApp enviado')}
             >
-              <MessageCircle className="h-5 w-5" aria-hidden="true" />
+              <MessageCircle className="h-6 w-6" aria-hidden="true" />
               WhatsApp
             </button>
             <button
               type="button"
-              className="btn-secundario px-4 py-2"
+              className="btn-primario px-5 py-3 text-lg"
               disabled={!whatsappCatalogo}
               title={whatsappCatalogo ? 'Enviar el catálogo por WhatsApp' : 'Esta empresa no tiene un celular válido'}
               onClick={() => whatsappCatalogo && abrir(whatsappCatalogo, 'whatsapp', 'Catálogo enviado por WhatsApp')}
             >
-              <BookOpen className="h-5 w-5" aria-hidden="true" />
+              <BookOpen className="h-6 w-6" aria-hidden="true" />
               Catálogo
             </button>
             <button
               type="button"
-              className="btn-secundario px-4 py-2"
+              className="btn-secundario px-5 py-3 text-lg"
               disabled={!empresa.telefono}
               onClick={() => {
                 registrarEvento(empresa.id, 'llamada', 'Llamada realizada');
                 window.location.href = `tel:${empresa.telefono.replace(/[^+\d]/g, '')}`;
               }}
             >
-              <Phone className="h-5 w-5" aria-hidden="true" />
+              <Phone className="h-6 w-6" aria-hidden="true" />
               Llamar
             </button>
-            <button
-              type="button"
-              className="btn-secundario px-4 py-2"
-              title="Registrar que visitaste esta empresa hoy"
-              onClick={() => {
-                registrarEvento(empresa.id, 'visita', 'Visitada hoy');
-                mostrarToast(`Visita a ${empresa.nombre} registrada.`, 'exito');
-              }}
-            >
-              <Footprints className="h-5 w-5" aria-hidden="true" />
-              Visitada hoy
-            </button>
-            <button
-              type="button"
-              className="btn-secundario px-4 py-2"
-              title="Buscar el teléfono y datos de esta empresa en Google Maps"
-              onClick={() =>
-                abrir(urlBuscarContacto(empresa, config.ciudad.split(',')[0] || 'Bogotá'), 'nota', 'Buscó contacto en Google')
-              }
-            >
-              <Search className="h-5 w-5" aria-hidden="true" />
-              Buscar contacto
-            </button>
-            {config.googleMapsApiKey.trim() !== '' && !empresa.telefono.trim() && (
+          </div>
+
+          <details className="rounded-2xl border border-slate-200 bg-slate-50">
+            <summary className="cursor-pointer select-none px-4 py-3 text-lg font-semibold text-slate-700">
+              Más opciones
+            </summary>
+            <div className="flex flex-wrap gap-2 px-4 pb-4">
               <button
                 type="button"
                 className="btn-secundario px-4 py-2"
-                disabled={buscandoTel}
-                onClick={() => void conseguirTelefono()}
-                title="Conseguir el teléfono automáticamente con Google"
+                disabled={!empresa.email}
+                title={empresa.email ? 'Abrir tu correo con el mensaje escrito' : 'Esta empresa no tiene correo'}
+                onClick={() => abrir(urlOutlook(empresa.email, correo.asunto, correo.cuerpo), 'correo', 'Correo abierto')}
               >
-                {buscandoTel ? (
-                  <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
-                ) : (
-                  <Sparkles className="h-5 w-5 text-amber-500" aria-hidden="true" />
-                )}
-                {buscandoTel ? 'Buscando…' : 'Conseguir teléfono'}
+                <Mail className="h-5 w-5" aria-hidden="true" />
+                Correo
               </button>
-            )}
-            <button
-              type="button"
-              className="btn-secundario px-4 py-2"
-              onClick={() => generarPdfCotizacion(empresa, config)}
-            >
-              <FileDown className="h-5 w-5" aria-hidden="true" />
-              PDF
-            </button>
-            <button
-              type="button"
-              className="btn-secundario px-4 py-2"
-              onClick={() => setPedidoAbierto(true)}
-            >
-              <ShoppingCart className="h-5 w-5" aria-hidden="true" />
-              Nuevo pedido
-            </button>
-          </div>
+              <button
+                type="button"
+                className="btn-secundario px-4 py-2"
+                title="Registrar que visitaste esta empresa hoy"
+                onClick={() => {
+                  registrarEvento(empresa.id, 'visita', 'Visitada hoy');
+                  mostrarToast(`Visita a ${empresa.nombre} registrada.`, 'exito');
+                }}
+              >
+                <Footprints className="h-5 w-5" aria-hidden="true" />
+                Visitada hoy
+              </button>
+              <button
+                type="button"
+                className="btn-secundario px-4 py-2"
+                title="Buscar el teléfono y datos de esta empresa en Google Maps"
+                onClick={() =>
+                  abrir(urlBuscarContacto(empresa, config.ciudad.split(',')[0] || 'Bogotá'), 'nota', 'Buscó contacto en Google')
+                }
+              >
+                <Search className="h-5 w-5" aria-hidden="true" />
+                Buscar contacto
+              </button>
+              {config.googleMapsApiKey.trim() !== '' && !empresa.telefono.trim() && (
+                <button
+                  type="button"
+                  className="btn-secundario px-4 py-2"
+                  disabled={buscandoTel}
+                  onClick={() => void conseguirTelefono()}
+                  title="Conseguir el teléfono automáticamente con Google"
+                >
+                  {buscandoTel ? (
+                    <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                  ) : (
+                    <Sparkles className="h-5 w-5 text-amber-500" aria-hidden="true" />
+                  )}
+                  {buscandoTel ? 'Buscando…' : 'Conseguir teléfono'}
+                </button>
+              )}
+              <button
+                type="button"
+                className="btn-secundario px-4 py-2"
+                onClick={() => generarPdfCotizacion(empresa, config)}
+              >
+                <FileDown className="h-5 w-5" aria-hidden="true" />
+                Cotización PDF
+              </button>
+              <button
+                type="button"
+                className="btn-secundario px-4 py-2"
+                onClick={() => setPedidoAbierto(true)}
+              >
+                <ShoppingCart className="h-5 w-5" aria-hidden="true" />
+                Nuevo pedido
+              </button>
+              {onEditar && (
+                <button type="button" className="btn-secundario px-4 py-2" onClick={onEditar}>
+                  <Pencil className="h-5 w-5" aria-hidden="true" />
+                  Editar datos
+                </button>
+              )}
+              {onEliminar && (
+                <button
+                  type="button"
+                  className="btn-secundario px-4 py-2 hover:border-rose-300 hover:bg-rose-50 hover:text-rose-700"
+                  onClick={onEliminar}
+                >
+                  <Trash2 className="h-5 w-5" aria-hidden="true" />
+                  Eliminar
+                </button>
+              )}
+            </div>
+          </details>
 
           {/* Pedidos de la empresa */}
           {pedidos.length > 0 && (

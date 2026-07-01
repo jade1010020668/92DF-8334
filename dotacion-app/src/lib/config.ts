@@ -41,7 +41,7 @@ export const CONFIG_DEFAULT: ConfigApp = {
   email: 'dot.manantial@hotmail.com',
   remitente: 'José Manuel Morales Quintana',
   textoDescuentos:
-    'Manejamos descuentos especiales por volumen y precios mayoristas a partir de 20 unidades. Vea el catálogo completo con precios en: https://morales101002-dotacionpro.static.hf.space/catalogo.html',
+    'Descuentos por volumen desde 20 unidades. Catálogo completo con precios: https://morales101002-dotacionpro.static.hf.space/catalogo.html',
   diasSeguimiento: 5,
   // Ubicación real del negocio (Carrera 34 No. 2-62, Bogotá), para que el mapa
   // "cerca de mi negocio" funcione sin depender de geolocalizar el texto.
@@ -56,14 +56,14 @@ export const CONFIG_DEFAULT: ConfigApp = {
   // detalle completo con cada referencia y precio está en el catálogo y en el
   // formulario de pedidos. Editables en Configuración.
   productos: [
-    { nombre: 'Overoles y ropa de trabajo en dril (2 piezas, enterizo, piloto, blusa, chaleco)', precioDesde: 40900, unidad: 'unidad' },
-    { nombre: 'Conjunto 2 piezas en antifluido (servicios generales)', precioDesde: 63000, unidad: 'unidad' },
-    { nombre: 'Dotación de vendedores: jeans, camisas Oxford, polos y camisetas', precioDesde: 18100, unidad: 'unidad' },
-    { nombre: 'Botas y calzado de seguridad (ref. 820, 920, GM, soldador, goma, dama)', precioDesde: 46500, unidad: 'par' },
-    { nombre: 'Guantes industriales (ingeniero reforzado, carnaza corto y largo)', precioDesde: 8800, unidad: 'par' },
-    { nombre: 'Cascos, gafas, cofias y protección (tapaoídos, casco, gafas, peto)', precioDesde: 4000, unidad: 'unidad' },
-    { nombre: 'Tapabocas industrial (paquete x 100 unidades)', precioDesde: 51500, unidad: 'paquete' },
-    { nombre: 'Estampado y bordado con el logo de su empresa', precioDesde: 1900, unidad: 'unidad' },
+    { nombre: 'Overoles y ropa de trabajo en dril', precioDesde: 40900, unidad: 'unidad' },
+    { nombre: 'Conjunto 2 piezas en antifluido', precioDesde: 63000, unidad: 'unidad' },
+    { nombre: 'Dotación de vendedores: jeans, camisas, polos', precioDesde: 18100, unidad: 'unidad' },
+    { nombre: 'Botas y calzado de seguridad', precioDesde: 46500, unidad: 'par' },
+    { nombre: 'Guantes industriales (ingeniero, carnaza)', precioDesde: 8800, unidad: 'par' },
+    { nombre: 'Cascos, gafas, cofias y protección', precioDesde: 4000, unidad: 'unidad' },
+    { nombre: 'Tapabocas industrial (paquete x 100)', precioDesde: 51500, unidad: 'paquete' },
+    { nombre: 'Estampado y bordado con su logo', precioDesde: 1900, unidad: 'unidad' },
   ],
 };
 

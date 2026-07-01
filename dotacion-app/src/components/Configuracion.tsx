@@ -520,11 +520,11 @@ export function Configuracion({
           <MapPinned className="h-6 w-6 text-slate-700" aria-hidden="true" />
           Google Maps: búsqueda y llenado de teléfonos (opcional)
         </h3>
-        <p className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-900">
-          Con esta clave la app puede <strong>conseguir el teléfono y sitio web reales</strong> de las
-          empresas que no los traen (botón «Completar teléfonos» en Empresas, o «Conseguir teléfono» en
-          cada ficha). Es lo que convierte la base en contactos para vender. Google da un crédito mensual
-          gratuito amplio; aun así, hazlo por lotes. Google entrega teléfono y web, no correos.
+        <p className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-rose-900">
+          ⚠️ <strong>Esta opción puede generar cobros de Google.</strong> Google eliminó el crédito
+          mensual gratuito que existía antes: cada búsqueda de teléfono puede facturarse a la tarjeta
+          asociada a tu cuenta de Google. Úsala solo si sabes lo que haces y revisa tu facturación en
+          Google Cloud. La app funciona perfectamente <strong>sin</strong> esto.
         </p>
         <div>
           <label htmlFor="conf-clave-maps" className="etiqueta">
@@ -584,10 +584,11 @@ export function Configuracion({
           <Zap className="h-6 w-6 text-slate-700" aria-hidden="true" />
           Envío automático de correos con Brevo (opcional)
         </h3>
-        <p className="text-slate-600">
-          Sin esto, la app abre tu Outlook/Hotmail y tú das el clic final. Con una clave de Brevo, la campaña
-          puede enviar los correos directamente, uno a uno o todos de una vez (gratis hasta 300
-          correos al día).
+        <p className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-900">
+          ⚠️ <strong>Opción experimental — puede no funcionar.</strong> El envío directo desde una
+          página web suele ser bloqueado por el navegador, y los correos enviados «a nombre de» una
+          cuenta de Hotmail por otro servicio suelen caer en spam. Recomendamos NO usar esto y enviar
+          los correos con el botón normal (se abre tu Outlook y tú das «Enviar»), que sí funciona.
         </p>
         <div>
           <label htmlFor="conf-clave-brevo" className="etiqueta">

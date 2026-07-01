@@ -268,6 +268,20 @@ export function urlGmail(destinatario: string, asunto: string, cuerpo: string): 
 }
 
 /**
+ * El enlace de "redactar" de Outlook recorta cuerpos muy largos, y lo último
+ * del correo es la firma con los datos del negocio: si se corta, el cliente no
+ * sabe a quién responder. Este helper garantiza que el cuerpo quepa: si se pasa
+ * del límite, corta en un salto de línea y remata con el enlace del catálogo.
+ */
+export function acortarCuerpoCorreo(cuerpo: string, max = 1600): string {
+  if (cuerpo.length <= max) return cuerpo;
+  const cierre = `\n\nVea el catálogo completo con precios: ${URL_CATALOGO}`;
+  const tope = max - cierre.length;
+  const corte = cuerpo.lastIndexOf('\n', tope);
+  return cuerpo.slice(0, corte > 0 ? corte : tope) + cierre;
+}
+
+/**
  * URL para abrir Outlook / Hotmail con el correo ya escrito. Es el correo del
  * negocio (dot.manantial@hotmail.com): el papá solo da «Enviar», sin guardar
  * ninguna contraseña en la app.
@@ -276,7 +290,7 @@ export function urlOutlook(destinatario: string, asunto: string, cuerpo: string)
   const params = new URLSearchParams({
     to: destinatario,
     subject: asunto,
-    body: cuerpo,
+    body: acortarCuerpoCorreo(cuerpo),
   });
   return `https://outlook.live.com/mail/0/deeplink/compose?${params.toString()}`;
 }
@@ -294,7 +308,7 @@ export function urlOutlookMasivo(
   remitente = '',
 ): string {
   const bcc = [...new Set(destinatarios.map((d) => d.trim()).filter(Boolean))].join(',');
-  const params = new URLSearchParams({ subject: asunto, body: cuerpo });
+  const params = new URLSearchParams({ subject: asunto, body: acortarCuerpoCorreo(cuerpo) });
   if (remitente.trim()) params.set('to', remitente.trim());
   if (bcc) params.set('bcc', bcc);
   return `https://outlook.live.com/mail/0/deeplink/compose?${params.toString()}`;

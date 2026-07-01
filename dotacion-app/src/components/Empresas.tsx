@@ -1,20 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
+  BookOpen,
   Database,
   Download,
-  FileDown,
   FileSpreadsheet,
-  IdCard,
   Loader2,
   Mail,
   MapPinned,
   MessageCircle,
-  Pencil,
   Phone,
   Plus,
   Search,
   Sparkles,
-  Trash2,
   Upload,
 } from 'lucide-react';
 import type {
@@ -29,15 +26,12 @@ import type {
 } from '../types';
 import { ESTADOS, ETIQUETA_ESTADO, COLOR_ESTADO } from '../types';
 import {
-  generarEmail,
   generarEmailMasivo,
   generarWhatsApp,
-  urlBuscarContacto,
-  urlOutlook,
   urlOutlookMasivo,
   urlWhatsApp,
+  urlWhatsAppCatalogo,
 } from '../lib/plantillas';
-import { generarPdfCotizacion } from '../lib/pdf';
 import { descargarPlantilla, exportarExcel, importarExcel } from '../lib/excel';
 import { buscarDatosContacto } from '../lib/enriquecerGoogle';
 import type { ResultadoAgregar } from '../hooks/useEmpresas';
@@ -183,8 +177,8 @@ export function Empresas({
     setSeleccion(new Set(restantes.map((e) => e.id)));
     mostrarToast(
       restantes.length > 0
-        ? `Se abrió tu correo con ${lote.length} empresas en copia oculta. Envía ese y vuelve a tocar el botón: quedan ${restantes.length} para el siguiente lote (así el correo no te bloquea).`
-        : `Se abrió tu correo con ${lote.length} ${lote.length === 1 ? 'empresa' : 'empresas'} en copia oculta. Revisa y da «Enviar».`,
+        ? `Se abrió tu correo ya escrito para ${lote.length} empresas. Dale «Enviar» y vuelve a tocar el botón: quedan ${restantes.length} para el siguiente grupo.`
+        : `Se abrió tu correo ya escrito para ${lote.length} ${lote.length === 1 ? 'empresa' : 'empresas'}. Revisa y dale «Enviar».`,
       'exito',
     );
   };
@@ -266,7 +260,7 @@ export function Empresas({
     if (
       !window.confirm(
         `Google buscará el teléfono y sitio web de ${objetivo.length} empresas (de las que ves sin teléfono). ` +
-          `Usa el crédito gratuito de tu cuenta de Google. ¿Continuar?`,
+          `OJO: Google puede COBRAR estas búsquedas a la tarjeta de tu cuenta de Google. ¿Continuar?`,
       )
     ) {
       return;
@@ -304,40 +298,21 @@ export function Empresas({
     );
   };
 
-  /** Botones de acción de una empresa (compartidos entre tabla y tarjetas). */
+  /**
+   * Botones de acción de una empresa: solo 3, con texto, para que se entiendan
+   * sin adivinar íconos. Todo lo demás (correo, llamar, PDF, editar, borrar…)
+   * vive dentro de la ficha, bajo «Más opciones».
+   */
   const acciones = (e: Empresa) => {
-    const correo = generarEmail(e, config);
     const whatsapp = urlWhatsApp(e.telefono, generarWhatsApp(e, config));
+    const catalogo = urlWhatsAppCatalogo(e, config);
     return (
-      <div className="flex items-center gap-1">
+      <div className="flex flex-wrap items-center gap-2">
         <button
           type="button"
-          className="btn-icono"
-          aria-label={`Ver ficha de ${e.nombre}`}
-          title="Ver ficha e historial"
-          onClick={() => setFicha(e)}
-        >
-          <IdCard className="h-5 w-5" aria-hidden="true" />
-        </button>
-        <button
-          type="button"
-          className="btn-icono"
-          aria-label={`Enviar correo a ${e.nombre}`}
-          title="Enviar correo (Outlook/Hotmail)"
-          disabled={!e.email}
-          onClick={() => {
-            window.open(urlOutlook(e.email, correo.asunto, correo.cuerpo), '_blank', 'noopener');
-            registrarEvento(e.id, 'correo', 'Correo abierto en Outlook');
-          }}
-        >
-          <Mail className="h-5 w-5" aria-hidden="true" />
-        </button>
-        <button
-          type="button"
-          className="btn-icono"
-          aria-label={`Enviar WhatsApp a ${e.nombre}`}
-          title="Enviar WhatsApp"
+          className="btn-verde px-3 py-2"
           disabled={!whatsapp}
+          title={whatsapp ? 'Abrir WhatsApp con el mensaje listo' : 'Sin celular válido'}
           onClick={() => {
             if (!whatsapp) return;
             window.open(whatsapp, '_blank', 'noopener');
@@ -345,65 +320,30 @@ export function Empresas({
           }}
         >
           <MessageCircle className="h-5 w-5" aria-hidden="true" />
+          WhatsApp
         </button>
         <button
           type="button"
-          className="btn-icono"
-          aria-label={`Llamar a ${e.nombre}`}
-          title="Llamar"
-          disabled={!e.telefono}
+          className="btn-secundario px-3 py-2"
+          disabled={!catalogo}
+          title={catalogo ? 'Enviar el catálogo por WhatsApp' : 'Sin celular válido'}
           onClick={() => {
-            registrarEvento(e.id, 'llamada', 'Llamada realizada');
-            window.location.href = `tel:${e.telefono.replace(/[^+\d]/g, '')}`;
+            if (!catalogo) return;
+            window.open(catalogo, '_blank', 'noopener');
+            registrarEvento(e.id, 'whatsapp', 'Catálogo enviado por WhatsApp');
           }}
         >
-          <Phone className="h-5 w-5" aria-hidden="true" />
+          <BookOpen className="h-5 w-5" aria-hidden="true" />
+          Catálogo
         </button>
         <button
           type="button"
-          className="btn-icono"
-          aria-label={`Buscar el contacto de ${e.nombre} en Google`}
-          title="Buscar teléfono y datos en Google Maps"
-          onClick={() => {
-            window.open(
-              urlBuscarContacto(e, config.ciudad.split(',')[0] || 'Bogotá'),
-              '_blank',
-              'noopener',
-            );
-            registrarEvento(e.id, 'nota', 'Buscó contacto en Google');
-          }}
+          className="btn-secundario px-3 py-2"
+          aria-label={`Ver ficha de ${e.nombre}`}
+          title="Ver todo: llamar, correo, PDF, editar…"
+          onClick={() => setFicha(e)}
         >
-          <Search className="h-5 w-5" aria-hidden="true" />
-        </button>
-        <button
-          type="button"
-          className="btn-icono"
-          aria-label={`Descargar cotización en PDF para ${e.nombre}`}
-          title="Descargar cotización en PDF"
-          onClick={() => generarPdfCotizacion(e, config)}
-        >
-          <FileDown className="h-5 w-5" aria-hidden="true" />
-        </button>
-        <button
-          type="button"
-          className="btn-icono"
-          aria-label={`Editar ${e.nombre}`}
-          title="Editar"
-          onClick={() => {
-            setEditando(e);
-            setFormAbierto(true);
-          }}
-        >
-          <Pencil className="h-5 w-5" aria-hidden="true" />
-        </button>
-        <button
-          type="button"
-          className="btn-icono hover:bg-rose-50 hover:text-rose-600"
-          aria-label={`Eliminar ${e.nombre}`}
-          title="Eliminar"
-          onClick={() => eliminar(e)}
-        >
-          <Trash2 className="h-5 w-5" aria-hidden="true" />
+          Más…
         </button>
       </div>
     );
@@ -506,7 +446,7 @@ export function Empresas({
             ) : (
               <Database className="h-5 w-5" aria-hidden="true" />
             )}
-            {cargandoBase ? 'Cargando…' : 'Cargar +6.000 reales'}
+            {cargandoBase ? 'Cargando…' : 'Cargar empresas de Bogotá'}
           </button>
           <button type="button" className="btn-secundario" onClick={() => inputArchivo.current?.click()}>
             <Upload className="h-5 w-5" aria-hidden="true" />
@@ -580,7 +520,7 @@ export function Empresas({
       {empresas.length === 0 ? (
         <div className="tarjeta flex flex-col items-center gap-4 py-12 text-center">
           <p className="max-w-md text-xl text-slate-600">
-            Empieza con la base de más de 6.000 empresas reales de Bogotá, o importa tu propio Excel.
+            Empieza con nuestra base de empresas reales de Bogotá (1.400 traen teléfono para contactar ya), o importa tu propio Excel.
           </p>
           <div className="flex flex-wrap justify-center gap-2">
             <button type="button" className="btn-verde" onClick={onCargarBase} disabled={cargandoBase}>
@@ -589,7 +529,7 @@ export function Empresas({
               ) : (
                 <Database className="h-5 w-5" aria-hidden="true" />
               )}
-              {cargandoBase ? 'Cargando…' : 'Cargar +6.000 empresas reales'}
+              {cargandoBase ? 'Cargando…' : 'Cargar empresas de Bogotá (1.400 con teléfono)'}
             </button>
             <button type="button" className="btn-secundario" onClick={() => inputArchivo.current?.click()}>
               <Upload className="h-5 w-5" aria-hidden="true" />
@@ -722,7 +662,6 @@ export function Empresas({
               {/* Tarjetas en celular */}
               <div className="space-y-3 md:hidden">
                 {visibles.map((e) => {
-                  const whatsapp = urlWhatsApp(e.telefono, generarWhatsApp(e, config));
                   return (
                     <div key={e.id} className="tarjeta space-y-2">
                       <div className="flex items-start justify-between gap-2">
@@ -746,20 +685,6 @@ export function Empresas({
                       {e.telefono && <p className="text-sm text-slate-600">{e.telefono}</p>}
                       {e.direccion && <p className="text-sm text-slate-600">{e.direccion}</p>}
                       {e.notas && <p className="text-sm italic text-slate-400">{e.notas}</p>}
-                      {/* Acción principal grande: WhatsApp */}
-                      {whatsapp && (
-                        <button
-                          type="button"
-                          className="btn-verde w-full py-3 text-lg"
-                          onClick={() => {
-                            window.open(whatsapp, '_blank', 'noopener');
-                            registrarEvento(e.id, 'whatsapp', 'WhatsApp abierto');
-                          }}
-                        >
-                          <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                          Enviar WhatsApp
-                        </button>
-                      )}
                       {acciones(e)}
                     </div>
                   );
@@ -804,6 +729,17 @@ export function Empresas({
           crearPedido={crearPedido}
           mostrarToast={mostrarToast}
           onCerrar={() => setFicha(null)}
+          onEditar={() => {
+            const actual = empresas.find((e) => e.id === ficha.id) ?? ficha;
+            setFicha(null);
+            setEditando(actual);
+            setFormAbierto(true);
+          }}
+          onEliminar={() => {
+            const actual = empresas.find((e) => e.id === ficha.id) ?? ficha;
+            setFicha(null);
+            eliminar(actual);
+          }}
         />
       )}
     </div>

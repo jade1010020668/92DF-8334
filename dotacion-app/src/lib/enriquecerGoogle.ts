@@ -9,8 +9,9 @@ import { fetchConTimeout } from './red';
  * correos (no los comparte), así que esto llena teléfono + web; el correo se
  * consigue entrando al sitio web.
  *
- * Coste: cada búsqueda es una petición facturable de Google. El crédito mensual
- * gratuito (~USD 200) cubre miles de búsquedas, pero conviene hacerlo por lotes.
+ * Coste: cada búsqueda es una petición FACTURABLE de Google. Google eliminó el
+ * crédito mensual gratuito de USD 200 (cambio de precios 2025): usar esto puede
+ * generar cobros reales en la cuenta del usuario. La UI lo advierte.
  */
 
 interface LugarGoogle {

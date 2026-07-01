@@ -34,7 +34,7 @@ describe('Cargar base de datos inicial', () => {
     const user = userEvent.setup();
     render(<App />);
     // Botón en Primeros pasos (lista vacía).
-    await user.click(pestana(/Cargar .*empresas reales/i));
+    await user.click(pestana(/Cargar .*empresas de Bogotá/i));
 
     // Se mueve a Empresas y aparecen las cargadas.
     expect((await screen.findAllByText('Taller Real Uno')).length).toBeGreaterThan(0);
@@ -51,10 +51,10 @@ describe('Cargar base de datos inicial', () => {
   it('no duplica si se carga dos veces', async () => {
     const user = userEvent.setup();
     render(<App />);
-    await user.click(pestana(/Cargar .*empresas reales/i));
+    await user.click(pestana(/Cargar .*empresas de Bogotá/i));
     await screen.findAllByText('Taller Real Uno');
-    // Botón "Cargar 3.000 reales" en la barra de Empresas.
-    await user.click(pestana(/Cargar .*reales/i));
+    // Botón "Cargar empresas de Bogotá" en la barra de Empresas.
+    await user.click(pestana(/Cargar empresas de Bogotá/i));
     const guardadas = JSON.parse(localStorage.getItem('dotacionpro.empresas') || '[]');
     expect(guardadas).toHaveLength(2);
   });

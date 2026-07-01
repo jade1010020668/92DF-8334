@@ -47,3 +47,29 @@ describe('urlOutlookMasivo', () => {
     expect(params.get('body')).toBe('Hola & saludos');
   });
 });
+
+describe('acortarCuerpoCorreo', () => {
+  it('deja intacto un cuerpo corto', async () => {
+    const { acortarCuerpoCorreo } = await import('../plantillas');
+    expect(acortarCuerpoCorreo('Hola\nmundo')).toBe('Hola\nmundo');
+  });
+
+  it('recorta cuerpos largos y remata con el enlace del catálogo', async () => {
+    const { acortarCuerpoCorreo, URL_CATALOGO } = await import('../plantillas');
+    const largo = Array.from({ length: 100 }, (_, i) => `Línea ${i} con bastante texto de relleno`).join('\n');
+    const r = acortarCuerpoCorreo(largo);
+    expect(r.length).toBeLessThanOrEqual(1600);
+    expect(r.endsWith(URL_CATALOGO)).toBe(true);
+  });
+
+  it('el correo automático real cabe en el enlace sin recorte', async () => {
+    const { generarEmail } = await import('../plantillas');
+    const { CONFIG_DEFAULT } = await import('../config');
+    const { cuerpo } = generarEmail(
+      { id: '1', nombre: 'Prueba', sector: 'talleres', email: 'a@b.co', telefono: '3001234567', contacto: 'Ana', direccion: 'C1', estado: 'pendiente', fechaCreacion: '2026-01-01T00:00:00.000Z', fuente: 'manual' },
+      CONFIG_DEFAULT,
+    );
+    // Si esto falla, el mensaje automático creció demasiado y la firma se cortaría.
+    expect(cuerpo.length).toBeLessThanOrEqual(1600);
+  });
+});
