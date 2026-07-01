@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   AlertTriangle,
   Bell,
@@ -26,16 +26,19 @@ import { formatearPesos } from '../lib/plantillas';
 import { totalPedido } from '../lib/pedidos';
 import {
   generarEmailSeguimiento,
+  generarWhatsApp,
   generarWhatsAppSeguimiento,
   urlOutlook,
   urlWhatsApp,
 } from '../lib/plantillas';
+import { distanciaMetros, formatearDistancia } from '../lib/maps';
 
 interface Props {
   empresas: Empresa[];
   config: ConfigApp;
   pedidos: Pedido[];
   actualizarEmpresa: (id: string, cambios: Partial<Empresa>) => void;
+  cambiarEstado: (id: string, estado: Empresa['estado']) => void;
   onAbrirCampana: () => void;
   onIrAConfiguracion: () => void;
   onIrABuscar: () => void;
@@ -57,6 +60,7 @@ export function Dashboard({
   config,
   pedidos,
   actualizarEmpresa,
+  cambiarEstado,
   onAbrirCampana,
   onIrAConfiguracion,
   onIrABuscar,
@@ -67,6 +71,36 @@ export function Dashboard({
   const kpis = calcularKpis(empresas);
   const seguimientos = seguimientosPendientes(empresas, config.diasSeguimiento);
   const entregasHoy = entregasDeHoy(pedidos);
+
+  // "Para contactar hoy": las 5 pendientes con WhatsApp más cercanas al
+  // negocio. La primera pantalla del día debe ser vender, no mirar números.
+  const contactarHoy = useMemo(() => {
+    const origen =
+      Number.isFinite(config.negocioLat) && Number.isFinite(config.negocioLon)
+        ? { lat: config.negocioLat as number, lon: config.negocioLon as number }
+        : null;
+    return empresas
+      .filter((e) => e.estado === 'pendiente' && urlWhatsApp(e.telefono, 'x') !== null)
+      .map((e) => ({
+        empresa: e,
+        metros:
+          origen && e.lat != null && e.lon != null
+            ? distanciaMetros(origen, { lat: e.lat, lon: e.lon })
+            : Number.POSITIVE_INFINITY,
+      }))
+      .sort((a, b) => a.metros - b.metros)
+      .slice(0, 5);
+  }, [empresas, config.negocioLat, config.negocioLon]);
+
+  /** Abre el WhatsApp de primer contacto y, si se envió, marca la empresa. */
+  const contactarPorWhatsApp = (empresa: Empresa) => {
+    const url = urlWhatsApp(empresa.telefono, generarWhatsApp(empresa, config));
+    if (!url) return;
+    window.open(url, '_blank', 'noopener');
+    if (window.confirm(`¿Enviaste el mensaje a ${empresa.nombre}? Acepta para marcarla como contactada.`)) {
+      cambiarEstado(empresa.id, 'enviado');
+    }
+  };
   // Solo cuentan las pendientes que se pueden contactar (WhatsApp o correo).
   const contactablesPend = empresas.filter(
     (e) => e.estado === 'pendiente' && (e.email.trim() !== '' || urlWhatsApp(e.telefono, 'x') !== null),
@@ -174,6 +208,47 @@ export function Dashboard({
                 </div>
                 <button type="button" className="btn-secundario px-4 py-2" onClick={onIrAPedidos}>
                   Ver pedido
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* Para contactar hoy: las 5 más cercanas listas para WhatsApp */}
+      {contactarHoy.length > 0 && (
+        <section className="tarjeta">
+          <h2 className="mb-1 flex items-center gap-2 text-xl font-bold text-slate-800">
+            <MessageCircle className="h-6 w-6 text-emerald-700" aria-hidden="true" />
+            Para contactar hoy
+          </h2>
+          <p className="mb-3 text-slate-600">
+            Las {contactarHoy.length} empresas pendientes más cercanas a tu negocio, con el WhatsApp listo.
+          </p>
+          <ul className="divide-y divide-slate-100">
+            {contactarHoy.map(({ empresa, metros }) => (
+              <li
+                key={empresa.id}
+                className="flex flex-col gap-2 py-3 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-lg font-bold text-slate-800">{empresa.nombre}</span>
+                  {Number.isFinite(metros) && (
+                    <span className="insignia border-slate-200 bg-slate-100 text-slate-600">
+                      a {formatearDistancia(metros)}
+                    </span>
+                  )}
+                  {empresa.sector.trim() && (
+                    <span className="text-sm text-slate-500">{empresa.sector}</span>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  className="btn-verde px-4 py-2"
+                  onClick={() => contactarPorWhatsApp(empresa)}
+                >
+                  <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                  WhatsApp
                 </button>
               </li>
             ))}

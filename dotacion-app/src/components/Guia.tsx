@@ -152,7 +152,7 @@ export function Guia({ onCerrar }: Props) {
           <button
             type="button"
             className={ultimo ? 'btn-verde' : 'btn-primario'}
-            onClick={() => (ultimo ? onCerrar(false) : setI(i + 1))}
+            onClick={() => (ultimo ? onCerrar(true) : setI(i + 1))}
           >
             {ultimo ? (
               '¡Empezar!'
@@ -166,8 +166,8 @@ export function Guia({ onCerrar }: Props) {
         </div>
 
         <p className="border-t border-slate-100 bg-slate-50 px-6 py-2.5 text-center text-sm text-slate-500">
-          Este tutorial aparece cada vez que entra. Toque <strong>«Saltar tutorial»</strong> para no
-          volver a verlo.
+          El tutorial aparece al entrar hasta que lo termine (<strong>«¡Empezar!»</strong>) o toque{' '}
+          <strong>«Saltar tutorial»</strong>. Siempre puede reabrirlo con «¿Cómo funciona?».
         </p>
       </div>
     </div>

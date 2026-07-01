@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Database,
   Download,
@@ -82,6 +82,9 @@ export function Empresas({
   const [filtroSector, setFiltroSector] = useState('todos');
   const [filtroEstado, setFiltroEstado] = useState('todos');
   const [soloContacto, setSoloContacto] = useState(false);
+  // Con 6.000+ empresas, pintar toda la tabla congela el navegador: se pintan
+  // de a 100 y un botón trae las siguientes.
+  const [limite, setLimite] = useState(100);
   const [seleccion, setSeleccion] = useState<Set<string>>(() => new Set());
   const [formAbierto, setFormAbierto] = useState(false);
   const [editando, setEditando] = useState<Empresa | null>(null);
@@ -124,6 +127,13 @@ export function Empresas({
     });
   }, [empresas, busqueda, filtroSector, filtroEstado, soloContacto]);
 
+  // Al cambiar búsqueda o filtros, se vuelve a las primeras 100.
+  useEffect(() => {
+    setLimite(100);
+  }, [busqueda, filtroSector, filtroEstado, soloContacto]);
+
+  const visibles = useMemo(() => filtradas.slice(0, limite), [filtradas, limite]);
+
   // --- Selección múltiple para envío masivo ---
   const alternarSeleccion = (id: string) =>
     setSeleccion((actual) => {
@@ -150,34 +160,33 @@ export function Empresas({
   const empresasSeleccionadas = empresas.filter((e) => seleccion.has(e.id));
   const seleccionadasConCorreo = empresasSeleccionadas.filter((e) => e.email.trim() !== '');
 
-  /** Envío masivo de la cotización por correo: un solo mensaje con todos en CCO. */
+  /**
+   * Envío masivo de la cotización por correo, en LOTES de máximo 10: un correo
+   * genérico a muchos desconocidos es spam y Hotmail puede bloquear la cuenta.
+   * Cada toque envía un lote; las demás quedan seleccionadas para el siguiente.
+   */
+  const LOTE_CORREO = 10;
   const enviarCorreoMasivo = () => {
     if (seleccionadasConCorreo.length === 0) {
       mostrarToast('Ninguna de las empresas seleccionadas tiene correo. Usa WhatsApp para esas.', 'info');
       return;
     }
-    if (
-      seleccionadasConCorreo.length > 40 &&
-      !window.confirm(
-        `Vas a escribir a ${seleccionadasConCorreo.length} empresas en un solo correo. Hotmail puede limitar los envíos muy grandes; si falla, hazlo en grupos más pequeños. ¿Continuar?`,
-      )
-    ) {
-      return;
-    }
+    const lote = seleccionadasConCorreo.slice(0, LOTE_CORREO);
+    const restantes = seleccionadasConCorreo.slice(LOTE_CORREO);
     const { asunto, cuerpo } = generarEmailMasivo(config);
-    const correos = seleccionadasConCorreo.map((e) => e.email.trim());
+    const correos = lote.map((e) => e.email.trim());
     window.open(urlOutlookMasivo(correos, asunto, cuerpo, config.email), '_blank', 'noopener');
-    seleccionadasConCorreo.forEach((e) => {
+    lote.forEach((e) => {
       if (e.estado === 'pendiente') cambiarEstado(e.id, 'enviado');
       registrarEvento(e.id, 'correo', 'Cotización enviada (correo masivo)');
     });
+    setSeleccion(new Set(restantes.map((e) => e.id)));
     mostrarToast(
-      `Se abrió tu correo con ${seleccionadasConCorreo.length} ${
-        seleccionadasConCorreo.length === 1 ? 'empresa' : 'empresas'
-      } en copia oculta. Revisa y da «Enviar».`,
+      restantes.length > 0
+        ? `Se abrió tu correo con ${lote.length} empresas en copia oculta. Envía ese y vuelve a tocar el botón: quedan ${restantes.length} para el siguiente lote (así el correo no te bloquea).`
+        : `Se abrió tu correo con ${lote.length} ${lote.length === 1 ? 'empresa' : 'empresas'} en copia oculta. Revisa y da «Enviar».`,
       'exito',
     );
-    limpiarSeleccion();
   };
 
   const importar = async (evento: React.ChangeEvent<HTMLInputElement>) => {
@@ -625,7 +634,11 @@ export function Empresas({
                   onClick={enviarCorreoMasivo}
                 >
                   <Mail className="h-5 w-5" aria-hidden="true" />
-                  Enviar cotización por correo ({seleccionadasConCorreo.length})
+                  Enviar cotización por correo (
+                  {seleccionadasConCorreo.length > LOTE_CORREO
+                    ? `${LOTE_CORREO} de ${seleccionadasConCorreo.length}`
+                    : seleccionadasConCorreo.length}
+                  )
                 </button>
                 <button type="button" className="btn-secundario px-4 py-2" onClick={limpiarSeleccion}>
                   Limpiar
@@ -672,7 +685,7 @@ export function Empresas({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
-                    {filtradas.map((e) => (
+                    {visibles.map((e) => (
                       <tr key={e.id} className="align-top hover:bg-slate-50" title={e.notas}>
                         <td className="px-4 py-3">
                           <input
@@ -708,7 +721,7 @@ export function Empresas({
 
               {/* Tarjetas en celular */}
               <div className="space-y-3 md:hidden">
-                {filtradas.map((e) => {
+                {visibles.map((e) => {
                   const whatsapp = urlWhatsApp(e.telefono, generarWhatsApp(e, config));
                   return (
                     <div key={e.id} className="tarjeta space-y-2">
@@ -752,6 +765,19 @@ export function Empresas({
                   );
                 })}
               </div>
+
+              {/* Traer las siguientes 100 (evita congelar el navegador) */}
+              {filtradas.length > limite && (
+                <div className="flex justify-center">
+                  <button
+                    type="button"
+                    className="btn-secundario"
+                    onClick={() => setLimite((n) => n + 100)}
+                  >
+                    Mostrar 100 más (faltan {(filtradas.length - limite).toLocaleString('es-CO')})
+                  </button>
+                </div>
+              )}
             </>
           )}
         </>

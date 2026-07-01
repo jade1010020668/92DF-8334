@@ -259,6 +259,7 @@ export default function App() {
             config={config}
             pedidos={pedidos}
             actualizarEmpresa={actualizarEmpresa}
+            cambiarEstado={cambiarEstado}
             onAbrirCampana={() => setCampanaAbierta(true)}
             onIrAConfiguracion={() => setPestana('configuracion')}
             onIrABuscar={() => setPestana('buscar')}

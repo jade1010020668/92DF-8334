@@ -54,6 +54,11 @@ export function Configuracion({
   mostrarToast,
 }: Props) {
   const [borrador, setBorrador] = useState<ConfigApp>(config);
+  // Las claves técnicas (Google/Brevo) van escondidas: solo confunden al
+  // usuario normal. Si ya hay una clave puesta, se muestran abiertas.
+  const [mostrarAvanzado, setMostrarAvanzado] = useState(
+    () => Boolean(config.googleMapsApiKey.trim() || config.brevoApiKey.trim()),
+  );
   const [mostrarClave, setMostrarClave] = useState(false);
   const [mostrarClaveBrevo, setMostrarClaveBrevo] = useState(false);
   const [claveNueva, setClaveNueva] = useState('');
@@ -497,7 +502,19 @@ export function Configuracion({
         </div>
       </section>
 
+      {/* Opciones avanzadas (claves técnicas): cerradas por defecto */}
+      {!mostrarAvanzado && (
+        <button
+          type="button"
+          className="btn-secundario"
+          onClick={() => setMostrarAvanzado(true)}
+        >
+          Opciones avanzadas (Google Maps y envío automático) — normalmente no las necesitas
+        </button>
+      )}
+
       {/* 5. Google Maps */}
+      {mostrarAvanzado && (
       <section className="tarjeta space-y-4">
         <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
           <MapPinned className="h-6 w-6 text-slate-700" aria-hidden="true" />
@@ -558,8 +575,10 @@ export function Configuracion({
           <p className="mt-2 font-semibold">La clave se guarda solo en este navegador. No la compartas.</p>
         </div>
       </section>
+      )}
 
       {/* 6. Brevo */}
+      {mostrarAvanzado && (
       <section className="tarjeta space-y-4">
         <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
           <Zap className="h-6 w-6 text-slate-700" aria-hidden="true" />
@@ -625,6 +644,7 @@ export function Configuracion({
           </p>
         </div>
       </section>
+      )}
 
       {/* 7. Mis datos */}
       <section className="tarjeta space-y-4">
