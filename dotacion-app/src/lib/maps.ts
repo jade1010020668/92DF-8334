@@ -178,9 +178,11 @@ export function parsearOverpass(json: unknown): ResultadoMaps[] {
 
 /** Varios espejos de Overpass: si uno falla o limita, se intenta el siguiente. */
 const SERVIDORES_OVERPASS = [
+  // Verificados con CORS abierto (funcionan desde el navegador).
   'https://maps.mail.ru/osm/tools/overpass/api/interpreter',
-  'https://overpass-api.de/api/interpreter',
   'https://overpass.osm.ch/api/interpreter',
+  // De respaldo (a veces limitan o rechazan).
+  'https://overpass-api.de/api/interpreter',
   'https://overpass.kumi.systems/api/interpreter',
 ];
 

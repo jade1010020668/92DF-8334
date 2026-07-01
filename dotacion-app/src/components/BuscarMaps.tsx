@@ -1,5 +1,5 @@
 import { lazy, Suspense, useMemo, useState } from 'react';
-import { CheckCircle2, Globe, List, Loader2, Map, MapPin, MapPinned, Navigation, Plus, Search } from 'lucide-react';
+import { CheckCircle2, Globe, Loader2, Map, MapPin, MapPinned, Navigation, Plus, Search } from 'lucide-react';
 import type { ConfigApp, FuenteEmpresa, NuevaEmpresa, ResultadoMaps } from '../types';
 import {
   buscarCercaDelNegocio,
@@ -35,8 +35,7 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
   const [cargando, setCargando] = useState(false);
   const [resultados, setResultados] = useState<ResultadoMaps[] | null>(null);
   const [seleccion, setSeleccion] = useState<Set<number>>(new Set());
-  const [origen, setOrigen] = useState<Coordenada | null>(null);
-  const [vista, setVista] = useState<'lista' | 'mapa'>('lista');
+  const [, setOrigen] = useState<Coordenada | null>(null);
 
   const hayClave = Boolean(config.googleMapsApiKey.trim());
   const hayDireccion = Boolean(config.direccion.trim());
@@ -180,6 +179,12 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
   const hayPines = pines.length > 0;
 
   const conContacto = resultados?.filter((r) => seleccion.has(resultados.indexOf(r))) ?? [];
+
+  // Coordenadas del negocio: el mapa se muestra SIEMPRE centrado aquí.
+  const negocioCoords =
+    Number.isFinite(config.negocioLat) && Number.isFinite(config.negocioLon)
+      ? { lat: config.negocioLat as number, lon: config.negocioLon as number, nombre: config.nombreEmpresa }
+      : undefined;
 
   return (
     <div className="space-y-4">
@@ -351,6 +356,36 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
         )}
       </div>
 
+      {/* Mapa SIEMPRE visible en modo cercanía (centrado en el negocio) */}
+      {modo === 'cerca' && negocioCoords && (
+        <div className="tarjeta space-y-2">
+          <p className="flex items-center gap-2 text-lg font-bold text-slate-800">
+            <Map className="h-6 w-6 text-slate-700" aria-hidden="true" />
+            Mapa de tu zona
+          </p>
+          <Suspense
+            fallback={
+              <div className="flex h-96 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50">
+                <Loader2 className="h-8 w-8 animate-spin text-slate-700" aria-hidden="true" />
+              </div>
+            }
+          >
+            <MapaProspectos
+              negocio={negocioCoords}
+              pines={pines}
+              onSeleccionar={agregarUnoPorMapa}
+              textoBotonPin="Agregar a mi lista"
+            />
+          </Suspense>
+          <p className="text-sm text-slate-500">
+            🟠 tu negocio · 🟢 prioridad alta · ⚫ media.{' '}
+            {hayPines
+              ? 'Toca un punto para ver la empresa y agregarla.'
+              : 'Toca «Buscar clientes cerca de mi negocio» para ver empresas alrededor.'}
+          </p>
+        </div>
+      )}
+
       {/* Resultados */}
       {resultados !== null &&
         (resultados.length === 0 ? (
@@ -375,28 +410,6 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
                 {seleccion.size} {seleccion.size === 1 ? 'seleccionado' : 'seleccionados'}
               </p>
               <div className="flex flex-wrap gap-2">
-                {hayPines && (
-                  <div className="flex overflow-hidden rounded-xl border border-slate-300">
-                    <button
-                      type="button"
-                      aria-pressed={vista === 'lista'}
-                      onClick={() => setVista('lista')}
-                      className={`inline-flex items-center gap-1 px-3 py-2 font-semibold ${vista === 'lista' ? 'bg-blue-700 text-white' : 'bg-white text-slate-600'}`}
-                    >
-                      <List className="h-5 w-5" aria-hidden="true" />
-                      Lista
-                    </button>
-                    <button
-                      type="button"
-                      aria-pressed={vista === 'mapa'}
-                      onClick={() => setVista('mapa')}
-                      className={`inline-flex items-center gap-1 px-3 py-2 font-semibold ${vista === 'mapa' ? 'bg-blue-700 text-white' : 'bg-white text-slate-600'}`}
-                    >
-                      <Map className="h-5 w-5" aria-hidden="true" />
-                      Mapa
-                    </button>
-                  </div>
-                )}
                 <button
                   type="button"
                   className="btn-secundario px-4 py-2"
@@ -414,30 +427,7 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
               </div>
             </div>
 
-            {vista === 'mapa' && hayPines && (
-              <div className="space-y-2">
-                <Suspense
-                  fallback={
-                    <div className="flex h-96 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50">
-                      <Loader2 className="h-8 w-8 animate-spin text-slate-700" aria-hidden="true" />
-                    </div>
-                  }
-                >
-                  <MapaProspectos
-                    negocio={origen ? { ...origen, nombre: config.nombreEmpresa } : undefined}
-                    pines={pines}
-                    onSeleccionar={agregarUnoPorMapa}
-                    textoBotonPin="Agregar a mi lista"
-                  />
-                </Suspense>
-                <p className="text-sm text-slate-500">
-                  🟢 prioridad alta · ⚫ media · 🟠 tu negocio. Toca un punto para ver la empresa y
-                  agregarla.
-                </p>
-              </div>
-            )}
-
-            <ul className={`divide-y divide-slate-100 ${vista === 'mapa' && hayPines ? 'hidden' : ''}`}>
+            <ul className="divide-y divide-slate-100">
               {resultados.map((r, i) => (
                 <li key={`${r.nombre}-${i}`}>
                   <label className="flex cursor-pointer items-start gap-3 py-3">
