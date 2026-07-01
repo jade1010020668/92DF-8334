@@ -338,21 +338,13 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
           </div>
         )}
 
-        {hayClave ? (
+        {/* La búsqueda es gratis (OpenStreetMap); no se le pide nada al usuario.
+            Solo si él ya configuró Google Maps se le confirma que está activo. */}
+        {hayClave && (
           <p className="insignia border-emerald-300 bg-emerald-100 text-emerald-800">
             <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
             Buscando con Google Maps
           </p>
-        ) : (
-          <div className="flex flex-col items-start gap-3 rounded-2xl border border-blue-200 bg-blue-50 p-4 sm:flex-row sm:items-center">
-            <p className="flex-1 text-blue-900">
-              Estás usando la búsqueda gratuita (OpenStreetMap). Para resultados más completos y con
-              teléfono, agrega tu clave de Google Maps en Configuración.
-            </p>
-            <button type="button" className="btn-secundario shrink-0" onClick={onIrAConfiguracion}>
-              Ir a Configuración
-            </button>
-          </div>
         )}
       </div>
 
@@ -393,14 +385,9 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
             <p className="text-xl font-bold text-slate-700">No encontramos resultados.</p>
             <p className="text-lg text-slate-600">
               {modo === 'cerca'
-                ? 'Prueba con un radio mayor (10 km) o revisa que la dirección de tu negocio esté bien escrita en Configuración.'
+                ? 'Prueba con un radio mayor (10 km) e intenta de nuevo en un momento.'
                 : 'Revisa la ortografía (por ejemplo «plásticos», con s) o prueba otras palabras: «fábrica de plásticos», «metalmecánica», «alimentos».'}
             </p>
-            {!hayClave && (
-              <p className="text-lg text-slate-600">
-                También puedes configurar tu clave de Google Maps para una búsqueda más completa.
-              </p>
-            )}
           </div>
         ) : (
           <div className="tarjeta space-y-3">
