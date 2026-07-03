@@ -1,8 +1,10 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import {
   BadgePercent,
   Bell,
+  CheckCircle2,
+  Mail,
   Building2,
   Database,
   Download,
@@ -23,6 +25,7 @@ import type { ConfigApp, Empresa, Pedido, ProductoCatalogo } from '../types';
 import { exportarExcel } from '../lib/excel';
 import { descargarRespaldo, parsearRespaldo } from '../lib/respaldo';
 import { hashClave, type Acceso } from '../lib/acceso';
+import { conectarCorreo, cuentaConectada, desconectarCorreo } from '../lib/msoft';
 import type { MostrarToast } from '../App';
 
 interface Props {
@@ -64,6 +67,45 @@ export function Configuracion({
   const [claveNueva, setClaveNueva] = useState('');
   const [claveConfirma, setClaveConfirma] = useState('');
   const inputRespaldo = useRef<HTMLInputElement>(null);
+
+  // Correo automático (Microsoft): estado de la conexión.
+  const [cuentaMs, setCuentaMs] = useState<string | null>(null);
+  const [conectandoMs, setConectandoMs] = useState(false);
+  const clientIdMs = (borrador.microsoftClientId ?? '').trim();
+  useEffect(() => {
+    let vigente = true;
+    if (!clientIdMs) {
+      setCuentaMs(null);
+      return;
+    }
+    void cuentaConectada({ ...config, microsoftClientId: clientIdMs }).then((c) => {
+      if (vigente) setCuentaMs(c);
+    });
+    return () => {
+      vigente = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clientIdMs]);
+
+  const conectarMs = async () => {
+    setConectandoMs(true);
+    const r = await conectarCorreo({ ...config, microsoftClientId: clientIdMs });
+    setConectandoMs(false);
+    if (r.ok) {
+      setCuentaMs(r.cuenta);
+      // Guarda el identificador de una vez para que el resto de la app lo use.
+      setConfig((actual) => ({ ...actual, microsoftClientId: clientIdMs }));
+      mostrarToast(`Correo conectado: ${r.cuenta}. Desde ahora los correos se envían solos.`, 'exito');
+    } else {
+      mostrarToast(r.error, 'error');
+    }
+  };
+
+  const desconectarMs = async () => {
+    await desconectarCorreo({ ...config, microsoftClientId: clientIdMs });
+    setCuentaMs(null);
+    mostrarToast('Correo desconectado en este equipo.', 'info');
+  };
 
   const guardarClave = () => {
     if (claveNueva.length < 4) {
@@ -322,6 +364,68 @@ export function Configuracion({
             />
           </div>
         </div>
+      </section>
+
+      {/* 1.5 Correo automático (Microsoft) */}
+      <section className="tarjeta space-y-4">
+        <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800">
+          <Mail className="h-6 w-6 text-slate-700" aria-hidden="true" />
+          Correo automático: un clic y se envía solo
+        </h3>
+        {cuentaMs ? (
+          <>
+            <p className="flex items-center gap-2 rounded-2xl border border-emerald-300 bg-emerald-50 p-4 text-emerald-900">
+              <CheckCircle2 className="h-6 w-6 shrink-0 text-emerald-700" aria-hidden="true" />
+              <span>
+                Conectado como <strong>{cuentaMs}</strong>. Los botones «Correo» ya{' '}
+                <strong>envían solos</strong> (sin abrir Outlook) y en Inicio puedes tocar «Revisar
+                respuestas» para marcar quién contestó.
+              </span>
+            </p>
+            <button type="button" className="btn-secundario" onClick={() => void desconectarMs()}>
+              Desconectar el correo en este equipo
+            </button>
+          </>
+        ) : (
+          <>
+            <p className="text-slate-600">
+              Conecta la cuenta del negocio (dot.manantial@hotmail.com) <strong>una sola vez</strong> con
+              el sistema oficial de Microsoft. La app no guarda tu contraseña: Microsoft le da un permiso
+              solo para enviar y leer el correo, y la sesión se renueva sola.
+            </p>
+            <div>
+              <label htmlFor="conf-ms-clientid" className="etiqueta">
+                Identificador de la app (Client ID de Microsoft)
+              </label>
+              <input
+                id="conf-ms-clientid"
+                className="campo"
+                autoComplete="off"
+                placeholder="Ej: 3f2b8c1d-…"
+                value={borrador.microsoftClientId ?? ''}
+                onChange={(e) => cambiar('microsoftClientId', e.target.value)}
+              />
+            </div>
+            <button
+              type="button"
+              className="btn-primario"
+              disabled={!clientIdMs || conectandoMs}
+              onClick={() => void conectarMs()}
+            >
+              {conectandoMs ? 'Conectando…' : 'Conectar mi correo (una sola vez)'}
+            </button>
+            <div className="rounded-2xl bg-slate-50 p-4 text-slate-700">
+              <p className="mb-2 font-semibold">¿De dónde sale el identificador? (una vez, 10 minutos — pídele ayuda a quien te instaló la app)</p>
+              <ol className="list-inside list-decimal space-y-1">
+                <li>Entra a <strong>portal.azure.com</strong> con la cuenta de Hotmail del negocio (es gratis).</li>
+                <li>Busca «App registrations» → «New registration».</li>
+                <li>Nombre: DotaciónPro · Cuentas: <strong>«Personal Microsoft accounts only»</strong>.</li>
+                <li>Redirect URI: elige <strong>«Single-page application (SPA)»</strong> y pega la dirección de esta app.</li>
+                <li>Al crearla, copia el <strong>«Application (client) ID»</strong> y pégalo aquí arriba.</li>
+              </ol>
+            </div>
+          </>
+        )}
       </section>
 
       {/* 2. Descuentos */}

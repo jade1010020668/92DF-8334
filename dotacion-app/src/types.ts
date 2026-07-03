@@ -103,6 +103,8 @@ export interface ConfigApp {
   googleMapsApiKey: string;
   /** Clave opcional de Brevo para enviar correos reales desde la app. */
   brevoApiKey: string;
+  /** Client ID de Microsoft (correo automático oficial). No es secreto. */
+  microsoftClientId?: string;
   /** Cuerpo personalizado del correo; vacío = usar el mensaje automático. */
   plantillaEmail: string;
   /** Mensaje personalizado de WhatsApp; vacío = usar el automático. */

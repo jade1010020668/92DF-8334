@@ -3,6 +3,7 @@ import {
   AlertTriangle,
   Bell,
   BookOpen,
+  Inbox,
   Building2,
   CalendarCheck,
   Clock,
@@ -23,6 +24,7 @@ import { diasDesdeUltimaExportacion, faltanDatosContacto } from '../lib/config';
 import { exportarExcel } from '../lib/excel';
 import { calcularKpis, seguimientosPendientes } from '../lib/stats';
 import { entregasDeHoy, textoDiasEntrega } from '../lib/agenda';
+import { correoAutomaticoConfigurado, cruzarRespuestas, remitentesRecientes } from '../lib/msoft';
 import { formatearPesos } from '../lib/plantillas';
 import { totalPedido } from '../lib/pedidos';
 import {
@@ -41,6 +43,7 @@ interface Props {
   pedidos: Pedido[];
   actualizarEmpresa: (id: string, cambios: Partial<Empresa>) => void;
   cambiarEstado: (id: string, estado: Empresa['estado']) => void;
+  mostrarToast: (mensaje: string, tipo?: 'exito' | 'error' | 'info') => void;
   onAbrirCampana: () => void;
   onIrAConfiguracion: () => void;
   onIrABuscar: () => void;
@@ -63,6 +66,7 @@ export function Dashboard({
   pedidos,
   actualizarEmpresa,
   cambiarEstado,
+  mostrarToast,
   onAbrirCampana,
   onIrAConfiguracion,
   onIrABuscar,
@@ -73,6 +77,29 @@ export function Dashboard({
   const kpis = calcularKpis(empresas);
   const seguimientos = seguimientosPendientes(empresas, config.diasSeguimiento);
   const entregasHoy = entregasDeHoy(pedidos);
+
+  // «Revisar respuestas»: lee la bandeja (correo conectado) y marca quién contestó.
+  const [revisando, setRevisando] = useState(false);
+  const revisarRespuestas = async () => {
+    setRevisando(true);
+    const r = await remitentesRecientes(config);
+    setRevisando(false);
+    if (!r.ok) {
+      mostrarToast(r.error, 'error');
+      return;
+    }
+    const respondieron = cruzarRespuestas(empresas, r.correos);
+    respondieron.forEach((e) => cambiarEstado(e.id, 'respondio'));
+    mostrarToast(
+      respondieron.length > 0
+        ? `🎉 ${respondieron.length} ${respondieron.length === 1 ? 'empresa respondió' : 'empresas respondieron'}: ${respondieron
+            .slice(0, 3)
+            .map((e) => e.nombre)
+            .join(', ')}${respondieron.length > 3 ? '…' : ''}`
+        : 'Ninguna respuesta nueva por ahora.',
+      respondieron.length > 0 ? 'exito' : 'info',
+    );
+  };
 
   // "Para contactar hoy": las 5 pendientes con WhatsApp más cercanas al
   // negocio. La primera pantalla del día debe ser vender, no mirar números.
@@ -379,10 +406,24 @@ export function Dashboard({
 
       {/* Seguimientos sugeridos */}
       <section className="tarjeta">
-        <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-slate-800">
-          <Bell className="h-6 w-6 text-slate-700" aria-hidden="true" />
-          Seguimientos sugeridos
-        </h2>
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+          <h2 className="flex items-center gap-2 text-xl font-bold text-slate-800">
+            <Bell className="h-6 w-6 text-slate-700" aria-hidden="true" />
+            Seguimientos sugeridos
+          </h2>
+          {correoAutomaticoConfigurado(config) && (
+            <button
+              type="button"
+              className="btn-secundario px-4 py-2"
+              disabled={revisando}
+              onClick={() => void revisarRespuestas()}
+              title="Lee tu bandeja de entrada y marca solas las empresas que contestaron"
+            >
+              <Inbox className="h-5 w-5" aria-hidden="true" />
+              {revisando ? 'Revisando…' : 'Revisar respuestas'}
+            </button>
+          )}
+        </div>
         {seguimientos.length === 0 ? (
           <p className="text-lg text-slate-600">Nada pendiente por ahora 🎉</p>
         ) : (

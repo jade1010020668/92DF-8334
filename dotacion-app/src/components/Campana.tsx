@@ -15,6 +15,7 @@ import {
 import type { ConfigApp, Empresa, EstadoEmpresa } from '../types';
 import { generarEmail, generarWhatsApp, urlOutlook, urlWhatsApp } from '../lib/plantillas';
 import { enviarCorreoBrevo } from '../lib/brevo';
+import { correoAutomaticoConfigurado, cuentaConectada, enviarCotizacionAuto } from '../lib/msoft';
 import { generarPdfCotizacion } from '../lib/pdf';
 import type { MostrarToast } from '../App';
 
@@ -45,6 +46,22 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
   // WhatsApp primero: es el canal que de verdad funciona para esta empresa.
   const [subPestana, setSubPestana] = useState<SubPestana>('whatsapp');
   const [enviandoBrevo, setEnviandoBrevo] = useState(false);
+  const [enviandoMs, setEnviandoMs] = useState(false);
+
+  /** Correo conectado (Microsoft): envía la cotización sola y marca la empresa. */
+  const enviarCorreoMs = async (empresa: Empresa) => {
+    setEnviandoMs(true);
+    const r = await enviarCotizacionAuto(empresa, config);
+    setEnviandoMs(false);
+    if (r.ok) {
+      cambiarEstado(empresa.id, 'enviado');
+      setEnviadas((n) => n + 1);
+      setIndice((i) => Math.max(i, posicion + 1));
+      mostrarToast(`✓ Correo enviado a ${empresa.nombre}.`, 'exito');
+    } else {
+      mostrarToast(r.error, 'error');
+    }
+  };
   const [masivo, setMasivo] = useState<{ hecho: number; total: number; fallidas: number } | null>(
     null,
   );
@@ -355,14 +372,20 @@ export function Campana({ empresas, config, cambiarEstado, mostrarToast, onCerra
                   <button
                     type="button"
                     className="btn-secundario"
-                    disabled={!actual.email}
+                    disabled={!actual.email || enviandoMs}
                     title={actual.email ? undefined : 'Esta empresa no tiene correo'}
-                    onClick={() =>
-                      window.open(urlOutlook(actual.email, email.asunto, email.cuerpo), '_blank', 'noopener')
-                    }
+                    onClick={() => {
+                      void (async () => {
+                        if (correoAutomaticoConfigurado(config) && (await cuentaConectada(config))) {
+                          await enviarCorreoMs(actual);
+                        } else {
+                          window.open(urlOutlook(actual.email, email.asunto, email.cuerpo), '_blank', 'noopener');
+                        }
+                      })();
+                    }}
                   >
                     <Mail className="h-5 w-5" aria-hidden="true" />
-                    Abrir correo
+                    {enviandoMs ? 'Enviando…' : 'Enviar correo'}
                   </button>
                 )}
                 <button

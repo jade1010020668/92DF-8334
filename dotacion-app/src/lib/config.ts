@@ -49,6 +49,7 @@ export const CONFIG_DEFAULT: ConfigApp = {
   negocioLon: -74.1355,
   googleMapsApiKey: '',
   brevoApiKey: '',
+  microsoftClientId: '',
   plantillaEmail: '',
   plantillaWhatsApp: '',
   // Precios "desde" reales de la lista Enero 2026 (valores SIN IVA). Son el

@@ -260,6 +260,7 @@ export default function App() {
             pedidos={pedidos}
             actualizarEmpresa={actualizarEmpresa}
             cambiarEstado={cambiarEstado}
+            mostrarToast={mostrarToast}
             onAbrirCampana={() => setCampanaAbierta(true)}
             onIrAConfiguracion={() => setPestana('configuracion')}
             onIrABuscar={() => setPestana('buscar')}

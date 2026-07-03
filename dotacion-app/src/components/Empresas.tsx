@@ -33,6 +33,7 @@ import {
   urlWhatsAppCatalogo,
 } from '../lib/plantillas';
 import { descargarPlantilla, exportarExcel, importarExcel } from '../lib/excel';
+import { correoAutomaticoConfigurado, cuentaConectada, enviarCotizacionAuto } from '../lib/msoft';
 import { buscarDatosContacto } from '../lib/enriquecerGoogle';
 import type { ResultadoAgregar } from '../hooks/useEmpresas';
 import type { MostrarToast } from '../App';
@@ -160,13 +161,42 @@ export function Empresas({
    * Cada toque envía un lote; las demás quedan seleccionadas para el siguiente.
    */
   const LOTE_CORREO = 10;
-  const enviarCorreoMasivo = () => {
+  const [enviandoMasivo, setEnviandoMasivo] = useState(false);
+  const enviarCorreoMasivo = async () => {
     if (seleccionadasConCorreo.length === 0) {
       mostrarToast('Ninguna de las empresas seleccionadas tiene correo. Usa WhatsApp para esas.', 'info');
       return;
     }
     const lote = seleccionadasConCorreo.slice(0, LOTE_CORREO);
     const restantes = seleccionadasConCorreo.slice(LOTE_CORREO);
+
+    // Con el correo conectado: cada empresa recibe SU cotización personalizada,
+    // enviada de verdad en segundo plano (sin abrir Outlook).
+    if (correoAutomaticoConfigurado(config) && (await cuentaConectada(config))) {
+      setEnviandoMasivo(true);
+      let enviados = 0;
+      let fallidos = 0;
+      for (const e of lote) {
+        const r = await enviarCotizacionAuto(e, config);
+        if (r.ok) {
+          enviados++;
+          if (e.estado === 'pendiente') cambiarEstado(e.id, 'enviado');
+          registrarEvento(e.id, 'correo', 'Correo enviado automáticamente');
+        } else {
+          fallidos++;
+        }
+      }
+      setEnviandoMasivo(false);
+      setSeleccion(new Set(restantes.map((e) => e.id)));
+      mostrarToast(
+        fallidos === 0
+          ? `✓ ${enviados} correos enviados.${restantes.length > 0 ? ` Quedan ${restantes.length} seleccionadas para el siguiente grupo.` : ''}`
+          : `${enviados} enviados y ${fallidos} fallaron. Revisa tu internet y vuelve a tocar el botón.`,
+        fallidos === 0 ? 'exito' : 'error',
+      );
+      return;
+    }
+
     const { asunto, cuerpo } = generarEmailMasivo(config);
     const correos = lote.map((e) => e.email.trim());
     window.open(urlOutlookMasivo(correos, asunto, cuerpo, config.email), '_blank', 'noopener');
@@ -570,15 +600,17 @@ export function Empresas({
                 <button
                   type="button"
                   className="btn-verde px-4 py-2"
-                  disabled={seleccionadasConCorreo.length === 0}
-                  onClick={enviarCorreoMasivo}
+                  disabled={seleccionadasConCorreo.length === 0 || enviandoMasivo}
+                  onClick={() => void enviarCorreoMasivo()}
                 >
                   <Mail className="h-5 w-5" aria-hidden="true" />
-                  Enviar cotización por correo (
-                  {seleccionadasConCorreo.length > LOTE_CORREO
-                    ? `${LOTE_CORREO} de ${seleccionadasConCorreo.length}`
-                    : seleccionadasConCorreo.length}
-                  )
+                  {enviandoMasivo
+                    ? 'Enviando…'
+                    : `Enviar cotización por correo (${
+                        seleccionadasConCorreo.length > LOTE_CORREO
+                          ? `${LOTE_CORREO} de ${seleccionadasConCorreo.length}`
+                          : seleccionadasConCorreo.length
+                      })`}
                 </button>
                 <button type="button" className="btn-secundario px-4 py-2" onClick={limpiarSeleccion}>
                   Limpiar

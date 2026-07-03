@@ -28,6 +28,7 @@ import {
 } from '../lib/plantillas';
 import { buscarDatosContacto } from '../lib/enriquecerGoogle';
 import { catalogoParaPedidos } from '../lib/catalogo';
+import { correoAutomaticoConfigurado, cuentaConectada, enviarCotizacionAuto } from '../lib/msoft';
 import { generarPdfCotizacion } from '../lib/pdf';
 import { saldoPedido, totalPedido } from '../lib/pedidos';
 import { ETIQUETA_ESTADO_PEDIDO } from '../types';
@@ -81,6 +82,24 @@ export function FichaEmpresa({
   const [nota, setNota] = useState('');
   const [pedidoAbierto, setPedidoAbierto] = useState(false);
   const [buscandoTel, setBuscandoTel] = useState(false);
+  const [enviandoCorreo, setEnviandoCorreo] = useState(false);
+
+  /** Con el correo conectado, envía solo; si no, abre Outlook ya escrito. */
+  const enviarCorreo = async () => {
+    if (correoAutomaticoConfigurado(config) && (await cuentaConectada(config))) {
+      setEnviandoCorreo(true);
+      const r = await enviarCotizacionAuto(empresa, config);
+      setEnviandoCorreo(false);
+      if (r.ok) {
+        registrarEvento(empresa.id, 'correo', 'Correo enviado automáticamente');
+        mostrarToast(`✓ Correo enviado a ${empresa.nombre}.`, 'exito');
+      } else {
+        mostrarToast(r.error, 'error');
+      }
+    } else {
+      abrir(urlOutlook(empresa.email, correo.asunto, correo.cuerpo), 'correo', 'Correo abierto');
+    }
+  };
 
   const conseguirTelefono = async () => {
     setBuscandoTel(true);
@@ -185,12 +204,12 @@ export function FichaEmpresa({
               <button
                 type="button"
                 className="btn-secundario px-4 py-2"
-                disabled={!empresa.email}
-                title={empresa.email ? 'Abrir tu correo con el mensaje escrito' : 'Esta empresa no tiene correo'}
-                onClick={() => abrir(urlOutlook(empresa.email, correo.asunto, correo.cuerpo), 'correo', 'Correo abierto')}
+                disabled={!empresa.email || enviandoCorreo}
+                title={empresa.email ? 'Enviar la cotización por correo' : 'Esta empresa no tiene correo'}
+                onClick={() => void enviarCorreo()}
               >
                 <Mail className="h-5 w-5" aria-hidden="true" />
-                Correo
+                {enviandoCorreo ? 'Enviando…' : 'Correo'}
               </button>
               <button
                 type="button"
