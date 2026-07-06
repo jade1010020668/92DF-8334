@@ -415,13 +415,40 @@ export function Configuracion({
               {conectandoMs ? 'Conectando…' : 'Conectar mi correo (una sola vez)'}
             </button>
             <div className="rounded-2xl bg-slate-50 p-4 text-slate-700">
-              <p className="mb-2 font-semibold">¿De dónde sale el identificador? (una vez, 10 minutos — pídele ayuda a quien te instaló la app)</p>
-              <ol className="list-inside list-decimal space-y-1">
-                <li>Entra a <strong>portal.azure.com</strong> con la cuenta de Hotmail del negocio (es gratis).</li>
-                <li>Busca «App registrations» → «New registration».</li>
-                <li>Nombre: DotaciónPro · Cuentas: <strong>«Personal Microsoft accounts only»</strong>.</li>
-                <li>Redirect URI: elige <strong>«Single-page application (SPA)»</strong> y pega la dirección de esta app.</li>
-                <li>Al crearla, copia el <strong>«Application (client) ID»</strong> y pégalo aquí arriba.</li>
+              <p className="mb-2 font-semibold">¿De dónde sale el identificador? (una sola vez, 5 minutos, todo es copiar y pegar)</p>
+              <ol className="list-inside list-decimal space-y-2">
+                <li>
+                  Entra a{' '}
+                  <a
+                    href="https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/CreateApplicationBlade"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-semibold text-blue-700 underline"
+                  >
+                    este enlace directo al formulario de Microsoft
+                  </a>{' '}
+                  e inicia sesión con la cuenta del negocio (es gratis, no pide tarjeta).
+                </li>
+                <li>
+                  En <strong>Name</strong> escribe: <code className="rounded bg-white px-1">DotacionPro</code>
+                </li>
+                <li>
+                  En <strong>Supported account types</strong> marca la última opción:{' '}
+                  <strong>«Personal Microsoft accounts only»</strong>.
+                </li>
+                <li>
+                  En <strong>Redirect URI</strong>: elige <strong>«Single-page application (SPA)»</strong> y pega
+                  esta dirección exacta:
+                  <code className="mt-1 block overflow-x-auto rounded bg-white px-2 py-1">
+                    {window.location.origin + window.location.pathname}
+                  </code>
+                </li>
+                <li>Toca <strong>«Register»</strong>.</li>
+                <li>
+                  En la página que aparece, copia el <strong>«Application (client) ID»</strong> (una serie
+                  de letras y números con guiones) y pégalo en el campo de arriba. Toca «Conectar mi
+                  correo» y acepta en la ventana de Microsoft. ¡Listo para siempre!
+                </li>
               </ol>
             </div>
           </>
