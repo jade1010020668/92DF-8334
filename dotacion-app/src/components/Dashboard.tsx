@@ -25,6 +25,7 @@ import { exportarExcel } from '../lib/excel';
 import { calcularKpis, seguimientosPendientes } from '../lib/stats';
 import { entregasDeHoy, textoDiasEntrega } from '../lib/agenda';
 import { correoAutomaticoConfigurado, cruzarRespuestas, remitentesRecientes } from '../lib/msoft';
+import { envioRealConfigurado } from '../lib/envioReal';
 import { formatearPesos } from '../lib/plantillas';
 import { totalPedido } from '../lib/pedidos';
 import {
@@ -202,6 +203,20 @@ export function Dashboard({
           </p>
           <button type="button" className="btn-primario" onClick={onIrAConfiguracion}>
             Completar ahora
+          </button>
+        </div>
+      )}
+
+      {/* Falta 1 paso para que los correos salgan solos */}
+      {kpis.total > 0 && !envioRealConfigurado(config) && (
+        <div className="flex flex-col items-start gap-3 rounded-2xl border border-slate-200 bg-white p-5 sm:flex-row sm:items-center">
+          <Mail className="h-7 w-7 shrink-0 text-slate-700" aria-hidden="true" />
+          <p className="flex-1 text-lg text-slate-700">
+            Hoy los correos se abren en tu Outlook para que tú des «Enviar». ¿Quieres que{' '}
+            <strong>salgan solos con un clic</strong>? Se activa gratis una sola vez (5 minutos).
+          </p>
+          <button type="button" className="btn-primario shrink-0" onClick={onIrAConfiguracion}>
+            Activar envío automático
           </button>
         </div>
       )}

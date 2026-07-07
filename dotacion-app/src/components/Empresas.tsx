@@ -33,7 +33,7 @@ import {
   urlWhatsAppCatalogo,
 } from '../lib/plantillas';
 import { descargarPlantilla, exportarExcel, importarExcel } from '../lib/excel';
-import { correoAutomaticoConfigurado, cuentaConectada, enviarCotizacionAuto } from '../lib/msoft';
+import { enviarCotizacionReal, envioRealConfigurado, medioEnvioDisponible } from '../lib/envioReal';
 import { buscarDatosContacto } from '../lib/enriquecerGoogle';
 import type { ResultadoAgregar } from '../hooks/useEmpresas';
 import type { MostrarToast } from '../App';
@@ -170,14 +170,14 @@ export function Empresas({
     const lote = seleccionadasConCorreo.slice(0, LOTE_CORREO);
     const restantes = seleccionadasConCorreo.slice(LOTE_CORREO);
 
-    // Con el correo conectado: cada empresa recibe SU cotización personalizada,
-    // enviada de verdad en segundo plano (sin abrir Outlook).
-    if (correoAutomaticoConfigurado(config) && (await cuentaConectada(config))) {
+    // Con el envío automático activo (Microsoft o Brevo): cada empresa recibe
+    // SU cotización personalizada, enviada de verdad en segundo plano.
+    if (envioRealConfigurado(config) && (await medioEnvioDisponible(config)) !== null) {
       setEnviandoMasivo(true);
       let enviados = 0;
       let fallidos = 0;
       for (const e of lote) {
-        const r = await enviarCotizacionAuto(e, config);
+        const r = await enviarCotizacionReal(e, config);
         if (r.ok) {
           enviados++;
           if (e.estado === 'pendiente') cambiarEstado(e.id, 'enviado');

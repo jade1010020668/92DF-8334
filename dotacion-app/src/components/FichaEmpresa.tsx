@@ -28,7 +28,7 @@ import {
 } from '../lib/plantillas';
 import { buscarDatosContacto } from '../lib/enriquecerGoogle';
 import { catalogoParaPedidos } from '../lib/catalogo';
-import { correoAutomaticoConfigurado, cuentaConectada, enviarCotizacionAuto } from '../lib/msoft';
+import { enviarCotizacionReal, envioRealConfigurado } from '../lib/envioReal';
 import { generarPdfCotizacion } from '../lib/pdf';
 import { saldoPedido, totalPedido } from '../lib/pedidos';
 import { ETIQUETA_ESTADO_PEDIDO } from '../types';
@@ -84,17 +84,22 @@ export function FichaEmpresa({
   const [buscandoTel, setBuscandoTel] = useState(false);
   const [enviandoCorreo, setEnviandoCorreo] = useState(false);
 
-  /** Con el correo conectado, envía solo; si no, abre Outlook ya escrito. */
+  /** Con el envío automático activo (Microsoft o Brevo), envía solo; si no, abre Outlook. */
   const enviarCorreo = async () => {
-    if (correoAutomaticoConfigurado(config) && (await cuentaConectada(config))) {
+    if (envioRealConfigurado(config)) {
       setEnviandoCorreo(true);
-      const r = await enviarCotizacionAuto(empresa, config);
+      const r = await enviarCotizacionReal(empresa, config);
       setEnviandoCorreo(false);
       if (r.ok) {
         registrarEvento(empresa.id, 'correo', 'Correo enviado automáticamente');
-        mostrarToast(`✓ Correo enviado a ${empresa.nombre}.`, 'exito');
+        mostrarToast(
+          r.medio === 'brevo'
+            ? `✓ Correo enviado a ${empresa.nombre} con la cotización PDF adjunta.`
+            : `✓ Correo enviado a ${empresa.nombre}.`,
+          'exito',
+        );
       } else {
-        mostrarToast(r.error, 'error');
+        mostrarToast(r.error ?? 'No se pudo enviar el correo.', 'error');
       }
     } else {
       abrir(urlOutlook(empresa.email, correo.asunto, correo.cuerpo), 'correo', 'Correo abierto');

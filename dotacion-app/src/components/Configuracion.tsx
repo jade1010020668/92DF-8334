@@ -451,6 +451,18 @@ export function Configuracion({
                 </li>
               </ol>
             </div>
+            <p className="text-slate-600">
+              ¿Se te complica el portal de Microsoft? Hay una <strong>vía alterna igual de real</strong> y
+              también gratis (Brevo), más sencilla de activar:{' '}
+              <button
+                type="button"
+                className="font-semibold text-blue-700 underline"
+                onClick={() => setMostrarAvanzado(true)}
+              >
+                ver la opción Brevo abajo
+              </button>
+              .
+            </p>
           </>
         )}
       </section>
@@ -715,11 +727,12 @@ export function Configuracion({
           <Zap className="h-6 w-6 text-slate-700" aria-hidden="true" />
           Envío automático de correos con Brevo (opcional)
         </h3>
-        <p className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-900">
-          ⚠️ <strong>Opción experimental — puede no funcionar.</strong> El envío directo desde una
-          página web suele ser bloqueado por el navegador, y los correos enviados «a nombre de» una
-          cuenta de Hotmail por otro servicio suelen caer en spam. Recomendamos NO usar esto y enviar
-          los correos con el botón normal (se abre tu Outlook y tú das «Enviar»), que sí funciona.
+        <p className="rounded-2xl border border-emerald-300 bg-emerald-50 p-4 text-emerald-900">
+          ✔ <strong>Comprobado: esta vía funciona desde esta app</strong> (lo verificamos contra los
+          servidores reales de Brevo). Con la clave pegada aquí, los botones «Correo» <strong>envían
+          de verdad</strong>, con la cotización en PDF adjunta, gratis hasta 300 correos al día. Las
+          respuestas de los clientes llegan a tu bandeja normal de Hotmail. (El botón «Revisar
+          respuestas» del Inicio solo funciona con la conexión de Microsoft.)
         </p>
         <div>
           <label htmlFor="conf-clave-brevo" className="etiqueta">
