@@ -161,22 +161,28 @@ export function Empresas({
    * Cada toque envía un lote; las demás quedan seleccionadas para el siguiente.
    */
   const LOTE_CORREO = 10;
+  /** Con vía real activa (Microsoft/Brevo) se pueden enviar tandas grandes. */
+  const LOTE_REAL = 50;
   const [enviandoMasivo, setEnviandoMasivo] = useState(false);
+  const [progresoMasivo, setProgresoMasivo] = useState<{ hecho: number; total: number } | null>(null);
   const enviarCorreoMasivo = async () => {
     if (seleccionadasConCorreo.length === 0) {
       mostrarToast('Ninguna de las empresas seleccionadas tiene correo. Usa WhatsApp para esas.', 'info');
       return;
     }
-    const lote = seleccionadasConCorreo.slice(0, LOTE_CORREO);
-    const restantes = seleccionadasConCorreo.slice(LOTE_CORREO);
 
     // Con el envío automático activo (Microsoft o Brevo): cada empresa recibe
-    // SU cotización personalizada, enviada de verdad en segundo plano.
-    if (envioRealConfigurado(config) && (await medioEnvioDisponible(config)) !== null) {
+    // SU cotización personalizada, enviada de verdad, con progreso en vivo.
+    const viaReal = envioRealConfigurado(config) && (await medioEnvioDisponible(config)) !== null;
+    if (viaReal) {
+      const lote = seleccionadasConCorreo.slice(0, LOTE_REAL);
+      const restantes = seleccionadasConCorreo.slice(LOTE_REAL);
       setEnviandoMasivo(true);
+      setProgresoMasivo({ hecho: 0, total: lote.length });
       let enviados = 0;
       let fallidos = 0;
-      for (const e of lote) {
+      for (let i = 0; i < lote.length; i++) {
+        const e = lote[i];
         const r = await enviarCotizacionReal(e, config);
         if (r.ok) {
           enviados++;
@@ -185,18 +191,24 @@ export function Empresas({
         } else {
           fallidos++;
         }
+        setProgresoMasivo({ hecho: i + 1, total: lote.length });
+        // Pausa corta entre envíos: los servidores de correo castigan las ráfagas.
+        if (i < lote.length - 1) await new Promise((r2) => setTimeout(r2, 400));
       }
       setEnviandoMasivo(false);
+      setProgresoMasivo(null);
       setSeleccion(new Set(restantes.map((e) => e.id)));
       mostrarToast(
         fallidos === 0
-          ? `✓ ${enviados} correos enviados.${restantes.length > 0 ? ` Quedan ${restantes.length} seleccionadas para el siguiente grupo.` : ''}`
+          ? `✓ ${enviados} correos enviados.${restantes.length > 0 ? ` Quedan ${restantes.length} seleccionadas: toca el botón otra vez para la siguiente tanda.` : ''}`
           : `${enviados} enviados y ${fallidos} fallaron. Revisa tu internet y vuelve a tocar el botón.`,
         fallidos === 0 ? 'exito' : 'error',
       );
       return;
     }
 
+    const lote = seleccionadasConCorreo.slice(0, LOTE_CORREO);
+    const restantes = seleccionadasConCorreo.slice(LOTE_CORREO);
     const { asunto, cuerpo } = generarEmailMasivo(config);
     const correos = lote.map((e) => e.email.trim());
     window.open(urlOutlookMasivo(correos, asunto, cuerpo, config.email), '_blank', 'noopener');
@@ -605,7 +617,9 @@ export function Empresas({
                 >
                   <Mail className="h-5 w-5" aria-hidden="true" />
                   {enviandoMasivo
-                    ? 'Enviando…'
+                    ? progresoMasivo
+                      ? `Enviando ${progresoMasivo.hecho} de ${progresoMasivo.total}…`
+                      : 'Enviando…'
                     : `Enviar cotización por correo (${
                         seleccionadasConCorreo.length > LOTE_CORREO
                           ? `${LOTE_CORREO} de ${seleccionadasConCorreo.length}`
