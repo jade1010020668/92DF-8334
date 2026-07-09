@@ -32,7 +32,16 @@ function aMetros(m?: number): string {
 
 /** Descarga e interpreta la base inicial de empresas (ruta relativa al sitio). */
 export async function cargarBaseInicial(): Promise<BaseInicial> {
-  const respuesta = await fetchConTimeout('./empresas-bogota.json', { cache: 'no-cache' }, 30000);
+  // El archivo pesa ~1,2 MB y el servidor no lo comprime: en datos móviles
+  // puede tardar más de un minuto. Tiempo amplio y error que explica qué pasó.
+  let respuesta: Response;
+  try {
+    respuesta = await fetchConTimeout('./empresas-bogota.json', { cache: 'no-cache' }, 120000);
+  } catch {
+    throw new Error(
+      'La base de empresas está tardando mucho en descargar (pesa ~1 MB). Con wifi va más rápido; intenta de nuevo.',
+    );
+  }
   if (!respuesta.ok) {
     throw new Error('No pudimos cargar la base de datos. Revisa tu internet e intenta de nuevo.');
   }

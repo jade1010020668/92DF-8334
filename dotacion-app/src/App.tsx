@@ -143,6 +143,16 @@ export default function App() {
   const [cargandoBase, setCargandoBase] = useState(false);
   const cargarBase = useCallback(async () => {
     if (cargandoBase) return;
+    // Si la base ya está cargada, no re-descargar 1 MB por accidente (en
+    // celular tarda y no agrega nada nuevo).
+    if (
+      empresas.length >= 5000 &&
+      !window.confirm(
+        `Ya tienes ${empresas.length.toLocaleString('es-CO')} empresas cargadas. ¿Volver a descargar la base para revisar si hay nuevas? (puede tardar en celular)`,
+      )
+    ) {
+      return;
+    }
     setCargandoBase(true);
     try {
       const { empresas: nuevas } = await cargarBaseInicial();
@@ -163,7 +173,7 @@ export default function App() {
     } finally {
       setCargandoBase(false);
     }
-  }, [cargandoBase, agregarEmpresas, mostrarToast]);
+  }, [cargandoBase, empresas.length, agregarEmpresas, mostrarToast]);
 
   useEffect(() => {
     if (!toast) return;
