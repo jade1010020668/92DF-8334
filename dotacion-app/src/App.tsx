@@ -20,6 +20,7 @@ import { CLAVE_CONFIG, CONFIG_DEFAULT, combinarConfig } from './lib/config';
 import { useEmpresas } from './hooks/useEmpresas';
 import { usePedidos } from './hooks/usePedidos';
 import { useLocalStorageState, registrarAvisoFalloGuardado } from './hooks/useLocalStorageState';
+import { esNavegadorIncrustado, protegerAlmacenamiento } from './lib/entorno';
 import { Dashboard } from './components/Dashboard';
 import { Campana } from './components/Campana';
 import { Empresas } from './components/Empresas';
@@ -130,6 +131,15 @@ export default function App() {
   }, []);
 
   // Aviso cuando el navegador no puede guardar (cuota llena / almacenamiento bloqueado).
+  // Protecciones de datos: pedir almacenamiento persistente y avisar si la
+  // app se abrió en el navegador incrustado de otra app (ahí SÍ se pierde).
+  const [navegadorIncrustado] = useState(() =>
+    typeof navigator !== 'undefined' && esNavegadorIncrustado(navigator.userAgent),
+  );
+  useEffect(() => {
+    void protegerAlmacenamiento();
+  }, []);
+
   useEffect(() => {
     registrarAvisoFalloGuardado(() =>
       mostrarToast(
@@ -263,6 +273,17 @@ export default function App() {
 
       {/* Contenido */}
       <main className="mx-auto max-w-6xl px-3 py-6 sm:px-6">
+        {/* Abierta dentro de WhatsApp/Instagram: ahí el guardado NO es confiable. */}
+        {navegadorIncrustado && (
+          <div className="mb-4 flex items-start gap-3 rounded-2xl border border-rose-300 bg-rose-50 p-4">
+            <AlertCircle className="h-6 w-6 shrink-0 text-rose-600" aria-hidden="true" />
+            <p className="text-rose-900">
+              <strong>Estás dentro del navegador de otra app</strong> (WhatsApp, Instagram…): aquí tu
+              información puede borrarse al salir. Toca el menú <strong>⋮</strong> y elige{' '}
+              <strong>«Abrir en Chrome»</strong> (o Safari) — ahí todo queda guardado y no se pierde.
+            </p>
+          </div>
+        )}
         {pestana === 'inicio' && (
           <Dashboard
             empresas={empresas}

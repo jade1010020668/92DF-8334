@@ -46,3 +46,18 @@ describe('fetchConTimeout', () => {
     await expect(fetchConTimeout('https://caido.com')).rejects.toThrow('Failed to fetch');
   });
 });
+
+describe('esNavegadorIncrustado (protección de datos)', () => {
+  it('detecta los navegadores incrustados que borran datos', async () => {
+    const { esNavegadorIncrustado } = await import('../entorno');
+    expect(esNavegadorIncrustado('Mozilla/5.0 (iPhone) Instagram 300.0')).toBe(true);
+    expect(esNavegadorIncrustado('Mozilla/5.0 (iPhone) FBAN/FBIOS')).toBe(true);
+    expect(esNavegadorIncrustado('Mozilla/5.0 (Linux; Android 13; wv) Chrome/120')).toBe(true);
+  });
+  it('NO marca los navegadores normales', async () => {
+    const { esNavegadorIncrustado } = await import('../entorno');
+    expect(esNavegadorIncrustado('Mozilla/5.0 (Linux; Android 13) Chrome/120 Mobile Safari/537.36')).toBe(false);
+    expect(esNavegadorIncrustado('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) Version/17.0 Safari/604.1')).toBe(false);
+    expect(esNavegadorIncrustado('')).toBe(false);
+  });
+});
