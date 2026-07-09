@@ -620,11 +620,12 @@ export function Empresas({
                     ? progresoMasivo
                       ? `Enviando ${progresoMasivo.hecho} de ${progresoMasivo.total}…`
                       : 'Enviando…'
-                    : `Enviar cotización por correo (${
-                        seleccionadasConCorreo.length > LOTE_CORREO
-                          ? `${LOTE_CORREO} de ${seleccionadasConCorreo.length}`
-                          : seleccionadasConCorreo.length
-                      })`}
+                    : `Enviar cotización por correo (${(() => {
+                        const tanda = envioRealConfigurado(config) ? LOTE_REAL : LOTE_CORREO;
+                        return seleccionadasConCorreo.length > tanda
+                          ? `${tanda} de ${seleccionadasConCorreo.length}`
+                          : seleccionadasConCorreo.length;
+                      })()})`}
                 </button>
                 <button type="button" className="btn-secundario px-4 py-2" onClick={limpiarSeleccion}>
                   Limpiar
