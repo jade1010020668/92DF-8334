@@ -73,3 +73,15 @@ describe('acortarCuerpoCorreo', () => {
     expect(cuerpo.length).toBeLessThanOrEqual(1600);
   });
 });
+
+describe('codificación de los enlaces de correo (bug del "+")', () => {
+  it('los espacios van como %20, nunca como "+" (Outlook los mostraba literales)', async () => {
+    const { urlOutlook, urlOutlookMasivo } = await import('../plantillas');
+    const u1 = urlOutlook('a@b.co', 'Cotización de dotación', 'Buen día:\n\nLe escribo…');
+    expect(u1).not.toContain('+');
+    expect(u1).toContain('Buen%20d%C3%ADa');
+    const u2 = urlOutlookMasivo(['a@b.co'], 'Asunto con espacios', 'Cuerpo con espacios');
+    expect(u2).not.toContain('+');
+    expect(u2).toContain('Asunto%20con%20espacios');
+  });
+});

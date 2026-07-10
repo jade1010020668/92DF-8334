@@ -257,14 +257,14 @@ export function normalizarTelefonoWhatsApp(telefono: string): string | null {
 
 /** URL para abrir Gmail con el correo ya escrito. */
 export function urlGmail(destinatario: string, asunto: string, cuerpo: string): string {
-  const params = new URLSearchParams({
-    view: 'cm',
-    fs: '1',
-    to: destinatario,
-    su: asunto,
-    body: cuerpo,
-  });
-  return `https://mail.google.com/mail/?${params.toString()}`;
+  const params = [
+    'view=cm',
+    'fs=1',
+    `to=${encodeURIComponent(destinatario)}`,
+    `su=${encodeURIComponent(asunto)}`,
+    `body=${encodeURIComponent(cuerpo)}`,
+  ].join('&');
+  return `https://mail.google.com/mail/?${params}`;
 }
 
 /**
@@ -287,12 +287,14 @@ export function acortarCuerpoCorreo(cuerpo: string, max = 1600): string {
  * ninguna contraseña en la app.
  */
 export function urlOutlook(destinatario: string, asunto: string, cuerpo: string): string {
-  const params = new URLSearchParams({
-    to: destinatario,
-    subject: asunto,
-    body: acortarCuerpoCorreo(cuerpo),
-  });
-  return `https://outlook.live.com/mail/0/deeplink/compose?${params.toString()}`;
+  // OJO: URLSearchParams codifica el espacio como '+', y Outlook lo muestra
+  // literal ("Buen+día"). encodeURIComponent usa %20, que Outlook sí entiende.
+  const params = [
+    `to=${encodeURIComponent(destinatario)}`,
+    `subject=${encodeURIComponent(asunto)}`,
+    `body=${encodeURIComponent(acortarCuerpoCorreo(cuerpo))}`,
+  ].join('&');
+  return `https://outlook.live.com/mail/0/deeplink/compose?${params}`;
 }
 
 /**
@@ -308,10 +310,13 @@ export function urlOutlookMasivo(
   remitente = '',
 ): string {
   const bcc = [...new Set(destinatarios.map((d) => d.trim()).filter(Boolean))].join(',');
-  const params = new URLSearchParams({ subject: asunto, body: acortarCuerpoCorreo(cuerpo) });
-  if (remitente.trim()) params.set('to', remitente.trim());
-  if (bcc) params.set('bcc', bcc);
-  return `https://outlook.live.com/mail/0/deeplink/compose?${params.toString()}`;
+  const params = [
+    `subject=${encodeURIComponent(asunto)}`,
+    `body=${encodeURIComponent(acortarCuerpoCorreo(cuerpo))}`,
+  ];
+  if (remitente.trim()) params.push(`to=${encodeURIComponent(remitente.trim())}`);
+  if (bcc) params.push(`bcc=${encodeURIComponent(bcc)}`);
+  return `https://outlook.live.com/mail/0/deeplink/compose?${params.join('&')}`;
 }
 
 /** URL para abrir WhatsApp con el mensaje ya cargado. Null si el teléfono no sirve. */
