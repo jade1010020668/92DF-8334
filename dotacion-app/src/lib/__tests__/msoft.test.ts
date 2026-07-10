@@ -69,3 +69,27 @@ describe('cruzarRespuestas', () => {
     expect(cruzarRespuestas(lista, remitentes)).toHaveLength(1);
   });
 });
+
+describe('construirMensajeGraph (correo bonito también por Microsoft)', () => {
+  it('envía HTML con viñetas y adjunta la cotización PDF', async () => {
+    const { construirMensajeGraph } = await import('../msoft');
+    const m = construirMensajeGraph('a@b.co', 'Cotización', 'Hola:\n\n  • Overoles — desde $ 40.900\n\nGracias', {
+      nombre: 'Cotizacion.pdf',
+      contenidoBase64: 'QUJD',
+    }) as { message: { body: { contentType: string; content: string }; attachments?: unknown[] }; saveToSentItems: boolean };
+    expect(m.message.body.contentType).toBe('HTML');
+    expect(m.message.body.content).toContain('<ul');
+    expect(m.message.body.content).toContain('Overoles');
+    expect(m.saveToSentItems).toBe(true);
+    const adj = (m.message.attachments as Record<string, string>[])[0];
+    expect(adj['@odata.type']).toBe('#microsoft.graph.fileAttachment');
+    expect(adj.name).toBe('Cotizacion.pdf');
+    expect(adj.contentBytes).toBe('QUJD');
+  });
+
+  it('sin adjunto no incluye attachments', async () => {
+    const { construirMensajeGraph } = await import('../msoft');
+    const m = construirMensajeGraph('a@b.co', 'A', 'B') as { message: Record<string, unknown> };
+    expect('attachments' in m.message).toBe(false);
+  });
+});

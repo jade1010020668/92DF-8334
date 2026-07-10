@@ -1,5 +1,7 @@
 import type { ConfigApp, Empresa } from '../types';
 import { generarEmail } from './plantillas';
+import { cuerpoAHtml } from './brevo';
+import { pdfCotizacionBase64 } from './pdf';
 import { fetchConTimeout } from './red';
 
 /**
@@ -103,12 +105,51 @@ async function obtenerToken(config: ConfigApp): Promise<string> {
   }
 }
 
+export interface AdjuntoGraph {
+  nombre: string;
+  /** Contenido del PDF en base64. */
+  contenidoBase64: string;
+}
+
+/**
+ * Arma el mensaje para Graph (pura, con pruebas): cuerpo en HTML elegante
+ * (viñetas, enlaces clicables) y la cotización PDF adjunta si viene.
+ */
+export function construirMensajeGraph(
+  destinatario: string,
+  asunto: string,
+  cuerpo: string,
+  adjunto?: AdjuntoGraph,
+): Record<string, unknown> {
+  return {
+    message: {
+      subject: asunto,
+      body: { contentType: 'HTML', content: cuerpoAHtml(cuerpo) },
+      toRecipients: [{ emailAddress: { address: destinatario } }],
+      ...(adjunto
+        ? {
+            attachments: [
+              {
+                '@odata.type': '#microsoft.graph.fileAttachment',
+                name: adjunto.nombre,
+                contentType: 'application/pdf',
+                contentBytes: adjunto.contenidoBase64,
+              },
+            ],
+          }
+        : {}),
+    },
+    saveToSentItems: true,
+  };
+}
+
 /** Envía un correo real desde la cuenta conectada (sin abrir Outlook). */
 export async function enviarCorreoGraph(
   config: ConfigApp,
   destinatario: string,
   asunto: string,
   cuerpo: string,
+  adjunto?: AdjuntoGraph,
 ): Promise<{ ok: true } | { ok: false; error: string }> {
   try {
     const token = await obtenerToken(config);
@@ -117,14 +158,7 @@ export async function enviarCorreoGraph(
       {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: {
-            subject: asunto,
-            body: { contentType: 'Text', content: cuerpo },
-            toRecipients: [{ emailAddress: { address: destinatario } }],
-          },
-          saveToSentItems: true,
-        }),
+        body: JSON.stringify(construirMensajeGraph(destinatario, asunto, cuerpo, adjunto)),
       },
       20000,
     );
@@ -144,7 +178,15 @@ export async function enviarCotizacionAuto(
   config: ConfigApp,
 ): Promise<{ ok: true } | { ok: false; error: string }> {
   const { asunto, cuerpo } = generarEmail(empresa, config);
-  return enviarCorreoGraph(config, empresa.email.trim(), asunto, cuerpo);
+  // La cotización PDF va adjunta; si su generación falla, el correo sale igual.
+  let adjunto: AdjuntoGraph | undefined;
+  try {
+    const pdf = await pdfCotizacionBase64(empresa, config);
+    adjunto = { nombre: pdf.nombre, contenidoBase64: pdf.contenidoBase64 };
+  } catch {
+    adjunto = undefined;
+  }
+  return enviarCorreoGraph(config, empresa.email.trim(), asunto, cuerpo, adjunto);
 }
 
 /** Interpreta la respuesta cruda de Graph y devuelve los remitentes (pura). */
