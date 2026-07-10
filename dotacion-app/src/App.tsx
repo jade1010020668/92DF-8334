@@ -76,6 +76,9 @@ const ICONO_TOAST: Record<TipoToast, LucideIcon> = {
 export default function App() {
   const [pestana, setPestana] = useState<Pestana>('inicio');
   const [campanaAbierta, setCampanaAbierta] = useState(false);
+  // Puente mapa → cotizar: al agregar empresas desde el mapa, llegan a la
+  // lista ya seleccionadas, listas para enviarles la cotización.
+  const [seleccionEntrante, setSeleccionEntrante] = useState<string[] | null>(null);
   const [toast, setToast] = useState<Toast | null>(null);
 
   const {
@@ -311,6 +314,8 @@ export default function App() {
             eliminarEmpresa={eliminarEmpresa}
             restaurarEmpresa={restaurarEmpresa}
             registrarEvento={registrarEvento}
+            seleccionEntrante={seleccionEntrante}
+            onSeleccionEntranteAplicada={() => setSeleccionEntrante(null)}
             crearPedido={crearPedido}
             mostrarToast={mostrarToast}
             onIrABuscar={() => setPestana('buscar')}
@@ -322,6 +327,10 @@ export default function App() {
           <BuscarMaps
             config={config}
             agregarEmpresas={agregarEmpresas}
+            onCotizarAgregadas={(ids) => {
+              setSeleccionEntrante(ids);
+              setPestana('empresas');
+            }}
             mostrarToast={mostrarToast}
             onIrAConfiguracion={() => setPestana('configuracion')}
           />

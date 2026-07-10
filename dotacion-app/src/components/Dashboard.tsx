@@ -20,8 +20,9 @@ import {
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { ConfigApp, Empresa, Pedido } from '../types';
-import { diasDesdeUltimaExportacion, faltanDatosContacto } from '../lib/config';
-import { exportarExcel } from '../lib/excel';
+import type { MostrarToast } from '../App';
+import { diasDesdeUltimaExportacion, faltanDatosContacto, registrarExportacion } from '../lib/config';
+import { descargarRespaldo } from '../lib/respaldo';
 import { calcularKpis, seguimientosPendientes } from '../lib/stats';
 import { entregasDeHoy, textoDiasEntrega } from '../lib/agenda';
 import { correoAutomaticoConfigurado, cruzarRespuestas, remitentesRecientes } from '../lib/msoft';
@@ -44,7 +45,7 @@ interface Props {
   pedidos: Pedido[];
   actualizarEmpresa: (id: string, cambios: Partial<Empresa>) => void;
   cambiarEstado: (id: string, estado: Empresa['estado']) => void;
-  mostrarToast: (mensaje: string, tipo?: 'exito' | 'error' | 'info') => void;
+  mostrarToast: MostrarToast;
   onAbrirCampana: () => void;
   onIrAConfiguracion: () => void;
   onIrABuscar: () => void;
@@ -122,14 +123,16 @@ export function Dashboard({
       .slice(0, 5);
   }, [empresas, config.negocioLat, config.negocioLon]);
 
-  /** Abre el WhatsApp de primer contacto y, si se envió, marca la empresa. */
+  /** Abre el WhatsApp y marca la empresa sola (con «Deshacer» por si acaso). */
   const contactarPorWhatsApp = (empresa: Empresa) => {
     const url = urlWhatsApp(empresa.telefono, generarWhatsApp(empresa, config));
     if (!url) return;
     window.open(url, '_blank', 'noopener');
-    if (window.confirm(`¿Enviaste el mensaje a ${empresa.nombre}? Acepta para marcarla como contactada.`)) {
-      cambiarEstado(empresa.id, 'enviado');
-    }
+    cambiarEstado(empresa.id, 'enviado');
+    mostrarToast(`${empresa.nombre} quedó marcada como contactada.`, 'exito', {
+      etiqueta: 'Deshacer',
+      fn: () => cambiarEstado(empresa.id, 'pendiente'),
+    });
   };
   // Solo cuentan las pendientes que se pueden contactar (WhatsApp o correo).
   const contactablesPend = empresas.filter(
@@ -179,16 +182,15 @@ export function Dashboard({
     },
   ];
 
-  /** Abre el mensaje de seguimiento y, si se envió, reinicia el contador. */
+  /** Abre el seguimiento y reinicia el contador solo (con «Deshacer»). */
   const abrirSeguimiento = (empresa: Empresa, url: string) => {
+    const fechaAnterior = empresa.fechaEnvio;
     window.open(url, '_blank', 'noopener');
-    if (
-      window.confirm(
-        `¿Enviaste el mensaje de seguimiento a ${empresa.nombre}? Acepta para reiniciar el contador de días.`,
-      )
-    ) {
-      actualizarEmpresa(empresa.id, { fechaEnvio: new Date().toISOString() });
-    }
+    actualizarEmpresa(empresa.id, { fechaEnvio: new Date().toISOString() });
+    mostrarToast(`Seguimiento a ${empresa.nombre} registrado.`, 'exito', {
+      etiqueta: 'Deshacer',
+      fn: () => actualizarEmpresa(empresa.id, { fechaEnvio: fechaAnterior }),
+    });
   };
 
   return (
@@ -372,11 +374,13 @@ export function Dashboard({
             type="button"
             className="btn-primario"
             onClick={() => {
-              exportarExcel(empresas);
+              descargarRespaldo(empresas, config, pedidos);
+              registrarExportacion();
               setRefrescoRespaldo((n) => n + 1);
+              mostrarToast('Copia guardada. Ese archivo restaura TODO si cambias de equipo.', 'exito');
             }}
           >
-            Exportar ahora
+            Guardar copia de mi lista
           </button>
         </div>
       )}

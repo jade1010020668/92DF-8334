@@ -55,6 +55,9 @@ interface Props {
   onIrABuscar: () => void;
   onCargarBase: () => void;
   cargandoBase: boolean;
+  /** Empresas recién agregadas desde el mapa: llegan ya seleccionadas. */
+  seleccionEntrante?: string[] | null;
+  onSeleccionEntranteAplicada?: () => void;
 }
 
 export function Empresas({
@@ -72,6 +75,8 @@ export function Empresas({
   onIrABuscar,
   onCargarBase,
   cargandoBase,
+  seleccionEntrante,
+  onSeleccionEntranteAplicada,
 }: Props) {
   const [busqueda, setBusqueda] = useState('');
   const [filtroSector, setFiltroSector] = useState('todos');
@@ -126,6 +131,15 @@ export function Empresas({
   useEffect(() => {
     setLimite(100);
   }, [busqueda, filtroSector, filtroEstado, soloContacto]);
+
+  // Las empresas agregadas desde el mapa llegan ya seleccionadas.
+  useEffect(() => {
+    if (seleccionEntrante && seleccionEntrante.length > 0) {
+      setSeleccion(new Set(seleccionEntrante));
+      onSeleccionEntranteAplicada?.();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seleccionEntrante]);
 
   const visibles = useMemo(() => filtradas.slice(0, limite), [filtradas, limite]);
 

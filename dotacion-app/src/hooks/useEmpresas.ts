@@ -38,6 +38,8 @@ function sanearEmpresas(guardado: unknown): Empresa[] {
 export interface ResultadoAgregar {
   agregadas: number;
   duplicadas: number;
+  /** Ids de las empresas recién insertadas (para seleccionarlas al llegar). */
+  idsAgregados: string[];
 }
 
 interface PlanInsercion extends ResultadoAgregar {
@@ -111,6 +113,7 @@ function planificarInsercion(
     lista: aInsertar.length > 0 ? [...aInsertar, ...actuales] : actuales,
     agregadas: aInsertar.length,
     duplicadas,
+    idsAgregados: aInsertar.map((e) => e.id),
   };
 }
 
@@ -136,7 +139,7 @@ export function useEmpresas(): UsoEmpresas {
     (nuevas: NuevaEmpresa[], fuente: FuenteEmpresa): ResultadoAgregar => {
       const plan = planificarInsercion(empresas, nuevas, fuente);
       setEmpresas(plan.lista);
-      return { agregadas: plan.agregadas, duplicadas: plan.duplicadas };
+      return { agregadas: plan.agregadas, duplicadas: plan.duplicadas, idsAgregados: plan.idsAgregados };
     },
     [empresas, setEmpresas],
   );

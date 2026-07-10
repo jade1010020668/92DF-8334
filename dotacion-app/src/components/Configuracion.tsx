@@ -805,7 +805,7 @@ export function Configuracion({
             disabled={empresas.length === 0}
           >
             <Download className="h-5 w-5" aria-hidden="true" />
-            Exportar copia en Excel
+            Ver mi lista en Excel
           </button>
           <button
             type="button"
@@ -814,7 +814,7 @@ export function Configuracion({
             disabled={empresas.length === 0}
           >
             <FileDown className="h-5 w-5" aria-hidden="true" />
-            Guardar respaldo completo
+            Guardar copia de mi lista (todo)
           </button>
           <button type="button" className="btn-secundario" onClick={() => inputRespaldo.current?.click()}>
             <Upload className="h-5 w-5" aria-hidden="true" />
@@ -840,7 +840,7 @@ export function Configuracion({
           </button>
         </div>
         <p className="text-slate-600">
-          <strong>Para pasar todo al celular (o al revés):</strong> toca «Guardar respaldo completo»,
+          <strong>Para pasar todo al celular (o al revés):</strong> toca «Guardar copia de mi lista (todo)»,
           envíate el archivo por WhatsApp o correo, ábrelo en el otro dispositivo y usa «Restaurar
           respaldo». Lleva la lista completa (con estados y fechas) y los datos del negocio; las
           claves de Google/Brevo no viajan en el archivo.

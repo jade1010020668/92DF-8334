@@ -84,3 +84,28 @@ describe('enviarCorreoBrevo — validaciones previas (sin red)', () => {
     if (!resultado.ok) expect(resultado.error).toContain(empresa.nombre);
   });
 });
+
+describe('cuerpoAHtml (correo bonito)', () => {
+  it('convierte el correo real en HTML con viñetas, enlace clicable y sin "+"', async () => {
+    const { cuerpoAHtml } = await import('../brevo');
+    const { generarEmail } = await import('../plantillas');
+    const { CONFIG_DEFAULT } = await import('../config');
+    const { cuerpo } = generarEmail(
+      { id: '1', nombre: 'Taller X', sector: 'talleres', email: 'a@b.co', telefono: '3001234567', contacto: 'Ana', direccion: 'C1', estado: 'pendiente', fechaCreacion: '2026-01-01T00:00:00.000Z', fuente: 'manual' },
+      CONFIG_DEFAULT,
+    );
+    const html = cuerpoAHtml(cuerpo);
+    expect(html).toContain('<ul');
+    expect(html).toContain('<li');
+    expect(html).toContain('Overoles');
+    expect(html).toContain('<a href="https://morales101002-dotacionpro.static.hf.space/catalogo.html"');
+    expect(html).not.toContain('+•');
+  });
+
+  it('escapa HTML peligroso del contenido', async () => {
+    const { cuerpoAHtml } = await import('../brevo');
+    const html = cuerpoAHtml('Hola <script>alert(1)</script>\n\n  • item <b>x</b>');
+    expect(html).not.toContain('<script>');
+    expect(html).toContain('&lt;script&gt;');
+  });
+});

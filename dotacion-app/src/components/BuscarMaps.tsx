@@ -21,13 +21,15 @@ interface Props {
   agregarEmpresas: (nuevas: NuevaEmpresa[], fuente: FuenteEmpresa) => ResultadoAgregar;
   mostrarToast: MostrarToast;
   onIrAConfiguracion: () => void;
+  /** Lleva a la lista con las recién agregadas ya seleccionadas para cotizar. */
+  onCotizarAgregadas?: (ids: string[]) => void;
 }
 
 type Modo = 'cerca' | 'palabra';
 
 const RADIOS = [2, 5, 10] as const;
 
-export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfiguracion }: Props) {
+export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfiguracion, onCotizarAgregadas }: Props) {
   const [modo, setModo] = useState<Modo>('cerca');
   const [consulta, setConsulta] = useState('');
   const [sectorEtiqueta, setSectorEtiqueta] = useState('');
@@ -91,7 +93,7 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
   const agregarSeleccionados = () => {
     if (!resultados) return;
     const elegidos = resultados.filter((_, i) => seleccion.has(i));
-    const { agregadas, duplicadas } = agregarEmpresas(
+    const { agregadas, duplicadas, idsAgregados } = agregarEmpresas(
       elegidos.map((r) => {
         const notas = [
           r.distanciaMetros != null ? `A ${formatearDistancia(r.distanciaMetros)} del negocio` : '',
@@ -113,13 +115,14 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
       'maps',
     );
     mostrarToast(
-      `${agregadas} ${agregadas === 1 ? 'empresa agregada' : 'empresas agregadas'}, ${duplicadas} ya ${
-        duplicadas === 1 ? 'estaba' : 'estaban'
-      } en tu lista.`,
+      agregadas > 0
+        ? `${agregadas} ${agregadas === 1 ? 'empresa agregada' : 'empresas agregadas'} y ya quedaron seleccionadas: solo toca enviarles la cotización.`
+        : `Las ${duplicadas} ya estaban en tu lista.`,
       'exito',
     );
     setResultados(null);
     setSeleccion(new Set());
+    if (agregadas > 0) onCotizarAgregadas?.(idsAgregados);
   };
 
   /** Agrega una sola empresa desde un clic en el mapa. */

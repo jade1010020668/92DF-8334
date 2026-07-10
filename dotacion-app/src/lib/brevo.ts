@@ -23,7 +23,69 @@ export interface PayloadBrevo {
   replyTo: { email: string };
   subject: string;
   textContent: string;
+  /** Versión HTML elegante del mismo cuerpo (viñetas, enlaces, firma). */
+  htmlContent?: string;
   attachment?: AdjuntoBrevo[];
+}
+
+function escaparHtml(t: string): string {
+  return t.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+}
+
+/** Vuelve clicables las URL de una línea ya escapada. */
+function enlazar(linea: string): string {
+  return linea.replace(
+    /https?:\/\/[^\s]+/g,
+    (u) => `<a href="${u}" style="color:#047857;font-weight:600">${u}</a>`,
+  );
+}
+
+/**
+ * Convierte el cuerpo de texto plano en un HTML sobrio y profesional (pura,
+ * con pruebas): párrafos, viñetas reales para el portafolio y firma separada.
+ */
+export function cuerpoAHtml(cuerpo: string): string {
+  const lineas = cuerpo.split('\n');
+  const bloques: string[] = [];
+  let viñetas: string[] = [];
+  let parrafo: string[] = [];
+  const cerrarParrafo = () => {
+    if (parrafo.length > 0) {
+      bloques.push(`<p style="margin:0 0 14px">${parrafo.map(enlazar).join('<br/>')}</p>`);
+      parrafo = [];
+    }
+  };
+  const cerrarViñetas = () => {
+    if (viñetas.length > 0) {
+      bloques.push(
+        `<ul style="margin:0 0 14px;padding-left:22px">${viñetas
+          .map((v) => `<li style="margin:0 0 6px">${enlazar(v)}</li>`)
+          .join('')}</ul>`,
+      );
+      viñetas = [];
+    }
+  };
+  for (const cruda of lineas) {
+    const linea = escaparHtml(cruda);
+    const item = linea.match(/^\s*[•·-]\s*(.+)$/);
+    if (item) {
+      cerrarParrafo();
+      viñetas.push(item[1]);
+    } else if (linea.trim() === '') {
+      cerrarParrafo();
+      cerrarViñetas();
+    } else {
+      cerrarViñetas();
+      parrafo.push(linea.trim());
+    }
+  }
+  cerrarParrafo();
+  cerrarViñetas();
+  return (
+    '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#1f2937;max-width:640px">' +
+    bloques.join('') +
+    '</div>'
+  );
 }
 
 /** Arma el cuerpo del envío para la API de Brevo (puro, cubierto por tests). */
@@ -41,6 +103,7 @@ export function construirPayloadBrevo(
     replyTo: { email: correoEmpresa },
     subject: asunto,
     textContent: cuerpo,
+    htmlContent: cuerpoAHtml(cuerpo),
     ...(adjunto ? { attachment: [adjunto] } : {}),
   };
 }

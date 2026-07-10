@@ -215,94 +215,103 @@ export function PedidoForm({
             </button>
           </div>
 
-          {/* Totales */}
+          {/* Total siempre visible: para anotar una venta basta con esto. */}
           <div className="rounded-2xl bg-slate-50 p-4">
             <div className="flex justify-between text-slate-600">
               <span>Subtotal</span>
               <span>{formatearPesos(subtotal)}</span>
             </div>
-            <div className="mt-2 flex items-center justify-between text-slate-600">
-              <label htmlFor="ped-iva">IVA (%)</label>
-              <input
-                id="ped-iva"
-                type="number"
-                min={0}
-                max={100}
-                className="campo w-24 text-right"
-                value={iva}
-                onChange={(e) => setIva(Math.max(0, Number(e.target.value) || 0))}
-              />
-            </div>
-            <div className="flex justify-between text-slate-600">
-              <span>IVA</span>
-              <span>{formatearPesos(valorIva)}</span>
-            </div>
             <div className="mt-2 flex justify-between border-t border-slate-200 pt-2 text-xl font-bold text-slate-800">
               <span>Total</span>
               <span>{formatearPesos(total)}</span>
             </div>
-            <div className="mt-2 flex items-center justify-between text-slate-600">
-              <label htmlFor="ped-abono">Abono recibido</label>
-              <input
-                id="ped-abono"
-                type="number"
-                min={0}
-                className="campo w-36 text-right"
-                value={abono}
-                onChange={(e) => setAbono(Math.max(0, Number(e.target.value) || 0))}
-              />
-            </div>
-            <div className="flex justify-between font-semibold text-emerald-700">
-              <span>Saldo por cobrar</span>
-              <span>{formatearPesos(saldo)}</span>
-            </div>
+            {saldo !== total && (
+              <div className="mt-1 flex justify-between font-semibold text-emerald-700">
+                <span>Saldo por cobrar</span>
+                <span>{formatearPesos(saldo)}</span>
+              </div>
+            )}
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label htmlFor="ped-estado" className="etiqueta">
-                Estado
-              </label>
-              <select
-                id="ped-estado"
-                className="campo"
-                value={estado}
-                onChange={(e) => setEstado(e.target.value as EstadoPedido)}
-              >
-                {ESTADOS_PEDIDO.map((s) => (
-                  <option key={s} value={s}>
-                    {ETIQUETA_ESTADO_PEDIDO[s]}
-                  </option>
-                ))}
-              </select>
+          {/* Venta rápida: lo demás es opcional y va plegado. */}
+          <details className="rounded-2xl border border-slate-200 bg-slate-50" open={editando}>
+            <summary className="cursor-pointer select-none px-4 py-3 text-lg font-semibold text-slate-700">
+              Más detalles (IVA, abono, entrega, notas) — opcional
+            </summary>
+            <div className="space-y-4 px-4 pb-4">
+              <div className="flex items-center justify-between text-slate-600">
+                <label htmlFor="ped-iva">IVA (%)</label>
+                <input
+                  id="ped-iva"
+                  type="number"
+                  min={0}
+                  max={100}
+                  className="campo w-24 text-right"
+                  value={iva}
+                  onChange={(e) => setIva(Math.max(0, Number(e.target.value) || 0))}
+                />
+              </div>
+              <div className="flex justify-between text-slate-600">
+                <span>IVA</span>
+                <span>{formatearPesos(valorIva)}</span>
+              </div>
+              <div className="flex items-center justify-between text-slate-600">
+                <label htmlFor="ped-abono">Abono recibido</label>
+                <input
+                  id="ped-abono"
+                  type="number"
+                  min={0}
+                  className="campo w-36 text-right"
+                  value={abono}
+                  onChange={(e) => setAbono(Math.max(0, Number(e.target.value) || 0))}
+                />
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="ped-estado" className="etiqueta">
+                    Estado
+                  </label>
+                  <select
+                    id="ped-estado"
+                    className="campo"
+                    value={estado}
+                    onChange={(e) => setEstado(e.target.value as EstadoPedido)}
+                  >
+                    {ESTADOS_PEDIDO.map((s) => (
+                      <option key={s} value={s}>
+                        {ETIQUETA_ESTADO_PEDIDO[s]}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="ped-entrega" className="etiqueta">
+                    Fecha de entrega
+                  </label>
+                  <input
+                    id="ped-entrega"
+                    type="date"
+                    className="campo"
+                    value={fechaEntrega}
+                    onChange={(e) => setFechaEntrega(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="ped-notas" className="etiqueta">
+                  Notas
+                </label>
+                <textarea
+                  id="ped-notas"
+                  className="campo"
+                  rows={2}
+                  value={notas}
+                  onChange={(e) => setNotas(e.target.value)}
+                  placeholder="Tallas, color, condiciones de pago…"
+                />
+              </div>
             </div>
-            <div>
-              <label htmlFor="ped-entrega" className="etiqueta">
-                Fecha de entrega
-              </label>
-              <input
-                id="ped-entrega"
-                type="date"
-                className="campo"
-                value={fechaEntrega}
-                onChange={(e) => setFechaEntrega(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div>
-            <label htmlFor="ped-notas" className="etiqueta">
-              Notas
-            </label>
-            <textarea
-              id="ped-notas"
-              className="campo"
-              rows={2}
-              value={notas}
-              onChange={(e) => setNotas(e.target.value)}
-              placeholder="Tallas, color, condiciones de pago…"
-            />
-          </div>
+          </details>
 
           {error && <p className="font-semibold text-rose-600">{error}</p>}
         </div>
