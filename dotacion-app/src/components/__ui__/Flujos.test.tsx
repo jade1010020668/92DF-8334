@@ -53,13 +53,11 @@ describe('Ficha de empresa e historial', () => {
     render(<App />);
     await user.click(pestana(/Empresas/i));
 
-    // Cambia el estado con el selector (el primero, de la tabla).
-    const selectorEstado = screen.getAllByLabelText(/Estado de Metalúrgica Andina/i)[0];
-    await user.selectOptions(selectorEstado, 'cliente');
-
-    // Abre la ficha y verifica el evento de estado.
+    // El cambio manual de estado vive en la ficha (en la lista es automático).
     await user.click(screen.getAllByRole('button', { name: /Ver ficha de Metalúrgica Andina/i })[0]);
     const dialogo = screen.getByRole('dialog');
+    const selectorEstado = within(dialogo).getByLabelText(/Estado de Metalúrgica Andina/i);
+    await user.selectOptions(selectorEstado, 'cliente');
     expect(within(dialogo).getByText(/Estado → Cliente/i)).toBeInTheDocument();
   });
 });

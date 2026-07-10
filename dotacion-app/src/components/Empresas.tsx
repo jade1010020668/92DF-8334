@@ -373,6 +373,7 @@ export function Empresas({
             if (!whatsapp) return;
             window.open(whatsapp, '_blank', 'noopener');
             registrarEvento(e.id, 'whatsapp', 'WhatsApp abierto');
+            marcarContactada(e);
           }}
         >
           <MessageCircle className="h-5 w-5" aria-hidden="true" />
@@ -387,6 +388,7 @@ export function Empresas({
             if (!catalogo) return;
             window.open(catalogo, '_blank', 'noopener');
             registrarEvento(e.id, 'whatsapp', 'Catálogo enviado por WhatsApp');
+            marcarContactada(e);
           }}
         >
           <BookOpen className="h-5 w-5" aria-hidden="true" />
@@ -405,20 +407,21 @@ export function Empresas({
     );
   };
 
-  const selectorEstado = (e: Empresa) => (
-    <select
-      aria-label={`Estado de ${e.nombre}`}
-      className={`cursor-pointer rounded-full border px-3 py-1.5 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-300 ${COLOR_ESTADO[e.estado]}`}
-      value={e.estado}
-      onChange={(evento) => cambiarEstado(e.id, evento.target.value as EstadoEmpresa)}
-    >
-      {ESTADOS.map((estado) => (
-        <option key={estado} value={estado}>
-          {ETIQUETA_ESTADO[estado]}
-        </option>
-      ))}
-    </select>
+  // El estado ya no se gestiona a mano en la lista: se marca solo al contactar
+  // (con «Deshacer»). El cambio manual vive en la ficha («Más…»).
+  const insigniaEstado = (e: Empresa) => (
+    <span className={`insignia ${COLOR_ESTADO[e.estado]}`}>{ETIQUETA_ESTADO[e.estado]}</span>
   );
+
+  /** Marca la empresa como contactada al abrir WhatsApp/Catálogo, con Deshacer. */
+  const marcarContactada = (e: Empresa) => {
+    if (e.estado !== 'pendiente') return;
+    cambiarEstado(e.id, 'enviado');
+    mostrarToast(`${e.nombre} quedó marcada como contactada.`, 'exito', {
+      etiqueta: 'Deshacer',
+      fn: () => cambiarEstado(e.id, 'pendiente'),
+    });
+  };
 
   return (
     <div className="space-y-4">
@@ -712,7 +715,7 @@ export function Empresas({
                           {e.telefono && <p className="text-sm">{e.telefono}</p>}
                           {!e.email && !e.telefono && <p className="text-sm text-slate-400">Sin datos</p>}
                         </td>
-                        <td className="px-4 py-3">{selectorEstado(e)}</td>
+                        <td className="px-4 py-3">{insigniaEstado(e)}</td>
                         <td className="px-4 py-3">{acciones(e)}</td>
                       </tr>
                     ))}
@@ -740,7 +743,7 @@ export function Empresas({
                             {e.contacto && <span className="block text-slate-600">{e.contacto}</span>}
                           </span>
                         </label>
-                        {selectorEstado(e)}
+                        {insigniaEstado(e)}
                       </div>
                       {e.email && <p className="break-all text-sm text-slate-600">{e.email}</p>}
                       {e.telefono && <p className="text-sm text-slate-600">{e.telefono}</p>}
@@ -788,6 +791,7 @@ export function Empresas({
           registrarEvento={registrarEvento}
           actualizarEmpresa={actualizarEmpresa}
           crearPedido={crearPedido}
+          cambiarEstado={cambiarEstado}
           mostrarToast={mostrarToast}
           onCerrar={() => setFicha(null)}
           onEditar={() => {

@@ -16,7 +16,8 @@ import {
   Sparkles,
   X,
 } from 'lucide-react';
-import type { ConfigApp, Empresa, EventoHistorial, NuevoPedido, Pedido } from '../types';
+import type { ConfigApp, Empresa, EstadoEmpresa, EventoHistorial, NuevoPedido, Pedido } from '../types';
+import { COLOR_ESTADO, ESTADOS, ETIQUETA_ESTADO } from '../types';
 import {
   generarEmail,
   generarWhatsApp,
@@ -42,6 +43,7 @@ interface Props {
   registrarEvento: (id: string, tipo: EventoHistorial['tipo'], texto: string) => void;
   actualizarEmpresa: (id: string, cambios: Partial<Empresa>) => void;
   crearPedido: (datos: NuevoPedido) => Pedido;
+  cambiarEstado?: (id: string, estado: EstadoEmpresa) => void;
   mostrarToast: MostrarToast;
   onCerrar: () => void;
   /** Abre el formulario de edición de esta empresa. */
@@ -74,6 +76,7 @@ export function FichaEmpresa({
   registrarEvento,
   actualizarEmpresa,
   crearPedido,
+  cambiarEstado,
   mostrarToast,
   onCerrar,
   onEditar,
@@ -159,6 +162,20 @@ export function FichaEmpresa({
             <p className="text-slate-500">
               {[empresa.sector, empresa.contacto, empresa.telefono, empresa.email].filter(Boolean).join(' · ')}
             </p>
+            {cambiarEstado && (
+              <select
+                aria-label={`Estado de ${empresa.nombre}`}
+                className={`mt-2 cursor-pointer rounded-full border px-3 py-1.5 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-300 ${COLOR_ESTADO[empresa.estado]}`}
+                value={empresa.estado}
+                onChange={(ev) => cambiarEstado(empresa.id, ev.target.value as EstadoEmpresa)}
+              >
+                {ESTADOS.map((estado) => (
+                  <option key={estado} value={estado}>
+                    {ETIQUETA_ESTADO[estado]}
+                  </option>
+                ))}
+              </select>
+            )}
           </div>
           <button type="button" className="btn-icono" aria-label="Cerrar ficha" onClick={onCerrar}>
             <X className="h-6 w-6" aria-hidden="true" />

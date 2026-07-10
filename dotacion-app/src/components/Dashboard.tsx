@@ -140,6 +140,14 @@ export function Dashboard({
   ).length;
   // Cambia tras exportar para recalcular el aviso de copia de seguridad.
   const [, setRefrescoRespaldo] = useState(0);
+  // Aviso de una sola vez por aparato: la lista vive en ESTE dispositivo.
+  const [avisoDispositivoVisto, setAvisoDispositivoVisto] = useState(() => {
+    try { return localStorage.getItem('dotacionpro.avisoDispositivo') === 'si'; } catch { return true; }
+  });
+  const cerrarAvisoDispositivo = () => {
+    try { localStorage.setItem('dotacionpro.avisoDispositivo', 'si'); } catch { /* sin storage no insistimos */ }
+    setAvisoDispositivoVisto(true);
+  };
   const diasSinRespaldo = diasDesdeUltimaExportacion();
   const sugerirRespaldo = empresas.length >= 10 && (diasSinRespaldo === null || diasSinRespaldo >= 7);
 
@@ -205,6 +213,22 @@ export function Dashboard({
           </p>
           <button type="button" className="btn-primario" onClick={onIrAConfiguracion}>
             Completar ahora
+          </button>
+        </div>
+      )}
+
+      {/* Una sola vez por aparato: dónde vive la información */}
+      {kpis.total > 0 && !avisoDispositivoVisto && (
+        <div className="flex flex-col items-start gap-3 rounded-2xl border border-sky-200 bg-sky-50 p-5 sm:flex-row sm:items-center">
+          <Download className="h-7 w-7 shrink-0 text-sky-700" aria-hidden="true" />
+          <p className="flex-1 text-sky-900">
+            <strong>Bueno saberlo:</strong> tu lista se guarda <strong>en este aparato</strong> y no se
+            borra al cerrar. Pero el celular y el computador no se comparten solos: para pasarla o ante
+            cualquier percance, usa <strong>«Guardar copia de mi lista»</strong> (la app te lo recuerda
+            cada semana).
+          </p>
+          <button type="button" className="btn-secundario shrink-0" onClick={cerrarAvisoDispositivo}>
+            Entendido
           </button>
         </div>
       )}
