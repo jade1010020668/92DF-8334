@@ -371,7 +371,7 @@ export function Dashboard({
               ) : (
                 <Database className="h-5 w-5" aria-hidden="true" />
               )}
-              {cargandoBase ? 'Cargando…' : '2. Cargar empresas de Bogotá (1.400 con teléfono)'}
+              {cargandoBase ? 'Cargando…' : '2. Cargar empresas de Bogotá (11.000 con correo)'}
             </button>
             <button type="button" className="btn-secundario" onClick={onIrABuscar}>
               o buscar en el mapa

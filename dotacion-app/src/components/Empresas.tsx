@@ -251,13 +251,15 @@ export function Empresas({
           'error',
         );
       } else {
-        const { agregadas, duplicadas } = agregarEmpresas(filas, 'excel');
-        mostrarToast(
-          `${agregadas} ${agregadas === 1 ? 'empresa agregada' : 'empresas agregadas'}, ${duplicadas} ${
-            duplicadas === 1 ? 'duplicada omitida' : 'duplicadas omitidas'
-          }.`,
-          'exito',
-        );
+        const { agregadas, duplicadas, actualizadas } = agregarEmpresas(filas, 'excel');
+        const partes = [
+          `${agregadas} ${agregadas === 1 ? 'empresa agregada' : 'empresas agregadas'}`,
+          actualizadas > 0
+            ? `${actualizadas} ${actualizadas === 1 ? 'existente completada' : 'existentes completadas'} con datos nuevos`
+            : '',
+          `${duplicadas} ${duplicadas === 1 ? 'repetida sin cambios' : 'repetidas sin cambios'}`,
+        ].filter(Boolean);
+        mostrarToast(`${partes.join(', ')}.`, 'exito');
       }
     } catch {
       mostrarToast('No pudimos leer el archivo. Revisa que sea un Excel o CSV válido.', 'error');
@@ -579,7 +581,7 @@ export function Empresas({
       {empresas.length === 0 ? (
         <div className="tarjeta flex flex-col items-center gap-4 py-12 text-center">
           <p className="max-w-md text-xl text-slate-600">
-            Empieza con nuestra base de empresas reales de Bogotá (1.400 traen teléfono para contactar ya), o importa tu propio Excel.
+            Empieza con nuestra base de empresas reales de Bogotá (11.000 traen correo y 2.800 teléfono para contactar ya), o importa tu propio Excel.
           </p>
           <div className="flex flex-wrap justify-center gap-2">
             <button type="button" className="btn-verde" onClick={onCargarBase} disabled={cargandoBase}>
@@ -588,7 +590,7 @@ export function Empresas({
               ) : (
                 <Database className="h-5 w-5" aria-hidden="true" />
               )}
-              {cargandoBase ? 'Cargando…' : 'Cargar empresas de Bogotá (1.400 con teléfono)'}
+              {cargandoBase ? 'Cargando…' : 'Cargar empresas de Bogotá (11.000 con correo)'}
             </button>
             <button type="button" className="btn-secundario" onClick={() => inputArchivo.current?.click()}>
               <Upload className="h-5 w-5" aria-hidden="true" />

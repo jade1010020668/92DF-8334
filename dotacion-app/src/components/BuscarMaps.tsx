@@ -93,7 +93,7 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
   const agregarSeleccionados = () => {
     if (!resultados) return;
     const elegidos = resultados.filter((_, i) => seleccion.has(i));
-    const { agregadas, duplicadas, idsAgregados } = agregarEmpresas(
+    const { agregadas, duplicadas, actualizadas, idsAgregados } = agregarEmpresas(
       elegidos.map((r) => {
         const notas = [
           r.distanciaMetros != null ? `A ${formatearDistancia(r.distanciaMetros)} del negocio` : '',
@@ -117,7 +117,9 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
     mostrarToast(
       agregadas > 0
         ? `${agregadas} ${agregadas === 1 ? 'empresa agregada' : 'empresas agregadas'} y ya quedaron seleccionadas: solo toca enviarles la cotización.`
-        : `Las ${duplicadas} ya estaban en tu lista.`,
+        : actualizadas > 0
+          ? `Ya estaban en tu lista; a ${actualizadas} les completamos datos nuevos.`
+          : `Las ${duplicadas} ya estaban en tu lista.`,
       'exito',
     );
     setResultados(null);
@@ -138,7 +140,7 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
     ]
       .filter(Boolean)
       .join(' · ');
-    const { agregadas, duplicadas } = agregarEmpresas(
+    const { agregadas, duplicadas, actualizadas } = agregarEmpresas(
       [
         {
           nombre: r.nombre,
@@ -153,7 +155,11 @@ export function BuscarMaps({ config, agregarEmpresas, mostrarToast, onIrAConfigu
       'maps',
     );
     mostrarToast(
-      agregadas > 0 ? `${r.nombre} agregada a tu lista.` : `${r.nombre} ya estaba en tu lista.`,
+      agregadas > 0
+        ? `${r.nombre} agregada a tu lista.`
+        : actualizadas > 0
+          ? `${r.nombre} ya estaba; le completamos datos nuevos.`
+          : `${r.nombre} ya estaba en tu lista.`,
       agregadas > 0 ? 'exito' : 'info',
     );
     void duplicadas;

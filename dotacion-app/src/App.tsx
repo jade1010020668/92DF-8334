@@ -174,9 +174,11 @@ export default function App() {
         return;
       }
       const conContacto = nuevas.filter((e) => (e.telefono ?? '').trim() || (e.email ?? '').trim()).length;
-      const { agregadas, duplicadas } = agregarEmpresas(nuevas, 'maps');
+      const { agregadas, duplicadas, actualizadas } = agregarEmpresas(nuevas, 'maps');
+      const parteActualizadas =
+        actualizadas > 0 ? ` A ${actualizadas.toLocaleString('es-CO')} que ya tenías les completamos correo o teléfono.` : '';
       mostrarToast(
-        `${agregadas} empresas reales agregadas (${conContacto} con teléfono o correo, listas para contactar). Usa el filtro "Solo con teléfono/correo".`,
+        `${agregadas.toLocaleString('es-CO')} empresas nuevas agregadas (${conContacto.toLocaleString('es-CO')} de la base traen teléfono o correo).${parteActualizadas} Usa el filtro "Solo con teléfono/correo".`,
         'exito',
       );
       void duplicadas;

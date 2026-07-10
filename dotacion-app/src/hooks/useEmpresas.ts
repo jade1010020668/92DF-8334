@@ -38,6 +38,8 @@ function sanearEmpresas(guardado: unknown): Empresa[] {
 export interface ResultadoAgregar {
   agregadas: number;
   duplicadas: number;
+  /** Repetidas a las que se les completó correo, teléfono u otro dato faltante. */
+  actualizadas: number;
   /** Ids de las empresas recién insertadas (para seleccionarlas al llegar). */
   idsAgregados: string[];
 }
@@ -46,39 +48,77 @@ interface PlanInsercion extends ResultadoAgregar {
   lista: Empresa[];
 }
 
-/** Calcula la inserción con dedup de forma pura (segura ante StrictMode). */
-function planificarInsercion(
+/** Referencia a una fila ya conocida: en la lista actual o recién insertada. */
+interface Registro {
+  direccion: string;
+  donde: 'actual' | 'nueva';
+  indice: number;
+}
+
+/** Calcula la inserción con dedup de forma pura (segura ante StrictMode).
+ *  Las repetidas no se descartan a ciegas: si traen correo/teléfono que a la
+ *  fila existente le falta, se lo completan (nunca pisan datos ya escritos). */
+export function planificarInsercion(
   actuales: Empresa[],
   nuevas: NuevaEmpresa[],
   fuente: FuenteEmpresa,
 ): PlanInsercion {
-  // nombre normalizado → direcciones normalizadas conocidas. Si cualquiera de
-  // las dos direcciones está vacía, basta el nombre para considerarla repetida.
-  const porNombre = new Map<string, string[]>();
-  const registrar = (nombre: string, direccion: string) => {
+  const copia = [...actuales];
+  // nombre normalizado → registros conocidos. Si cualquiera de las dos
+  // direcciones está vacía, basta el nombre para considerarla repetida.
+  const porNombre = new Map<string, Registro[]>();
+  const registrar = (nombre: string, direccion: string, donde: Registro['donde'], indice: number) => {
     const lista = porNombre.get(nombre) ?? [];
-    lista.push(direccion);
+    lista.push({ direccion, donde, indice });
     porNombre.set(nombre, lista);
   };
-  const esDuplicada = (nombre: string, direccion: string): boolean => {
-    const direcciones = porNombre.get(nombre);
-    if (!direcciones) return false;
-    return direccion === '' || direcciones.some((d) => d === '' || d === direccion);
+  const buscarDuplicada = (nombre: string, direccion: string): Registro | null => {
+    const registros = porNombre.get(nombre);
+    if (!registros) return null;
+    return registros.find((r) => direccion === '' || r.direccion === '' || r.direccion === direccion) ?? null;
   };
-  for (const e of actuales) registrar(limpiarClave(e.nombre), limpiarClave(e.direccion));
+  copia.forEach((e, i) => registrar(limpiarClave(e.nombre), limpiarClave(e.direccion), 'actual', i));
 
   const aInsertar: Empresa[] = [];
   let duplicadas = 0;
+  let actualizadas = 0;
   for (const nueva of nuevas) {
     const nombre = nueva.nombre.trim();
     if (!nombre) continue;
     const claveNombre = limpiarClave(nombre);
     const claveDir = limpiarClave(nueva.direccion ?? '');
-    if (esDuplicada(claveNombre, claveDir)) {
-      duplicadas++;
+    const repetida = buscarDuplicada(claveNombre, claveDir);
+    if (repetida) {
+      const objetivo = repetida.donde === 'actual' ? copia[repetida.indice] : aInsertar[repetida.indice];
+      const cambios: Partial<Empresa> = {};
+      const rellenar = (campo: 'email' | 'telefono' | 'contacto' | 'sector' | 'direccion') => {
+        const valor = (nueva[campo] ?? '').trim();
+        if (valor && !objetivo[campo]) cambios[campo] = valor;
+      };
+      rellenar('email');
+      rellenar('telefono');
+      rellenar('contacto');
+      rellenar('sector');
+      rellenar('direccion');
+      if (
+        typeof nueva.lat === 'number' &&
+        typeof nueva.lon === 'number' &&
+        (objetivo.lat === undefined || objetivo.lon === undefined)
+      ) {
+        cambios.lat = nueva.lat;
+        cambios.lon = nueva.lon;
+      }
+      if (Object.keys(cambios).length > 0) {
+        const actualizado = { ...objetivo, ...cambios };
+        if (repetida.donde === 'actual') copia[repetida.indice] = actualizado;
+        else aInsertar[repetida.indice] = actualizado;
+        actualizadas++;
+      } else {
+        duplicadas++;
+      }
       continue;
     }
-    registrar(claveNombre, claveDir);
+    registrar(claveNombre, claveDir, 'nueva', aInsertar.length);
 
     const ahora = new Date().toISOString();
     const estado = nueva.estado ?? 'pendiente';
@@ -109,10 +149,12 @@ function planificarInsercion(
       lon: typeof nueva.lon === 'number' ? nueva.lon : undefined,
     });
   }
+  const huboCambios = aInsertar.length > 0 || actualizadas > 0;
   return {
-    lista: aInsertar.length > 0 ? [...aInsertar, ...actuales] : actuales,
+    lista: huboCambios ? [...aInsertar, ...copia] : actuales,
     agregadas: aInsertar.length,
     duplicadas,
+    actualizadas,
     idsAgregados: aInsertar.map((e) => e.id),
   };
 }
@@ -139,7 +181,12 @@ export function useEmpresas(): UsoEmpresas {
     (nuevas: NuevaEmpresa[], fuente: FuenteEmpresa): ResultadoAgregar => {
       const plan = planificarInsercion(empresas, nuevas, fuente);
       setEmpresas(plan.lista);
-      return { agregadas: plan.agregadas, duplicadas: plan.duplicadas, idsAgregados: plan.idsAgregados };
+      return {
+        agregadas: plan.agregadas,
+        duplicadas: plan.duplicadas,
+        actualizadas: plan.actualizadas,
+        idsAgregados: plan.idsAgregados,
+      };
     },
     [empresas, setEmpresas],
   );
