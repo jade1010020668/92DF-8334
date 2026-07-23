@@ -83,6 +83,21 @@
   .card .nm { font-size: 12px; font-weight: 600; color: #17293b; line-height: 1.2; }
   .card .pr { font-size: 12px; color: #ef6c1a; font-weight: 600; margin-top: 3px; }
 
+  /* ---- MODO SOLO IMAGEN (desde el catálogo de precios) ---- */
+  body.solo .header, body.solo .scroll, body.solo .cta { display: none; }
+  body.solo .app { max-width: none; max-height: none; border-radius: 0; box-shadow: none; }
+  body.solo .stage { flex: 1; height: auto; margin: 0; border-radius: 0; border: none; }
+  .btn-cerrar-solo { display: none; position: absolute; top: 14px; left: 14px; z-index: 5;
+    width: 42px; height: 42px; border: none; border-radius: 14px; background: rgba(23,41,59,.92);
+    color: #eceef1; font-size: 20px; font-weight: 600; cursor: pointer; align-items: center; justify-content: center;
+    box-shadow: 0 4px 14px -6px rgba(20,30,45,.5); }
+  body.solo .btn-cerrar-solo { display: flex; }
+  body.solo .badge360 { left: 66px; }
+  .nombre-solo { display: none; position: absolute; bottom: 52px; left: 50%; transform: translateX(-50%);
+    font-size: 15px; font-weight: 700; color: #17293b; background: rgba(255,255,255,.8);
+    backdrop-filter: blur(8px); padding: 8px 18px; border-radius: 999px; white-space: nowrap; pointer-events: none; }
+  body.solo .nombre-solo { display: block; }
+
   /* barra CTA */
   .cta { flex: none; padding: 12px 22px calc(18px + env(safe-area-inset-bottom)); background: linear-gradient(to top, #eceef1 72%, rgba(236,238,241,0)); display: flex; align-items: center; gap: 14px; }
   .cta .plabel { font-size: 9.5px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: #8891a0; }
@@ -108,6 +123,8 @@
 
   <div class="stage">
     <div id="mount"></div>
+    <button class="btn-cerrar-solo" id="btn-cerrar-solo" title="Volver al catálogo">✕</button>
+    <div class="nombre-solo" id="nombre-solo"></div>
     <div class="badge360"><span class="dot"></span>Vista 360°</div>
     <div class="stage-btns">
       <button class="stage-btn" id="btn-rotar" title="Pausar/girar">
@@ -204,9 +221,14 @@ var PRODUCTOS = [
 
 var estado = { productoId: "camisa", color: 0, talla: 2, girando: true };
 // Enlace directo desde el catálogo de precios: catalogo3d.html?p=casco
+// Con &solo=1 se muestra ÚNICAMENTE la imagen 3D (sin precios ni catálogo).
+var MODO_SOLO = false;
 try {
-  var pParam = new URLSearchParams(location.search).get("p");
+  var qs = new URLSearchParams(location.search);
+  var pParam = qs.get("p");
   if (pParam && PRODUCTOS_IDS().indexOf(pParam) >= 0) estado.productoId = pParam;
+  MODO_SOLO = qs.get("solo") === "1";
+  if (MODO_SOLO) document.body.classList.add("solo");
 } catch (e) {}
 function PRODUCTOS_IDS() { return PRODUCTOS.map(function (p) { return p.id; }); }
 var fmt = function (n) { return "$" + Math.round(n).toLocaleString("es-CO"); };
@@ -564,6 +586,7 @@ function pintarUI() {
   document.getElementById("i-desc").textContent = cur.desc;
   document.getElementById("i-precio").textContent = fmt(cur.precio);
   document.getElementById("i-total").textContent = PRODUCTOS.length + " productos";
+  document.getElementById("nombre-solo").textContent = cur.nombre;
 
   // colores: solo para modelos 3D (las fotos muestran la tela real)
   document.getElementById("bloque-colores").style.display = cur.foto ? "none" : "";
@@ -620,6 +643,10 @@ document.getElementById("btn-rotar").addEventListener("click", function () {
 });
 document.getElementById("btn-reset").addEventListener("click", function () {
   if (controles) controles.reset();
+});
+document.getElementById("btn-cerrar-solo").addEventListener("click", function () {
+  if (history.length > 1) history.back();
+  else window.location.href = "./catalogo.html";
 });
 
 document.getElementById("btn-cotizar").addEventListener("click", function () {

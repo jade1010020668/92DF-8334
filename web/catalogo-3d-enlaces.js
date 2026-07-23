@@ -38,7 +38,8 @@
         sello.textContent = "VER EN 3D ↗";
         it.appendChild(sello);
         it.addEventListener("click", (function (pid) {
-          return function () { window.location.href = "./catalogo3d.html?p=" + pid; };
+          // solo=1: muestra únicamente la imagen 3D, sin precios ni catálogo
+          return function () { window.location.href = "./catalogo3d.html?p=" + pid + "&solo=1"; };
         })(id));
         enlazados++;
         break;
