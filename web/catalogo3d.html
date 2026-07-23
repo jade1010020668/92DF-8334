@@ -203,6 +203,12 @@ var PRODUCTOS = [
 ];
 
 var estado = { productoId: "camisa", color: 0, talla: 2, girando: true };
+// Enlace directo desde el catálogo de precios: catalogo3d.html?p=casco
+try {
+  var pParam = new URLSearchParams(location.search).get("p");
+  if (pParam && PRODUCTOS_IDS().indexOf(pParam) >= 0) estado.productoId = pParam;
+} catch (e) {}
+function PRODUCTOS_IDS() { return PRODUCTOS.map(function (p) { return p.id; }); }
 var fmt = function (n) { return "$" + Math.round(n).toLocaleString("es-CO"); };
 
 /* ------------------------------ Three.js ------------------------------ */
@@ -494,13 +500,16 @@ function construirFoto(cur) {
   var token = ++tokenFoto;
   var listo = function (image, tex) {
     if (token !== tokenFoto || !escena) return;
-    encuadrar(hacerInflado(image, tex, cur.aspecto));
+    encuadrar(hacerInflado(image, tex, image.width / image.height));
   };
   var cacheada = cacheImg[cur.foto];
   if (cacheada) { listo(cacheada.image, cacheada.tex); return; }
   var image = new Image();
   image.crossOrigin = "anonymous";
   image.onload = function () {
+    // El aspecto se calcula solo desde la foto: agregar un producto nuevo
+    // es únicamente soltar su PNG (fondo transparente) en assets/.
+    cur.aspecto = image.width / image.height;
     var tex = new T.Texture(image);
     tex.encoding = T.sRGBEncoding;
     if (renderer) tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
@@ -512,48 +521,24 @@ function construirFoto(cur) {
 }
 
 function hacerInflado(img, tex, aspecto) {
-  var GW = 92, GH = Math.max(2, Math.round(GW / aspecto));
-  var cv = document.createElement("canvas");
-  cv.width = GW; cv.height = GH;
-  var cx = cv.getContext("2d");
-  cx.drawImage(img, 0, 0, GW, GH);
-  var px = cx.getImageData(0, 0, GW, GH).data;
-  var hf = new Float32Array(GW * GH);
-  for (var i = 0; i < GW * GH; i++) hf[i] = px[i * 4 + 3] > 90 ? 1 : 0;
-  var blur = function (src) {
-    var dst = new Float32Array(GW * GH);
-    for (var y = 0; y < GH; y++) for (var x = 0; x < GW; x++) {
-      var s = 0, n = 0;
-      for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++) {
-        var xx = x + dx, yy = y + dy;
-        if (xx >= 0 && xx < GW && yy >= 0 && yy < GH) { s += src[yy * GW + xx]; n++; }
-      }
-      dst[y * GW + x] = s / n;
-    }
-    return dst;
-  };
-  for (var k = 0; k < 10; k++) hf = blur(hf);
-  var mx = 0; for (var j = 0; j < hf.length; j++) if (hf[j] > mx) mx = hf[j];
-  if (mx <= 0) mx = 1;
-  var H = 2.2, Wd = H * aspecto, bulge = Wd * 0.22;
-  var ss = function (v) { var t = Math.min(1, Math.max(0, (v - 0.5) / 0.5)); return t * t * (3 - 2 * t); };
-  var capa = function (t) {
-    var geo = new T.PlaneGeometry(Wd, H, GW - 1, GH - 1);
-    var pos = geo.attributes.position;
-    for (var vy = 0; vy < GH; vy++) for (var vx = 0; vx < GW; vx++) {
-      var vi = vy * GW + vx;
-      pos.setZ(vi, t * ss(hf[vi] / mx) * bulge);
-    }
-    pos.needsUpdate = true;
-    geo.computeVertexNormals();
-    var m = new T.MeshStandardMaterial({ map: tex, alphaTest: 0.5, side: T.DoubleSide, roughness: 0.88, metalness: 0.0 });
-    var mesh = new T.Mesh(geo, m);
-    mesh.castShadow = true;
-    return mesh;
-  };
+  // Lámina plana como una hoja: se ve la foto por el frente y por detrás,
+  // sin grosor visible (las capas apiladas se veían mal al girar).
+  var H = 2.2, Wd = H * aspecto;
   var g = new T.Group();
-  var N = 9;
-  for (var c = 0; c < N; c++) g.add(capa((c / (N - 1)) * 2 - 1));
+  var frente = new T.Mesh(
+    new T.PlaneGeometry(Wd, H),
+    new T.MeshStandardMaterial({ map: tex, alphaTest: 0.5, side: T.FrontSide, roughness: 0.88, metalness: 0.0 })
+  );
+  frente.position.z = 0.004;
+  frente.castShadow = true;
+  g.add(frente);
+  var atras = new T.Mesh(
+    new T.PlaneGeometry(Wd, H),
+    new T.MeshStandardMaterial({ map: tex, alphaTest: 0.5, side: T.FrontSide, roughness: 0.88, metalness: 0.0 })
+  );
+  atras.rotation.y = Math.PI; // misma foto mirando hacia atrás (no espejada)
+  atras.position.z = -0.004;
+  g.add(atras);
   return g;
 }
 
