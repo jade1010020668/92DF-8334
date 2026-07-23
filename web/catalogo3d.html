@@ -6,6 +6,11 @@
 <meta name="theme-color" content="#17293b">
 <meta name="description" content="Catálogo 3D interactivo — Dotaciones El Manantial S.A.S. Gira cada prenda, elige color y talla, y pide tu cotización.">
 <title>Catálogo 3D — Dotaciones El Manantial</title>
+<script>
+/* Modo "solo imagen": se marca ANTES de pintar nada, para que jamás se
+   alcance a ver la aplicación completa ni por un instante. */
+try { if (new URLSearchParams(location.search).get("solo") === "1") document.documentElement.classList.add("solo"); } catch (e) {}
+</script>
 <link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -83,20 +88,23 @@
   .card .nm { font-size: 12px; font-weight: 600; color: #17293b; line-height: 1.2; }
   .card .pr { font-size: 12px; color: #ef6c1a; font-weight: 600; margin-top: 3px; }
 
-  /* ---- MODO SOLO IMAGEN (desde el catálogo de precios) ---- */
+  /* ---- MODO SOLO IMAGEN (desde el catálogo de precios) ----
+     La clase vive en <html> y se pone antes del primer pintado: nada de la
+     aplicación completa se alcanza a ver, ni por milisegundos. */
+  html.solo .header, html.solo .scroll, html.solo .cta,
   body.solo .header, body.solo .scroll, body.solo .cta { display: none; }
-  body.solo .app { max-width: none; max-height: none; border-radius: 0; box-shadow: none; }
-  body.solo .stage { flex: 1; height: auto; margin: 0; border-radius: 0; border: none; }
+  html.solo .app, body.solo .app { max-width: none; max-height: none; border-radius: 0; box-shadow: none; }
+  html.solo .stage, body.solo .stage { flex: 1; height: auto; margin: 0; border-radius: 0; border: none; }
   .btn-cerrar-solo { display: none; position: absolute; top: 14px; left: 14px; z-index: 5;
     width: 42px; height: 42px; border: none; border-radius: 14px; background: rgba(23,41,59,.92);
     color: #eceef1; font-size: 20px; font-weight: 600; cursor: pointer; align-items: center; justify-content: center;
     box-shadow: 0 4px 14px -6px rgba(20,30,45,.5); }
-  body.solo .btn-cerrar-solo { display: flex; }
-  body.solo .badge360 { left: 66px; }
+  html.solo .btn-cerrar-solo, body.solo .btn-cerrar-solo { display: flex; }
+  html.solo .badge360, body.solo .badge360 { left: 66px; }
   .nombre-solo { display: none; position: absolute; bottom: 52px; left: 50%; transform: translateX(-50%);
     font-size: 15px; font-weight: 700; color: #17293b; background: rgba(255,255,255,.8);
     backdrop-filter: blur(8px); padding: 8px 18px; border-radius: 999px; white-space: nowrap; pointer-events: none; }
-  body.solo .nombre-solo { display: block; }
+  html.solo .nombre-solo, body.solo .nombre-solo { display: block; }
 
   /* barra CTA */
   .cta { flex: none; padding: 12px 22px calc(18px + env(safe-area-inset-bottom)); background: linear-gradient(to top, #eceef1 72%, rgba(236,238,241,0)); display: flex; align-items: center; gap: 14px; }
