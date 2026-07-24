@@ -95,6 +95,31 @@
   .item .val small{font-family:var(--sans);font-size:.68rem;color:var(--tenue);font-weight:600;
     letter-spacing:.04em;margin-right:2px}
 
+  /* ---------- Buscador + PDF ---------- */
+  .util-fila{display:flex;gap:10px;margin:22px 0 0;align-items:center}
+  .buscador{flex:1;padding:12px 16px;border:1px solid var(--linea);border-radius:8px;font-size:1rem;
+    background:#fffdf8;color:var(--texto);outline:none}
+  .buscador:focus{border-color:var(--oro);box-shadow:0 0 0 3px rgba(184,146,63,.15)}
+  .btn-pdf{flex:none;padding:12px 16px;border:1px solid var(--oro);border-radius:8px;background:#fffdf8;
+    color:var(--oro-osc);font-weight:700;font-size:.9rem;cursor:pointer;white-space:nowrap}
+  .btn-pdf:hover{background:var(--oro);color:#1a1610}
+  .sin-resultados{margin:14px 0 0;text-align:center;color:var(--tenue);font-size:.92rem;
+    background:#faf6ec;border:1px dashed var(--linea);border-radius:8px;padding:12px}
+
+  /* ---------- Cómo pedir ---------- */
+  section.como{padding:30px 0 8px}
+  section.como h2{font-family:var(--serif);font-size:1.5rem;color:var(--tinta);text-align:center}
+  .pasos-pedido{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+  .paso-p{background:#fffdf8;border:1px solid var(--linea);border-radius:10px;padding:16px;text-align:center}
+  .paso-p .n{font-family:var(--serif);font-size:1.7rem;color:var(--oro);font-style:italic}
+  .paso-p b{display:block;margin:6px 0 4px;color:var(--tinta);font-size:.95rem}
+  .paso-p p{font-size:.82rem;color:var(--tenue);line-height:1.45;margin:0}
+  .confianza{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px}
+  .confianza span{font-size:.78rem;color:var(--oro-osc);border:1px solid var(--linea);
+    border-radius:999px;padding:6px 13px;background:#faf6ec;font-weight:600}
+  @media (max-width:560px){.pasos-pedido{grid-template-columns:1fr}.util-fila{flex-direction:column}.buscador,.btn-pdf{width:100%}}
+  @media print{.util-fila,.sin-resultados{display:none}}
+
   /* ---------- Condiciones ---------- */
   section.cond{margin:28px 0 6px;padding:26px;background:var(--tinta);color:#efe6d3;
     border-radius:2px;position:relative}
@@ -174,6 +199,14 @@
   </nav>
 
   <main>
+
+    <!-- Buscador y PDF -->
+    <div class="util-fila">
+      <input id="buscador" class="buscador" type="search" placeholder="🔍 Buscar producto… (ej: bota, overol, guante)" autocomplete="off" />
+      <button id="btn-pdf" class="btn-pdf" type="button" title="Guardar este catálogo como PDF">⤓ Guardar PDF</button>
+    </div>
+    <p id="sin-resultados" class="sin-resultados" hidden>No encontramos productos con ese nombre. Borra la búsqueda para ver todo el catálogo.</p>
+
     <p class="ojo" style="text-align:center;margin:20px 0 -8px">Portafolio · Precios 2026</p>
 
     <section class="cat" id="dotaciones">
@@ -264,6 +297,22 @@
         <div class="item"><span class="nom">Estampado en bolsillo a una tinta</span><span class="leader"></span><span class="val"><small>$</small>1.900</span></div>
       </div>
       <p style="margin-top:14px;font-size:.9rem;color:var(--tenue);font-style:italic">Personalizamos su dotación con el logo de su empresa.</p>
+    </section>
+
+    <section class="como">
+      <h2>¿Cómo pedir?</h2>
+      <div class="pasos-pedido">
+        <div class="paso-p"><span class="n">1</span><b>Arme su pedido</b><p>Toque el botón <b>+</b> de cada producto y ajuste cantidades. O escríbanos directo.</p></div>
+        <div class="paso-p"><span class="n">2</span><b>Confirme por WhatsApp</b><p>Le respondemos el mismo día con valor final, tallas disponibles y tiempo de entrega.</p></div>
+        <div class="paso-p"><span class="n">3</span><b>Reciba su dotación</b><p>Entregamos en Bogotá y alrededores. Bordamos y estampamos su logo si lo desea.</p></div>
+      </div>
+      <div class="confianza">
+        <span>✓ NIT 830.137.919-3</span>
+        <span>✓ Confección propia en Bogotá</span>
+        <span>✓ Pedidos desde 10 unidades</span>
+        <span>✓ Respuesta el mismo día</span>
+        <span>✓ Bordado y estampado</span>
+      </div>
     </section>
 
     <section class="cond">

@@ -242,6 +242,35 @@
     indice.parentNode.insertBefore(aviso, indice.nextSibling);
   }
 
+  /* ============================ BUSCADOR + PDF ============================ */
+  var buscador = document.getElementById("buscador");
+  if (buscador) {
+    var normal = function (t) {
+      return (t || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+    };
+    buscador.addEventListener("input", function () {
+      var q = normal(buscador.value.trim());
+      var visibles = 0;
+      document.querySelectorAll(".item").forEach(function (it) {
+        var nom = it.querySelector(".nom");
+        var ok = !q || normal(nom ? nom.textContent : "").indexOf(q) >= 0;
+        it.style.display = ok ? "" : "none";
+        if (ok) visibles++;
+      });
+      // ocultar categorías que quedaron vacías
+      document.querySelectorAll("section.cat").forEach(function (sec) {
+        var alguna = Array.prototype.some.call(sec.querySelectorAll(".item"), function (it) {
+          return it.style.display !== "none";
+        });
+        sec.style.display = alguna ? "" : "none";
+      });
+      var sr = document.getElementById("sin-resultados");
+      if (sr) sr.hidden = visibles > 0;
+    });
+  }
+  var btnPdf = document.getElementById("btn-pdf");
+  if (btnPdf) btnPdf.addEventListener("click", function () { window.print(); });
+
   // pedido guardado de una visita anterior
   pintarBarra(true);
 })();
