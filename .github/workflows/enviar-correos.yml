@@ -1,0 +1,42 @@
+name: Cañón de correos diario (50 al día)
+
+# Corre solo en la nube, días hábiles a las 8:00am de Colombia.
+# Se enciende cuando exista el secreto BREVO_API_KEY; sin él, no hace nada.
+on:
+  schedule:
+    - cron: "0 13 * * 1-5"   # lunes a viernes, 13:00 UTC = 8:00am Bogotá
+  workflow_dispatch:          # botón para dispararlo a mano
+
+permissions:
+  contents: write             # guarda el registro de enviados en el repo
+
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Descargar el proyecto
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Enviar el lote del día por Brevo
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          BREVO_REMITENTE: ${{ secrets.BREVO_REMITENTE }}
+        run: python robot/enviar_correos.py
+
+      - name: Guardar registro de enviados y métricas
+        run: |
+          git config user.name "DotacionPro Robot"
+          git config user.email "bot@dotacionpro.local"
+          if [ -n "$(git status --porcelain datos/estado_envios.json datos/reporte_envios.json)" ]; then
+            git add datos/estado_envios.json datos/reporte_envios.json
+            git commit -m "robot: lote de correos enviado ($(date -u +%Y-%m-%d))"
+            git push
+          else
+            echo "Sin cambios (¿falta el secreto BREVO_API_KEY?)."
+          fi
