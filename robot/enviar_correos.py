@@ -22,7 +22,9 @@ import json, os, re, ssl, sys, urllib.request
 from datetime import date, datetime, timezone
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE = os.path.join(RAIZ, "datos", "BASE_GENERAL_v2.json")
+BASE = os.path.join(RAIZ, "datos", "BASE_GENERAL_v3.json")
+if not os.path.exists(BASE):
+    BASE = os.path.join(RAIZ, "datos", "BASE_GENERAL_v2.json")
 ESTADO = os.path.join(RAIZ, "datos", "estado_envios.json")
 REPORTE = os.path.join(RAIZ, "datos", "reporte_envios.json")
 CA = "/root/.ccr/ca-bundle.crt"

@@ -239,6 +239,7 @@ function empresaMatchFiltro(e) {
   const estado = $("#emp-filtro-estado")?.value || "";
   const sector = $("#emp-filtro-sector")?.value || "";
   const soloContacto = $("#emp-solo-contacto")?.checked;
+  const soloDotacion = $("#emp-solo-dotacion")?.checked;
   if (q) {
     const hay = [e.nombre, e.contacto, e.email, e.direccion].join(" ").toLowerCase();
     if (!hay.includes(q)) return false;
@@ -246,6 +247,7 @@ function empresaMatchFiltro(e) {
   if (estado && e.estado !== estado) return false;
   if (sector && e.sector !== sector) return false;
   if (soloContacto && !(e.email || e.telefono)) return false;
+  if (soloDotacion && e.prioridad !== 1) return false;
   return true;
 }
 
@@ -526,6 +528,7 @@ function renderEmpresas() {
   $("#emp-filtro-estado").addEventListener(ev, renderEmpresas);
   $("#emp-filtro-sector").addEventListener(ev, renderEmpresas);
   $("#emp-solo-contacto").addEventListener(ev, renderEmpresas);
+  $("#emp-solo-dotacion")?.addEventListener(ev, renderEmpresas);
 });
 
 async function cargarEmpresasInicial() {
@@ -533,7 +536,7 @@ async function cargarEmpresasInicial() {
 }
 
 $("#btn-cargar-bogota").addEventListener("click", async () => {
-  if (!confirm("Esto importará más de 13.000 empresas de Bogotá a tu lista. ¿Continuar?")) return;
+  if (!confirm("Esto importará más de 18.000 empresas de Bogotá a tu lista (11.000 con correo y 5.000 que compran dotación). ¿Continuar?")) return;
   toast("Cargando base de Bogotá…");
   try {
     const res = await fetch("./empresas-bogota.json");
@@ -555,6 +558,7 @@ $("#btn-cargar-bogota").addEventListener("click", async () => {
         telefono: d.telefono || "", contacto: d.contacto || "", direccion: d.direccion || "",
         estado: d.estado || "Pendiente", fecha_envio: d.fecha_envio || "", fecha_respuesta: d.fecha_respuesta || "",
         fechaUltimoContacto, notas: d.notas || "", historial: [], lat: d.lat, lon: d.lon, proximoSeguimiento: null,
+        prioridad: d.prioridad || 2, tamano: d.tamano || "", actividad: d.actividad || "",
       });
     });
     await idbPutMany(nuevas);

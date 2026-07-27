@@ -132,6 +132,21 @@
   section.cond li b{color:#fff;font-weight:600}
   section.cond li .mk{color:var(--oro);flex:none;font-size:1rem;line-height:1.4}
 
+  /* ---------- Llámenme ---------- */
+  section.llamenos{margin:10px 26px 0;padding:24px;background:#faf6ec;border:1px solid var(--linea);
+    border-radius:10px;text-align:center}
+  section.llamenos h2{font-family:var(--serif);font-size:1.3rem;color:var(--tinta)}
+  .ll-sub{color:var(--tenue);font-size:.9rem;margin-top:4px}
+  .ll-campos{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+  .ll-input{padding:12px 14px;border:1px solid var(--linea);border-radius:8px;font-size:1rem;
+    background:#fffdf8;min-width:180px;flex:1;max-width:220px}
+  .ll-input:focus{outline:none;border-color:var(--oro)}
+  .ll-btn{padding:12px 20px;border:none;border-radius:8px;background:var(--tinta);color:var(--oro-cl);
+    font-weight:700;font-size:.95rem;cursor:pointer}
+  .ll-btn:active{transform:translateY(1px)}
+  .ll-nota{font-size:.72rem;color:var(--tenue);margin-top:10px}
+  @media print{section.llamenos{display:none}}
+
   /* ---------- Llamado a la acción ---------- */
   section.cta{text-align:center;padding:38px 26px 30px}
   section.cta h2{font-family:var(--serif);font-size:1.7rem;color:var(--tinta)}
@@ -322,9 +337,21 @@
         <li><span class="mk">◆</span><span><b>Descuentos por volumen</b> y precios mayoristas a partir de 20 unidades.</span></li>
         <li><span class="mk">◆</span><span>Atendemos pedidos <b>desde 10 unidades</b>, con entrega en Bogotá y alrededores.</span></li>
         <li><span class="mk">◆</span><span><b>Cotización formal sin compromiso:</b> escríbanos y se la enviamos el mismo día.</span></li>
+        <li><span class="mk">◆</span><span><b>Precios de referencia vigentes 2026</b> (sin IVA); se confirman en la cotización según cantidades y tallas.</span></li>
       </ul>
     </section>
   </main>
+
+  <section class="llamenos" id="llamenos">
+    <h2>¿Prefiere que lo llamemos?</h2>
+    <p class="ll-sub">Déjenos sus datos y lo contactamos hoy mismo.</p>
+    <div class="ll-campos">
+      <input id="ll-nombre" class="ll-input" placeholder="Su nombre o empresa" autocomplete="organization" />
+      <input id="ll-tel" class="ll-input" placeholder="Su celular" inputmode="tel" autocomplete="tel" />
+      <button id="ll-enviar" class="ll-btn" type="button">📞 Que me llamen</button>
+    </div>
+    <p class="ll-nota" id="ll-nota">Sus datos llegan directo al WhatsApp del negocio. Sin spam.</p>
+  </section>
 
   <section class="cta">
     <p class="ojo">Estamos para atenderle</p>

@@ -271,6 +271,28 @@
   var btnPdf = document.getElementById("btn-pdf");
   if (btnPdf) btnPdf.addEventListener("click", function () { window.print(); });
 
+  /* ============================ LLÁMENME ============================ */
+  var llBtn = document.getElementById("ll-enviar");
+  if (llBtn) {
+    llBtn.addEventListener("click", function () {
+      var nombre = (document.getElementById("ll-nombre").value || "").trim();
+      var tel = (document.getElementById("ll-tel").value || "").trim();
+      var nota = document.getElementById("ll-nota");
+      if (!tel || tel.replace(/\D/g, "").length < 7) {
+        nota.textContent = "⚠️ Escriba un celular válido para poder llamarlo.";
+        nota.style.color = "#a33";
+        return;
+      }
+      var msg = "📞 SOLICITUD DE LLAMADA (desde el catálogo)\n" +
+        "Nombre/Empresa: " + (nombre || "(no lo escribió)") + "\n" +
+        "Celular: " + tel + "\n" +
+        "Quiere que lo llamen para cotizar dotación.";
+      window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg), "_blank");
+      nota.textContent = "✅ ¡Listo! Su solicitud quedó enviada — lo llamaremos hoy mismo.";
+      nota.style.color = "#0a7a44";
+    });
+  }
+
   // pedido guardado de una visita anterior
   pintarBarra(true);
 })();
