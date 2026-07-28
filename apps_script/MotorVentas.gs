@@ -165,28 +165,37 @@ function plantillaToque2_(empresa) {
     'Cordial saludo,\n' + CONFIG.FIRMA_NOMBRE + '\n' + CONFIG.EMPRESA + ' · Cel. y WhatsApp ' + CONFIG.CEL + '\n\n' +
     'Si no desea recibir información, responda únicamente la palabra BAJA.';
   return {
-    asunto: 'Re: cotización de dotación para ' + empresa,
+    asunto: 'Seguimiento — dotación para ' + empresa,
     texto: texto,
     html: '<div style="font-family:Arial,sans-serif;font-size:15px;color:#2b2620;line-height:1.6;max-width:560px"><p>' +
       texto.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>') + '</p></div>',
   };
 }
 
-/* ================= CUPO CON CALENTAMIENTO AUTOMÁTICO ================= */
+/* ================= CUPO CON CALENTAMIENTO AUTOMÁTICO =================
+   La rampa avanza por DÍAS CON ENVÍOS REALES (no por calendario): una pausa
+   larga no la hace saltar al techo con la cuenta fría. */
 function cupoDeHoy_() {
   var p = prop_();
-  var inicio = p.getProperty('FECHA_INICIO_ENVIOS');
-  if (!inicio) { p.setProperty('FECHA_INICIO_ENVIOS', new Date().toISOString()); inicio = new Date().toISOString(); }
-  var dias = Math.floor((Date.now() - new Date(inicio).getTime()) / 86400000) + 1;
+  if (p.getProperty('MOTOR_PAUSADO') === 'si') return 0;
+  var dias = Number(p.getProperty('DIAS_EFECTIVOS') || 0) + 1; // hoy sería el día efectivo N
   var rampa;
   if (dias <= 3) rampa = 10;
   else if (dias <= 7) rampa = 20;
   else if (dias <= 14) rampa = 30;
   else rampa = CONFIG.TECHO_DIARIO;
-  // La rampa solo sube si la salud es buena (rebotes bajo control)
-  if (p.getProperty('MOTOR_PAUSADO') === 'si') return 0;
   var cuotaGmail = MailApp.getRemainingDailyQuota();
   return Math.max(0, Math.min(rampa, cuotaGmail - 10));
+}
+
+// Cuenta el día como "efectivo" (avanza la rampa) solo si hoy sí se envió algo.
+function contarDiaEfectivo_() {
+  var p = prop_();
+  var hoy = Utilities.formatDate(new Date(), 'America/Bogota', 'yyyy-MM-dd');
+  if (p.getProperty('ULTIMO_DIA_EFECTIVO') !== hoy) {
+    p.setProperty('ULTIMO_DIA_EFECTIVO', hoy);
+    p.setProperty('DIAS_EFECTIVOS', String(Number(p.getProperty('DIAS_EFECTIVOS') || 0) + 1));
+  }
 }
 
 /* ========================= ENVÍO DIARIO ========================= */
@@ -203,7 +212,7 @@ function enviarLoteDiario() {
 
   var cupoToque2 = Math.floor(cupo * CONFIG.PORCION_TOQUE2);
   var cupoNuevos = cupo - cupoToque2;
-  var enviadosNuevos = 0, enviadosT2 = 0, erroresSeguidos = 0, rebotadosHoy = 0;
+  var enviadosNuevos = 0, enviadosT2 = 0, erroresSeguidos = 0;
   var ahora = new Date();
 
   for (var i = 1; i < datos.length && (enviadosNuevos < cupoNuevos || enviadosT2 < cupoToque2); i++) {
@@ -241,14 +250,15 @@ function enviarLoteDiario() {
         if (erroresSeguidos >= 3) {
           // FRENO DE EMERGENCIA: algo anda mal con Gmail — parar ya
           avisar_('⛔ Motor detenido por seguridad',
-            'Hubo 3 errores seguidos al enviar. El motor paró este lote para proteger la cuenta.\n' +
+            'Hubo 3 errores de servicio en este lote. El motor lo detuvo para proteger la cuenta.\n' +
             'Último error: ' + msg.slice(0, 200) + '\n\nRevisa el Registro. Mañana lo intenta de nuevo solo.');
-          registrar_('freno', '3 errores seguidos — lote detenido');
+          registrar_('freno', '3 errores de servicio — lote detenido');
           break;
         }
       }
     }
   }
+  if (enviadosNuevos + enviadosT2 > 0) contarDiaEfectivo_();
   registrar_('envio', 'Nuevos: ' + enviadosNuevos + ' · 2º toque: ' + enviadosT2 + ' · cupo: ' + cupo);
 }
 
@@ -308,22 +318,26 @@ function procesarRespuestas() {
     });
   });
 
-  // Auto-pausa por salud: si los rebotes recientes superan el umbral, parar
-  if (rebotes > 0) {
-    var enviadosRecientes = 0;
-    var hace2d = new Date(Date.now() - 2 * 86400000);
-    for (var j = 1; j < datos.length; j++) {
-      var f = datos[j][5];
-      if (f instanceof Date && f > hace2d) enviadosRecientes++;
+  // Auto-pausa por salud: tasa ACUMULADA de filas REBOTÓ recientes (no solo
+  // las de esta corrida — los rebotes llegan goteados durante horas).
+  var datosFrescos = h.getDataRange().getValues();
+  var enviadosRecientes = 0, rebotesRecientes = 0;
+  var hace2d = new Date(Date.now() - 2 * 86400000);
+  for (var j = 1; j < datosFrescos.length; j++) {
+    var f = datosFrescos[j][5];
+    if (f instanceof Date && f > hace2d) {
+      enviadosRecientes++;
+      if (String(datosFrescos[j][4]) === 'REBOTÓ') rebotesRecientes++;
     }
-    if (enviadosRecientes >= 10 && (rebotes / enviadosRecientes) * 100 > CONFIG.MAX_REBOTE_PCT) {
-      prop_().setProperty('MOTOR_PAUSADO', 'si');
-      avisar_('⛔ Motor AUTO-PAUSADO por rebotes altos',
-        'Rebotaron ' + rebotes + ' de ~' + enviadosRecientes + ' correos recientes (>' + CONFIG.MAX_REBOTE_PCT +
-        '%).\nEl motor se pausó solo para proteger la cuenta. Hay que limpiar la lista antes de reactivar\n' +
-        '(borra la pausa ejecutando activarMotor de nuevo).');
-      registrar_('auto-pausa', rebotes + ' rebotes');
-    }
+  }
+  if (enviadosRecientes >= 10 && (rebotesRecientes / enviadosRecientes) * 100 > CONFIG.MAX_REBOTE_PCT &&
+      prop_().getProperty('MOTOR_PAUSADO') !== 'si') {
+    prop_().setProperty('MOTOR_PAUSADO', 'si');
+    avisar_('⛔ Motor AUTO-PAUSADO por rebotes altos',
+      'Rebotaron ' + rebotesRecientes + ' de ' + enviadosRecientes + ' correos recientes (>' + CONFIG.MAX_REBOTE_PCT +
+      '%).\nEl motor se pausó solo para proteger la cuenta. Hay que limpiar la lista antes de reactivar\n' +
+      '(la pausa se quita ejecutando «4. ACTIVAR el motor» de nuevo).');
+    registrar_('auto-pausa', rebotesRecientes + ' de ' + enviadosRecientes + ' rebotados');
   }
 
   // 2) RESPUESTAS y BAJAS (busca en todo el correo, no solo la bandeja; pagina)
@@ -338,8 +352,9 @@ function procesarRespuestas() {
         var fila = porCorreo[de];
         if (!fila) return;
         var estadoActual = String(h.getRange(fila, 5).getValue());
-        // Nunca tocar estados avanzados que puso el humano
-        if (/COTIZADO|VENTA|BAJA/.test(estadoActual)) return;
+        // Nunca tocar estados avanzados que puso el humano ni bajas confirmadas.
+        // OJO: 'REVISAR BAJA' NO se protege — una BAJA explícita posterior sí debe aplicarse.
+        if (/COTIZADO|VENTA/.test(estadoActual) || estadoActual === 'BAJA') return;
         var propio = textoPropio_(msg.getPlainBody());
         var baja = esBajaExplicita_(propio);
         if (baja === 'si') {
@@ -370,16 +385,26 @@ function procesarRespuestas() {
     prop_().setProperty('COLA_AVISOS', JSON.stringify(cola));
   }
   var hora = Number(Utilities.formatDate(new Date(), 'America/Bogota', 'H'));
+  var enVentana = hora >= 7 && hora < 21;
+
+  // Reintentar avisos del sistema que fallaron antes (freno, auto-pausa, reporte)
+  if (enVentana) reintentarAvisosFallidos_();
+
   var pendientes = JSON.parse(prop_().getProperty('COLA_AVISOS') || '[]');
-  if (pendientes.length && hora >= 7 && hora < 21) {
+  if (pendientes.length && enVentana) {
     var cuerpoAviso = 'NO RESPONDA ESTE CORREO — responda directamente a cada cliente:\n\n' +
       pendientes.map(function (x) {
         return '• ' + x.texto + '\n  Dice: "' + x.resumen + '"\n  Abrir su correo: ' + x.enlace;
       }).join('\n\n') +
       '\n\nRegla de oro: contestarles en menos de 5 minutos. Sus correos tienen estrella ⭐ en la bandeja.';
-    avisar_('⭐ ' + pendientes.length + ' empresa(s) INTERESADA(S) — responder ya', cuerpoAviso);
-    registrar_('interesados', pendientes.map(function (x) { return x.texto; }).join(' | '));
-    prop_().setProperty('COLA_AVISOS', '[]');
+    try {
+      GmailApp.sendEmail(correoAvisos_(), '⭐ ' + pendientes.length + ' empresa(s) INTERESADA(S) — responder ya', cuerpoAviso);
+      registrar_('interesados', pendientes.map(function (x) { return x.texto; }).join(' | '));
+      // La cola SOLO se limpia si el aviso salió — si falla, se reintenta en 10 min.
+      prop_().setProperty('COLA_AVISOS', '[]');
+    } catch (eAviso) {
+      registrar_('error_aviso', 'Aviso de interesados falló, se reintenta: ' + String(eAviso).slice(0, 100));
+    }
   }
 }
 
@@ -451,8 +476,31 @@ function desactivarMotor() {
 }
 
 /* ========================= UTILIDADES ========================= */
+// Envía un aviso del sistema; si Gmail falla, lo ENCOLA y se reintenta cada
+// 10 minutos (nunca se pierde un aviso de freno/pausa/reporte).
 function avisar_(asunto, cuerpo) {
-  try { GmailApp.sendEmail(correoAvisos_(), asunto, cuerpo); } catch (e) { registrar_('error_aviso', String(e).slice(0, 120)); }
+  try {
+    GmailApp.sendEmail(correoAvisos_(), asunto, cuerpo);
+    return true;
+  } catch (e) {
+    registrar_('error_aviso', String(e).slice(0, 120));
+    var q = JSON.parse(prop_().getProperty('AVISOS_FALLIDOS') || '[]');
+    q.push({ a: asunto, c: cuerpo });
+    if (q.length > 10) q = q.slice(-10);
+    prop_().setProperty('AVISOS_FALLIDOS', JSON.stringify(q));
+    return false;
+  }
+}
+
+function reintentarAvisosFallidos_() {
+  var q = JSON.parse(prop_().getProperty('AVISOS_FALLIDOS') || '[]');
+  if (!q.length) return;
+  var quedan = [];
+  q.forEach(function (av) {
+    try { GmailApp.sendEmail(correoAvisos_(), av.a + ' (reintento)', av.c); }
+    catch (e) { quedan.push(av); }
+  });
+  prop_().setProperty('AVISOS_FALLIDOS', JSON.stringify(quedan));
 }
 function registrar_(evento, detalle) {
   var r = SpreadsheetApp.getActive().getSheetByName(CONFIG.HOJA_REGISTRO);
