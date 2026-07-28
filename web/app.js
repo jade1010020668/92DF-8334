@@ -325,7 +325,7 @@ function renderInicio() {
     { texto: "Completa los datos de tu empresa en Configuración", hecho: !!CONFIG.empresa.nombre },
     { texto: "Carga o busca tus primeras empresas", hecho: EMPRESAS.length > 0 },
     { texto: "Crea tu primer pedido o cotización", hecho: PEDIDOS.length > 0 },
-    { texto: "Conecta Brevo para enviar correos con un clic", hecho: !!CONFIG.brevo.key },
+    { texto: "Responde a los interesados en menos de 5 minutos (regla de oro)", hecho: false },
   ];
   $("#steps-list").innerHTML = pasos.map((p) => `<li class="${p.hecho ? "done" : ""}">${p.hecho ? "✅" : "⬜"} ${p.texto}</li>`).join("");
 
@@ -339,7 +339,6 @@ function renderInicio() {
       ? "Aún no has guardado una copia de seguridad de tu lista."
       : `Llevas ${dias} días sin guardar copia de seguridad. Tu lista vive en este navegador: expórtala para no perderla.`;
   }
-  $("#aviso-correo").classList.toggle("hidden", !!CONFIG.brevo.key);
 
   // --- Para contactar hoy: pendientes más cercanas, con distancia si hay geo ---
   let candidatas = pendientesNoContactadas.slice();
@@ -373,17 +372,11 @@ function renderInicio() {
     el.addEventListener("click", () => enviarCatalogoWhatsApp(EMPRESAS.find((e) => e.id === el.dataset.inicioCatalogo)))
   );
 
-  // --- Contactar a N clientes (masivo, por tandas de 10) ---
-  const pendientesConTelefono = pendientesNoContactadas.filter((e) => e.telefono);
-  $("#card-contactar-masivo").classList.toggle("hidden", pendientesConTelefono.length === 0);
-  $("#btn-contactar-masivo").textContent = `📨 Contactar a ${pendientesConTelefono.length} clientes`;
-
-  // --- Correo masivo por Brevo (por tandas de 10) ---
-  const pendientesConCorreo = pendientesNoContactadas.filter((e) => e.email);
-  $("#card-contactar-masivo-correo").classList.toggle("hidden", pendientesConCorreo.length === 0);
-  $("#btn-contactar-masivo-correo").textContent = CONFIG.brevo.key && CONFIG.brevo.remitente
-    ? `✉️ Enviar correo a ${pendientesConCorreo.length} clientes`
-    : `✉️ Activar Brevo para enviar correo a ${pendientesConCorreo.length} clientes`;
+  // --- Seguimiento por WhatsApp (SOLO a empresas ya contactadas sin respuesta;
+  //     nunca frío: el primer toque lo hace el Motor de correos) ---
+  const seguimientoWA = EMPRESAS.filter((e) => e.estado === "Enviado" && e.telefono);
+  $("#card-contactar-masivo").classList.toggle("hidden", seguimientoWA.length === 0);
+  $("#btn-contactar-masivo").textContent = `🔁 Seguimiento por WhatsApp a ${seguimientoWA.length} contactadas`;
 
   // --- Seguimientos sugeridos: contactadas hace tiempo, sin respuesta ---
   const hoyMs = Date.now();
@@ -416,45 +409,18 @@ function renderInicio() {
 }
 $("#btn-cerrar-aviso-guardado")?.addEventListener("click", () => { CONFIG.avisoGuardadoCerrado = true; saveConfig(); renderInicio(); });
 $("#btn-ir-backup")?.addEventListener("click", () => irAVista("config"));
-$("#btn-ir-brevo")?.addEventListener("click", () => irAVista("config"));
 
+// Seguimiento por WhatsApp: SOLO empresas ya contactadas ("Enviado") sin
+// respuesta. Máximo 15 al día para proteger el número del negocio.
 $("#btn-contactar-masivo")?.addEventListener("click", async () => {
-  const pendientesConTelefono = EMPRESAS.filter((e) => (!e.estado || e.estado === "Pendiente") && e.telefono);
-  if (!pendientesConTelefono.length) { toast("No hay más empresas pendientes con teléfono."); return; }
-  const tanda = pendientesConTelefono.slice(0, 10);
-  if (!confirm(`Se abrirán ${tanda.length} ventanas de WhatsApp, una por una. ¿Continuar?`)) return;
+  const cohorte = EMPRESAS.filter((e) => e.estado === "Enviado" && e.telefono);
+  if (!cohorte.length) { toast("No hay contactadas pendientes de seguimiento con teléfono."); return; }
+  const tanda = cohorte.slice(0, 15);
+  if (!confirm(`Se abrirán ${tanda.length} WhatsApp de SEGUIMIENTO (a empresas ya contactadas), uno por uno. ¿Continuar?`)) return;
   for (const empresa of tanda) {
     await enviarWhatsApp(empresa);
   }
-  toast(`Tanda enviada. Toca el botón otra vez para la siguiente tanda.`);
-  renderInicio();
-});
-
-$("#btn-contactar-masivo-correo")?.addEventListener("click", async () => {
-  if (!CONFIG.brevo.key || !CONFIG.brevo.remitente) {
-    toast("Primero activa Brevo en Configuración para enviar correo automático.");
-    irAVista("config");
-    return;
-  }
-  const pendientesConCorreo = EMPRESAS.filter((e) => (!e.estado || e.estado === "Pendiente") && e.email);
-  if (!pendientesConCorreo.length) { toast("No hay más empresas pendientes con correo."); return; }
-  const tanda = pendientesConCorreo.slice(0, 10);
-  if (!confirm(`Se enviará correo automático (por Brevo) a ${tanda.length} empresas. ¿Continuar?`)) return;
-  toast("Enviando correos…");
-  let enviados = 0;
-  for (const empresa of tanda) {
-    const asunto = "Cotización — " + (CONFIG.empresa.nombre || "Dotaciones El Manantial");
-    const cuerpo = `Señores:\n${empresa.nombre}\n\n${CONFIG.templates.correo}\n\n${CONFIG.templates.descuentos}`;
-    try {
-      const ok = await enviarCorreoBrevo(empresa.email, asunto, cuerpo.replace(/\n/g, "<br>"));
-      if (ok) {
-        enviados++;
-        await marcarComoEnviadaSiPendiente(empresa);
-        await logHistorial(empresa, "Correo enviado automáticamente (Brevo, tanda masiva)");
-      }
-    } catch { /* seguir con la siguiente empresa */ }
-  }
-  toast(`Se enviaron ${enviados} de ${tanda.length} correos. Toca el botón otra vez para la siguiente tanda.`);
+  toast(`Seguimientos abiertos. Máximo una tanda al día para cuidar tu número.`);
   renderInicio();
 });
 

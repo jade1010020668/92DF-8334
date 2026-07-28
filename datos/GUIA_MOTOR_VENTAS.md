@@ -1,4 +1,5 @@
-# 🦺 GUÍA DE INSTALACIÓN — Motor de ventas automático v2
+# 🦺 GUÍA DE INSTALACIÓN — Motor de ventas automático v3
+> Versión endurecida: 51 pruebas en simulador + crítica de 4 expertos aplicada.
 ### Se hace UNA sola vez (~1 hora). Después la máquina trabaja sola en la nube de Google.
 
 > **Qué hace:** cada día hábil envía correos personalizados a empresas de Bogotá
@@ -49,15 +50,18 @@
 
 ## PASO 5 — La prueba de fuego (10 min)
 
-1. Menú **🦺 → «2. Enviar PRUEBA a mi propio correo»** → llegan **4 correos**
-   (3 plantillas + el 2º toque).
-2. Verifica: ✔ llegan a **Bandeja de entrada** (no spam) ✔ se ven bien ✔ el enlace
-   del catálogo abre.
-3. **Prueba del circuito completo:** desde tu correo personal, responde a una de las
-   pruebas escribiendo «Me interesa, cotíceme 20 overoles». En máximo 10-15 min la
-   fila debería marcarse… no está en la hoja (es prueba), pero verifica que NO llegue
-   marcada como BAJA en el Registro. *(El motor solo procesa correos que estén en la
-   hoja Empresas — las pruebas no dañan nada.)*
+1. Menú **🦺 → «2. Enviar PRUEBA a mi propio correo»**. El motor te pedirá un
+   **correo EXTERNO tuyo** (tu Gmail personal — y mejor aún si también pruebas con
+   uno de Outlook/Hotmail): escríbelo y acepta → llegan **4 correos** de prueba
+   (3 plantillas + el 2º toque) a ESE buzón.
+2. Verifica en tu buzón personal: ✔ llegan a **Bandeja de entrada** (no a spam)
+   ✔ se ven bien ✔ el enlace del catálogo abre.
+3. **Prueba del detector de respuestas:** desde tu correo personal, responde a una
+   de las pruebas con «Me interesa, cotíceme 20 overoles». Luego, en la hoja, menú
+   **🦺 → «6. Revisar respuestas y rebotes ahora»** (en el paso 5 los automáticos
+   aún no están activados — eso pasa en el paso 6). Revisa la pestaña **Registro**:
+   NO debe aparecer ningún evento «baja» por esa respuesta. *(El motor solo procesa
+   correos de empresas que estén en la hoja — las pruebas no dañan nada.)*
 
 ## PASO 6 — ENCENDER 🟢 (1 min)
 
@@ -94,7 +98,7 @@ empresas — solo leerlos y responderlos (los archivados se pueden escapar del r
 
 - **¿Es legal?** Sí: correos uno a uno desde buzón propio, identificación completa
   del negocio, origen del dato (directorios públicos) y BAJA automática (Ley 1581).
-- **¿Cuánto dura la lista?** 10.553 empresas a ~40/día (con 2º toques) ≈ **8-10 meses**.
+- **¿Cuánto dura la lista?** 10.553 empresas a ~28 nuevas/día hábil (el resto del cupo va a 2º toques) ≈ **12-17 meses** de campaña continua.
 - **¿Y si Google se molesta?** El motor tiene 4 protecciones: rampa de calentamiento,
   ritmo humano con pausas, freno por 3 errores seguidos y auto-pausa por rebotes.
 - **Mejora opcional a futuro** (~COP 60-80.000/año): dominio propio

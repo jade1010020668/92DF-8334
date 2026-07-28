@@ -62,7 +62,7 @@ min, con enlace directo, horario 7am-9pm · 2º toque automático al día 7 (dob
 
 | Pieza | Estado |
 |---|---|
-| Motor 1 — código MotorVentas.gs v2 + CSV 10.553 + guía instalación | ✅ LISTO (entregado) |
+| Motor 1 — código MotorVentas.gs **v3** (banco de pruebas: 51 casos + mes completo simulado 13/13) + CSV 10.553 + guía | ✅ LISTO Y VERIFICADO |
 | Motor 2 — catálogo con pedido WhatsApp + "que me llamen" + textos Google Business | ✅ LISTO (falta crear la ficha: Diego 20 min) |
 | Motor 3 — tandas WhatsApp en la app del papá | ✅ LISTO |
 | Motor 4 — base 18.606 en la app + 10.553 correos en fila | ✅ LISTO |
@@ -89,20 +89,20 @@ min, con enlace directo, horario 7am-9pm · 2º toque automático al día 7 (dob
 | 3-5 | Fotos de productos → ZIP a Claude | Diego+Papá | Claude las monta (miniaturas+3D) |
 | 5 | Guiones impresos junto al teléfono | Papá | Los usa en el simulacro |
 
-### SEMANA 2 — Régimen (la máquina sube sola a 20/día)
+### SEMANA 2 — Régimen (la rampa avanza por días CON envíos: 1-3: 10 → 4-7: 20 → 8-14: 30 → 15+: 40)
 - Papá en su rutina: responder ⭐ <5 min · cotizar <2 h · marcar COTIZADO/VENTA.
 - Pedir reseña de Google a 5 clientes actuales (guion listo) → ≥3 reseñas.
 - Diego lunes 15 min: reporte + filas REVISAR BAJA.
 - Claude: ajustes de plantillas si respuesta <0,5%; montar fotos.
 - **Meta de la semana: primera cotización real a empresa nueva.**
 
-### SEMANA 3 — Optimizar (la máquina va en 30/día)
+### SEMANA 3 — Optimizar (rampa en ~30/día)
 - Seguimiento: llamar/escribir a cotizados sin respuesta >3 días (la hoja los muestra).
 - Al cerrar cada venta: pedir referido (guion 4) — el canal que más convierte.
 - Registro en SECOP II (guía de Claude) — canal B2G bonus.
 - **Meta: primer cliente nuevo facturado.**
 
-### SEMANA 4 — Cierre de agosto (la máquina va en 40/día)
+### SEMANA 4 — Cierre de agosto (rampa en techo: 40/día)
 - Campaña automática "última semana para la dotación del 31" (la hace el gancho del motor).
 - Medición contra meta (¿2-3 clientes?) con el reporte del lunes.
 - Decisión del ciclo 2 CON DATOS: ¿dominio propio (~COP 70.000/año)? ¿más volumen?
@@ -132,7 +132,7 @@ min, con enlace directo, horario 7am-9pm · 2º toque automático al día 7 (dob
 ## 7. CONGELADO (para no volver a dar vueltas)
 
 Más funciones de la app · más 3D · rediseños · robot mensual de nutrición (opcional,
-la base alcanza ~10 meses) · cañón Brevo (parqueado con evidencia) · versión Google
+la base alcanza ~12-17 meses) · cañón Brevo (parqueado con evidencia) · versión Google
 Sheets antigua ("Dotación Papá") · cualquier idea nueva hasta medir el mes 1.
 
 ---

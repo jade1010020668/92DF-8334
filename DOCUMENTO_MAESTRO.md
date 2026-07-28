@@ -1,5 +1,9 @@
 # DOCUMENTO MAESTRO — Todo el proyecto en un solo lugar
 
+> ⚠️ **ACTUALIZACIÓN (julio 2026):** el plan vigente del proyecto es
+> **`PLAN_MAESTRO_FINAL.md`** (la máquina de clientes con el Motor de Ventas en
+> Apps Script). Este documento queda como contexto histórico de la primera etapa.
+
 **Negocio:** Dotaciones El Manantial S.A.S · NIT 830.137.919-3 · Carrera 34 No. 2-62, Bogotá
 Tel. (601) 721 3566 · Cel. 313 574 5063 · dot.manantial@hotmail.com · Firma: José Manuel Morales Quintana
 

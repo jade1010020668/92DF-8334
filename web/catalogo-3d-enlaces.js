@@ -288,7 +288,7 @@
         "Celular: " + tel + "\n" +
         "Quiere que lo llamen para cotizar dotación.";
       window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg), "_blank");
-      nota.textContent = "✅ ¡Listo! Su solicitud quedó enviada — lo llamaremos hoy mismo.";
+      nota.textContent = "✅ Se abrió WhatsApp con su solicitud: pulse ENVIAR allí para que nos llegue — lo llamaremos hoy mismo.";
       nota.style.color = "#0a7a44";
     });
   }

@@ -1,6 +1,7 @@
 /**
  * ============================================================================
- * MOTOR DE VENTAS AUTOMÁTICO v2 — Dotaciones El Manantial S.A.S
+ * MOTOR DE VENTAS AUTOMÁTICO v3 — Dotaciones El Manantial S.A.S
+ * (v3 = endurecido por banco de pruebas: 51 pruebas en simulador + 5 arreglos)
  * ============================================================================
  * Corre solo en la nube de Google (sin computador prendido).
  *   • Envía correos personalizados uno a uno desde ESTE buzón, con rampa de
@@ -441,16 +442,27 @@ function reporteSemanal() {
 }
 
 /* ========================= PRUEBA ========================= */
+// La prueba de fuego se envía a un buzón EXTERNO (el personal de Diego):
+// autoenviarse al mismo buzón no demuestra que los correos lleguen a otros.
 function enviarPrueba() {
-  var yo = correoAvisos_();
+  var ui = SpreadsheetApp.getUi();
+  var propio = correoAvisos_();
+  var resp = ui.prompt('Prueba de entregabilidad',
+    'Escribe un correo EXTERNO tuyo (tu Gmail personal, y mejor aún uno de Outlook/Hotmail) ' +
+    'para comprobar que los mensajes llegan a la bandeja de entrada de OTRAS cuentas.\n' +
+    'Si lo dejas vacío se usa este mismo buzón (' + propio + '), que prueba menos.',
+    ui.ButtonSet.OK_CANCEL);
+  if (resp.getSelectedButton() !== ui.Button.OK) return;
+  var destino = String(resp.getResponseText() || '').trim() || propio;
   for (var i = 0; i < 3; i++) {
     var p = plantilla_(i, 'EMPRESA DE PRUEBA ' + (i + 1), ['taller', 'restaurante', 'clínica'][i]);
-    GmailApp.sendEmail(yo, '[PRUEBA] ' + p.asunto, p.texto, { htmlBody: p.html, name: CONFIG.EMPRESA });
+    GmailApp.sendEmail(destino, '[PRUEBA] ' + p.asunto, p.texto, { htmlBody: p.html, name: CONFIG.EMPRESA });
   }
   var t2 = plantillaToque2_('EMPRESA DE PRUEBA');
-  GmailApp.sendEmail(yo, '[PRUEBA 2º toque] ' + t2.asunto, t2.texto, { htmlBody: t2.html, name: CONFIG.EMPRESA });
-  SpreadsheetApp.getUi().alert('Enviadas 4 pruebas a ' + yo + ' ✅\n\nRevisa: 1) que lleguen a BANDEJA DE ENTRADA, ' +
-    '2) que se vean bien, 3) que el enlace del catálogo abra.\nSi todo bien → «4. ACTIVAR el motor automático».');
+  GmailApp.sendEmail(destino, '[PRUEBA 2º toque] ' + t2.asunto, t2.texto, { htmlBody: t2.html, name: CONFIG.EMPRESA });
+  ui.alert('Enviadas 4 pruebas a ' + destino + ' ✅\n\nRevisa en ESE buzón: 1) que lleguen a BANDEJA DE ENTRADA ' +
+    '(no a spam), 2) que se vean bien, 3) que el enlace del catálogo abra.\n' +
+    'Si todo bien → «4. ACTIVAR el motor automático».');
 }
 
 /* ========================= ACTIVAR / DESACTIVAR ========================= */
