@@ -1,11 +1,14 @@
-name: Cañón de correos diario (50 al día)
+name: Cañón de correos diario (PARQUEADO — no usar para correo frío)
 
-# Corre solo en la nube, días hábiles a las 8:00am de Colombia.
-# Se enciende cuando exista el secreto BREVO_API_KEY; sin él, no hace nada.
+# ⛔ PARQUEADO (jul 2026) tras investigación con fuentes: la política antispam
+# de Brevo PROHÍBE correo frío a listas sin opt-in (riesgo de suspensión de la
+# cuenta) y reescribe remitentes freemail (@hotmail) a @brevosend.com.
+# El canal de correo vigente es apps_script/MotorVentas.gs (buzón Gmail propio,
+# 45/día uno a uno — ver datos/GUIA_MOTOR_VENTAS.md).
+# Este workflow queda solo con disparo manual por si algún día se usa con
+# dominio propio y lista con autorización (newsletter opt-in).
 on:
-  schedule:
-    - cron: "0 13 * * 1-5"   # lunes a viernes, 13:00 UTC = 8:00am Bogotá
-  workflow_dispatch:          # botón para dispararlo a mano
+  workflow_dispatch:          # solo manual, conscientemente
 
 permissions:
   contents: write             # guarda el registro de enviados en el repo
