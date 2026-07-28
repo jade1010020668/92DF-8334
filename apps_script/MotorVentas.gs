@@ -1,26 +1,26 @@
 /**
  * ============================================================================
- * MOTOR DE VENTAS AUTOMÁTICO — Dotaciones El Manantial S.A.S
+ * MOTOR DE VENTAS AUTOMÁTICO v2 — Dotaciones El Manantial S.A.S
  * ============================================================================
- * Corre solo en la nube de Google (sin computador prendido). Cada día hábil:
- *   1. Envía hasta 45 correos personalizados DESDE ESTE BUZÓN (uno a uno,
- *      legal: no es envío masivo por proveedor) a las empresas de la hoja.
- *   2. Revisa la bandeja: marca quién RESPONDIÓ (⭐) y procesa las BAJAS.
- *   3. Cada lunes escribe el reporte (enviados/respuestas/bajas) y lo envía
- *      al propio buzón.
+ * Corre solo en la nube de Google (sin computador prendido).
+ *   • Envía correos personalizados uno a uno desde ESTE buzón, con rampa de
+ *     calentamiento automática (10→20→30→40/día según antigüedad y salud).
+ *   • 2º toque automático a los 7 días a quien no respondió (suele doblar
+ *     las respuestas).
+ *   • Detecta respuestas cada 10 minutos: marca RESPONDIÓ ⭐, pone estrella
+ *     al hilo y avisa con enlace directo (entre 7am y 9pm).
+ *   • Detecta REBOTES y se AUTO-PAUSA si superan el 5% (protege la cuenta).
+ *   • Freno de emergencia: 3 errores seguidos = se detiene y avisa.
+ *   • Bajas seguras (solo si el cliente lo pide explícitamente; en caso de
+ *     duda marca REVISAR BAJA para decisión humana).
+ *   • Embudo completo en la hoja: ENVIADO → RESPONDIÓ ⭐ → COTIZADO ⭐⭐ →
+ *     VENTA 🏆 (con lista desplegable) y reporte semanal de los 4 escalones.
  *
- * INSTALACIÓN (una sola vez, ver GUIA_MOTOR_VENTAS.md):
- *   1. Crear una hoja de cálculo en sheets.new
- *   2. Extensiones → Apps Script → pegar TODO este archivo → guardar
- *   3. Recargar la hoja → menú «🦺 Motor de ventas» → «1. Preparar hojas»
- *   4. Importar el archivo EMPRESAS_PARA_SHEET.csv en la pestaña «Empresas»
- *   5. Menú → «2. Enviar PRUEBA a mi propio correo» (verificar que llega bien)
- *   6. Menú → «4. ACTIVAR el motor automático» — y listo, trabaja solo.
+ * INSTALACIÓN: ver datos/GUIA_MOTOR_VENTAS.md (una vez, ~1 hora).
  * ============================================================================
  */
 
 var CONFIG = {
-  CUPO_DIARIO: 45,           // margen bajo el límite de Gmail (100/día en cuentas normales)
   HOJA_EMPRESAS: 'Empresas',
   HOJA_REGISTRO: 'Registro',
   HOJA_REPORTE: 'Reporte',
@@ -31,8 +31,15 @@ var CONFIG = {
   DIRECCION: 'Carrera 34 No. 2-62, Bogotá',
   TEL: '(601) 721 3566',
   CEL: '313 574 5063',
-  HORA_ENVIO: 8,             // 8 am, hora de Colombia
+  HORA_ENVIO: 8,            // 8 am Bogotá
+  TECHO_DIARIO: 40,         // techo final tras el calentamiento
+  PORCION_TOQUE2: 0.3,      // ~30% del cupo para segundos toques
+  DIAS_PARA_TOQUE2: 7,      // días sin respuesta antes del 2º toque
+  MAX_REBOTE_PCT: 5,        // % de rebotes que auto-pausa el motor
 };
+
+var ESTADOS = ['', 'ENVIADO', 'TOQUE2', 'RESPONDIÓ ⭐', 'COTIZADO ⭐⭐', 'VENTA 🏆',
+               'REVISAR BAJA', 'BAJA', 'REBOTÓ', 'CORREO_INVALIDO', 'ERROR'];
 
 /* ============================== MENÚ ============================== */
 function onOpen() {
@@ -45,9 +52,15 @@ function onOpen() {
     .addItem('4. ✅ ACTIVAR el motor automático', 'activarMotor')
     .addItem('5. ⛔ Desactivar el motor', 'desactivarMotor')
     .addSeparator()
-    .addItem('6. Revisar respuestas y bajas ahora', 'procesarRespuestas')
+    .addItem('6. Revisar respuestas y rebotes ahora', 'procesarRespuestas')
     .addItem('7. Generar reporte ahora', 'reporteSemanal')
     .addToUi();
+}
+
+/* ===================== PROPIEDADES (memoria del motor) ===================== */
+function prop_() { return PropertiesService.getScriptProperties(); }
+function correoAvisos_() {
+  return prop_().getProperty('CORREO_AVISOS') || Session.getEffectiveUser().getEmail();
 }
 
 /* ========================= PREPARAR HOJAS ========================= */
@@ -60,17 +73,23 @@ function prepararHojas() {
     h.getRange(1, 1, 1, cab.length).setFontWeight('bold').setBackground('#1d4ed8').setFontColor('#fff');
     h.setFrozenRows(1);
   }
+  // Lista desplegable de estados en la columna E (el papá puede marcar COTIZADO/VENTA con un toque)
+  var regla = SpreadsheetApp.newDataValidation().requireValueInList(ESTADOS, true).setAllowInvalid(true).build();
+  h.getRange('E2:E20000').setDataValidation(regla);
+
   var r = ss.getSheetByName(CONFIG.HOJA_REGISTRO) || ss.insertSheet(CONFIG.HOJA_REGISTRO);
-  if (r.getLastRow() === 0) {
-    r.appendRow(['fecha', 'evento', 'detalle']);
-    r.setFrozenRows(1);
-  }
+  if (r.getLastRow() === 0) { r.appendRow(['fecha', 'evento', 'detalle']); r.setFrozenRows(1); }
   var p = ss.getSheetByName(CONFIG.HOJA_REPORTE) || ss.insertSheet(CONFIG.HOJA_REPORTE);
   if (p.getLastRow() === 0) {
-    p.appendRow(['semana', 'enviados', 'respuestas', 'bajas', 'total_historico']);
+    p.appendRow(['semana', 'enviados_semana', 'respuestas', 'cotizaciones', 'ventas', 'rebotes', 'bajas', 'total_historico']);
     p.setFrozenRows(1);
   }
-  SpreadsheetApp.getUi().alert('Hojas listas ✅\n\nAhora importa el archivo EMPRESAS_PARA_SHEET.csv:\nArchivo → Importar → Subir → "Anexar a la hoja actual" (con la pestaña Empresas abierta).');
+  prop_().setProperty('CORREO_AVISOS', Session.getEffectiveUser().getEmail());
+  SpreadsheetApp.getUi().alert(
+    'Hojas listas ✅\n\nAhora importa EMPRESAS_PARA_SHEET.csv:\n' +
+    'con la pestaña «Empresas» abierta → Archivo → Importar → Subir → ' +
+    '«REEMPLAZAR HOJA ACTUAL» (así no se duplican los encabezados).\n\n' +
+    'Después vuelve a ejecutar «1. Preparar hojas» para restaurar la lista desplegable de estados.');
 }
 
 /* ========================= PLANTILLAS ========================= */
@@ -89,74 +108,175 @@ function ganchoSector_(sector) {
   return 'la dotación y los elementos de protección de su personal';
 }
 
+// Primer toque: sobrio (sin emojis ni botones llamativos — pasa mejor los filtros).
 function plantilla_(indice, empresa, sector) {
   var gancho = ganchoSector_(sector);
   var agosto = hayGanchoAgosto_();
   var asuntos = agosto
-    ? ['Dotación del 31 de agosto — cotización a tiempo',
-       '¿Ya tiene lista la dotación de agosto para su personal?',
-       'Se acerca el 31 de agosto — dotación a precio de fábrica']
-    : ['Cotización de dotación para su empresa',
-       '¿Ya tiene lista la dotación de su personal?',
-       'Dotación y EPP a precio de fábrica — Bogotá'];
+    ? ['Dotación del 31 de agosto - cotización para ' + empresa,
+       'Entrega de dotación de agosto - precios de fábrica',
+       'Su dotación de agosto a tiempo',
+       'Cotización de dotación antes del 31 de agosto',
+       'Dotación de ley de agosto - ' + CONFIG.EMPRESA,
+       'Propuesta de dotación para su personal - agosto']
+    : ['Cotización de dotación para ' + empresa,
+       'Dotación para su personal - precios de fábrica',
+       'Propuesta de dotación y EPP - Bogotá',
+       'Su proveedor de dotación en Bogotá',
+       'Dotación con bordado de su logo',
+       'Cotización de uniformes y EPP'];
   var intro = agosto
-    ? 'Se acerca la entrega de dotación de ley del <b>31 de agosto</b>.'
+    ? 'Se acerca la entrega de dotación de ley del 31 de agosto.'
     : 'Sabemos lo importante que es tener a su equipo bien dotado.';
-  var cuerpo =
+  var textoPlano =
+    'Señores ' + empresa + ':\n\n' +
+    intro + ' En ' + CONFIG.EMPRESA + ' (Bogotá, NIT ' + CONFIG.NIT + ') confeccionamos ' + gancho +
+    ' a precios de fábrica, con descuentos desde 20 unidades y bordado de su logo.\n\n' +
+    'Catálogo con precios: ' + CONFIG.CATALOGO + '\n\n' +
+    'Respondemos la cotización el mismo día, sin compromiso.\n\n' +
+    'Cordial saludo,\n' + CONFIG.FIRMA_NOMBRE + '\n' + CONFIG.EMPRESA + '\n' + CONFIG.DIRECCION +
+    '\nTel. ' + CONFIG.TEL + ' - Cel. y WhatsApp ' + CONFIG.CEL + '\n\n' +
+    'Recibió este mensaje porque su empresa aparece en directorios públicos de Bogotá. ' +
+    'Si no desea recibir información, responda únicamente la palabra BAJA.';
+  var html =
     '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#2b2620;line-height:1.6;max-width:560px">' +
     '<p>Señores <b>' + empresa + '</b>:</p>' +
     '<p>' + intro + ' En <b>' + CONFIG.EMPRESA + '</b> (Bogotá, NIT ' + CONFIG.NIT + ') confeccionamos ' +
     gancho + ' a precios de fábrica, con descuentos desde 20 unidades y bordado de su logo.</p>' +
-    '<p style="margin:22px 0"><a href="' + CONFIG.CATALOGO + '" style="background:#141210;color:#d9bd7e;' +
-    'padding:13px 22px;border-radius:6px;text-decoration:none;font-weight:bold">📖 Ver catálogo con precios</a></p>' +
+    '<p>Puede ver el catálogo con precios aquí:<br><a href="' + CONFIG.CATALOGO + '">' + CONFIG.CATALOGO + '</a></p>' +
     '<p>Respondemos la cotización <b>el mismo día</b>, sin compromiso.</p>' +
-    '<p>Cordial saludo,<br><b>' + CONFIG.FIRMA_NOMBRE + '</b><br>' + CONFIG.EMPRESA + ' · ' + CONFIG.DIRECCION +
+    '<p>Cordial saludo,<br><b>' + CONFIG.FIRMA_NOMBRE + '</b><br>' + CONFIG.EMPRESA + '<br>' + CONFIG.DIRECCION +
     '<br>Tel. ' + CONFIG.TEL + ' · Cel. y WhatsApp ' + CONFIG.CEL + '</p>' +
-    '<hr style="border:none;border-top:1px solid #e7ddc9;margin:18px 0">' +
-    '<p style="font-size:12px;color:#8a8072">Recibió este mensaje porque su empresa aparece en directorios ' +
-    'públicos de Bogotá. Si no desea recibir información, responda con la palabra <b>BAJA</b> y no volveremos a escribirle.</p>' +
+    '<p style="font-size:12px;color:#8a8072;border-top:1px solid #e7ddc9;padding-top:10px">Recibió este mensaje ' +
+    'porque su empresa aparece en directorios públicos de Bogotá. Si no desea recibir información, ' +
+    'responda únicamente la palabra BAJA.</p>' +
     '</div>';
-  return { asunto: asuntos[indice % 3], html: cuerpo };
+  return { asunto: asuntos[indice % asuntos.length], html: html, texto: textoPlano };
+}
+
+// Segundo toque: corto y humano.
+function plantillaToque2_(empresa) {
+  var texto =
+    'Señores ' + empresa + ':\n\n' +
+    'Hace unos días les escribí sobre la dotación de su personal' +
+    (hayGanchoAgosto_() ? ' (la entrega de ley es el 31 de agosto)' : '') +
+    ' y no quiero que se les pase la fecha. ¿Les preparo la cotización sin compromiso?\n\n' +
+    'Catálogo con precios: ' + CONFIG.CATALOGO + '\n\n' +
+    'Cordial saludo,\n' + CONFIG.FIRMA_NOMBRE + '\n' + CONFIG.EMPRESA + ' · Cel. y WhatsApp ' + CONFIG.CEL + '\n\n' +
+    'Si no desea recibir información, responda únicamente la palabra BAJA.';
+  return {
+    asunto: 'Re: cotización de dotación para ' + empresa,
+    texto: texto,
+    html: '<div style="font-family:Arial,sans-serif;font-size:15px;color:#2b2620;line-height:1.6;max-width:560px"><p>' +
+      texto.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>') + '</p></div>',
+  };
+}
+
+/* ================= CUPO CON CALENTAMIENTO AUTOMÁTICO ================= */
+function cupoDeHoy_() {
+  var p = prop_();
+  var inicio = p.getProperty('FECHA_INICIO_ENVIOS');
+  if (!inicio) { p.setProperty('FECHA_INICIO_ENVIOS', new Date().toISOString()); inicio = new Date().toISOString(); }
+  var dias = Math.floor((Date.now() - new Date(inicio).getTime()) / 86400000) + 1;
+  var rampa;
+  if (dias <= 3) rampa = 10;
+  else if (dias <= 7) rampa = 20;
+  else if (dias <= 14) rampa = 30;
+  else rampa = CONFIG.TECHO_DIARIO;
+  // La rampa solo sube si la salud es buena (rebotes bajo control)
+  if (p.getProperty('MOTOR_PAUSADO') === 'si') return 0;
+  var cuotaGmail = MailApp.getRemainingDailyQuota();
+  return Math.max(0, Math.min(rampa, cuotaGmail - 10));
 }
 
 /* ========================= ENVÍO DIARIO ========================= */
 function enviarLoteDiario() {
   var dia = new Date().getDay();
   if (dia === 0 || dia === 6) return; // fines de semana no
+  var cupo = cupoDeHoy_();
+  if (cupo <= 0) { registrar_('cupo', 'Sin cupo hoy (pausado o cuota agotada)'); return; }
+
   var ss = SpreadsheetApp.getActive();
   var h = ss.getSheetByName(CONFIG.HOJA_EMPRESAS);
   if (!h || h.getLastRow() < 2) return;
+  var datos = h.getDataRange().getValues();
 
-  var cupo = Math.min(CONFIG.CUPO_DIARIO, MailApp.getRemainingDailyQuota() - 5);
-  if (cupo <= 0) { registrar_('cupo', 'Sin cupo de Gmail hoy'); return; }
+  var cupoToque2 = Math.floor(cupo * CONFIG.PORCION_TOQUE2);
+  var cupoNuevos = cupo - cupoToque2;
+  var enviadosNuevos = 0, enviadosT2 = 0, erroresSeguidos = 0, rebotadosHoy = 0;
+  var ahora = new Date();
 
-  var datos = h.getDataRange().getValues(); // [correo, empresa, sector, prioridad, estado, fecha, notas]
-  var enviados = 0;
-  for (var i = 1; i < datos.length && enviados < cupo; i++) {
+  for (var i = 1; i < datos.length && (enviadosNuevos < cupoNuevos || enviadosT2 < cupoToque2); i++) {
     var correo = String(datos[i][0] || '').trim().toLowerCase();
+    if (!correo || correo.indexOf('@') < 0) continue;
     var estado = String(datos[i][4] || '').trim();
-    if (!correo || estado) continue; // solo pendientes
     var empresa = String(datos[i][1] || 'Estimados señores');
-    var sector = datos[i][2];
-    var p = plantilla_(enviados, empresa, sector);
+    var esNuevo = (estado === '');
+    var esToque2 = false;
+    if (estado === 'ENVIADO') {
+      var f = datos[i][5];
+      esToque2 = (f instanceof Date) && ((ahora - f) / 86400000 >= CONFIG.DIAS_PARA_TOQUE2);
+    }
+    if (esNuevo && enviadosNuevos >= cupoNuevos) continue;
+    if (esToque2 && enviadosT2 >= cupoToque2) continue;
+    if (!esNuevo && !esToque2) continue;
+
+    var p = esNuevo ? plantilla_(enviadosNuevos, empresa, datos[i][2]) : plantillaToque2_(empresa);
     try {
-      GmailApp.sendEmail(correo, p.asunto, 'Vea este mensaje en un cliente de correo con HTML. Catálogo: ' + CONFIG.CATALOGO, {
-        htmlBody: p.html,
-        name: CONFIG.EMPRESA,
-      });
-      h.getRange(i + 1, 5).setValue('ENVIADO');
+      GmailApp.sendEmail(correo, p.asunto, p.texto, { htmlBody: p.html, name: CONFIG.EMPRESA });
+      h.getRange(i + 1, 5).setValue(esNuevo ? 'ENVIADO' : 'TOQUE2');
       h.getRange(i + 1, 6).setValue(new Date());
-      enviados++;
-      Utilities.sleep(1500 + Math.floor(Math.random() * 2000)); // ritmo humano, no ráfaga
+      if (esNuevo) enviadosNuevos++; else enviadosT2++;
+      erroresSeguidos = 0;
+      Utilities.sleep(1500 + Math.floor(Math.random() * 2500)); // ritmo humano
     } catch (e) {
-      h.getRange(i + 1, 5).setValue('ERROR');
-      h.getRange(i + 1, 7).setValue(String(e).slice(0, 120));
+      var msg = String(e);
+      if (/invalid.*(email|address)|dirección/i.test(msg)) {
+        h.getRange(i + 1, 5).setValue('CORREO_INVALIDO');
+        h.getRange(i + 1, 7).setValue(msg.slice(0, 100));
+      } else {
+        // Error de servicio/cuota: NO marcar la fila (queda pendiente) y contar
+        erroresSeguidos++;
+        registrar_('error_envio', correo + ' :: ' + msg.slice(0, 120));
+        if (erroresSeguidos >= 3) {
+          // FRENO DE EMERGENCIA: algo anda mal con Gmail — parar ya
+          avisar_('⛔ Motor detenido por seguridad',
+            'Hubo 3 errores seguidos al enviar. El motor paró este lote para proteger la cuenta.\n' +
+            'Último error: ' + msg.slice(0, 200) + '\n\nRevisa el Registro. Mañana lo intenta de nuevo solo.');
+          registrar_('freno', '3 errores seguidos — lote detenido');
+          break;
+        }
+      }
     }
   }
-  registrar_('envio', 'Lote diario: ' + enviados + ' correos');
+  registrar_('envio', 'Nuevos: ' + enviadosNuevos + ' · 2º toque: ' + enviadosT2 + ' · cupo: ' + cupo);
 }
 
-/* ================== RESPUESTAS Y BAJAS (automático) ================== */
+/* ============ RESPUESTAS, REBOTES Y BAJAS (cada 10 minutos) ============ */
+
+// Limpia el texto citado de una respuesta (líneas ">" y todo lo posterior a "El ... escribió:")
+function textoPropio_(cuerpo) {
+  var lineas = String(cuerpo || '').split('\n');
+  var propias = [];
+  for (var i = 0; i < lineas.length; i++) {
+    var l = lineas[i];
+    if (/^\s*(El|On) .{5,80}(escribió|escribio|wrote):?\s*$/.test(l)) break;
+    if (/^\s*>/.test(l)) continue;
+    if (/^-{2,}\s*(Mensaje original|Original message|Forwarded)/i.test(l)) break;
+    propias.push(l);
+  }
+  return propias.join('\n').trim();
+}
+
+function esBajaExplicita_(textoPropio) {
+  var t = textoPropio.toUpperCase();
+  var primera = (textoPropio.split('\n').map(function (l) { return l.trim(); }).filter(String)[0] || '').toUpperCase();
+  if (/^BAJA[.!\s]*$/.test(primera)) return 'si';
+  if (/DARME DE BAJA|DENME DE BAJA|NO (ME )?ENV[IÍ]EN? M[AÁ]S|NO DESEO RECIBIR|QUITAR(ME)? DE LA LISTA|UNSUBSCRIBE|REMOVER DE LA LISTA/.test(t)) return 'si';
+  if (/\bBAJA\b/.test(t)) return 'dudoso'; // menciona la palabra pero no es claro → humano decide
+  return 'no';
+}
+
 function procesarRespuestas() {
   var ss = SpreadsheetApp.getActive();
   var h = ss.getSheetByName(CONFIG.HOJA_EMPRESAS);
@@ -165,39 +285,101 @@ function procesarRespuestas() {
   var porCorreo = {};
   for (var i = 1; i < datos.length; i++) {
     var c = String(datos[i][0] || '').trim().toLowerCase();
-    if (c) porCorreo[c] = i + 1; // fila real
+    if (c) porCorreo[c] = i + 1;
   }
 
-  var hilos = GmailApp.search('in:inbox newer_than:3d', 0, 60);
-  var interesados = [];
-  hilos.forEach(function (hilo) {
+  // 1) REBOTES (mailer-daemon) — la salud de la cuenta depende de esto
+  var rebotes = 0;
+  var hilosRebote = GmailApp.search('from:(mailer-daemon OR postmaster) newer_than:2d', 0, 50);
+  hilosRebote.forEach(function (hilo) {
     hilo.getMessages().forEach(function (msg) {
-      var de = (msg.getFrom().match(/[\w.+-]+@[\w.-]+/) || [''])[0].toLowerCase();
-      var fila = porCorreo[de];
-      if (!fila) return;
-      var estadoActual = String(h.getRange(fila, 5).getValue());
-      var cuerpo = (msg.getPlainBody() || '').slice(0, 400).toUpperCase();
-      if (/\bBAJA\b/.test(cuerpo)) {
-        if (estadoActual !== 'BAJA') {
-          h.getRange(fila, 5).setValue('BAJA');
-          registrar_('baja', de);
+      var cuerpo = msg.getPlainBody() || '';
+      var m = cuerpo.match(/[\w.+-]+@[\w.-]+\.\w{2,}/g) || [];
+      m.forEach(function (dir) {
+        var fila = porCorreo[dir.toLowerCase()];
+        if (fila) {
+          var est = String(h.getRange(fila, 5).getValue());
+          if (est === 'ENVIADO' || est === 'TOQUE2') {
+            h.getRange(fila, 5).setValue('REBOTÓ');
+            rebotes++;
+          }
         }
-      } else if (estadoActual === 'ENVIADO') {
-        h.getRange(fila, 5).setValue('RESPONDIÓ ⭐');
-        h.getRange(fila, 7).setValue('Respondió el ' + Utilities.formatDate(new Date(), 'America/Bogota', 'dd/MM HH:mm'));
-        hilo.markImportant();
-        interesados.push(String(h.getRange(fila, 2).getValue()) + ' <' + de + '>');
-      }
+      });
     });
   });
 
-  // Aviso inmediato al propio buzón (el papá lo ve en el celular)
-  if (interesados.length > 0) {
-    GmailApp.sendEmail(Session.getActiveUser().getEmail(),
-      '⭐ ' + interesados.length + ' empresa(s) INTERESADA(S) — responder ya',
-      'Respondieron y hay que contestarles en menos de 5 minutos:\n\n' + interesados.join('\n') +
-      '\n\nBusca sus correos en la bandeja (están marcados como importantes).');
-    registrar_('interesados', interesados.join(' | '));
+  // Auto-pausa por salud: si los rebotes recientes superan el umbral, parar
+  if (rebotes > 0) {
+    var enviadosRecientes = 0;
+    var hace2d = new Date(Date.now() - 2 * 86400000);
+    for (var j = 1; j < datos.length; j++) {
+      var f = datos[j][5];
+      if (f instanceof Date && f > hace2d) enviadosRecientes++;
+    }
+    if (enviadosRecientes >= 10 && (rebotes / enviadosRecientes) * 100 > CONFIG.MAX_REBOTE_PCT) {
+      prop_().setProperty('MOTOR_PAUSADO', 'si');
+      avisar_('⛔ Motor AUTO-PAUSADO por rebotes altos',
+        'Rebotaron ' + rebotes + ' de ~' + enviadosRecientes + ' correos recientes (>' + CONFIG.MAX_REBOTE_PCT +
+        '%).\nEl motor se pausó solo para proteger la cuenta. Hay que limpiar la lista antes de reactivar\n' +
+        '(borra la pausa ejecutando activarMotor de nuevo).');
+      registrar_('auto-pausa', rebotes + ' rebotes');
+    }
+  }
+
+  // 2) RESPUESTAS y BAJAS (busca en todo el correo, no solo la bandeja; pagina)
+  var interesados = [];
+  var start = 0, LOTE = 80;
+  while (start < 400) {
+    var hilos = GmailApp.search('newer_than:4d -from:me -in:chats -from:(mailer-daemon OR postmaster)', start, LOTE);
+    if (!hilos.length) break;
+    hilos.forEach(function (hilo) {
+      hilo.getMessages().forEach(function (msg) {
+        var de = (msg.getFrom().match(/[\w.+-]+@[\w.-]+/) || [''])[0].toLowerCase();
+        var fila = porCorreo[de];
+        if (!fila) return;
+        var estadoActual = String(h.getRange(fila, 5).getValue());
+        // Nunca tocar estados avanzados que puso el humano
+        if (/COTIZADO|VENTA|BAJA/.test(estadoActual)) return;
+        var propio = textoPropio_(msg.getPlainBody());
+        var baja = esBajaExplicita_(propio);
+        if (baja === 'si') {
+          h.getRange(fila, 5).setValue('BAJA');
+          registrar_('baja', de);
+        } else if (baja === 'dudoso' && estadoActual !== 'RESPONDIÓ ⭐') {
+          h.getRange(fila, 5).setValue('REVISAR BAJA');
+          h.getRange(fila, 7).setValue('Menciona "baja" — revisar: ' + propio.slice(0, 80));
+        } else if (estadoActual === 'ENVIADO' || estadoActual === 'TOQUE2' || estadoActual === '') {
+          h.getRange(fila, 5).setValue('RESPONDIÓ ⭐');
+          h.getRange(fila, 7).setValue('Respondió ' + Utilities.formatDate(new Date(), 'America/Bogota', 'dd/MM HH:mm'));
+          try { msg.star(); hilo.markImportant(); } catch (e2) {}
+          interesados.push({
+            texto: String(h.getRange(fila, 2).getValue()) + ' <' + de + '>',
+            enlace: 'https://mail.google.com/mail/u/0/#inbox/' + hilo.getId(),
+            resumen: propio.slice(0, 120),
+          });
+        }
+      });
+    });
+    start += LOTE;
+  }
+
+  // 3) Avisos de interesados (solo entre 7am y 9pm; fuera de horario quedan en cola)
+  if (interesados.length) {
+    var cola = JSON.parse(prop_().getProperty('COLA_AVISOS') || '[]');
+    cola = cola.concat(interesados);
+    prop_().setProperty('COLA_AVISOS', JSON.stringify(cola));
+  }
+  var hora = Number(Utilities.formatDate(new Date(), 'America/Bogota', 'H'));
+  var pendientes = JSON.parse(prop_().getProperty('COLA_AVISOS') || '[]');
+  if (pendientes.length && hora >= 7 && hora < 21) {
+    var cuerpoAviso = 'NO RESPONDA ESTE CORREO — responda directamente a cada cliente:\n\n' +
+      pendientes.map(function (x) {
+        return '• ' + x.texto + '\n  Dice: "' + x.resumen + '"\n  Abrir su correo: ' + x.enlace;
+      }).join('\n\n') +
+      '\n\nRegla de oro: contestarles en menos de 5 minutos. Sus correos tienen estrella ⭐ en la bandeja.';
+    avisar_('⭐ ' + pendientes.length + ' empresa(s) INTERESADA(S) — responder ya', cuerpoAviso);
+    registrar_('interesados', pendientes.map(function (x) { return x.texto; }).join(' | '));
+    prop_().setProperty('COLA_AVISOS', '[]');
   }
 }
 
@@ -208,46 +390,59 @@ function reporteSemanal() {
   var p = ss.getSheetByName(CONFIG.HOJA_REPORTE);
   if (!h || !p) return;
   var datos = h.getDataRange().getValues();
-  var enviados = 0, resp = 0, bajas = 0, semana = 0;
+  var tot = { semana: 0, resp: 0, cot: 0, venta: 0, rebote: 0, baja: 0, hist: 0 };
   var hace7 = new Date(Date.now() - 7 * 86400000);
   for (var i = 1; i < datos.length; i++) {
     var est = String(datos[i][4] || '');
-    if (est === 'ENVIADO' || est.indexOf('RESPONDIÓ') === 0) enviados++;
-    if (est.indexOf('RESPONDIÓ') === 0) resp++;
-    if (est === 'BAJA') bajas++;
+    if (est && est !== 'CORREO_INVALIDO' && est !== 'ERROR') tot.hist++;
+    if (/RESPONDIÓ|COTIZADO|VENTA/.test(est)) tot.resp++;
+    if (/COTIZADO|VENTA/.test(est)) tot.cot++;
+    if (/VENTA/.test(est)) tot.venta++;
+    if (est === 'REBOTÓ') tot.rebote++;
+    if (est === 'BAJA') tot.baja++;
     var f = datos[i][5];
-    if (f instanceof Date && f > hace7) semana++;
+    if (f instanceof Date && f > hace7) tot.semana++;
   }
   var etiqueta = Utilities.formatDate(new Date(), 'America/Bogota', 'dd/MM/yyyy');
-  p.appendRow([etiqueta, semana, resp, bajas, enviados]);
-  GmailApp.sendEmail(Session.getActiveUser().getEmail(),
-    '📊 Reporte semanal del motor de ventas',
+  p.appendRow([etiqueta, tot.semana, tot.resp, tot.cot, tot.venta, tot.rebote, tot.baja, tot.hist]);
+  var pct = tot.hist ? Math.round((tot.resp / tot.hist) * 1000) / 10 : 0;
+  avisar_('📊 Reporte semanal del motor de ventas',
     'Semana al ' + etiqueta + ':\n' +
-    '• Correos enviados esta semana: ' + semana + '\n' +
-    '• Empresas que han respondido (histórico): ' + resp + '\n' +
-    '• Bajas: ' + bajas + '\n' +
-    '• Total contactadas: ' + enviados + '\n\n' +
-    'Regla de oro: responder a los interesados en menos de 5 minutos.');
+    '• Enviados esta semana: ' + tot.semana + '\n' +
+    '• EMBUDO histórico: contactadas ' + tot.hist + ' → respondieron ' + tot.resp + ' (' + pct + '%) → cotizadas ' +
+    tot.cot + ' → VENTAS ' + tot.venta + '\n' +
+    '• Rebotes: ' + tot.rebote + ' · Bajas: ' + tot.baja + '\n\n' +
+    'Cuando cotice o venda, cambie el estado de la fila en la hoja (lista desplegable): COTIZADO ⭐⭐ o VENTA 🏆.');
 }
 
 /* ========================= PRUEBA ========================= */
 function enviarPrueba() {
-  var yo = Session.getActiveUser().getEmail();
+  var yo = correoAvisos_();
   for (var i = 0; i < 3; i++) {
     var p = plantilla_(i, 'EMPRESA DE PRUEBA ' + (i + 1), ['taller', 'restaurante', 'clínica'][i]);
-    GmailApp.sendEmail(yo, '[PRUEBA] ' + p.asunto, 'Prueba', { htmlBody: p.html, name: CONFIG.EMPRESA });
+    GmailApp.sendEmail(yo, '[PRUEBA] ' + p.asunto, p.texto, { htmlBody: p.html, name: CONFIG.EMPRESA });
   }
-  SpreadsheetApp.getUi().alert('Enviadas 3 pruebas a ' + yo + ' ✅\n\nRevisa que lleguen a la BANDEJA DE ENTRADA (no a spam) y que se vean bien. Si todo está bien, usa «4. ACTIVAR el motor automático».');
+  var t2 = plantillaToque2_('EMPRESA DE PRUEBA');
+  GmailApp.sendEmail(yo, '[PRUEBA 2º toque] ' + t2.asunto, t2.texto, { htmlBody: t2.html, name: CONFIG.EMPRESA });
+  SpreadsheetApp.getUi().alert('Enviadas 4 pruebas a ' + yo + ' ✅\n\nRevisa: 1) que lleguen a BANDEJA DE ENTRADA, ' +
+    '2) que se vean bien, 3) que el enlace del catálogo abra.\nSi todo bien → «4. ACTIVAR el motor automático».');
 }
 
 /* ========================= ACTIVAR / DESACTIVAR ========================= */
 function activarMotor() {
-  desactivarMotor(); // limpia duplicados
+  desactivarMotor();
+  prop_().deleteProperty('MOTOR_PAUSADO'); // reactivar también quita la auto-pausa
+  prop_().setProperty('CORREO_AVISOS', Session.getEffectiveUser().getEmail());
   ScriptApp.newTrigger('enviarLoteDiario').timeBased().atHour(CONFIG.HORA_ENVIO).everyDays(1).inTimezone('America/Bogota').create();
-  ScriptApp.newTrigger('procesarRespuestas').timeBased().everyHours(1).create();
+  ScriptApp.newTrigger('procesarRespuestas').timeBased().everyMinutes(10).create();
   ScriptApp.newTrigger('reporteSemanal').timeBased().onWeekDay(ScriptApp.WeekDay.MONDAY).atHour(7).inTimezone('America/Bogota').create();
-  registrar_('motor', 'ACTIVADO');
-  SpreadsheetApp.getUi().alert('🟢 Motor ACTIVADO.\n\n• Correos: cada día hábil a las ' + CONFIG.HORA_ENVIO + ':00 am\n• Respuestas y bajas: cada hora\n• Reporte: lunes 7:00 am\n\nTodo corre solo en la nube de Google — no necesita ningún computador prendido.');
+  registrar_('motor', 'ACTIVADO (rampa: 10→20→30→' + CONFIG.TECHO_DIARIO + '/día)');
+  SpreadsheetApp.getUi().alert('🟢 Motor ACTIVADO con calentamiento automático.\n\n' +
+    '• Días 1-3: 10 correos/día · Días 4-7: 20 · Semana 2: 30 · Después: ' + CONFIG.TECHO_DIARIO + '\n' +
+    '• 2º toque automático a los ' + CONFIG.DIAS_PARA_TOQUE2 + ' días sin respuesta\n' +
+    '• Respuestas y rebotes: cada 10 minutos (avisos de 7am a 9pm)\n' +
+    '• Se AUTO-PAUSA si los rebotes superan el ' + CONFIG.MAX_REBOTE_PCT + '%\n' +
+    '• Reporte: lunes 7:00 am\n\nTodo corre solo en la nube de Google.');
 }
 
 function desactivarMotor() {
@@ -256,6 +451,9 @@ function desactivarMotor() {
 }
 
 /* ========================= UTILIDADES ========================= */
+function avisar_(asunto, cuerpo) {
+  try { GmailApp.sendEmail(correoAvisos_(), asunto, cuerpo); } catch (e) { registrar_('error_aviso', String(e).slice(0, 120)); }
+}
 function registrar_(evento, detalle) {
   var r = SpreadsheetApp.getActive().getSheetByName(CONFIG.HOJA_REGISTRO);
   if (r) r.appendRow([new Date(), evento, detalle]);
