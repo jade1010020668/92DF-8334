@@ -24,12 +24,19 @@
    recibir respuestas) antes de encender el motor — la rampa automática hace el
    resto del calentamiento.
 
-## PASO 2 — Crear la hoja de cálculo (3 min)
+## PASO 2 — La hoja de cálculo
 
-1. Con esa cuenta abierta: **sheets.new** → nómbrala «Motor de ventas — Dotaciones El Manantial».
-2. **Compártela contigo mismo**: botón Compartir → agrega TU correo personal (Diego)
-   como **Editor**. Así, si algo le pasara a la cuenta nueva, la lista y los estados
-   no se pierden.
+**⚡ ATAJO (ya hecho por Claude):** hay una hoja **«Empresas»** creada en tu Google
+(morales.1010020668@gmail.com) con **160 empresas de máxima prioridad ya cargadas**,
+lista para probar la máquina el mismo día:
+👉 https://docs.google.com/spreadsheets/d/1PVYkdyMACiM-jUQ4923IQOIhZ_lTrHYLx6q_dKKHEU0/edit
+
+- Si vas a usar **esa** cuenta para enviar: ábrela y salta al PASO 3 (pega el código ahí mismo).
+- Si prefieres una **cuenta nueva del negocio**: con esa cuenta abierta ve a **sheets.new**,
+  nómbrala «Motor de ventas», y sigue normal (importarás el CSV completo en el paso 4).
+
+> 💡 La hoja del atajo trae 160 empresas para arrancar y probar. Cuando quieras las
+> **10.553 completas**, impórtalas con el CSV (paso 4) — reemplaza la hoja «Empresas».
 
 ## PASO 3 — Pegar el motor (10 min)
 
