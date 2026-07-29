@@ -27,9 +27,11 @@
 ## PASO 2 — La hoja de cálculo
 
 **⚡ ATAJO (ya hecho por Claude):** hay una hoja **«Empresas»** creada en tu Google
-(morales.1010020668@gmail.com) con **160 empresas de máxima prioridad ya cargadas**,
-lista para probar la máquina el mismo día:
-👉 https://docs.google.com/spreadsheets/d/1PVYkdyMACiM-jUQ4923IQOIhZ_lTrHYLx6q_dKKHEU0/edit
+(morales.1010020668@gmail.com) con **~200 empresas ya cargadas y mezcladas en 40+
+sectores** (restaurantes, talleres, ferreterías, clínicas, farmacias, construcción,
+comercio, ropa…), lista para probar la máquina el mismo día:
+👉 https://docs.google.com/spreadsheets/d/1W1yn6tBr8KtjkhRqxlnT4XXzjv7gyUW-SiIwrim7Fxw/edit
+> (Hay una hoja anterior de 160 llamada igual — puedes borrar la que no uses.)
 
 - Si vas a usar **esa** cuenta para enviar: ábrela y salta al PASO 3 (pega el código ahí mismo).
 - Si prefieres una **cuenta nueva del negocio**: con esa cuenta abierta ve a **sheets.new**,
