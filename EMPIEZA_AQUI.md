@@ -97,8 +97,15 @@ Gemini (se escribieron en chats). Detalle en `DOCUMENTO_MAESTRO.md` §4.
 
 ## ¿Cómo sé que esto de verdad funciona?
 Todo se construyó con verificación real: investigación de mercado con fuentes citadas,
-crítica de 8 expertos, y **más de 130 pruebas automáticas** (incluida una simulación de
-un mes completo de vida del motor). El detalle está en `PLAN_MAESTRO_FINAL.md` §6.
+crítica de 8 expertos, y **121 pruebas automáticas** que puedes correr tú mismo:
+
+```bash
+bash pruebas/correr.sh
+```
+
+50 prueban el motor de correos sobre un simulador de Google (sin mandar nada a nadie)
+y 71 manejan la página en un navegador de verdad, como lo haría un cliente. Además
+corren solas en GitHub con cada cambio. El detalle está en `pruebas/README.md`.
 
 **La prueba definitiva la das tú:** instala el motor, y en 1-2 semanas llega la primera
 cotización de una empresa nueva. Ahí sabrás que la máquina está viva. 🚀
