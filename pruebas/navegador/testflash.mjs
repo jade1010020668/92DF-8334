@@ -5,6 +5,14 @@ let pw;
 try { pw = require('playwright'); }
 catch { pw = require('/opt/node22/lib/node_modules/playwright'); }
 const { chromium } = pw;
+
+// Ruta del navegador: variable de entorno > el chromium de esta máquina > el que
+// trae playwright (undefined = que lo resuelva él). Así corre igual en CI.
+// Se usa require('fs') y no un import: varias suites ya importan de 'fs' y un
+// segundo import del mismo nombre es error de sintaxis.
+const EXEC = process.env.PW_CHROMIUM
+  || (require('fs').existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined);
+
 import { createServer } from 'http';
 import { readFileSync, existsSync, statSync } from 'fs';
 import { join, extname } from 'path';
@@ -22,7 +30,7 @@ await new Promise((r) => server.listen(4516, r));
 
 const results = [];
 const check = (n, c) => { results.push([n, !!c]); console.log(`${c ? '✅' : '❌'} ${n}`); };
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--use-gl=swiftshader'] });
+const browser = await chromium.launch({ executablePath: EXEC, args: ['--use-gl=swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 412, height: 880 } });
 
 // Verificar que la clase 'solo' está puesta ANTES del primer render
