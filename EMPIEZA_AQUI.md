@@ -20,14 +20,33 @@ La máquina toca puertas          El papá SOLO responde
 
 ---
 
-## 👉 TU ÚNICO SIGUIENTE PASO (Diego, ~1 hora, una sola vez)
+## 👉 TUS SIGUIENTES PASOS (Diego)
 
-**Instalar el Motor de correos** siguiendo **`datos/GUIA_MOTOR_VENTAS.md`**.
-Es crear un Gmail del negocio, pegar un código y darle ACTIVAR. La guía te lleva
-de la mano, paso por paso. Cuando termines, la máquina empieza a trabajar sola.
+### 1. Instalar el Motor de correos — ~1 hora, una sola vez ⭐ lo importante
+Sigue **`datos/GUIA_MOTOR_VENTAS.md`**. Es crear un Gmail del negocio, pegar un
+código y darle ACTIVAR. La guía te lleva de la mano, paso por paso. Cuando
+termines, la máquina empieza a trabajar sola.
 
-Después (con calma esa misma semana): crear la ficha de Google Business (20 min) y
-tomar fotos de los productos.
+> Este paso **solo lo puedes dar tú**: Google exige que el dueño de la cuenta
+> acepte los permisos en pantalla. No hay forma de automatizarlo.
+
+### 2. Poner el token de Hugging Face en GitHub — 2 minutos 🔑
+Sin esto, los cambios del catálogo (por ejemplo las fotos nuevas de producto)
+**no llegan solos** a la página que ven los clientes.
+
+1. Crea un token nuevo en **huggingface.co/settings/tokens** → tipo **Write**.
+   *(Aprovecha y borra el token viejo: quedó escrito en un chat.)*
+2. En GitHub: **Settings → Secrets and variables → Actions → New repository
+   secret**. Nombre exacto: **`HF_TOKEN`**. Pega el token. Guardar.
+3. Listo. Desde ahí, cada cambio del catálogo se publica solo.
+   *(Para publicar de inmediato: pestaña **Actions** → «Publicar la app en
+   Hugging Face Space» → **Run workflow**.)*
+
+### 3. Con calma esa misma semana
+Crear la ficha de Google Business (20 min, textos listos en
+`datos/GOOGLE_BUSINESS_TEXTOS.md`) y tomar fotos reales de los productos
+**enviadas como archivo/ZIP** (las de ahora son de banco de imágenes con
+licencia comercial y se pueden reemplazar cuando quieras).
 
 ---
 
@@ -69,6 +88,10 @@ tomar fotos de los productos.
 ## ⚠️ 3 cosas de seguridad (10 min, cuando puedas)
 Cambiar la contraseña del Hotmail, y rotar el token de Hugging Face y la API key de
 Gemini (se escribieron en chats). Detalle en `DOCUMENTO_MAESTRO.md` §4.
+
+> 💡 La rotación del token de Hugging Face y el paso 2 de arriba son el **mismo
+> trabajo**: creas el token nuevo, lo guardas como secreto `HF_TOKEN` en GitHub,
+> y borras el viejo. Un solo viaje.
 
 ---
 
