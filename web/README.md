@@ -27,8 +27,19 @@ cd web && python3 -m http.server 8000   # abrir http://localhost:8000
 
 ## Cómo desplegar (a Hugging Face Space)
 
-Subir el contenido de esta carpeta al Space `MORALES101002/dotacionpro` con
-`huggingface_hub.upload_folder(folder_path="web", repo_id="MORALES101002/dotacionpro", repo_type="space")`.
+**Automático.** Cada push a esta carpeta dispara
+`.github/workflows/publicar-hf-space.yml`, que sube `web/` al Space
+`MORALES101002/dotacionpro`. Requiere el secreto `HF_TOKEN` del repositorio
+(Settings → Secrets and variables → Actions), con un token de Hugging Face con
+permiso de **escritura**. También se puede lanzar a mano desde la pestaña
+Actions → «Publicar la app en Hugging Face Space» → Run workflow.
+
+> ⚠️ Dos cosas que **no** hay que cambiar sin pensarlo:
+> - El `README.md` de esta carpeta **no se sube**: el README del Space es su
+>   archivo de configuración (`sdk: static`) y pisarlo tumba el sitio.
+> - El despliegue borra y rehace `assets/*` en el Space (limpia los restos del
+>   build de React de la etapa anterior). Las fotos de producto viven en
+>   `web/assets/*.png` y se suben en el mismo commit.
 
 ## Dependencias (CDN, se cargan en el navegador del usuario)
 
