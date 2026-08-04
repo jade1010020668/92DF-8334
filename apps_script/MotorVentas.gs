@@ -485,6 +485,15 @@ function reporteSemanal() {
 /* ========================= PRUEBA ========================= */
 // La prueba de fuego se envía a un buzón EXTERNO (el personal de Diego):
 // autoenviarse al mismo buzón no demuestra que los correos lleguen a otros.
+function correosPrueba_(destino) {
+  for (var i = 0; i < 3; i++) {
+    var p = plantilla_(i, 'EMPRESA DE PRUEBA ' + (i + 1), ['taller', 'restaurante', 'clínica'][i]);
+    GmailApp.sendEmail(destino, '[PRUEBA] ' + p.asunto, p.texto, { htmlBody: p.html, name: CONFIG.EMPRESA });
+  }
+  var t2 = plantillaToque2_('EMPRESA DE PRUEBA');
+  GmailApp.sendEmail(destino, '[PRUEBA 2º toque] ' + t2.asunto, t2.texto, { htmlBody: t2.html, name: CONFIG.EMPRESA });
+}
+
 function enviarPrueba() {
   var ui = SpreadsheetApp.getUi();
   var propio = correoAvisos_();
@@ -495,19 +504,15 @@ function enviarPrueba() {
     ui.ButtonSet.OK_CANCEL);
   if (resp.getSelectedButton() !== ui.Button.OK) return;
   var destino = String(resp.getResponseText() || '').trim() || propio;
-  for (var i = 0; i < 3; i++) {
-    var p = plantilla_(i, 'EMPRESA DE PRUEBA ' + (i + 1), ['taller', 'restaurante', 'clínica'][i]);
-    GmailApp.sendEmail(destino, '[PRUEBA] ' + p.asunto, p.texto, { htmlBody: p.html, name: CONFIG.EMPRESA });
-  }
-  var t2 = plantillaToque2_('EMPRESA DE PRUEBA');
-  GmailApp.sendEmail(destino, '[PRUEBA 2º toque] ' + t2.asunto, t2.texto, { htmlBody: t2.html, name: CONFIG.EMPRESA });
+  correosPrueba_(destino);
   ui.alert('Enviadas 4 pruebas a ' + destino + ' ✅\n\nRevisa en ESE buzón: 1) que lleguen a BANDEJA DE ENTRADA ' +
     '(no a spam), 2) que se vean bien, 3) que el enlace del catálogo abra.\n' +
     'Si todo bien → «4. ACTIVAR el motor automático».');
 }
 
 /* ========================= ACTIVAR / DESACTIVAR ========================= */
-function activarMotor() {
+// Núcleo sin interfaz: lo usan el menú de la hoja y el panel web.
+function activarMotorNucleo_() {
   desactivarMotor();
   prop_().deleteProperty('MOTOR_PAUSADO'); // reactivar también quita la auto-pausa
   prop_().setProperty('CORREO_AVISOS', Session.getEffectiveUser().getEmail());
@@ -515,6 +520,10 @@ function activarMotor() {
   ScriptApp.newTrigger('procesarRespuestas').timeBased().everyMinutes(10).create();
   ScriptApp.newTrigger('reporteSemanal').timeBased().onWeekDay(ScriptApp.WeekDay.MONDAY).atHour(7).inTimezone('America/Bogota').create();
   registrar_('motor', 'ACTIVADO (rampa: 10→20→30→' + CONFIG.TECHO_DIARIO + '/día)');
+}
+
+function activarMotor() {
+  activarMotorNucleo_();
   SpreadsheetApp.getUi().alert('🟢 Motor ACTIVADO con calentamiento automático.\n\n' +
     '• Días 1-3: 10 correos/día · Días 4-7: 20 · Semana 2: 30 · Después: ' + CONFIG.TECHO_DIARIO + '\n' +
     '• 2º toque automático a los ' + CONFIG.DIAS_PARA_TOQUE2 + ' días sin respuesta\n' +
@@ -558,4 +567,92 @@ function reintentarAvisosFallidos_() {
 function registrar_(evento, detalle) {
   var r = SpreadsheetApp.getActive().getSheetByName(CONFIG.HOJA_REGISTRO);
   if (r) r.appendRow([new Date(), evento, detalle]);
+}
+
+/* ========================= PANEL WEB (sala de control) ========================= */
+// Diego lo abre desde el celular. Instalación: Implementar → Nueva implementación
+// → Aplicación web → Ejecutar como: yo → Acceso: SOLO YO. Con "solo yo" no hace
+// falta clave: Google solo deja entrar a la cuenta dueña del motor.
+
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('PanelMotor')
+    .setTitle('Motor de ventas — ' + CONFIG.EMPRESA)
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+}
+
+// Fotografía completa del estado del motor en un solo viaje (el panel la pinta).
+function apiPanel() {
+  var p = prop_();
+  var h = SpreadsheetApp.getActive().getSheetByName(CONFIG.HOJA_EMPRESAS);
+  var c = { pendientes: 0, enviadas: 0, toque2: 0, respondieron: 0, cotizadas: 0,
+            ventas: 0, rebotes: 0, bajas: 0, invalidos: 0 };
+  if (h && h.getLastRow() > 1) {
+    var datos = h.getDataRange().getValues();
+    for (var i = 1; i < datos.length; i++) {
+      var correo = String(datos[i][0] || '').trim();
+      var estado = String(datos[i][4] || '').trim();
+      if (estado === '') { if (correo.indexOf('@') > 0) c.pendientes++; }
+      else if (estado === 'ENVIADO') c.enviadas++;
+      else if (estado === 'TOQUE2') c.toque2++;
+      else if (estado.indexOf('RESPONDIÓ') === 0) c.respondieron++;
+      else if (estado.indexOf('COTIZADO') === 0) c.cotizadas++;
+      else if (estado.indexOf('VENTA') === 0) c.ventas++;
+      else if (estado === 'REBOTÓ') c.rebotes++;
+      else if (estado === 'BAJA' || estado === 'REVISAR BAJA') c.bajas++;
+      else if (estado === 'CORREO_INVALIDO') c.invalidos++;
+    }
+  }
+  var eventos = [];
+  var r = SpreadsheetApp.getActive().getSheetByName(CONFIG.HOJA_REGISTRO);
+  if (r && r.getLastRow() > 1) {
+    var reg = r.getDataRange().getValues();
+    for (var j = reg.length - 1; j >= 1 && eventos.length < 8; j--) {
+      var f = reg[j][0];
+      eventos.push({
+        fecha: (f instanceof Date) ? Utilities.formatDate(f, 'America/Bogota', 'dd/MM HH:mm') : String(f),
+        evento: String(reg[j][1] || ''),
+        detalle: String(reg[j][2] || ''),
+      });
+    }
+  }
+  var cupo = cupoDeHoy_();
+  return {
+    activado: ScriptApp.getProjectTriggers().length > 0,
+    pausado: p.getProperty('MOTOR_PAUSADO') === 'si',
+    diaRampa: Number(p.getProperty('DIAS_EFECTIVOS') || 0) + 1,
+    cupoHoy: cupo,
+    techo: CONFIG.TECHO_DIARIO,
+    cuotaGmail: MailApp.getRemainingDailyQuota(),
+    ganchoLegal: ganchoLegal_(),
+    conteos: c,
+    // a cupo de hoy (si es 0 por pausa, usa el techo para no dividir por cero)
+    diasParaAgotar: c.pendientes ? Math.ceil(c.pendientes / (cupo || CONFIG.TECHO_DIARIO)) : 0,
+    correoAvisos: correoAvisos_(),
+    eventos: eventos,
+  };
+}
+
+// Órdenes desde el panel. Todas devuelven el estado fresco para repintar.
+function apiAccion(accion) {
+  if (accion === 'pausar') {
+    prop_().setProperty('MOTOR_PAUSADO', 'si');
+    registrar_('motor', 'pausado desde el panel');
+  } else if (accion === 'reanudar') {
+    prop_().deleteProperty('MOTOR_PAUSADO');
+    registrar_('motor', 'reanudado desde el panel');
+  } else if (accion === 'activar') {
+    activarMotorNucleo_();
+  } else if (accion === 'lote') {
+    enviarLoteDiario();
+    registrar_('panel', 'lote pedido a mano desde el panel');
+  } else if (accion === 'respuestas') {
+    procesarRespuestas();
+    registrar_('panel', 'revisión de respuestas pedida desde el panel');
+  } else if (accion === 'prueba') {
+    correosPrueba_(correoAvisos_());
+    registrar_('panel', 'correos de prueba enviados a ' + correoAvisos_());
+  } else {
+    throw new Error('Acción desconocida: ' + accion);
+  }
+  return apiPanel();
 }

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motor de ventas</title>
+<style>
+  :root {
+    --fondo: #f2f0ec;
+    --papel: #ffffff;
+    --tinta: #23303a;
+    --tinta2: #5d6b75;
+    --linea: #dcd7cd;
+    --naranja: #d9480f;
+    --verde: #1f7a44;
+    --ambar: #a8620a;
+    --rojo: #b3271e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--tinta);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+    padding: 14px 14px 60px;
+  }
+  .tope { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+
+  header h1 { font-size: 20px; margin: 6px 0 0; letter-spacing: -0.01em; }
+  header p { margin: 0; font-size: 12px; color: var(--tinta2); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  .tarjeta {
+    background: var(--papel);
+    border: 1px solid var(--linea);
+    border-radius: 6px;
+    padding: 16px;
+  }
+
+  /* --- estado grande --- */
+  #estado-motor { display: flex; align-items: center; gap: 14px; }
+  #foco { width: 16px; height: 16px; border-radius: 50%; flex: 0 0 auto; }
+  .foco-verde { background: var(--verde); box-shadow: 0 0 0 4px rgba(31,122,68,.15); }
+  .foco-ambar { background: var(--ambar); box-shadow: 0 0 0 4px rgba(168,98,10,.15); }
+  .foco-gris  { background: #9aa4ab; box-shadow: 0 0 0 4px rgba(154,164,171,.15); }
+  #estado-titulo { font-size: 17px; font-weight: 700; margin: 0; }
+  #estado-detalle { font-size: 13px; color: var(--tinta2); margin: 0; }
+
+  /* --- números del día --- */
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .kpi { text-align: center; padding: 12px 6px; }
+  .kpi .n { font-size: 26px; font-weight: 750; font-variant-numeric: tabular-nums; }
+  .kpi .t { font-size: 11px; color: var(--tinta2); text-transform: uppercase; letter-spacing: 0.07em; }
+
+  #banda-gancho {
+    display: none;
+    background: #fdf1e7;
+    border: 1px solid #f0cfae;
+    color: #7c3a08;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 13.5px;
+  }
+
+  /* --- embudo --- */
+  h2 { font-size: 13px; margin: 4px 0 0; text-transform: uppercase; letter-spacing: 0.09em; color: var(--tinta2); }
+  .embudo { display: flex; flex-direction: column; gap: 8px; }
+  .fila-embudo { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+  .fila-embudo .nom { flex: 0 0 122px; }
+  .fila-embudo .barra { flex: 1; height: 16px; background: #eceae5; border-radius: 3px; overflow: hidden; }
+  .fila-embudo .barra i { display: block; height: 100%; background: var(--naranja); border-radius: 3px; min-width: 2px; }
+  .fila-embudo .num { flex: 0 0 52px; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .renglon-menor { font-size: 12.5px; color: var(--tinta2); margin-top: 4px; }
+
+  /* --- botones --- */
+  .acciones { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  button {
+    font: inherit; font-size: 14.5px; font-weight: 650;
+    padding: 13px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--linea);
+    background: var(--papel);
+    color: var(--tinta);
+    cursor: pointer;
+  }
+  button:active { transform: translateY(1px); }
+  button:disabled { opacity: 0.45; cursor: default; }
+  #btn-pausa { grid-column: 1 / -1; border-width: 2px; }
+  #btn-pausa.pausar { border-color: var(--ambar); color: var(--ambar); }
+  #btn-pausa.reanudar { border-color: var(--verde); color: var(--verde); }
+  #btn-activar { grid-column: 1 / -1; background: var(--verde); border-color: var(--verde); color: #fff; display: none; }
+
+  /* --- registro --- */
+  .evento { display: flex; gap: 10px; padding: 7px 0; border-top: 1px solid #efece6; font-size: 13px; }
+  .evento:first-child { border-top: 0; }
+  .evento .f { flex: 0 0 78px; color: var(--tinta2); font-variant-numeric: tabular-nums; }
+  .evento .e { flex: 0 0 74px; font-weight: 650; }
+  .evento .d { flex: 1; color: var(--tinta2); overflow-wrap: anywhere; }
+
+  #zona-error {
+    display: none;
+    background: #fbeae9; border: 1px solid #eec4c1; color: var(--rojo);
+    border-radius: 6px; padding: 12px 14px; font-size: 13.5px;
+  }
+  #cargando { font-size: 13px; color: var(--tinta2); }
+  #aviso-accion { font-size: 13px; color: var(--verde); min-height: 18px; }
+  footer { font-size: 11.5px; color: var(--tinta2); text-align: center; }
+</style>
+</head>
+<body>
+<div class="tope">
+
+  <header>
+    <p>Sale a buscar · sala de control</p>
+    <h1>Motor de ventas</h1>
+  </header>
+
+  <div id="zona-error"></div>
+  <p id="cargando">Cargando el estado del motor…</p>
+
+  <div class="tarjeta" id="estado-motor" style="display:none">
+    <span id="foco" class="foco-gris"></span>
+    <div>
+      <p id="estado-titulo">—</p>
+      <p id="estado-detalle">—</p>
+    </div>
+  </div>
+
+  <div id="banda-gancho"></div>
+
+  <div class="tarjeta kpis" id="kpis" style="display:none">
+    <div class="kpi"><div class="n" id="k-cupo">—</div><div class="t">correos hoy</div></div>
+    <div class="kpi"><div class="n" id="k-dia">—</div><div class="t">día de rampa</div></div>
+    <div class="kpi"><div class="n" id="k-pend">—</div><div class="t">por contactar</div></div>
+  </div>
+
+  <div class="tarjeta" id="zona-embudo" style="display:none">
+    <h2>Embudo</h2>
+    <div class="embudo" id="embudo"></div>
+    <p class="renglon-menor" id="renglon-salud">—</p>
+    <p class="renglon-menor" id="renglon-agotar"></p>
+  </div>
+
+  <div class="tarjeta" id="zona-acciones" style="display:none">
+    <h2>Órdenes</h2>
+    <p id="aviso-accion"></p>
+    <div class="acciones">
+      <button id="btn-activar">✅ Activar el motor (crear los horarios)</button>
+      <button id="btn-pausa" class="pausar">⏸️ Pausar los envíos</button>
+      <button id="btn-lote">Enviar el lote de hoy</button>
+      <button id="btn-resp">Revisar respuestas</button>
+      <button id="btn-prueba">Enviarme correos de prueba</button>
+      <button id="btn-refrescar">Refrescar</button>
+    </div>
+  </div>
+
+  <div class="tarjeta" id="zona-registro" style="display:none">
+    <h2>Últimos movimientos</h2>
+    <div id="registro"></div>
+  </div>
+
+  <footer id="pie"></footer>
+</div>
+
+<script>
+  // El panel funciona con google.script.run (dentro de Apps Script). Las
+  // pruebas de navegador inyectan un doble de google.script.run antes de
+  // cargar la página, así que este archivo se prueba tal cual se publica.
+  var estadoActual = null;
+
+  function llamar(fn, arg, alTerminar) {
+    google.script.run
+      .withSuccessHandler(function (r) { alTerminar(null, r); })
+      .withFailureHandler(function (e) { alTerminar(e || new Error('Falla de red'), null); })
+      [fn](arg);
+  }
+
+  function texto(id, v) { document.getElementById(id).textContent = v; }
+  function ver(id, si) { document.getElementById(id).style.display = si ? '' : 'none'; }
+
+  function pintar(est) {
+    estadoActual = est;
+    ver('cargando', false); ver('zona-error', false);
+    ['estado-motor', 'kpis', 'zona-embudo', 'zona-acciones', 'zona-registro'].forEach(function (id) { ver(id, true); });
+
+    // Estado grande
+    var foco = document.getElementById('foco');
+    if (!est.activado) {
+      foco.className = 'foco-gris';
+      texto('estado-titulo', 'Sin activar');
+      texto('estado-detalle', 'Los horarios automáticos no existen todavía. Tócale «Activar el motor».');
+    } else if (est.pausado) {
+      foco.className = 'foco-ambar';
+      texto('estado-titulo', 'Pausado');
+      texto('estado-detalle', 'Los horarios existen pero hoy no envía nada. Reanuda cuando quieras.');
+    } else {
+      foco.className = 'foco-verde';
+      texto('estado-titulo', 'Trabajando solo');
+      texto('estado-detalle', 'Envía cada día hábil a las 8 am y revisa respuestas cada 10 minutos.');
+    }
+
+    // Gancho legal
+    var banda = document.getElementById('banda-gancho');
+    if (est.ganchoLegal) {
+      banda.style.display = 'block';
+      banda.textContent = '📅 Argumento vigente: la entrega de dotación de ley del ' + est.ganchoLegal + '.';
+    } else {
+      banda.style.display = 'none';
+    }
+
+    // KPIs
+    texto('k-cupo', est.pausado ? '0' : String(est.cupoHoy));
+    texto('k-dia', String(est.diaRampa));
+    texto('k-pend', est.conteos.pendientes.toLocaleString('es-CO'));
+
+    // Embudo
+    var c = est.conteos;
+    var contactadas = c.enviadas + c.toque2 + c.respondieron + c.cotizadas + c.ventas;
+    var filas = [
+      ['Contactadas', contactadas],
+      ['Respondieron', c.respondieron + c.cotizadas + c.ventas],
+      ['Cotizadas', c.cotizadas + c.ventas],
+      ['Ventas', c.ventas],
+    ];
+    var max = Math.max(contactadas, 1);
+    var cont = document.getElementById('embudo');
+    cont.innerHTML = '';
+    filas.forEach(function (f) {
+      var d = document.createElement('div');
+      d.className = 'fila-embudo';
+      d.innerHTML = '<span class="nom">' + f[0] + '</span>' +
+        '<span class="barra"><i style="width:' + Math.round((f[1] / max) * 100) + '%"></i></span>' +
+        '<span class="num">' + f[1].toLocaleString('es-CO') + '</span>';
+      cont.appendChild(d);
+    });
+    texto('renglon-salud', 'Rebotes: ' + c.rebotes + ' · Bajas: ' + c.bajas + ' · Correos inválidos: ' + c.invalidos +
+      ' · Cuota Gmail restante: ' + est.cuotaGmail);
+    texto('renglon-agotar', est.conteos.pendientes
+      ? 'Al ritmo de hoy, lista para ~' + est.diasParaAgotar.toLocaleString('es-CO') + ' días hábiles más.'
+      : 'No quedan empresas nuevas por contactar.');
+
+    // Botones según estado. Ojo: el CSS trae #btn-activar { display:none },
+    // así que aquí se fija un valor explícito (''"" caería de vuelta al CSS).
+    document.getElementById('btn-activar').style.display = est.activado ? 'none' : 'block';
+    var bp = document.getElementById('btn-pausa');
+    if (est.pausado) {
+      bp.className = 'reanudar';
+      bp.textContent = '▶️ Reanudar los envíos';
+    } else {
+      bp.className = 'pausar';
+      bp.textContent = '⏸️ Pausar los envíos';
+    }
+
+    // Registro
+    var reg = document.getElementById('registro');
+    reg.innerHTML = '';
+    if (!est.eventos.length) {
+      reg.innerHTML = '<p class="renglon-menor">Todavía no hay movimientos.</p>';
+    }
+    est.eventos.forEach(function (ev) {
+      var d = document.createElement('div');
+      d.className = 'evento';
+      var f = document.createElement('span'); f.className = 'f'; f.textContent = ev.fecha;
+      var e = document.createElement('span'); e.className = 'e'; e.textContent = ev.evento;
+      var det = document.createElement('span'); det.className = 'd'; det.textContent = ev.detalle;
+      d.appendChild(f); d.appendChild(e); d.appendChild(det);
+      reg.appendChild(d);
+    });
+
+    texto('pie', 'Avisos a ' + est.correoAvisos + ' · se refresca solo cada minuto');
+  }
+
+  function mostrarError(e) {
+    ver('cargando', false);
+    var z = document.getElementById('zona-error');
+    z.style.display = 'block';
+    z.textContent = 'No se pudo hablar con el motor: ' + ((e && e.message) || e) +
+      ' — Revisa tu conexión y toca «Refrescar».';
+    ver('zona-acciones', true);
+  }
+
+  function refrescar() {
+    llamar('apiPanel', undefined, function (e, r) { if (e) mostrarError(e); else pintar(r); });
+  }
+
+  function orden(accion, confirmacion, avisoOk) {
+    if (confirmacion && !window.confirm(confirmacion)) return;
+    var botones = document.querySelectorAll('button');
+    botones.forEach(function (b) { b.disabled = true; });
+    texto('aviso-accion', 'Un momento…');
+    llamar('apiAccion', accion, function (e, r) {
+      botones.forEach(function (b) { b.disabled = false; });
+      if (e) { texto('aviso-accion', ''); mostrarError(e); return; }
+      texto('aviso-accion', avisoOk || 'Listo.');
+      pintar(r);
+    });
+  }
+
+  document.getElementById('btn-activar').addEventListener('click', function () {
+    orden('activar', '¿Activar el motor? Crea los horarios: envíos cada día hábil a las 8 am y revisión de respuestas cada 10 minutos.', 'Motor activado.');
+  });
+  document.getElementById('btn-pausa').addEventListener('click', function () {
+    if (estadoActual && estadoActual.pausado) orden('reanudar', null, 'Envíos reanudados.');
+    else orden('pausar', '¿Pausar los envíos? El motor deja de escribir hasta que lo reanudes (las respuestas se siguen revisando).', 'Envíos pausados.');
+  });
+  document.getElementById('btn-lote').addEventListener('click', function () {
+    orden('lote', '¿Enviar el lote de HOY ahora mismo? Gasta el cupo del día.', 'Lote enviado.');
+  });
+  document.getElementById('btn-resp').addEventListener('click', function () {
+    orden('respuestas', null, 'Respuestas revisadas.');
+  });
+  document.getElementById('btn-prueba').addEventListener('click', function () {
+    orden('prueba', '¿Enviarte 4 correos de prueba a tu buzón de avisos?', 'Pruebas enviadas: revisa tu buzón.');
+  });
+  document.getElementById('btn-refrescar').addEventListener('click', refrescar);
+
+  refrescar();
+  setInterval(refrescar, 60000); // el panel se mantiene al día solo
+</script>
+</body>
+</html>

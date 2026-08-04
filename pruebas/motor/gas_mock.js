@@ -83,6 +83,14 @@ function instalar() {
     }),
   };
   global.Session = { getEffectiveUser: () => ({ getEmail: () => 'ventas.prueba@gmail.com' }) };
+  global.HtmlService = {
+    createHtmlOutputFromFile: (nombre) => {
+      const salida = { archivo: nombre, titulo: null, metas: [] };
+      salida.setTitle = (t) => { salida.titulo = t; return salida; };
+      salida.addMetaTag = (k, v) => { salida.metas.push([k, v]); return salida; };
+      return salida;
+    },
+  };
   global.ScriptApp = {
     newTrigger: (fn) => {
       const t = { fn };

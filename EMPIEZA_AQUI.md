@@ -57,7 +57,8 @@ licencia comercial y se pueden reemplazar cuando quieras).
 |---|---|
 | **`datos/GUIA_MOTOR_VENTAS.md`** | ⭐ La instalación paso a paso (empieza por aquí) |
 | `apps_script/MotorVentas.gs` | El código del motor (se pega en Google) |
-| `datos/EMPRESAS_PARA_SHEET.csv` | Las 10.553 empresas que el motor va a contactar |
+| `apps_script/PanelMotor.html` | El panel del motor para el celular (se pega junto al motor) |
+| `datos/EMPRESAS_PARA_SHEET.csv` | Las 11.024 empresas que el motor va a contactar, las mejores primero |
 
 ### Para el PAPÁ (imprimir)
 | Archivo | Para qué |
@@ -115,14 +116,14 @@ Gemini (se escribieron en chats). Detalle en `DOCUMENTO_MAESTRO.md` §4.
 
 ## ¿Cómo sé que esto de verdad funciona?
 Todo se construyó con verificación real: investigación de mercado con fuentes citadas,
-crítica de 8 expertos, y **121 pruebas automáticas** que puedes correr tú mismo:
+crítica de 8 expertos, y **157 pruebas automáticas** que puedes correr tú mismo:
 
 ```bash
 bash pruebas/correr.sh
 ```
 
-50 prueban el motor de correos sobre un simulador de Google (sin mandar nada a nadie)
-y 71 manejan la página en un navegador de verdad, como lo haría un cliente. Además
+69 prueban el motor de correos sobre un simulador de Google (sin mandar nada a nadie)
+y 88 manejan la página y el panel en un navegador de verdad, como lo haría un cliente. Además
 corren solas en GitHub con cada cambio. El detalle está en `pruebas/README.md`.
 
 **La prueba definitiva la das tú:** instala el motor, y en 1-2 semanas llega la primera

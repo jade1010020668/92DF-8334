@@ -6,7 +6,7 @@ bash pruebas/correr.sh motor        # solo el motor de ventas
 bash pruebas/correr.sh navegador    # solo la app web
 ```
 
-Estado al 30 de julio de 2026: **121 pruebas, 0 fallas** (50 del motor + 71 de la web).
+Estado al 4 de agosto de 2026: **157 pruebas, 0 fallas** (69 del motor + 88 de la web).
 
 ## `motor/` — el motor de ventas, sin tocar Google
 
@@ -26,6 +26,8 @@ lotes diarios, respuestas, rebotes, bajas y el reporte semanal.
 | `test_procesar_respuestas.js` | Detección de interesados, ventana de avisos 7am-9pm, cola de avisos |
 | `test_bajas_rebotes.js` | Bajas (Ley 1581), rebotes y auto-pausa de protección |
 | `test_reporte_hojas_motor_ciclo.js` | Preparar hojas, ciclo completo y reporte semanal del embudo |
+| `test_orden_y_gancho_legal.js` | Orden de envío (mejores primero) y las 3 fechas de ley |
+| `test_panel_motor.js` | El panel web del motor: apiPanel, apiAccion y doGet |
 
 ## `navegador/` — la app web en un Chromium de verdad
 
@@ -40,6 +42,7 @@ como lo haría un cliente. Verifica lo que el cliente ve, no el código por dent
 | `test3d.mjs` | Visor 3D: los 8 productos, fotos vs modelos, cotizar |
 | `testsolo.mjs` | Modo «solo imagen» (`?solo=1`) para compartir un producto |
 | `testflash.mjs` | Que el modo solo no muestre el precio ni por un instante |
+| `testpanel.mjs` | El panel del motor con google.script.run doblado |
 
 ## ⚠️ Si cambias el motor, corre las pruebas
 

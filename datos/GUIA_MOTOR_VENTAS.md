@@ -38,14 +38,17 @@ comercio, ropa…), lista para probar la máquina el mismo día:
   nómbrala «Motor de ventas», y sigue normal (importarás el CSV completo en el paso 4).
 
 > 💡 La hoja del atajo trae 160 empresas para arrancar y probar. Cuando quieras las
-> **10.553 completas**, impórtalas con el CSV (paso 4) — reemplaza la hoja «Empresas».
+> **11.024 completas**, impórtalas con el CSV (paso 4) — reemplaza la hoja «Empresas».
 
-## PASO 3 — Pegar el motor (10 min)
+## PASO 3 — Pegar el motor y su panel (12 min)
 
 1. En la hoja: **Extensiones → Apps Script**.
 2. Borra lo que aparezca y **pega TODO el contenido de `apps_script/MotorVentas.gs`**.
-3. Guardar 💾 → cierra la pestaña → **recarga la hoja**.
-4. Aparecerá el menú **«🦺 Motor de ventas»** (si no, espera 30 s y recarga).
+3. Ahora el panel para el celular: a la izquierda, junto a «Archivos», toca **+ →
+   HTML**. Nómbralo exactamente **`PanelMotor`** (sin `.html`, Google lo agrega).
+   Borra lo que traiga y **pega TODO el contenido de `apps_script/PanelMotor.html`**.
+4. Guardar 💾 → cierra la pestaña → **recarga la hoja**.
+5. Aparecerá el menú **«🦺 Motor de ventas»** (si no, espera 30 s y recarga).
 
 ## PASO 4 — Preparar e importar las empresas (10 min)
 
@@ -83,6 +86,25 @@ Menú **🦺 → «4. ✅ ACTIVAR el motor automático»**. Desde mañana:
 | Si rebotes >5% | **SE PAUSA SOLA** y avisa (protege la cuenta) |
 | Lunes 7am | Reporte del embudo completo |
 
+## PASO 7 — El panel en el celular 📱 (3 min, opcional pero muy útil)
+
+La sala de control del motor: estado, cupo del día, embudo completo y botones
+de pausar/reanudar — sin abrir la hoja de cálculo.
+
+1. En la hoja: **Extensiones → Apps Script** → botón azul **Implementar →
+   Nueva implementación**.
+2. Engranaje ⚙️ → tipo **Aplicación web** → «Ejecutar como»: **Yo** →
+   «Quién tiene acceso»: **Solo yo** → **Implementar**.
+   > Con «Solo yo» no hace falta clave: Google únicamente deja entrar a esta
+   > misma cuenta. No elijas «Cualquier persona».
+3. Copia la **URL de la aplicación web** y ábrela en el celular (con la sesión
+   del Gmail del negocio). Guárdala en la pantalla de inicio:
+   en Chrome → menú ⋮ → **Añadir a pantalla de inicio**. Queda como una app.
+
+Desde ahí puedes: pausar y reanudar los envíos, mandar el lote del día a mano,
+revisar respuestas al instante, enviarte correos de prueba y ver los últimos
+movimientos del Registro. El panel se refresca solo cada minuto.
+
 ---
 
 ## La única rutina del papá
@@ -107,7 +129,7 @@ empresas — solo leerlos y responderlos (los archivados se pueden escapar del r
 
 - **¿Es legal?** Sí: correos uno a uno desde buzón propio, identificación completa
   del negocio, origen del dato (directorios públicos) y BAJA automática (Ley 1581).
-- **¿Cuánto dura la lista?** 10.553 empresas a ~28 nuevas/día hábil (el resto del cupo va a 2º toques) ≈ **12-17 meses** de campaña continua.
+- **¿Cuánto dura la lista?** 11.024 empresas a ~28 nuevas/día hábil (el resto del cupo va a 2º toques) ≈ **12-17 meses** de campaña continua.
 - **¿Y si Google se molesta?** El motor tiene 4 protecciones: rampa de calentamiento,
   ritmo humano con pausas, freno por 3 errores seguidos y auto-pausa por rebotes.
 - **Mejora opcional a futuro** (~COP 60-80.000/año): dominio propio
