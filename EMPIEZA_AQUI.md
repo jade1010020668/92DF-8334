@@ -85,6 +85,24 @@ licencia comercial y se pueden reemplazar cuando quieras).
 
 ---
 
+## 📌 Pendiente de decisión tuya: fusionar el PR #2
+
+Todo lo de esta etapa (la app `web/`, el robot de la base, las pruebas y los
+workflows) vive **dentro del pull request #2, sin fusionar**. La rama por
+defecto se quedó en una versión anterior.
+
+Eso tiene una consecuencia concreta: **el robot que actualiza la base de
+empresas cada mes no va a correr.** GitHub solo dispara las tareas programadas
+desde la rama por defecto, y allí el archivo del robot todavía no existe. La
+base de 18.606 empresas se irá quedando vieja hasta que el PR se fusione.
+
+El despliegue de la app y las pruebas sí funcionan igual (se disparan por
+`push`, no por calendario), así que esto no bloquea nada de lo demás.
+
+Cuando quieras, fusiona el PR #2 desde GitHub y el robot queda activo.
+
+---
+
 ## ⚠️ 3 cosas de seguridad (10 min, cuando puedas)
 Cambiar la contraseña del Hotmail, y rotar el token de Hugging Face y la API key de
 Gemini (se escribieron en chats). Detalle en `DOCUMENTO_MAESTRO.md` §4.
