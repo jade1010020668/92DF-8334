@@ -189,18 +189,18 @@ prueba('6. Los asuntos de los correos nuevos rotan (6 plantillas distintas)', ()
   assert(asuntos.length === 6, 'esperaba 6 correos, hubo ' + asuntos.length);
   const unicos = new Set(asuntos);
   assert(unicos.size === 6, 'esperaba 6 asuntos distintos, hubo ' + unicos.size + ': ' + asuntos.join(' | '));
-  // Julio → gancho de agosto activo: verificar la lista exacta de rotación
+  // Julio → ventana legal del 31 de agosto activa: rotación con la fecha exacta
   const esperados = [
     'Dotación del 31 de agosto - cotización para ACME',
-    'Entrega de dotación de agosto - precios de fábrica',
-    'Su dotación de agosto a tiempo',
+    'Entrega de dotación del 31 de agosto - precios de fábrica',
+    'Su dotación del 31 de agosto a tiempo',
     'Cotización de dotación antes del 31 de agosto',
-    'Dotación de ley de agosto - Dotaciones El Manantial S.A.S',
-    'Propuesta de dotación para su personal - agosto',
+    'Dotación de ley del 31 de agosto - Dotaciones El Manantial S.A.S',
+    'Propuesta de dotación para su personal',
   ];
   for (let k = 0; k < 6; k++) assert(asuntos[k] === esperados[k],
     'asunto ' + k + ' esperado "' + esperados[k] + '", fue "' + asuntos[k] + '"');
-  return '6 asuntos, todos distintos, rotando en orden por plantilla_(indice%6) con gancho de agosto (mes=julio)';
+  return '6 asuntos, todos distintos, rotando en orden por plantilla_(indice%6) con la fecha de ley 31 de agosto (mes=julio)';
 });
 
 /* ---------- extras de sanidad del mismo subsistema ---------- */

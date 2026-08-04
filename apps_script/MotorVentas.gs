@@ -94,40 +94,76 @@ function prepararHojas() {
 }
 
 /* ========================= PLANTILLAS ========================= */
-function hayGanchoAgosto_() {
+// La ley (art. 232 del CST) obliga a entregar dotación 3 veces al año:
+// 30 de abril, 31 de agosto y 20 de diciembre. Cada fecha es un argumento de
+// venta durante las semanas previas. Devuelve la fecha próxima si estamos en
+// ventana de venta, o null si no (marzo-abril, julio-agosto, noviembre-diciembre).
+function ganchoLegal_() {
   var hoy = new Date();
-  var m = hoy.getMonth() + 1;
-  return m === 7 || (m === 8 && hoy.getDate() <= 31);
+  var m = hoy.getMonth() + 1, d = hoy.getDate();
+  if (m === 3 || (m === 4 && d <= 30)) return '30 de abril';
+  if (m === 7 || (m === 8 && d <= 31)) return '31 de agosto';
+  if (m === 11 || (m === 12 && d <= 20)) return '20 de diciembre';
+  return null;
 }
 
 function ganchoSector_(sector) {
   var s = String(sector || '').toLowerCase();
-  if (/taller|llanta|repuesto/.test(s)) return 'overoles, guantes y botas de seguridad para su equipo';
-  if (/ferreter|construc|pintur/.test(s)) return 'dotación y elementos de protección para su personal';
-  if (/restaur|panader|cafeter|comida|carnicer/.test(s)) return 'uniformes, delantales y dotación para su personal';
-  if (/cl[ií]nica|salud|drogu|hospital|ips/.test(s)) return 'uniformes antifluido y dotación para su personal';
+  if (/taller|llanta|repuesto|mec[aá]nic/.test(s)) return 'overoles, guantes y botas de seguridad para su equipo';
+  if (/ferreter|construc|pintur|el[eé]ctric/.test(s)) return 'dotación y elementos de protección para su personal';
+  if (/restaur|panader|cafeter|comida|carnicer|fruter/.test(s)) return 'uniformes, delantales y dotación para su personal';
+  if (/cl[ií]nica|salud|drogu|hospital|ips|farmacia|odont|veterinar/.test(s)) return 'uniformes antifluido y dotación para su personal';
+  if (/aseo|limpieza|residuo|reciclaje/.test(s)) return 'overoles, guantes y dotación para su personal operativo';
+  if (/vigilancia|seguridad privada|celadur/.test(s)) return 'uniformes y dotación para su personal de vigilancia';
+  if (/transporte|log[ií]stica|mensajer|domicilio/.test(s)) return 'uniformes y elementos de protección para sus conductores y operarios';
+  if (/colegio|educaci|jard[ií]n infantil/.test(s)) return 'uniformes y dotación para su personal de servicios y mantenimiento';
   return 'la dotación y los elementos de protección de su personal';
+}
+
+// true si el sector tiene discurso a la medida (los de arriba responden mejor
+// que el genérico). Se usa para decidir a quién escribirle primero.
+function sectorConGancho_(sector) {
+  var s = String(sector || '').toLowerCase();
+  return /taller|llanta|repuesto|mec[aá]nic|ferreter|construc|pintur|el[eé]ctric|restaur|panader|cafeter|comida|carnicer|fruter|cl[ií]nica|salud|drogu|hospital|ips|farmacia|odont|veterinar|aseo|limpieza|residuo|reciclaje|vigilancia|seguridad privada|celadur|transporte|log[ií]stica|mensajer|domicilio|colegio|educaci|jard[ií]n infantil/.test(s);
+}
+
+// En qué orden escribirles: primero prioridad 1 (compran dotación), luego los
+// sectores con discurso a la medida, y de último el resto. Con 40 correos al
+// día y 11.000 empresas, el orden decide qué pasa los primeros MESES — sin
+// esto, el motor gastaba semanas en filas al azar según llegó el CSV.
+// Devuelve los índices de fila (saltando el encabezado) ya ordenados; a
+// empate, respeta el orden de la hoja.
+function ordenDeEnvio_(datos) {
+  var orden = [];
+  for (var i = 1; i < datos.length; i++) orden.push(i);
+  function clave(i) {
+    var p = Number(datos[i][3]);
+    if (!p || p < 1) p = 9; // sin prioridad válida: al final de su grupo
+    return p * 10 + (sectorConGancho_(datos[i][2]) ? 0 : 1);
+  }
+  orden.sort(function (a, b) { return clave(a) - clave(b) || a - b; });
+  return orden;
 }
 
 // Primer toque: sobrio (sin emojis ni botones llamativos — pasa mejor los filtros).
 function plantilla_(indice, empresa, sector) {
   var gancho = ganchoSector_(sector);
-  var agosto = hayGanchoAgosto_();
-  var asuntos = agosto
-    ? ['Dotación del 31 de agosto - cotización para ' + empresa,
-       'Entrega de dotación de agosto - precios de fábrica',
-       'Su dotación de agosto a tiempo',
-       'Cotización de dotación antes del 31 de agosto',
-       'Dotación de ley de agosto - ' + CONFIG.EMPRESA,
-       'Propuesta de dotación para su personal - agosto']
+  var fechaLey = ganchoLegal_();
+  var asuntos = fechaLey
+    ? ['Dotación del ' + fechaLey + ' - cotización para ' + empresa,
+       'Entrega de dotación del ' + fechaLey + ' - precios de fábrica',
+       'Su dotación del ' + fechaLey + ' a tiempo',
+       'Cotización de dotación antes del ' + fechaLey,
+       'Dotación de ley del ' + fechaLey + ' - ' + CONFIG.EMPRESA,
+       'Propuesta de dotación para su personal']
     : ['Cotización de dotación para ' + empresa,
        'Dotación para su personal - precios de fábrica',
        'Propuesta de dotación y EPP - Bogotá',
        'Su proveedor de dotación en Bogotá',
        'Dotación con bordado de su logo',
        'Cotización de uniformes y EPP'];
-  var intro = agosto
-    ? 'Se acerca la entrega de dotación de ley del 31 de agosto.'
+  var intro = fechaLey
+    ? 'Se acerca la entrega de dotación de ley del ' + fechaLey + '.'
     : 'Sabemos lo importante que es tener a su equipo bien dotado.';
   var textoPlano =
     'Señores ' + empresa + ':\n\n' +
@@ -157,11 +193,14 @@ function plantilla_(indice, empresa, sector) {
 
 // Segundo toque: corto y humano.
 function plantillaToque2_(empresa) {
+  var fechaLey = ganchoLegal_();
   var texto =
     'Señores ' + empresa + ':\n\n' +
     'Hace unos días les escribí sobre la dotación de su personal' +
-    (hayGanchoAgosto_() ? ' (la entrega de ley es el 31 de agosto)' : '') +
-    ' y no quiero que se les pase la fecha. ¿Les preparo la cotización sin compromiso?\n\n' +
+    (fechaLey
+      ? ' y no quiero que se les pase la entrega de ley del ' + fechaLey + '.'
+      : '.') +
+    ' ¿Les preparo la cotización sin compromiso?\n\n' +
     'Catálogo con precios: ' + CONFIG.CATALOGO + '\n\n' +
     'Cordial saludo,\n' + CONFIG.FIRMA_NOMBRE + '\n' + CONFIG.EMPRESA + ' · Cel. y WhatsApp ' + CONFIG.CEL + '\n\n' +
     'Si no desea recibir información, responda únicamente la palabra BAJA.';
@@ -216,7 +255,9 @@ function enviarLoteDiario() {
   var enviadosNuevos = 0, enviadosT2 = 0, erroresSeguidos = 0;
   var ahora = new Date();
 
-  for (var i = 1; i < datos.length && (enviadosNuevos < cupoNuevos || enviadosT2 < cupoToque2); i++) {
+  var orden = ordenDeEnvio_(datos);
+  for (var k = 0; k < orden.length && (enviadosNuevos < cupoNuevos || enviadosT2 < cupoToque2); k++) {
+    var i = orden[k];
     var correo = String(datos[i][0] || '').trim().toLowerCase();
     if (!correo || correo.indexOf('@') < 0) continue;
     var estado = String(datos[i][4] || '').trim();

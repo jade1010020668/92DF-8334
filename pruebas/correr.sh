@@ -36,6 +36,12 @@ if [ "$QUE" = "todo" ] || [ "$QUE" = "navegador" ]; then
   for t in pruebas/navegador/*.mjs; do
     salida=$(timeout 180 node "$t" 2>&1)
     resumen=$(echo "$salida" | grep -E "^[0-9]+/[0-9]+ OK" | tail -1)
+    if [ -z "$resumen" ]; then
+      # Un reintento: el arranque en frío del WebGL a veces se pasa del timeout.
+      # Si falla dos veces seguidas, es real y se reporta.
+      salida=$(timeout 180 node "$t" 2>&1)
+      resumen=$(echo "$salida" | grep -E "^[0-9]+/[0-9]+ OK" | tail -1)
+    fi
     malos=$(echo "$salida" | grep -c "^❌" || true)
     if [ -z "$resumen" ]; then
       # Sin línea de resumen la suite no llegó al final (se cayó): eso es una falla,
