@@ -58,10 +58,22 @@ def clave_nombre(s):
 
 
 def id_estable(e):
-    # El id no cambia entre reconstrucciones: correo si hay, si no nombre+dirección.
-    correo = limpiar(e.get("email")).lower()
-    base = correo if correo else clave_nombre(e.get("nombre")) + "|" + clave_nombre(e.get("direccion"))
+    # Identidad = nombre+dirección (NO el correo: dos negocios pueden compartir
+    # un correo basura, y corregir un correo no debe cambiar la identidad).
+    base = clave_nombre(e.get("nombre")) + "|" + clave_nombre(e.get("direccion"))
     return hashlib.sha1(base.encode()).hexdigest()[:12]
+
+
+def ids_unicos(filas):
+    # Garantiza unicidad: a colisión real (mismo hash, negocio distinto) se
+    # sufija -2, -3… en orden de aparición, que es estable entre corridas.
+    vistos = {}
+    for f in filas:
+        n = vistos.get(f["id"], 0) + 1
+        vistos[f["id"]] = n
+        if n > 1:
+            f["id"] = f["id"] + "-" + str(n)
+    return filas
 
 
 def construir():
@@ -145,6 +157,10 @@ def construir():
             marcas[motivo] += 1
 
     filas.sort(key=lambda f: (str(f["prioridad"]) != "1", f["ver_estado"] == "dudosa", f["nombre"].lower()))
+    ids_unicos(filas)
+    # Un id repetido mezclaría los datos de dos negocios (pasó en el piloto con
+    # un correo basura compartido). Mejor reventar aquí que contaminar la base.
+    assert len({f["id"] for f in filas}) == len(filas), "ids duplicados en la base maestra"
 
     os.makedirs(os.path.dirname(MAESTRA_JSON), exist_ok=True)
     with open(MAESTRA_JSON, "w", encoding="utf-8") as f:
