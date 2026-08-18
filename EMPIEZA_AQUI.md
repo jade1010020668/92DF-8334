@@ -84,6 +84,15 @@ licencia comercial y se pueden reemplazar cuando quieras).
 - **App de gestión:** https://morales101002-dotacionpro.static.hf.space/
 - **Catálogo para clientes:** https://morales101002-dotacionpro.static.hf.space/catalogo.html
 
+### La BASE MAESTRA (la base de datos del negocio)
+- **Hoja en tu Google Drive:** «BASE MAESTRA — DotaciónPro»
+  (https://docs.google.com/spreadsheets/d/13jtpgEDlWtScZcXt_eL0Fu4Ijo2lfZUuPlforwwgT_I/edit)
+  Hoy muestra las verificadas; al instalar el motor (paso 4 de la guía) se
+  llena sola con las 18.595 completas y se actualiza cada día a las 5 am.
+- **La fuente de verdad:** `datos/BASE_MAESTRA.json` en el repo — cada empresa
+  con su estado de verificación, motivo y evidencia. Se nutre por ciclos con
+  agentes que revisan cada empresa en internet (`datos/RUTINA_BASE.md`).
+
 ---
 
 ## 📌 Pendiente de decisión tuya: fusionar el PR #2
