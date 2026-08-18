@@ -110,7 +110,7 @@ da551046fefe,Andante Ma,Restaurante,,,Carrera 3 92,,1,sin_verificar,
 df7081fe12e3,Andina Sanguichería,Restaurante,,,Calle 96 10-10,,1,sin_verificar,
 63841021d959,Andre Afanador,Panadería,,,,,1,sin_verificar,
 89d8a5d93829,andrius,Taller/Oficio (caterer),,,,,1,sin_verificar,
-10a50296beed,Andrés Carne de Res,Restaurante,basesdedatos@andrescarnederes.com,329298191,Calle 3 11A-56,,1,sin_verificar,
+10a50296beed,Andrés Carne de Res,Restaurante,basesdedatos@andrescarnederes.com,329298191,Calle 3 11A-56,https://www.andrescarnederes.com/,1,verificada,
 e16351cf1610,Andrés Carne de Res Exprés,Restaurante,,,,,1,sin_verificar,
 d0b9976392ae,Andrés D.C.,Restaurante,,,Calle 82 12-21,,1,sin_verificar,
 177a0bb38178,Andrés Exprés,Restaurante,,,,,1,sin_verificar,
@@ -572,7 +572,7 @@ e4b4c3842128,Carbon Place,Comida rápida,,,Calle 147,,1,sin_verificar,
 ec8b340454af,Carbu,Comida rápida,,,,,1,sin_verificar,
 0808d066a903,Cardenales,Restaurante,,,,,1,sin_verificar,
 2a0d74ce11ed,Caribe,Carnicería,,,Calle 64D,,1,sin_verificar,
-92462999f090,Carmelita,Restaurante,andresparra192010@gmail.com,,Calle 42 Sur,,1,sin_verificar,
+92462999f090,Carmelita,Restaurante,andresparra192010@gmail.com,,Calle 42 Sur,,1,dudosa,sin_rastro_claro
 c0d1be9e2df9,Carnas Finas,Carnicería,,,Carrera 105A,,1,sin_verificar,
 4f739db51096,Carne a la Parilla,Restaurante,,,Calle 96 10-26,,1,sin_verificar,
 adf96193302d,Carne Brava,Carnicería,,,Carrera 111C,,1,sin_verificar,
@@ -983,7 +983,7 @@ cf0fb3cc65cf,Corbones' Bike Burguer 96,Comida rápida,,,,,1,sin_verificar,
 f6e3fc8affd1,Cornestone VIP delicias del valle,Comida rápida,,,,,1,sin_verificar,
 b3fd347417a0,Corona,Ferretería,,,,,1,sin_verificar,
 d4c848eef251,Corral,Restaurante,,,,,1,sin_verificar,
-b79bdbf4b446,Corral Gourmet,Restaurante,servicioalcliente@elcorralgourmet.com,573336025902,Calle 69A 5-09,,1,sin_verificar,
+b79bdbf4b446,Corral Gourmet,Restaurante,servicioalcliente@elcorralgourmet.com,573336025902,Calle 69A 5-09,https://www.elcorralgourmet.com/,1,verificada,
 c51f59f705f2,Corrientazo,Restaurante,,,,,1,sin_verificar,
 320646edb54e,Corrientazo de Don Eduardo,Restaurante,,,,,1,sin_verificar,
 b2583d1b596c,Corrientazo ROUS,Restaurante,,,,,1,sin_verificar,
@@ -1115,7 +1115,7 @@ a820d780b75b,Depósito Lengupá,Materiales de construcción,,,Carrera 8,,1,sin_v
 eebb5d367d97,Desayunadero,Restaurante,,,,,1,sin_verificar,
 3742ffc58a71,Desayunadero De La 42,Restaurante,,,Calle 69A,,1,sin_verificar,
 ca600cd3a7e9,Desayunos Almuerzos,Restaurante,,,Carrera 71,,1,sin_verificar,
-9f7eac2c7e6a,Di Lucca,Restaurante,mercadeo.dilucca@dlksa.net,79536198975537,Carrera 13 85-24,,1,sin_verificar,
+9f7eac2c7e6a,Di Lucca,Restaurante,mercadeo.dilucca@dlksa.net,79536198975537,Carrera 13 85-24,https://diluccarestaurante.com/,1,verificada,
 67a197e4d2a3,Di Pasta,Restaurante,,,,,1,sin_verificar,
 42d5ff54041c,Diagnosti Hogar,Electricista,,,Calle 140,,1,sin_verificar,
 fb9c09d5bde8,Dicafer ltda,Ferretería/Bricolaje,,,,,1,sin_verificar,
@@ -2449,7 +2449,7 @@ ea2efcbb407c,La lavenderia,Lavandería,,,Carrera 8 43-17,,1,sin_verificar,
 00c5f0a69d60,La locura de la empanada,Comida rápida,,,Carrera 123 64-21,,1,sin_verificar,
 4bbf9fb22a77,La Lucha Sanduchera,Restaurante,,,,,1,sin_verificar,
 4929ad8bf3be,La Lucha Sangucheria Criolla,Comida rápida,,,Avenida Calle 85 12-95,,1,sin_verificar,
-1e0fb26e413d,La lupita,Restaurante,tatiana.lozano182@gmail.com,3132226772,CALLE 22 #89-54,,1,sin_verificar,
+1e0fb26e413d,La lupita,Restaurante,tatiana.lozano182@gmail.com,3132226772,CALLE 22 #89-54,,1,dudosa,sin_rastro_claro
 5e8121b82d45,La Mafia,Producción de bebidas,,,,,1,sin_verificar,
 948360ada39d,La Maracucha,Comida rápida,,+57 316 4539041,,,1,sin_verificar,
 184334701035,La Marimonda,Restaurante,,,Calle 156,,1,sin_verificar,
@@ -4014,7 +4014,7 @@ b0d295856c2c,Restaurante Sazones Burguer,Restaurante,,,Carrera 55C,,1,sin_verifi
 c2b365f3384c,Restaurante Segundo Piso,Restaurante,,,,,1,sin_verificar,
 3821e2806219,Restaurante Solaris,Restaurante,,,,,1,sin_verificar,
 a7122d6111b9,Restaurante Surti Brasas 27,Restaurante,,,Calle 41 Sur,,1,sin_verificar,
-58012849533c,Restaurante Tramontina,Restaurante,restaurantetramontinagourmet@gmail.com,+57 302 3113784;+57 601 6712247,,,1,sin_verificar,
+58012849533c,Restaurante Tramontina,Restaurante,restaurantetramontinagourmet@gmail.com,+57 302 3113784;+57 601 6712247,"Calle 187 # 20-85, Cc. Plaza Norte, Local 105, Bogotá (sector Suba/Usaquén)",,1,verificada,
 223bff4aa8f3,Restaurante Tres Esquinas,Restaurante,,,,,1,sin_verificar,
 d0e8bc4d2a72,Restaurante Victoria Norte,Restaurante,,,Carrera 50,,1,sin_verificar,
 dd7074a38dbb,Restaurante Villa Colonial,Restaurante,,,,,1,sin_verificar,
@@ -4138,7 +4138,7 @@ bda9a7470f95,Salsamentaria IDEMA,Comida rápida,,,,,1,sin_verificar,
 bdee51f4f59c,Salsamentaria San Carlos,Comida rápida,,,,,1,sin_verificar,
 fc95a8728ce5,Salsamentaria San Geronimo,Comida rápida,,,,,1,sin_verificar,
 0caff801b1c7,Salsamentaria villa Laura,Comida rápida,,,,,1,sin_verificar,
-80d26c9877ef,Salsipuedes,Comida rápida,smasmela179@gmail.com,,Cra 116a #81-84,,1,sin_verificar,
+80d26c9877ef,Salsipuedes,Comida rápida,smasmela179@gmail.com,,Cra 116a #81-84,,1,dudosa,sin_rastro_claro
 d3b4d9323945,Salud Ocupacional Colcan,Clínica,,,,,1,sin_verificar,
 c65bafc95b4e,Salud Total,Hospital,,,,,1,sin_verificar,
 8518c87d411c,Salvaje,Restaurante,,+57 321 7556108,,,1,sin_verificar,
@@ -4739,7 +4739,7 @@ db6a94eeb779,Urapan,Panadería,,,Carrera 105F,,1,sin_verificar,
 eb445e1bf66e,USS Diana Turbay,Clínica,,,,,1,sin_verificar,
 ccf0110b9e69,USS Vista Hermosa,Hospital,,,,,1,sin_verificar,
 e2cd074c623a,V&A La Sabana,Taller/Oficio (window construction),,,Calle 9,,1,sin_verificar,
-e0f08eb4ba41,Valentina,Panadería,valentinamotr@unisabana.edu.co,+573112553229,68H#65-67,,1,sin_verificar,
+e0f08eb4ba41,Valentina,Panadería,,+573112553229,68H#65-67,,1,descartada,registro_cruzado_invalido
 35ff77320143,Valmatic,Lavandería,,,Avenida Carrera 70 Avenida de la Constitución 22,,1,sin_verificar,
 25c456f69468,Valsanni,Restaurante,,,,,1,sin_verificar,
 e5fccb9ab8a3,Valvoline,Taller de carros,,,,,1,sin_verificar,
@@ -4757,7 +4757,7 @@ bb8aa5fd3041,Veccina,Restaurante,,,,,1,sin_verificar,
 f2c491176540,Vegetariano Ajonjoli,Restaurante,,,,,1,sin_verificar,
 1be4706307cb,Vegetariano Espiga,Restaurante,,,,,1,sin_verificar,
 b2589fa6db18,Vegetariano Flor de Liz,Restaurante,,,,,1,sin_verificar,
-a1e483f3c5f7,Vegetariano Naturalmente,Restaurante,rest_naturalmente@hotmail.com,,Calle 30,,1,sin_verificar,
+a1e483f3c5f7,Vegetariano Naturalmente,Restaurante,rest_naturalmente@hotmail.com,+57 300 5735021;(1) 232-2664,Calle 30,,1,verificada,
 b71ac4daccd3,Vegetariano Sesamo,Restaurante,,,,,1,sin_verificar,
 68740d05b40a,Vegetariano Vega,Restaurante,,,,,1,sin_verificar,
 bffc8c3322d6,Veggie Beans,Restaurante,,,Calle 64,,1,sin_verificar,
@@ -4905,11 +4905,11 @@ c09a82b372e4,106,Panadería,,,Carrera 8,,1,dudosa,nombre_dudoso
 a6af5a390da1,716,Restaurante,,,,,1,dudosa,nombre_dudoso
 0ff0b245d958,A & G,Carnicería,,+57 311 5394855,,,1,dudosa,nombre_dudoso
 a0a5119d0659,A&P,Carnicería,,,Calle 72F,,1,dudosa,nombre_dudoso
-1a77368287a9,Adolfo,Taller de carros,adolfo.bernal@contraloria.gov.co,,,,1,dudosa,entidad_estatal
-b0fdd7fbcdb9,Alejandro,Restaurante,arestrepoc@procuraduria.gov.co,6015878750,,,1,dudosa,entidad_estatal
+1a77368287a9,Adolfo,Taller de carros,,,,,1,descartada,registro_cruzado_invalido
+b0fdd7fbcdb9,Alejandro,Restaurante,,6015878750,,,1,descartada,registro_cruzado_invalido
 e17bc6758644,ALF,Restaurante,,,Carrera 68G Bis 29-12 sur,,1,dudosa,nombre_dudoso
-12e921fa9bec,Ana Maria,Panadería,amgomez@procuraduria.gov.co,6015878750,Calle 155,,1,dudosa,entidad_estatal
-ffb2941b8f91,Angie,Panadería,angie.villa@contraloria.gov.co,,,,1,dudosa,entidad_estatal
+12e921fa9bec,Ana Maria,Panadería,,6015878750,Calle 155,,1,descartada,registro_cruzado_invalido
+ffb2941b8f91,Angie,Panadería,,,,,1,descartada,registro_cruzado_invalido
 358ab68a53e1,Anzi,Taller de carros,,,Calle 4,,1,dudosa,nombre_dudoso
 fb8b4ef62879,ART,Fábrica/Industria,,,,,1,dudosa,nombre_dudoso
 60b1f76f7241,ASPE,Ferretería,,,Carrera 9,,1,dudosa,nombre_dudoso
@@ -4921,8 +4921,8 @@ f4a048b8dd15,BACU,Restaurante,,,,,1,dudosa,nombre_dudoso
 5524e0211754,Beto,Comida rápida,,,Calle 6B,,1,dudosa,nombre_dudoso
 5913dc7fc14b,Brio,Estación de servicio,,,,,1,dudosa,nombre_dudoso
 8a1823938ddd,Bün,Restaurante,,,,,1,dudosa,nombre_dudoso
-96a7b34c6753,Carlos Arturo,Restaurante,caparra@procuraduria.gov.co,6015878750,,,1,dudosa,entidad_estatal
-631d921161a4,Cecilia,Restaurante,cguzmanp@procuraduria.gov.co,6015878750,Carrera 11 93A-13,,1,dudosa,entidad_estatal
+96a7b34c6753,Carlos Arturo,Restaurante,,6015878750,,,1,descartada,registro_cruzado_invalido
+631d921161a4,Cecilia,Restaurante,,6015878750,Carrera 11 93A-13,https://cecilia.precompro.com,1,verificada,
 1f49529b97fe,Chop,Restaurante,,,,,1,dudosa,nombre_dudoso
 0f8e2c032ef0,Cory,Panadería,,,,,1,dudosa,nombre_dudoso
 51a5110d1a30,CPP,Carnicería,,,Carrera 68G Bis,,1,dudosa,nombre_dudoso
@@ -4932,16 +4932,16 @@ af1430408abc,DHL,Ferretería,,,Carrera 16A,,1,dudosa,nombre_dudoso
 fb57001be2bd,Doux,Panadería,,,,,1,dudosa,nombre_dudoso
 0ea0668e4c1f,Duca,Ferretería,,,Autopista Norte,,1,dudosa,nombre_dudoso
 5eb3fe399e69,Easy,Ferretería/Bricolaje,,,Avenida Terreros,,1,dudosa,nombre_dudoso
-4d4eb3f2899c,Erika,Panadería,erika.torres@contraloria.gov.co,,calle 74 bis # 87b 03,,1,dudosa,entidad_estatal
+4d4eb3f2899c,Erika,Panadería,,,calle 74 bis # 87b 03,,1,descartada,registro_cruzado_invalido
 223d63532934,Esso,Estación de servicio,,,,,1,dudosa,nombre_dudoso
-5df70c6ce7eb,Estefania,Panadería,estefania.ceron@contraloria.gov.co,,Calle 69D,,1,dudosa,entidad_estatal
+5df70c6ce7eb,Estefania,Panadería,,,Calle 69D,,1,descartada,registro_cruzado_invalido
 e880d0738eeb,Fine,Lavandería,,,,,1,dudosa,nombre_dudoso
 67c4d216590e,FOTO,Taller/Oficio (photographic laboratory),,,Calle 151C 45,,1,dudosa,nombre_dudoso
 413c02f3c21b,G&E,Restaurante,,,Calle 163A,,1,dudosa,nombre_dudoso
 c62201703bcd,G&F,Ferretería,,,,,1,dudosa,nombre_dudoso
 164d37232524,G&G,Cerrajería,,,Calle 163A,,1,dudosa,nombre_dudoso
-8205ef36149f,Gloria,Restaurante,gguzman@procuraduria.gov.co,6015878750,Calle 146,,1,dudosa,entidad_estatal
-ab4ad3c847f1,Guadalupe,Panadería,gosorio@procuraduria.gov.co,6015878750,Calle 76,,1,dudosa,entidad_estatal
+8205ef36149f,Gloria,Restaurante,,6015878750,Calle 146,,1,descartada,registro_cruzado_invalido
+ab4ad3c847f1,Guadalupe,Panadería,,6015878750,Calle 76,,1,descartada,registro_cruzado_invalido
 a6c9a0359eed,Her,Taller/Oficio (electronics repair),,,Calle 82,,1,dudosa,nombre_dudoso
 37e3a62442b6,Hips,Restaurante,,,Carrera 2a,,1,dudosa,nombre_dudoso
 5381d89c4182,HOME,Comida rápida,,,,,1,dudosa,nombre_dudoso
@@ -4956,17 +4956,17 @@ c095ad53f8a7,Inox,Taller/Oficio (interior decorator),,,Avenida Calle 72,,1,dudos
 deb84fdb5869,J&L,Comida rápida,,,,,1,dudosa,nombre_dudoso
 ecb8fbdf3698,J&R,Taller de carros,,,Carrera 21,,1,dudosa,nombre_dudoso
 2442e2ec085b,Jema,Ferretería,,,Avenida Calle 161,,1,dudosa,nombre_dudoso
-c51a6a7968fa,Jhonatan,Panadería,jhonatan.espinosa@contraloria.gov.co,,,,1,dudosa,entidad_estatal
+c51a6a7968fa,Jhonatan,Panadería,,,,,1,descartada,registro_cruzado_invalido
 a31a71744654,JMC,Taller/Oficio (key cutter),,,Calle 11,,1,dudosa,nombre_dudoso
-b4aadede4455,Jorge Iván,Modistería,jcifuentes@procuraduria.gov.co,6015878750,Carrera 16C,,1,dudosa,entidad_estatal
-8e6b400ed612,José María,Restaurante,ssarmiento@procuraduria.gov.co,6015878750,,,1,dudosa,entidad_estatal
-f1edfc2502df,Juan Andrés,Comida rápida,jibarrab@procuraduria.gov.co,6015878750,,,1,dudosa,entidad_estatal
-81948c35cc06,Juan Bautista,Taller/Oficio (winery),jblopez@procuraduria.gov.co,6015878750,,,1,dudosa,entidad_estatal
-47053f17839f,Juan Pablo,Carnicería,jpsuarez@procuraduria.gov.co,6015878750,,,1,dudosa,entidad_estatal
-67f94774ba36,Julia,Restaurante,julia.curvelo@contraloria.gov.co,,Avenida Calle 85 12-81,,1,dudosa,entidad_estatal
+b4aadede4455,Jorge Iván,Modistería,,6015878750,Carrera 16C,,1,descartada,registro_cruzado_invalido
+8e6b400ed612,José María,Restaurante,,6015878750,,,1,descartada,registro_cruzado_invalido
+f1edfc2502df,Juan Andrés,Comida rápida,,6015878750,,,1,descartada,registro_cruzado_invalido
+81948c35cc06,Juan Bautista,Taller/Oficio (winery),,6015878750,,,1,descartada,registro_cruzado_invalido
+47053f17839f,Juan Pablo,Carnicería,,6015878750,,,1,descartada,registro_cruzado_invalido
+67f94774ba36,Julia,Restaurante,william@juliapizzeria.com,+57 1 5302115;+57 302 309 0898;+57 601 745 6226,Avenida Calle 85 12-81,https://juliapizzeria.com,1,verificada,
 75dcab7bfe4a,Kame,Restaurante,,,67,,1,dudosa,nombre_dudoso
 43eb041bd62f,Kano,Restaurante,,,Diagonal 83,,1,dudosa,nombre_dudoso
-727544195c8a,KATHERIN,Panadería,katherin.hurtado@contraloria.gov.co,,,,1,dudosa,entidad_estatal
+727544195c8a,KATHERIN,Panadería,,,,,1,descartada,registro_cruzado_invalido
 2f235e7154ab,KFC,Comida rápida,,,,,1,dudosa,nombre_dudoso
 50aa643beaf0,KMI,Comida rápida,,,Calle 3,,1,dudosa,nombre_dudoso
 cd2b1a9d81e4,Koku,Restaurante,,,,,1,dudosa,nombre_dudoso
@@ -4975,22 +4975,22 @@ f1c845cb36c3,Kong,Restaurante,,,Calle 69A 5-36,,1,dudosa,nombre_dudoso
 1006bb5a3b4c,L&M,Ferretería,,,,,1,dudosa,nombre_dudoso
 3b67e3ef4705,La Y,Comida rápida,,,,,1,dudosa,nombre_dudoso
 5b44a6e58bc2,LAR,Taller de carros,,,,,1,dudosa,nombre_dudoso
-68dd636f9d4f,Leon,Restaurante,leon.ocampo@contraloria.gov.co,,Calle 40 7-43,,1,dudosa,entidad_estatal
+68dd636f9d4f,Leon,Restaurante,,573024572315,Calle 40 7-43,,1,verificada,
 314bb08820f2,Luna,Restaurante,,,Carrera 12 83-09,,1,dudosa,nombre_dudoso
 f159d2034ae4,M & N,Restaurante,,,,,1,dudosa,nombre_dudoso
 a76c39101cc7,M&S,Restaurante,,,Calle 156,,1,dudosa,nombre_dudoso
 e26cbbfffb18,M.y,Ferretería,,,Carrera 109A 143,,1,dudosa,nombre_dudoso
 07853891b5a7,Mabe,Panadería,,,,,1,dudosa,nombre_dudoso
-894fd192b73a,Maria,Taller de carros,mjaimes@procuraduria.gov.co,6015878750,Calle 64B Sur,,1,dudosa,entidad_estatal
-6ec28d36a6aa,Maria Antonia,Restaurante,maria.perilla@contraloria.gov.co,,,,1,dudosa,entidad_estatal
+894fd192b73a,Maria,Taller de carros,,6015878750,Calle 64B Sur,,1,descartada,registro_cruzado_invalido
+6ec28d36a6aa,Maria Antonia,Restaurante,,,,,1,descartada,registro_cruzado_invalido
 1d5834f67dbe,Masa,Restaurante,,,Calle 70 4-83,,1,dudosa,nombre_dudoso
-49ce97a47f22,MATIAS,Taller de carros,matias.carriazo@contraloria.gov.co,,,,1,dudosa,entidad_estatal
-32ff855d6218,Michel,Lavandería,mdelgado@procuraduria.gov.co,6015878750,,,1,dudosa,entidad_estatal
+49ce97a47f22,MATIAS,Taller de carros,,,,,1,descartada,registro_cruzado_invalido
+32ff855d6218,Michel,Lavandería,,6015878750,,,1,descartada,registro_cruzado_invalido
 4959e02a75e5,Miel,Restaurante,,,,,1,dudosa,nombre_dudoso
 dece270f19ad,miga,Panadería,,,,,1,dudosa,nombre_dudoso
 39983468a97f,Mil,Panadería,,,Calle 66 Bis S,,1,dudosa,nombre_dudoso
 74ae1d2debe5,Mola,Restaurante,,,Avenida Calle 85,,1,dudosa,nombre_dudoso
-58ec2ac49c7b,Monica,Ferretería,mabello@procuraduria.gov.co,6015878750,,,1,dudosa,entidad_estatal
+58ec2ac49c7b,Monica,Ferretería,,6015878750,,,1,descartada,registro_cruzado_invalido
 867d8995851d,Muy,Restaurante,,,,,1,dudosa,nombre_dudoso
 120171b4096f,MYM,Taller de carros,,,Avenida Calle 161,,1,dudosa,nombre_dudoso
 4702ed486bdc,Nemo,Restaurante,,+57 1 3257949,,,1,dudosa,nombre_dudoso
@@ -5003,14 +5003,14 @@ c29748b18a08,ONIX,Taller/Oficio (clockmaker),,,,,1,dudosa,nombre_dudoso
 f6f9119b63a2,OVI,Pinturas,,,Calle 68A,,1,dudosa,nombre_dudoso
 ac92fdd2f7e8,Pan,Fábrica/Industria,,,Carrera 82D 71 A 69,,1,dudosa,nombre_dudoso
 863dd7a14bc5,Pan &,Panadería,,,,,1,dudosa,nombre_dudoso
-af20a7c24b84,Paola,Panadería,pgarciaa@procuraduria.gov.co,6015878750,Calle 64,,1,dudosa,entidad_estatal
+af20a7c24b84,Paola,Panadería,,6015878750,Calle 64,,1,descartada,registro_cruzado_invalido
 ab5cedf01c59,PPC,Comida rápida,,,,,1,dudosa,nombre_dudoso
 d0b5761f8769,Qun,Restaurante,,+573157652425,Avenida Calle 85 12-72,,1,dudosa,nombre_dudoso
 9585f155bca7,Rio,Restaurante,,,,,1,dudosa,nombre_dudoso
 483812c20442,Roma,Panadería,,,,,1,dudosa,nombre_dudoso
 25cc6b14d78a,RPM,Taller de carros,,,,,1,dudosa,nombre_dudoso
 6ae07fd187cc,Sach,Restaurante,,,Calle 69,,1,dudosa,nombre_dudoso
-9a1d81ecc6b4,Sara,Ferretería,salvarez@procuraduria.gov.co,6015878750,Calle 41B Sur,,1,dudosa,entidad_estatal
+9a1d81ecc6b4,Sara,Ferretería,,6015878750,Calle 41B Sur,,1,descartada,registro_cruzado_invalido
 7227b4310e21,SFB,Taller de carros,,,Avenida Carrera 70,,1,dudosa,nombre_dudoso
 9bea1e5c2889,SICO,Fábrica/Industria,,,,,1,dudosa,nombre_dudoso
 e0abf46b1bff,Sion,Panadería,,,,,1,dudosa,nombre_dudoso
@@ -5020,14 +5020,14 @@ e0abf46b1bff,Sion,Panadería,,,,,1,dudosa,nombre_dudoso
 ef72ddb897d9,Umai,Restaurante,,+57 1 2538602,Vía Cota Chía,,1,dudosa,nombre_dudoso
 74481b5e66f8,Uoso,Restaurante,,,Carrera 13 78-37,,1,dudosa,nombre_dudoso
 04876fcb9d33,URO,Restaurante,,,,,1,dudosa,nombre_dudoso
-ba23a8103fa0,Valería,Panadería,valeria.alvarez@contraloria.gov.co,,Calle 162,,1,dudosa,entidad_estatal
+ba23a8103fa0,Valería,Panadería,,,Calle 162,,1,descartada,registro_cruzado_invalido
 492a91623184,wika,Restaurante,,,,,1,dudosa,nombre_dudoso
-422f4c23264f,William's,Panadería,williams.avila@contraloria.gov.co,,,,1,dudosa,entidad_estatal
+422f4c23264f,William's,Panadería,,,,,1,descartada,registro_cruzado_invalido
 975cbb48b0a3,WOK,Restaurante,,,,,1,dudosa,nombre_dudoso
-c10977050e0b,Ximena,Panadería,xfranco@procuraduria.gov.co,6015878750,Calle 43 Sur 6-45,,1,dudosa,entidad_estatal
+c10977050e0b,Ximena,Panadería,,6015878750,Calle 43 Sur 6-45,,1,descartada,registro_cruzado_invalido
 cb9006b065b6,Yury,Panadería,,,Calle 3,,1,dudosa,nombre_dudoso
 6d306f263891,.CO INTERNET S.A.S.,Empresa privada (DIAN),eduardo@cointernet.co,,CALLE 81 NUMERO 11 - 08 P 6 OFICINA 6 116,,2,sin_verificar,
-2e90a588804a,14-85 DENTAL SPA S.A.S,Salud (IPS y clínicas),gerencia2@1485dentalspa.com,,,,2,sin_verificar,
+2e90a588804a,14-85 DENTAL SPA S.A.S,Salud (IPS y clínicas),gerencia2@1485dentalspa.com,(601) 926 1485;3212947734;3222512277,"Cra. 14 #85-68 Cons. 303, Bogotá (Sede Andino); también Sede Salitre: Cra 68B #24-39 Local 319-321, y Sede Unicentro: Calle 119 #14-42 Local 2",https://1485dentalspa.com,2,verificada,
 a223a6aa6b43,1wins,Video games,support@1win.xyz,6068542854,Calle 49 70D-15,,2,sin_verificar,
 c68d2087fbbe,2600 Hostel DC,,2600hosteldc@gmail.com,,Carrera 1 Este # 12D-17,,2,sin_verificar,
 939eba83d4a3,2C INGENIEROS S.A.,Empresa privada (DIAN),2cingenieros@2cingenieros.com.co,,CARRERA 4 58 59 OFICINA 301,,2,sin_verificar,
@@ -5062,17 +5062,17 @@ ea0eaacb8c8a,A TODA HORA S.A.,Empresa privada (DIAN),impuestos@ath.com.co,,CARRE
 4e73513084d5,A&CO AUDITORIA CONSULTORIA OUTSOURCING & ASESORIA GERENCIAL S.A.S.,Empresa privada (DIAN),nriano@ayco-sas.com,,CARRERA 15 100 43 OFICINA 504,,2,sin_verificar,
 ff2b7b69b065,"A&D ALVARADO & DURING S.A.S., EN REORGANIZACION",Empresa privada (DIAN),ayd@alvaradoyduring.com,,CARRERA 14 NUMERO 85 68 OFICINA 601,,2,sin_verificar,
 2ae0a57c01da,A&D PROYECTOS S.A.S.,Empresa privada (DIAN),notificaciones@aydproyectos.com.co,,CARRERA 7 N 74-21 PISO 6,,2,sin_verificar,
-b2cda842641f,A&G SERVICIOS DE SALUD S.A.S.,Salud (IPS y clínicas),gerencia@aygserviciosdesalud.com,,,,2,sin_verificar,
+b2cda842641f,A&G SERVICIOS DE SALUD S.A.S.,Salud (IPS y clínicas),gerencia@aygserviciosdesalud.com,7455901;7455902;7455905,"AV Calle 127 #70-27, Niza, Bogotá (registro comercial: Cl 127 #71-96, Niza, Bogotá)",https://aygserviciosdesalud.com/,2,verificada,
 b746a2b62515,A&L SYSTEMS SOLUTIONS SAS,Proveedores del Estado,systemssolutions_al@outlook.com,3052660662,CALLE 68C SUR NO 80N 88,,2,sin_verificar,
 7565ad55af09,A&P PUBLICIDAD S.A.S.,Proveedores del Estado,ayppublicidad@gmail.com,6311089,CARRERA 41A 3 - 32 AP 101,,2,sin_verificar,
 a48cd26db4e4,A&S COMPUTADORES S.A. ALQUILER Y SERVICIO,Empresa privada (DIAN),contabilidad@ayscomputadores.com.co,,CARRERA 22 N 83 40,,2,sin_verificar,
 d49080780265,A&S CONSTRUCTORES LIMITADA.,Empresa privada (DIAN),contabilidad@aysconstructores.com.co,,CALLE 100 8 A 49 OFICINA 908 TO B,,2,sin_verificar,
-c17847f53412,A&V ClÍNICAS ODONTOLÓGICAS SAS,Salud (IPS y clínicas),adyvelandia@hotmail.com,,,,2,sin_verificar,
-b799dd47e549,A&V SALUD IPS SAS,Salud (IPS y clínicas),frodriguezsaludips@gmail.com,,,,2,sin_verificar,
+c17847f53412,A&V ClÍNICAS ODONTOLÓGICAS SAS,Salud (IPS y clínicas),adyvelandia@hotmail.com,,,,2,dudosa,sin_rastro_claro
+b799dd47e549,A&V SALUD IPS SAS,Salud (IPS y clínicas),frodriguezsaludips@gmail.com,3218100843,"Cr 53B 45B 05 Sur, Bogotá, D.C.",,2,verificada,
 e3865c914341,A'Comer,Cafetería,,,Calle 1 A,,2,sin_verificar,
 abcde5337bab,A-VENTUS S.A.S. EN REORGANIZACION,Empresa privada (DIAN),contabilidad1@a-ventus.com,,DIAGONAL 94 BIS 56 30,,2,sin_verificar,
 5c71f0476ccb,A.W. FABER-CASTELL COLOMBIA LIMITADA.,Empresa privada (DIAN),martha.herrera@faber-castell.com.co,,CALLE 17 A 68 70,,2,sin_verificar,
-e86e97eaa672,AAAA ACADEMIA ABSCRITA A ASOCIACION DE ESPECIALISTAS S.A.S,Salud (IPS y clínicas),clinicadeespecdialistas2005@yahoo.es,,,,2,sin_verificar,
+e86e97eaa672,AAAA ACADEMIA ABSCRITA A ASOCIACION DE ESPECIALISTAS S.A.S,Salud (IPS y clínicas),clinicadeespecdialistas2005@yahoo.es,(1) 2323100,"AV CARACAS # 30-51, Bogotá, D.C.",,2,verificada,
 7fdba2c32c13,AAK COLOMBIA S.A.S,Empresa privada (DIAN),notificacionesjudiciales.co@aak.com,,CALLE 90 11 13 OFICINA 420,,2,sin_verificar,
 7bb91272d69c,AB PROYECTOS S.A.,Empresa privada (DIAN),fmatiz@abprocol.com,,CALLE 98 9A 41 OFICINA 504,,2,sin_verificar,
 cb8871f26fa9,AB SEÑALIZACION S.A.S.,Empresa privada (DIAN),ventas@absenalizacion.com,,CALLE 136 47 24,,2,sin_verificar,
@@ -5140,9 +5140,9 @@ fb53b00fea2d,ACJ HIGH VOLTAGE LIMITADA.,Empresa privada (DIAN),acj@acj.com.co,,A
 e689605b441e,ACME LEON PLASTICOS S.A.S.,Empresa privada (DIAN),gerencia@acmeleon.com,,CALLE 27 7A 01,,2,sin_verificar,
 c7d96f17e5c3,ACOBARRAS S.A.S.,Empresa privada (DIAN),jefe.contabilidad@acobarras.com,,AUTOPISTA MEDELLIN BOG ENTRADA PARQUE LA FLORIDA KILOMETRO 1 BODEGA 37 PARQUE IN,,2,sin_verificar,
 5ddb7f8bbc69,ACOESCO S.A.S.,Empresa privada (DIAN),jescobar.acoesco@outlook.com,,AVENIDA 19 108-45 OFICINA 301,,2,sin_verificar,
-6dba3674608c,ACOFOR LASER SAS,Salud (IPS y clínicas),acoforlaser2010@gmail.com,,,,2,sin_verificar,
+6dba3674608c,ACOFOR LASER SAS,Salud (IPS y clínicas),acoforlaser2010@gmail.com,6297355;6297352;6203603,"Calle 119 No. 7-14, Consultorio 414-415, Usaquén, Bogotá D.C.",https://acoforlaser.co/,2,verificada,
 cfc2d1729097,ACOMEDIOS PUBLICIDAD Y MERCADEO LIMITADA.,Empresa privada (DIAN),acomedios@acomedios.com,,CALLE 99 NUMERO 7 A 77 OFICINA 604,,2,sin_verificar,
-d16585ab2c0e,ACONIR ASOCIACION COLOMBIANA PRO - NIÑO RETARDADO MENTAL,Salud (IPS y clínicas),aaconir@hotmail.com,,,,2,sin_verificar,
+d16585ab2c0e,ACONIR ASOCIACION COLOMBIANA PRO - NIÑO RETARDADO MENTAL,Salud (IPS y clínicas),aaconir@hotmail.com,601-6861552;6815848,"Calle 153 # 106A-88, Tuna Baja, Bogotá D.C.",https://aconir.org/,2,verificada,
 ac8a5433f7f3,ACORBE S.A.,Empresa privada (DIAN),aescobar@rmc.net.co,,CALLE 104 18A 52 P7,,2,sin_verificar,
 137880f858ef,ACOSTA ARANGO & ASOCIADOS S.A.S.,Empresa privada (DIAN),sistemas.arango@acostaarangomorales.com,,CALLE 79 NUMERO 7A 30,,2,sin_verificar,
 4d559dcdd402,ACOSTA RIVERA S.A.,Empresa privada (DIAN),ricolac@gmail.com,,CARRERA 3 NUMERO 5-35,,2,sin_verificar,
@@ -5180,7 +5180,7 @@ add12b4762ed,ACUEDUCTO VEREDAL EL CHUSCAL E.S.P.,Servicios públicos,espelchusca
 b28f92a09fa8,ACUEDUCTO VEREDAL SAN JOIS,Servicios públicos,acueductosanjois@hotmail.com,8573161,VEREDA SAN JOSE SECTOR II,,2,sin_verificar,
 276e78b461b2,ACUMULADORESD DUNCAN S.A.S.,Empresa privada (DIAN),adiaz@bateriasduncan.com.co,,"AUTOPISTA MEDELLIN KILOMETRO 2,5 VIA PARQUE LA FLORIDA BG 59",,2,sin_verificar,
 3f2bcecc4da4,Acuña,Droguería,,,,,2,sin_verificar,
-54ba1496e6ba,ACYS Apoyo Terapéutico Integral E.U.,Salud (IPS y clínicas),amarcreceryservir@yahoo.com,,,,2,sin_verificar,
+54ba1496e6ba,ACYS Apoyo Terapéutico Integral E.U.,Salud (IPS y clínicas),amarcreceryservir@yahoo.com,,,,2,dudosa,sin_rastro_claro
 bc0ec9f64881,AD ORANGE S.A.S.,Empresa privada (DIAN),jpardo@adorange.net,,CALLE 106 21 95 SU 503,,2,sin_verificar,
 b04b55a20d65,Adaia,Cafetería,,,Carrera 105F,,2,sin_verificar,
 1048974d1ec9,ADAMA COLOMBIA S.A.S.,Empresa privada (DIAN),contact.us@adama.com,,CARRERA 11 87 51 PI4,,2,sin_verificar,
@@ -5196,8 +5196,8 @@ be052bad369d,ADINISTRADORA Y PROMOTORA INMOMILIARIA MEVIC S.A,Empresa privada (D
 7f5d530c53b4,ADMINISTRACION PUBLICA COOPERATIVA DEL MUNICIPIO DE SIMACOTA SANTANDER SIMSACOOP APC,Empresas (datos abiertos),miye-2587@hotmail.com,7261507,calle 3 A No.6-65,,2,sin_verificar,
 6500ee5f355e,ADMINISTRACIONES KARINA S.A.S.,Empresa privada (DIAN),admkarina1@administracioneskarina.com.co,,AVENIDA CALLE 17 62 53,,2,sin_verificar,
 4182f8bbcadf,Administración Plaza Norte,property management,cecomplazanorte@gmail.com,,Bogotá,,2,sin_verificar,
-d0d2cfa2218c,ADMINISTRADORA CLINICA LA COLINA SAS,Salud (IPS y clínicas),notificacionesclc@clinicadelcountry.com,,,,2,sin_verificar,
-ee19e930b757,ADMINISTRADORA COUNTRY S.A.S,Salud (IPS y clínicas),notificacionescdc@clinicadelcountry.com,,,,2,sin_verificar,
+d0d2cfa2218c,ADMINISTRADORA CLINICA LA COLINA SAS,Salud (IPS y clínicas),notificacionesclc@clinicadelcountry.com,+57 601 3905099;+57 601 3904887;3009125057,"Carrera 16 No. 82-57, Bogotá, Colombia",https://www.clinicadelcountry.com,2,verificada,
+ee19e930b757,ADMINISTRADORA COUNTRY S.A.S,Salud (IPS y clínicas),notificacionescdc@clinicadelcountry.com,+57 601 3905099;+57 601 3904887;3009125057,"Carrera 16 No. 82-57, Bogotá, Colombia",https://www.clinicadelcountry.com,2,verificada,
 88253459563a,ADMINISTRADORA HOTELERA DANN SAS,Proveedores del Estado,julio.vega@hotelesdann.com,3214694114,CL 93B 19 44,,2,sin_verificar,
 6eb380d47173,ADMINISTRADORA MONSERRATE S.A.S. EN REORGANIZACION,Empresa privada (DIAN),direccionadministrativa@restaurantesmonserrate.com,,CARRERA 2 ESTE NUMERO 21 - 48,,2,sin_verificar,
 e3ab2139cc32,ADMINISTRADORA PALOQUEMAO S.A.,Empresa privada (DIAN),admipaloquemao@hotmail.com,,CALLE 134 7B 83 OFICINA 906,,2,sin_verificar,
@@ -10430,7 +10430,7 @@ e3a3d74f1ca4,FEHRMANN BOTTLES Y CAPS PACKAGING S.A.S.,Empresa privada (DIAN),dir
 c61c0a3f9ebb,FELLINZI LIMITADA.,Empresa privada (DIAN),fellinzi@hotmail.com,,CALLE 16 SUR 24G 70,,2,sin_verificar,
 45b567c89480,FEME INGENIERIA S.A.S.,Empresa privada (DIAN),doriscuervo23@gmail.com,,KILOMETRO 2 VIA CHIA CAJICALLEEDIFICIO BELENUS OFICINA 504,,2,sin_verificar,
 b5afbc792bd2,Fenalco,Empresa,info@yourcompany.com,+57 3500600,Carrera 4 No. 19 - 85,,2,sin_verificar,
-ef47ead71b43,Fenix,Empresa/Oficina,,6013562690,AVENIDA 19 # 120-71 OFICINA 104,,2,sin_verificar,
+ef47ead71b43,Fenix,Empresa/Oficina,,6013562690,AVENIDA 19 # 120-71 OFICINA 104,,2,verificada,
 7dad312d0035,FEPCO ZONA FRANCA S.A.S.,Empresa privada (DIAN),contable@fepco.com.co,,CARRERA 106 NUMERO 15-25 BODEGA 51-54,,2,sin_verificar,
 78c0c4393cf3,FEPROMEL S.A.S.,Empresa privada (DIAN),fepromel@hotmail.com,,AUTOPISTA MEDELLIN KILOMETRO . 2 BOGOTA - SIBERIA COMPLEJO ICOLTRANS,,2,sin_verificar,
 cea6db8facbc,FEREST SALUD IPS SAS,Salud (IPS y clínicas),gerencial@ferestsaludips.com,,,,2,sin_verificar,
@@ -15353,7 +15353,7 @@ f20490419b9c,PLASTIPACK S.A.,Empresa privada (DIAN),contabilidad@plastipack.com.
 ddf240078edb,PLATAYA LIMITADA.,Empresa privada (DIAN),administrativo@platayaonline.co,,CALLE 127 18 A 39 OFICINA 602,,2,sin_verificar,
 63f63d790f43,PLATINUM HEALTH GROUP IPS S.A.S,Salud (IPS y clínicas),platinumhegroup@gmail.com,,,,2,sin_verificar,
 30d0eba5a864,PLATZ 74 S.A,Empresa privada (DIAN),administracion@platz74.com,,AUTOPISTA MEDELLIN KILOMETRO 2.7 BG 7 PARQUE INDUSTRIAL LOS NOGALES,,2,sin_verificar,
-85a1d04c57bd,Plaza Cultural Magola Buendia,Cafetería,,3045400872,Carrera 2a 17-60,,2,sin_verificar,
+85a1d04c57bd,Plaza Cultural Magola Buendia,Cafetería,,3045400872,Carrera 2a 17-60,https://www.dtqrestaurantes.com/,2,verificada,
 bd0df7da5b45,Plaza de mercado El Cacique,Fruver,,,,,2,sin_verificar,
 32de8f88de4b,PLAZA Y JANES EDITORES COLOMBIA S.A.,Empresa privada (DIAN),gerencia@plazayjanescolombia.com,,CALLE 23 NUMERO 7-84,,2,sin_verificar,
 fa5f78b36f33,PLAZUELA 94 LIMITADA.,Empresa privada (DIAN),contabilidad@src.com.co,,CALLE 84A 12 18 OFICINA 503,,2,sin_verificar,

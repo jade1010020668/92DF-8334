@@ -22,8 +22,12 @@ import os
 import re
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE = os.path.join(RAIZ, "web", "empresas-bogota.json")
+# Fuente: la BASE MAESTRA (datos/BASE_MAESTRA.json), que lleva la verificación.
+# Quedan FUERA del motor: las descartadas (basura confirmada o inactivas) y las
+# dudosas por entidad_estatal o correo_invalido — a esas no se les escribe.
+BASE = os.path.join(RAIZ, "datos", "BASE_MAESTRA.json")
 SALIDA = os.path.join(RAIZ, "datos", "EMPRESAS_PARA_SHEET.csv")
+MOTIVOS_EXCLUIDOS = {"entidad_estatal", "correo_invalido"}
 
 # Copia del regex de sectorConGancho_ (MotorVentas.gs). Si cambias uno, cambia
 # el otro: la prueba test_orden_y_gancho_legal.js vigila el del motor.
@@ -46,15 +50,22 @@ def clave(orden_original, empresa):
 
 def main():
     with open(BASE, encoding="utf-8") as f:
-        base = json.load(f)
+        base = json.load(f)["empresas"]
 
     con_correo = []
     vistos = set()
+    excluidas = 0
     for i, e in enumerate(base):
         correo = str(e.get("email") or "").strip().lower()
         if "@" not in correo:
             continue
+        if e.get("ver_estado") == "descartada" or (
+            e.get("ver_estado") == "dudosa" and e.get("ver_motivo") in MOTIVOS_EXCLUIDOS
+        ):
+            excluidas += 1
+            continue
         con_correo.append((i, correo, e))
+    print(f"  excluidas por verificación (descartadas/estatales/correo roto): {excluidas}")
 
     con_correo.sort(key=lambda t: clave(t[0], t[2]))
 
