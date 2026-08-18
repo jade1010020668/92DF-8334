@@ -93,7 +93,7 @@ function instalar() {
   };
   global.ScriptApp = {
     newTrigger: (fn) => {
-      const t = { fn };
+      const t = { fn, getHandlerFunction: () => fn };
       const b = { timeBased: () => b, atHour: (h) => { t.hora = h; return b; }, everyDays: () => b,
                   everyMinutes: (m) => { t.cadaMin = m; return b; }, everyHours: (h) => { t.cadaHora = h; return b; },
                   onWeekDay: () => b, inTimezone: () => b, create: () => { estado.triggers.push(t); return t; } };
@@ -120,6 +120,53 @@ function instalar() {
     static now() { return estado.ahora.getTime(); }
   };
   global.__DateReal = DateReal;
+  global.UrlFetchApp = {
+    fetch: (url) => ({
+      getResponseCode: () => (estado.http && estado.http.codigo) ?? 200,
+      getContentText: () => (estado.http && estado.http.cuerpo) ?? '',
+    }),
+  };
+  global.Utilities.parseCsv = (texto) => {
+    // parser CSV pequeño pero correcto (comillas y comas dentro de comillas)
+    const filas = []; let fila = [], campo = '', enComillas = false;
+    for (let i = 0; i < texto.length; i++) {
+      const c = texto[i];
+      if (enComillas) {
+        if (c === '"' && texto[i + 1] === '"') { campo += '"'; i++; }
+        else if (c === '"') enComillas = false;
+        else campo += c;
+      } else if (c === '"') enComillas = true;
+      else if (c === ',') { fila.push(campo); campo = ''; }
+      else if (c === '\n' || c === '\r') {
+        if (c === '\r' && texto[i + 1] === '\n') i++;
+        fila.push(campo); campo = '';
+        if (fila.length > 1 || fila[0] !== '') filas.push(fila);
+        fila = [];
+      } else campo += c;
+    }
+    if (campo !== '' || fila.length) { fila.push(campo); filas.push(fila); }
+    return filas;
+  };
+  global.SpreadsheetApp.openById = (id) => {
+    estado.libros = estado.libros || {};
+    const libro = (estado.libros[id] = estado.libros[id] || { hojas: {} });
+    const pestana = (n) => {
+      const p = (libro.hojas[n] = libro.hojas[n] || { filas: [], congeladas: 0 });
+      return {
+        clearContents: () => { p.filas = []; },
+        setFrozenRows: (k) => { p.congeladas = k; },
+        getRange: (f, c, nf, nc) => ({
+          setValues: (vals) => {
+            for (let i = 0; i < nf; i++) p.filas[f - 1 + i] = [...vals[i]];
+          },
+        }),
+      };
+    };
+    return {
+      getSheetByName: (n) => (libro.hojas[n] ? pestana(n) : null),
+      insertSheet: (n) => pestana(n),
+    };
+  };
 }
 
 function cargarMotor() {
@@ -127,4 +174,8 @@ function cargarMotor() {
   (0, eval)(codigo);
 }
 
-module.exports = { estado, instalar, cargarMotor, hoja };
+function cargarArchivo(ruta) {
+  (0, eval)(fs.readFileSync(ruta, 'utf8'));
+}
+
+module.exports = { estado, instalar, cargarMotor, cargarArchivo, hoja };

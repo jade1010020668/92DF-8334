@@ -47,8 +47,14 @@ comercio, ropa…), lista para probar la máquina el mismo día:
 3. Ahora el panel para el celular: a la izquierda, junto a «Archivos», toca **+ →
    HTML**. Nómbralo exactamente **`PanelMotor`** (sin `.html`, Google lo agrega).
    Borra lo que traiga y **pega TODO el contenido de `apps_script/PanelMotor.html`**.
-4. Guardar 💾 → cierra la pestaña → **recarga la hoja**.
-5. Aparecerá el menú **«🦺 Motor de ventas»** (si no, espera 30 s y recarga).
+4. Un archivo más: **+ → Secuencia de comandos**, nómbralo **`SincronizarBase`**
+   y pega el contenido de `apps_script/SincronizarBase.gs`. Este mantiene la hoja
+   «BASE MAESTRA — DotaciónPro» de tu Drive actualizada sola con las 18.595
+   empresas. Para activarlo (una sola vez): arriba, en el selector de funciones,
+   elige **activarSincronizacionDiaria** → **Ejecutar**. Desde ahí se actualiza
+   cada día a las 5 am.
+5. Guardar 💾 → cierra la pestaña → **recarga la hoja**.
+6. Aparecerá el menú **«🦺 Motor de ventas»** (si no, espera 30 s y recarga).
 
 ## PASO 4 — Preparar e importar las empresas (10 min)
 
