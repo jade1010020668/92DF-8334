@@ -16,6 +16,19 @@ QUE="${1:-todo}"
 FALLAS=0
 
 if [ "$QUE" = "todo" ] || [ "$QUE" = "motor" ]; then
+  echo "═══ PIPELINE DE LA BASE (Python) ═══"
+  for t in pruebas/base/test_*.py; do
+    salida=$(timeout 120 python3 "$t" 2>&1)
+    linea=$(echo "$salida" | grep -E "^TOTAL:" | tail -1)
+    n=$(echo "$linea" | grep -oE "[0-9]+ pruebas" | grep -oE "[0-9]+")
+    f=$(echo "$linea" | grep -oE "[0-9]+ fallas" | grep -oE "[0-9]+")
+    f=${f:-1}; n=${n:-?}
+    printf "  %-42s %3s pruebas, %s fallas\n" "$(basename "$t")" "$n" "$f"
+    if [ "$f" != "0" ]; then
+      FALLAS=$((FALLAS + f))
+      echo "$salida" | grep -B1 -A1 '"paso": false' | head -20
+    fi
+  done
   echo "═══ MOTOR DE VENTAS (simulador de Google Apps Script) ═══"
   for t in pruebas/motor/test_*.js; do
     salida=$(timeout 120 node "$t" 2>&1)

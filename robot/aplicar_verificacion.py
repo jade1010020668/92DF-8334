@@ -7,8 +7,9 @@ sitio_web, telefonos, direccion, correos_nuevos, contacto, evidencia, nota).
 Reglas de decisión (conservadoras: en la duda, dudosa — nunca se borra nada):
   - existe=activa  y correo_pertenece=si          → verificada
   - existe=activa  y correo_pertenece=no          → se quita ese correo; si el
-    agente trajo correos del negocio, entra el mejor; queda verificada si hay
-    algún canal (correo/tel/web) o dudosa si no
+    agente trajo correos del negocio, entra el mejor (si ninguna otra fila lo
+    tiene ya); queda verificada solo con canal REAL (teléfono o sitio web
+    encontrados) — un correo sin confirmar no cuenta como canal
   - existe=inactiva (con evidencia)               → descartada (motivo: inactiva)
   - existe=no_claro y correo_pertenece=no y el
     agente no encontró NINGÚN dato del negocio    → descartada
@@ -26,6 +27,16 @@ import re
 import sys
 from datetime import date
 
+
+def lista_limpia(v):
+    """Sanea un campo que debería ser lista de strings: null, strings sueltos
+    o elementos no-string vienen de los agentes de vez en cuando."""
+    if v is None:
+        return []
+    if isinstance(v, str):
+        return [v.strip()] if v.strip() else []
+    return [str(x).strip() for x in v if isinstance(x, str) and x.strip()]
+
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAESTRA = os.path.join(RAIZ, "datos", "BASE_MAESTRA.json")
 RE_CORREO = re.compile(r"^[\w.+-]+@[\w-]+\.[\w.-]+$")
@@ -39,6 +50,7 @@ def aplicar(ruta_resultados):
         resultados = json.load(f)
 
     hoy = date.today().isoformat()
+    correos_tomados = {x["email"] for x in doc["empresas"] if x.get("email")}
     conteo = {"verificada": 0, "dudosa": 0, "descartada": 0, "sin_fila": 0,
               "telefonos": 0, "sitios": 0, "direcciones": 0, "correos_cambiados": 0, "contactos": 0}
 
@@ -55,10 +67,14 @@ def aplicar(ruta_resultados):
             e["notas"] = (e["notas"] + " | " if e["notas"] else "") + f"correo {e['email']} no pertenece (verificación {hoy})"
             e["email"] = ""
             conteo["correos_cambiados"] += 1
-        nuevos = [c.strip().lower() for c in (r.get("correos_nuevos") or []) if RE_CORREO.match(c.strip().lower())]
-        if nuevos and not e["email"]:
-            e["email"] = nuevos[0]
-            nuevos = nuevos[1:]
+        nuevos = [c.lower() for c in lista_limpia(r.get("correos_nuevos")) if RE_CORREO.match(c.lower())]
+        while nuevos and not e["email"]:
+            candidato = nuevos.pop(0)
+            if candidato in correos_tomados:
+                e["notas"] = (e["notas"] + " | " if e["notas"] else "") + f"correo {candidato} ya lo tiene otra fila"
+            else:
+                e["email"] = candidato
+                correos_tomados.add(candidato)
         if nuevos:
             ya = set(filter(None, e["emails_extra"].split(";")))
             e["emails_extra"] = ";".join(sorted(ya | set(nuevos)))
@@ -66,15 +82,19 @@ def aplicar(ruta_resultados):
         # completar huecos (sin pisar lo existente)
         if r.get("sitio_web") and not e["sitio_web"]:
             e["sitio_web"] = r["sitio_web"].strip(); conteo["sitios"] += 1
-        if r.get("telefonos") and not e["telefono"]:
-            e["telefono"] = ";".join(t.strip() for t in r["telefonos"][:3]); conteo["telefonos"] += 1
+        telefonos = lista_limpia(r.get("telefonos"))
+        if telefonos and not e["telefono"]:
+            e["telefono"] = ";".join(telefonos[:3]); conteo["telefonos"] += 1
         if r.get("direccion") and not e["direccion"]:
             e["direccion"] = r["direccion"].strip(); conteo["direcciones"] += 1
         if r.get("contacto") and not e["contacto"]:
             e["contacto"] = r["contacto"].strip(); conteo["contactos"] += 1
 
-        # veredicto
-        if r.get("existe") == "activa" and (r.get("correo_pertenece") == "si" or (e["email"] or e["telefono"] or e["sitio_web"])):
+        # veredicto: «verificada» exige correo CONFIRMADO, o negocio activo con
+        # un canal real distinto del correo sin confirmar (tel/web/dirección
+        # hallados). Un correo que nadie confirmó no cuenta como canal.
+        canal_real = bool(e["telefono"] or e["sitio_web"])
+        if r.get("existe") == "activa" and (r.get("correo_pertenece") == "si" or canal_real):
             estado, motivo = "verificada", ""
         elif r.get("existe") == "inactiva":
             estado, motivo = "descartada", "inactiva"
@@ -84,7 +104,7 @@ def aplicar(ruta_resultados):
             estado, motivo = "dudosa", "sin_rastro_claro"
 
         e["ver_estado"], e["ver_motivo"], e["ver_fecha"] = estado, motivo, hoy
-        e["ver_evidencia"] = ";".join((r.get("evidencia") or [])[:2])
+        e["ver_evidencia"] = ";".join(lista_limpia(r.get("evidencia"))[:2])
         if r.get("nota"):
             e["ver_evidencia"] += (" — " if e["ver_evidencia"] else "") + r["nota"][:160]
         conteo[estado] += 1

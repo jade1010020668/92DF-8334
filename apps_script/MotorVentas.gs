@@ -242,8 +242,23 @@ function contarDiaEfectivo_() {
 function enviarLoteDiario() {
   var dia = new Date().getDay();
   if (dia === 0 || dia === 6) return; // fines de semana no
+  var hoyClave = Utilities.formatDate(new Date(), 'America/Bogota', 'yyyy-MM-dd');
+  // Un solo lote por día: el botón del panel y el horario de las 8am no deben
+  // sumarse (doble envío = doble cupo y rampa saltada).
+  if (prop_().getProperty('ULTIMO_LOTE_DIA') === hoyClave) {
+    registrar_('cupo', 'El lote de hoy ya se envió — no se repite');
+    return;
+  }
+  // Candado: si otra ejecución está enviando en este momento (el trigger dura
+  // varios minutos por el ritmo humano), esta se retira sin duplicar correos.
+  var candado = LockService.getScriptLock();
+  if (!candado.tryLock(0)) {
+    registrar_('cupo', 'Otro envío está en curso — este intento se retira');
+    return;
+  }
+  try {
   var cupo = cupoDeHoy_();
-  if (cupo <= 0) { registrar_('cupo', 'Sin cupo hoy (pausado o cuota agotada)'); return; }
+  if (cupo <= 0) { registrar_('cupo', 'Sin cupo hoy (pausado o cuota agotada)'); candado.releaseLock(); return; }
 
   var ss = SpreadsheetApp.getActive();
   var h = ss.getSheetByName(CONFIG.HOJA_EMPRESAS);
@@ -300,7 +315,11 @@ function enviarLoteDiario() {
       }
     }
   }
-  if (enviadosNuevos + enviadosT2 > 0) contarDiaEfectivo_();
+  if (enviadosNuevos + enviadosT2 > 0) {
+    contarDiaEfectivo_();
+    prop_().setProperty('ULTIMO_LOTE_DIA', hoyClave);
+  }
+  } finally { try { candado.releaseLock(); } catch (e2) {} }
   registrar_('envio', 'Nuevos: ' + enviadosNuevos + ' · 2º toque: ' + enviadosT2 + ' · cupo: ' + cupo);
 }
 
@@ -532,8 +551,18 @@ function activarMotor() {
     '• Reporte: lunes 7:00 am\n\nTodo corre solo en la nube de Google.');
 }
 
+// Los horarios que son DEL MOTOR. En el mismo proyecto pueden vivir otros
+// (p. ej. sincronizarBaseMaestra): esos no se tocan ni se cuentan.
+var TRIGGERS_MOTOR = ['enviarLoteDiario', 'procesarRespuestas', 'reporteSemanal'];
+
+function triggersDelMotor_() {
+  return ScriptApp.getProjectTriggers().filter(function (t) {
+    return t.getHandlerFunction && TRIGGERS_MOTOR.indexOf(t.getHandlerFunction()) >= 0;
+  });
+}
+
 function desactivarMotor() {
-  ScriptApp.getProjectTriggers().forEach(function (t) { ScriptApp.deleteTrigger(t); });
+  triggersDelMotor_().forEach(function (t) { ScriptApp.deleteTrigger(t); });
   registrar_('motor', 'desactivado');
 }
 
@@ -617,7 +646,7 @@ function apiPanel() {
   }
   var cupo = cupoDeHoy_();
   return {
-    activado: ScriptApp.getProjectTriggers().length > 0,
+    activado: triggersDelMotor_().length > 0,
     pausado: p.getProperty('MOTOR_PAUSADO') === 'si',
     diaRampa: Number(p.getProperty('DIAS_EFECTIVOS') || 0) + 1,
     cupoHoy: cupo,

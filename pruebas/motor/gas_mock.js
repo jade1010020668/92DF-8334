@@ -120,6 +120,12 @@ function instalar() {
     static now() { return estado.ahora.getTime(); }
   };
   global.__DateReal = DateReal;
+  global.LockService = {
+    getScriptLock: () => ({
+      tryLock: () => !estado.lockOcupado,
+      releaseLock: () => {},
+    }),
+  };
   global.UrlFetchApp = {
     fetch: (url) => ({
       getResponseCode: () => (estado.http && estado.http.codigo) ?? 200,

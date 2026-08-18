@@ -168,6 +168,10 @@
   // pruebas de navegador inyectan un doble de google.script.run antes de
   // cargar la página, así que este archivo se prueba tal cual se publica.
   var estadoActual = null;
+  // Anti-carrera: cada llamada lleva un número de generación; una respuesta
+  // vieja (p. ej. un refresh de 60s que quedó en vuelo mientras el usuario
+  // pausaba) NO puede pisar el estado de una orden más nueva.
+  var gen = 0;
 
   function llamar(fn, arg, alTerminar) {
     google.script.run
@@ -281,7 +285,11 @@
   }
 
   function refrescar() {
-    llamar('apiPanel', undefined, function (e, r) { if (e) mostrarError(e); else pintar(r); });
+    var mi = ++gen;
+    llamar('apiPanel', undefined, function (e, r) {
+      if (mi !== gen) return; // ya hubo una llamada más nueva: esta respuesta caducó
+      if (e) mostrarError(e); else pintar(r);
+    });
   }
 
   function orden(accion, confirmacion, avisoOk) {
@@ -289,11 +297,12 @@
     var botones = document.querySelectorAll('button');
     botones.forEach(function (b) { b.disabled = true; });
     texto('aviso-accion', 'Un momento…');
+    var mi = ++gen;
     llamar('apiAccion', accion, function (e, r) {
-      botones.forEach(function (b) { b.disabled = false; });
+      botones.forEach(function (b) { b.disabled = false; }); // siempre, aun caducada
       if (e) { texto('aviso-accion', ''); mostrarError(e); return; }
       texto('aviso-accion', avisoOk || 'Listo.');
-      pintar(r);
+      if (mi === gen) pintar(r);
     });
   }
 
@@ -305,7 +314,7 @@
     else orden('pausar', '¿Pausar los envíos? El motor deja de escribir hasta que lo reanudes (las respuestas se siguen revisando).', 'Envíos pausados.');
   });
   document.getElementById('btn-lote').addEventListener('click', function () {
-    orden('lote', '¿Enviar el lote de HOY ahora mismo? Gasta el cupo del día.', 'Lote enviado.');
+    orden('lote', '¿Enviar el lote de HOY ahora mismo? Gasta el cupo del día (si ya se envió hoy, el motor no lo repite).', 'Orden recibida — revisa el cupo y los movimientos abajo.');
   });
   document.getElementById('btn-resp').addEventListener('click', function () {
     orden('respuestas', null, 'Respuestas revisadas.');

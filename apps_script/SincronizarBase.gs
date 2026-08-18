@@ -31,10 +31,24 @@ function sincronizarBaseMaestra() {
   var filas = Utilities.parseCsv(resp.getContentText('UTF-8'));
   if (!filas || filas.length < 2) throw new Error('El CSV llegó vacío o roto');
 
+  // Rectangular SIEMPRE (una fila corta/larga haría fallar setValues) y con
+  // la grilla ya del tamaño necesario ANTES de borrar nada: si algo falla,
+  // que falle con la hoja del día anterior intacta.
+  var ancho = filas[0].length;
+  for (var i = 0; i < filas.length; i++) {
+    while (filas[i].length < ancho) filas[i].push('');
+    if (filas[i].length > ancho) filas[i] = filas[i].slice(0, ancho);
+  }
   var libro = SpreadsheetApp.openById(CONFIG_BASE.ID_HOJA_MAESTRA);
   var pest = libro.getSheetByName(CONFIG_BASE.PESTANA) || libro.insertSheet(CONFIG_BASE.PESTANA);
+  if (pest.getMaxRows && pest.getMaxRows() < filas.length) {
+    pest.insertRowsAfter(pest.getMaxRows(), filas.length - pest.getMaxRows());
+  }
+  if (pest.getMaxColumns && pest.getMaxColumns() < ancho) {
+    pest.insertColumnsAfter(pest.getMaxColumns(), ancho - pest.getMaxColumns());
+  }
   pest.clearContents();
-  pest.getRange(1, 1, filas.length, filas[0].length).setValues(filas);
+  pest.getRange(1, 1, filas.length, ancho).setValues(filas);
   pest.setFrozenRows(1);
 
   // Sello de última sincronización, visible en una pestaña propia.
