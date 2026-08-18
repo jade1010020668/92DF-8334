@@ -33,6 +33,7 @@ b74edfa348b3,Abel Pan,Panadería,,,Calle 129,,1,sin_verificar,
 07ad9358d8a2,Acontrol,Taller de carros,,,Calle 163,,1,sin_verificar,
 4350eeb5ac8f,Acuario,Panadería,,,,,1,sin_verificar,
 a9a18a1686b3,Acuarius RM,Restaurante,,,Carrera 85G,,1,sin_verificar,
+3a8f383e71f9,Adolfo,Taller de carros,,,,,1,descartada,registro_cruzado_invalido
 389b03e840f5,Adriano,Restaurante,,,,,1,sin_verificar,
 0ed56e7de208,Advanz,Taller/Oficio (printmaker),,,Carrera 69K,,1,sin_verificar,
 e9fe71cd4682,Aglocentro S.A.S.,Materiales de construcción,,,Avenida Calle 161,,1,sin_verificar,
@@ -53,6 +54,7 @@ b7edd0f78e35,Ala Burguer,Comida rápida,,,Calle 3,,1,sin_verificar,
 28e8695d987d,Alarms y sondo,Taller de carros,,,Carrera 69B,,1,sin_verificar,
 be07249ac6e0,Alcala I,Modistería,,,Calle 135,,1,sin_verificar,
 34dd45adcfe2,Alcapan,Panadería,,,Calle 36 Sur,,1,sin_verificar,
+ac861efed25f,Alejandro,Restaurante,,6015878750,,,1,descartada,registro_cruzado_invalido
 71b309e0fb0b,Alejo Gourmet,Restaurante,,,Calle 52,,1,sin_verificar,
 118b951e0c7f,Alelú,Restaurante,,+57 1 7265465,,,1,sin_verificar,
 2c847dead9e4,Alfa Vidrios,Taller/Oficio (window construction),,,Carrera 98 A,,1,sin_verificar,
@@ -96,6 +98,7 @@ dd94fe694d4b,Americana de Carnes,Carnicería,,,,,1,sin_verificar,
 e9c8e04fc943,Amimoto,Taller de carros,,,Avenida Carrera 86,,1,sin_verificar,
 a265eb8c5d8a,Amor y Sazón,Restaurante,,,Calle 156,,1,sin_verificar,
 62e3e261f566,Amore Mio Pizza,Comida rápida,,,,,1,sin_verificar,
+31d1771fe91c,Ana Maria,Panadería,,6015878750,Calle 155,,1,descartada,registro_cruzado_invalido
 a1decc95ebe9,Ana Montes,Lavandería,,,,,1,sin_verificar,
 2a4f00921b92,Andale,Restaurante,,,Avenida Calle 72,,1,sin_verificar,
 85f5b2e4e305,Andaluza,Panadería,,,Carrera 4 Este,,1,sin_verificar,
@@ -121,6 +124,7 @@ c20d9a01fc55,Angeles,Restaurante,,,,,1,sin_verificar,
 164301e8bc1d,Angelino,Restaurante,,,Calle 79,,1,sin_verificar,
 eb5fc6fec08c,Angelito,Panadería,,,,,1,sin_verificar,
 dc171c42e9cd,Angelitos,Panadería,,,Carrera 68 D,,1,sin_verificar,
+ea6442bfb95b,Angie,Panadería,,,,,1,descartada,registro_cruzado_invalido
 b76b75a4f1b1,Ango Fisioterapia,Hospital,,,Calle 8 8-05,,1,sin_verificar,
 9a1a3435d9ca,Angus,Restaurante,,,,,1,sin_verificar,
 d166a7503a1e,Angust Carnes,Carnicería,,,Calle 1 S,,1,sin_verificar,
@@ -572,7 +576,7 @@ e4b4c3842128,Carbon Place,Comida rápida,,,Calle 147,,1,sin_verificar,
 ec8b340454af,Carbu,Comida rápida,,,,,1,sin_verificar,
 0808d066a903,Cardenales,Restaurante,,,,,1,sin_verificar,
 2a0d74ce11ed,Caribe,Carnicería,,,Calle 64D,,1,sin_verificar,
-e4bded3638dd,Carmelita,Restaurante,andresparra192010@gmail.com,,Calle 42 Sur,,1,dudosa,sin_rastro_claro
+cde1c6bc2073,Carlos Arturo,Restaurante,,6015878750,,,1,descartada,registro_cruzado_invalido
 c0d1be9e2df9,Carnas Finas,Carnicería,,,Carrera 105A,,1,sin_verificar,
 4f739db51096,Carne a la Parilla,Restaurante,,,Calle 96 10-26,,1,sin_verificar,
 adf96193302d,Carne Brava,Carnicería,,,Carrera 111C,,1,sin_verificar,
@@ -693,6 +697,7 @@ ad3e16110f37,Castel Pan,Restaurante,,,Calle 37B S,,1,sin_verificar,
 68361f8df3a7,Cavipollo,Carnicería,,,Carrera 5,,1,sin_verificar,
 ae6cce3b9954,Cazuelitas y Carnes,Restaurante,,,,,1,sin_verificar,
 8c3ececeb0c3,Caña Dulce,Restaurante,,,Calle 50 13-35,,1,sin_verificar,
+e0c750697c60,Cecilia,Restaurante,,6015878750,Carrera 11 93A-13,https://cecilia.precompro.com,1,verificada,
 44d6d2daeb82,Cedritos,Ferretería,,,Avenida Cedritos,,1,sin_verificar,
 c74889365273,Centella Motors,Taller de carros,,,Carrera 45A,,1,sin_verificar,
 34d8031e8463,Centeno Desayunos,Restaurante,,,Calle 166,,1,sin_verificar,
@@ -1623,6 +1628,7 @@ c654d9b038af,Envueltos San Bernandino,Comida rápida,,,,,1,sin_verificar,
 f51af0a557fe,Epa Las Arepas,Comida rápida,,,Calle 163A,,1,sin_verificar,
 996f1b6912bf,Eps Cafam,Clínica,,,,,1,sin_verificar,
 1bf9e48ac927,Equipos para Construcción,Materiales de construcción,,,Avenida Carrera 86,,1,sin_verificar,
+d0d7173c8934,Erika,Panadería,,,calle 74 bis # 87b 03,,1,descartada,registro_cruzado_invalido
 8ad9b78e531d,ESE Bosa La Primavera,Estación de servicio,,,,,1,sin_verificar,
 36b17a6f563e,ESE Chicalá,Estación de servicio,,,,,1,sin_verificar,
 58c12eec899d,ESE Chusacá,Estación de servicio,,,,,1,sin_verificar,
@@ -1648,6 +1654,7 @@ e2586d26b77b,Estación de servicio Rumbos,Estación de servicio,,,,,1,sin_verifi
 12b95856cd94,Estampados,Taller/Oficio (printer),,,Calle 71,,1,sin_verificar,
 588d9dd37fa7,Estampados y Sublimación,Taller/Oficio (printmaker),,,,,1,sin_verificar,
 a20e2613fb82,Estampida 4x4,Taller de carros,,,Calle 10 Sur 6-10,,1,sin_verificar,
+4980f87487d3,Estefania,Panadería,,,Calle 69D,,1,descartada,registro_cruzado_invalido
 26baeb7509ef,Estrella de China,Restaurante,,,,,1,sin_verificar,
 1c7db000a98d,Euro Snack,Restaurante,,,,,1,sin_verificar,
 950ec65a2af9,Euromatic,Taller de carros,,,Carrera 22,,1,sin_verificar,
@@ -1992,6 +1999,7 @@ a877e651ac69,Gavidrios,Vidriería,,,,,1,sin_verificar,
 e8bdcdedcd40,Global de soluciones institucionales,Ferretería,,,Calle 64 123-33,,1,sin_verificar,
 4d785f9e366c,Global Gourmet Market,Restaurante,,,Calle 90,,1,sin_verificar,
 95ddf09424df,GloboTech,Fábrica/Industria,,,Carrera 48,,1,sin_verificar,
+70ba4967fd7e,Gloria,Restaurante,,6015878750,Calle 146,,1,descartada,registro_cruzado_invalido
 ebde26c2c8f7,Gnoveva,Panadería,,,Calle 84 Bis,,1,sin_verificar,
 31c4b282053f,Goleman LA Soledad,Clínica,,,,,1,sin_verificar,
 6b8894668c37,Goleman Teusaquillo,Clínica,,,,,1,sin_verificar,
@@ -2025,6 +2033,7 @@ af9e9a21f5db,Greco Pan,Panadería,,,,,1,sin_verificar,
 e62860890440,Grizzly,Comida rápida,,,Avenida Carrera 19,,1,sin_verificar,
 9f69dfd9384a,Groso,Restaurante,,,,,1,sin_verificar,
 d47295839c45,Guaca,Panadería,,,,,1,sin_verificar,
+bfe9b1fcf770,Guadalupe,Panadería,,6015878750,Calle 76,,1,descartada,registro_cruzado_invalido
 c080c263160e,Guaimaral,Restaurante,,,,,1,sin_verificar,
 daab94ebb93d,Guanabanazo,Comida rápida,,,,,1,sin_verificar,
 7a186d42cd37,Guaricha,Restaurante,,,,,1,sin_verificar,
@@ -2182,6 +2191,7 @@ b8ddbc30fd27,Javi sazón y sabor,Comida rápida,,,,,1,sin_verificar,
 7f2c6dc47ee8,Jesus villada (pasteleria),Panadería,,,,,1,sin_verificar,
 8af9afba89c0,Jharrizon (Oscar villamil),Panadería,,,,,1,sin_verificar,
 28b4fe07487a,Jhernati,Ferretería,,,Calle 6 carrera 73A,,1,sin_verificar,
+54c5c72f52dd,Jhonatan,Panadería,,,,,1,descartada,registro_cruzado_invalido
 01b8de2c89c7,Jhonny Motos,Taller de carros,,,Carrera 85A,,1,sin_verificar,
 d34c535a19ef,Jireth Olam (Alirio Jardín),Panadería,,,,,1,sin_verificar,
 ef23265c533d,JL Centro Automotriz,Taller de carros,,,Carrera 111C 64-20,,1,sin_verificar,
@@ -2190,13 +2200,18 @@ b153e1dd31fa,Johfel,Restaurante,,,Calle 13 13-53,,1,sin_verificar,
 bf4cad6e8963,Jonas,Restaurante,,,Carrera 49,,1,sin_verificar,
 2838dced2df9,Jonny Pan,Panadería,,,Carrera 4,,1,sin_verificar,
 37affa395bb7,Jorge isaias (super arepa),Comida rápida,,,,,1,sin_verificar,
+a97a447fe529,Jorge Iván,Modistería,,6015878750,Carrera 16C,,1,descartada,registro_cruzado_invalido
 7e2b6b107bb2,Jose wilches,Panadería,,,,,1,sin_verificar,
+7a19c0c03ab7,José María,Restaurante,,6015878750,,,1,descartada,registro_cruzado_invalido
 58eb1b637635,José Motos,Taller de carros,,,,,1,sin_verificar,
 e19682d00e14,JT comidas rápidas Didi,Comida rápida,,,,,1,sin_verificar,
+07dd67991884,Juan Andrés,Comida rápida,,6015878750,,,1,descartada,registro_cruzado_invalido
+6b7c667ba064,Juan Bautista,Taller/Oficio (winery),,6015878750,,,1,descartada,registro_cruzado_invalido
 5cce332b5758,Juan Burgers,Comida rápida,,,,,1,sin_verificar,
 8019be954fe3,Juan Chepe,Restaurante,,,,,1,sin_verificar,
 6281375c4bc4,Juan Chorizo,Restaurante,,,,,1,sin_verificar,
 02df52fbc2df,Juan Mares,Restaurante,,,,,1,sin_verificar,
+4e96553b6081,Juan Pablo,Carnicería,,6015878750,,,1,descartada,registro_cruzado_invalido
 9a5805abb05c,Juan Pizza,Comida rápida,,,,,1,sin_verificar,
 313113d01bc6,Juancho,Taller de carros,,,Avenida Calle 24,,1,sin_verificar,
 87640360d71e,juanchopan,Panadería,,,Carrera 10 49-73,,1,sin_verificar,
@@ -2204,6 +2219,7 @@ e19682d00e14,JT comidas rápidas Didi,Comida rápida,,,,,1,sin_verificar,
 6c8faf52e2ae,Juanes,Panadería,,,,,1,sin_verificar,
 03c5d8f37efd,Juarez,Restaurante,,,,,1,sin_verificar,
 c1eeefc713a7,Jugos,Comida rápida,,,,,1,sin_verificar,
+0b8c89d90f10,Julia,Restaurante,william@juliapizzeria.com,+57 1 5302115;+57 302 309 0898;+57 601 745 6226,Avenida Calle 85 12-81,https://juliapizzeria.com,1,verificada,
 a5bab9e648ab,Julio Medina,Llantas,,,Carrera 45A,,1,sin_verificar,
 12ec90f231f2,Julio's Pizza,Restaurante,,,Calle 8C,,1,sin_verificar,
 9e633f1f046f,Jumbo Pan,Panadería,,,,,1,sin_verificar,
@@ -2220,6 +2236,7 @@ ad2d60ed9139,Kali Riko,Restaurante,,,,,1,sin_verificar,
 ad61703afa1e,Kanka,Restaurante,,3333333333333,,,1,sin_verificar,
 e03c40255e22,Karen's Pizza,Restaurante,,,,,1,sin_verificar,
 7f1f4450d741,Kasero's,Restaurante,,,,,1,sin_verificar,
+96781aedb6eb,KATHERIN,Panadería,,,,,1,descartada,registro_cruzado_invalido
 15d12ee899ae,Kathmandu,Restaurante,,,Carrera 6,,1,sin_verificar,
 77aeee183489,Katios,Restaurante,,,,,1,sin_verificar,
 bf76b481b667,kekerkre,Hospital,,,,,1,sin_verificar,
@@ -2449,7 +2466,6 @@ ea2efcbb407c,La lavenderia,Lavandería,,,Carrera 8 43-17,,1,sin_verificar,
 00c5f0a69d60,La locura de la empanada,Comida rápida,,,Carrera 123 64-21,,1,sin_verificar,
 4bbf9fb22a77,La Lucha Sanduchera,Restaurante,,,,,1,sin_verificar,
 4929ad8bf3be,La Lucha Sangucheria Criolla,Comida rápida,,,Avenida Calle 85 12-95,,1,sin_verificar,
-0bc0f9c0dd4f,La lupita,Restaurante,tatiana.lozano182@gmail.com,3132226772,CALLE 22 #89-54,,1,dudosa,sin_rastro_claro
 5e8121b82d45,La Mafia,Producción de bebidas,,,,,1,sin_verificar,
 948360ada39d,La Maracucha,Comida rápida,,+57 316 4539041,,,1,sin_verificar,
 184334701035,La Marimonda,Restaurante,,,Calle 156,,1,sin_verificar,
@@ -2770,6 +2786,7 @@ b7cce6602f9b,"Lechonería donde ""Werny""",Restaurante,,,,,1,sin_verificar,
 6e307f69290d,Lenny fashion,Sastrería,,,Calle 69C 111C-21,,1,sin_verificar,
 c6accbf83347,Leo Motos,Taller de carros,,,Avenida Carrera 70,,1,sin_verificar,
 8a920bdd60dd,Leo's Pizza,Comida rápida,,,Carrera 49,,1,sin_verificar,
+bfa8f4439d36,Leon,Restaurante,,573024572315,Calle 40 7-43,,1,verificada,
 94f6f59e6d5d,Leonardelos,Comida rápida,,,Calle 167,,1,sin_verificar,
 0c2c9e6b9855,Lepanie,Panadería,,,,,1,sin_verificar,
 f1f87f0d9cf9,Letty,Panadería,,,,,1,sin_verificar,
@@ -2930,6 +2947,8 @@ aac4abc8f870,Marandú,Panadería,,,Carrera 49,,1,sin_verificar,
 eb5e6b1295e0,Maremotos,Taller de carros,,,,,1,sin_verificar,
 eb1f6c1b736c,Marg Burgers,Restaurante,,,Carrera 119,,1,sin_verificar,
 0f0e35caa841,Margie Pizza,Comida rápida,,,Calle 54 Sur,,1,sin_verificar,
+27a1ff87a930,Maria,Taller de carros,,6015878750,Calle 64B Sur,,1,descartada,registro_cruzado_invalido
+0d7ffeae721a,Maria Antonia,Restaurante,,,,,1,descartada,registro_cruzado_invalido
 5b3ec4dfae29,Maria Kanela,Restaurante,,,,,1,sin_verificar,
 0d19e8dc2fd0,Maria Tomasa,Restaurante,,,,,1,sin_verificar,
 8c5b4d5b88fa,Marin,Panadería,,,,,1,sin_verificar,
@@ -2960,6 +2979,7 @@ b9dc34617e7c,Materiales dinamarca,Ferretería,,,Carrera 114,,1,sin_verificar,
 37bec4f3f89e,Materiales para Construcción,Ferretería,,,Calle 5,,1,sin_verificar,
 f281823880d6,Materiales Y placafacil,Ferretería,,,,,1,sin_verificar,
 3d299e5548c0,Materno Infantil Colsubsidio,Hospital,,,,,1,sin_verificar,
+17eae8b70542,MATIAS,Taller de carros,,,,,1,descartada,registro_cruzado_invalido
 69ad691515f7,Matilde,Restaurante,,,,,1,sin_verificar,
 2ff2e15928d9,Matimba,Restaurante,,,,,1,sin_verificar,
 94b6fe4f5e20,Matipan,Restaurante,,,Carrera 2,,1,sin_verificar,
@@ -3043,6 +3063,7 @@ de24ee162c29,Mi Rancho Guanajuato,Restaurante,,,Calle 138,,1,sin_verificar,
 f3c2f2d49fe7,Mi Tolima,Panadería,,,,,1,sin_verificar,
 cbd2f0963317,Mi Trigal,Panadería,,,Calle 160,,1,sin_verificar,
 87d075b0a775,Mi Viejo,Restaurante,,,Calle 11 5-41,,1,sin_verificar,
+e6cb93bced6e,Michel,Lavandería,,6015878750,,,1,descartada,registro_cruzado_invalido
 cfca504f80d1,Michel Pâtisserie,Panadería,,,,,1,sin_verificar,
 d196c462b86a,Miguel Burger,Comida rápida,,,Calle 81,,1,sin_verificar,
 1509affdeb46,Mil 9,Restaurante,,+5716190459,Carrera 6 119B-57,,1,sin_verificar,
@@ -3083,6 +3104,7 @@ a23d45954df2,modisteria la 50,Modistería,,,Carrera 50 59,,1,sin_verificar,
 52f69daba766,Moess,Comida rápida,,,,,1,sin_verificar,
 b5376201e8e7,mojete,Restaurante,,,,,1,sin_verificar,
 fd87cc442784,Momo's,Restaurante,,,Calle 1F,,1,sin_verificar,
+3db9c1e45447,Monica,Ferretería,,6015878750,,,1,descartada,registro_cruzado_invalido
 789a9cb75cba,Monipan,Panadería,,,,,1,sin_verificar,
 0e7afb75241e,Moniquirenño,Restaurante,,,Calle 74A,,1,sin_verificar,
 f11b4570987e,MONKEY,Taller de motos,,,Avenida Carrera 82 72 A 49,,1,sin_verificar,
@@ -3480,6 +3502,7 @@ ed6653d9f919,Panificadora,Panadería,,,Carrera 119B,,1,sin_verificar,
 d44210652cf9,Pans Express,Panadería,,,Avenida Carrera 70,,1,sin_verificar,
 d936c543e9f6,Pantevedra,Panadería,,,Calle 95,,1,sin_verificar,
 da5d13e78fa9,Pantojar,Panadería,,,Calle 54 Sur,,1,sin_verificar,
+dcfe21cb3aa6,Paola,Panadería,,6015878750,Calle 64,,1,descartada,registro_cruzado_invalido
 4fc7afa91032,Papa Empanadas,Comida rápida,,,Carrera 8,,1,sin_verificar,
 873db19b67c1,Papa John's,Comida rápida,,,,,1,sin_verificar,
 87fe23a4379a,Papa Noel,Comida rápida,,,,,1,sin_verificar,
@@ -4138,7 +4161,6 @@ bda9a7470f95,Salsamentaria IDEMA,Comida rápida,,,,,1,sin_verificar,
 bdee51f4f59c,Salsamentaria San Carlos,Comida rápida,,,,,1,sin_verificar,
 fc95a8728ce5,Salsamentaria San Geronimo,Comida rápida,,,,,1,sin_verificar,
 0caff801b1c7,Salsamentaria villa Laura,Comida rápida,,,,,1,sin_verificar,
-45bb88592483,Salsipuedes,Comida rápida,smasmela179@gmail.com,,Cra 116a #81-84,,1,dudosa,sin_rastro_claro
 d3b4d9323945,Salud Ocupacional Colcan,Clínica,,,,,1,sin_verificar,
 c65bafc95b4e,Salud Total,Hospital,,,,,1,sin_verificar,
 8518c87d411c,Salvaje,Restaurante,,+57 321 7556108,,,1,sin_verificar,
@@ -4204,6 +4226,7 @@ fee441fdbaf8,Santarosano,Comida rápida,,,,,1,sin_verificar,
 c4a517b1a696,Santo Pan & Café,Panadería,,,Carrera 8B,,1,sin_verificar,
 49f87904c10b,Santypan,Panadería,,,Carrera 106,,1,sin_verificar,
 a399ef4863ae,Sapolin,Pinturas,,,Calle 129,,1,sin_verificar,
+df1193a28884,Sara,Ferretería,,6015878750,Calle 41B Sur,,1,descartada,registro_cruzado_invalido
 f66ee4899c5b,Saranat Lavanderías,Lavandería,,,,,1,sin_verificar,
 25d8fb4c227c,Saratex,Lavandería,,,Calle 160,,1,sin_verificar,
 0ff8da22f821,Sarku Japan,Restaurante,,573106554499,Calle 66 4A-19,,1,sin_verificar,
@@ -4740,6 +4763,7 @@ eb445e1bf66e,USS Diana Turbay,Clínica,,,,,1,sin_verificar,
 ccf0110b9e69,USS Vista Hermosa,Hospital,,,,,1,sin_verificar,
 e2cd074c623a,V&A La Sabana,Taller/Oficio (window construction),,,Calle 9,,1,sin_verificar,
 0a29604e14b8,Valentina,Panadería,,+573112553229,68H#65-67,,1,descartada,registro_cruzado_invalido
+ffb9a0c1a70d,Valería,Panadería,,,Calle 162,,1,descartada,registro_cruzado_invalido
 35ff77320143,Valmatic,Lavandería,,,Avenida Carrera 70 Avenida de la Constitución 22,,1,sin_verificar,
 25c456f69468,Valsanni,Restaurante,,,,,1,sin_verificar,
 e5fccb9ab8a3,Valvoline,Taller de carros,,,,,1,sin_verificar,
@@ -4840,6 +4864,7 @@ d04459796853,Watakushi,Restaurante,,,,,1,sin_verificar,
 c908516cf600,Wilbor,Metalmecánica,,,Avenida Carrera 14 1-44,,1,sin_verificar,
 58004eff5171,Wilder's Pizza,Restaurante,,,,,1,sin_verificar,
 ae7387f4da24,Willi's Pizza,Comida rápida,,,Carrera 82,,1,sin_verificar,
+b0f0b5eb39b0,William's,Panadería,,,,,1,descartada,registro_cruzado_invalido
 e98aa9008cce,Willy,Comida rápida,,,,,1,sin_verificar,
 5b51578a4e22,Willys,Comida rápida,,,Calle 64 8-06,,1,sin_verificar,
 6eeb9345c148,Willys Burger,Restaurante,,,Calle 15A,,1,sin_verificar,
@@ -4860,6 +4885,7 @@ f9a6fd40df89,Wok'n Roll,Restaurante,,,Calle 90,,1,sin_verificar,
 1322090d0f91,Wyli Broaster,Comida rápida,,,,,1,sin_verificar,
 e74203a850d1,Wù dumplings & beer,Restaurante,,,,,1,sin_verificar,
 24dece4efa71,Xian Dai,Restaurante,,,Calle 1B,,1,sin_verificar,
+82e2f43f6c1f,Ximena,Panadería,,6015878750,Calle 43 Sur 6-45,,1,descartada,registro_cruzado_invalido
 214b418429bd,Xin Xian,Restaurante,,,Carrera 112A,,1,sin_verificar,
 59153aaf326b,XL - Comida Generosa,Restaurante,,,,,1,sin_verificar,
 ce9c09640db1,Yaiti,Carnicería,,,,,1,sin_verificar,
@@ -4905,11 +4931,7 @@ c09a82b372e4,106,Panadería,,,Carrera 8,,1,dudosa,nombre_dudoso
 a6af5a390da1,716,Restaurante,,,,,1,dudosa,nombre_dudoso
 0ff0b245d958,A & G,Carnicería,,+57 311 5394855,,,1,dudosa,nombre_dudoso
 a0a5119d0659,A&P,Carnicería,,,Calle 72F,,1,dudosa,nombre_dudoso
-3a8f383e71f9,Adolfo,Taller de carros,,,,,1,descartada,registro_cruzado_invalido
-ac861efed25f,Alejandro,Restaurante,,6015878750,,,1,descartada,registro_cruzado_invalido
 e17bc6758644,ALF,Restaurante,,,Carrera 68G Bis 29-12 sur,,1,dudosa,nombre_dudoso
-31d1771fe91c,Ana Maria,Panadería,,6015878750,Calle 155,,1,descartada,registro_cruzado_invalido
-ea6442bfb95b,Angie,Panadería,,,,,1,descartada,registro_cruzado_invalido
 358ab68a53e1,Anzi,Taller de carros,,,Calle 4,,1,dudosa,nombre_dudoso
 fb8b4ef62879,ART,Fábrica/Industria,,,,,1,dudosa,nombre_dudoso
 60b1f76f7241,ASPE,Ferretería,,,Carrera 9,,1,dudosa,nombre_dudoso
@@ -4921,8 +4943,7 @@ f4a048b8dd15,BACU,Restaurante,,,,,1,dudosa,nombre_dudoso
 5524e0211754,Beto,Comida rápida,,,Calle 6B,,1,dudosa,nombre_dudoso
 5913dc7fc14b,Brio,Estación de servicio,,,,,1,dudosa,nombre_dudoso
 8a1823938ddd,Bün,Restaurante,,,,,1,dudosa,nombre_dudoso
-cde1c6bc2073,Carlos Arturo,Restaurante,,6015878750,,,1,descartada,registro_cruzado_invalido
-e0c750697c60,Cecilia,Restaurante,,6015878750,Carrera 11 93A-13,https://cecilia.precompro.com,1,verificada,
+e4bded3638dd,Carmelita,Restaurante,andresparra192010@gmail.com,,Calle 42 Sur,,1,dudosa,sin_rastro_claro
 1f49529b97fe,Chop,Restaurante,,,,,1,dudosa,nombre_dudoso
 0f8e2c032ef0,Cory,Panadería,,,,,1,dudosa,nombre_dudoso
 51a5110d1a30,CPP,Carnicería,,,Carrera 68G Bis,,1,dudosa,nombre_dudoso
@@ -4932,16 +4953,12 @@ af1430408abc,DHL,Ferretería,,,Carrera 16A,,1,dudosa,nombre_dudoso
 fb57001be2bd,Doux,Panadería,,,,,1,dudosa,nombre_dudoso
 0ea0668e4c1f,Duca,Ferretería,,,Autopista Norte,,1,dudosa,nombre_dudoso
 5eb3fe399e69,Easy,Ferretería/Bricolaje,,,Avenida Terreros,,1,dudosa,nombre_dudoso
-d0d7173c8934,Erika,Panadería,,,calle 74 bis # 87b 03,,1,descartada,registro_cruzado_invalido
 223d63532934,Esso,Estación de servicio,,,,,1,dudosa,nombre_dudoso
-4980f87487d3,Estefania,Panadería,,,Calle 69D,,1,descartada,registro_cruzado_invalido
 e880d0738eeb,Fine,Lavandería,,,,,1,dudosa,nombre_dudoso
 67c4d216590e,FOTO,Taller/Oficio (photographic laboratory),,,Calle 151C 45,,1,dudosa,nombre_dudoso
 413c02f3c21b,G&E,Restaurante,,,Calle 163A,,1,dudosa,nombre_dudoso
 c62201703bcd,G&F,Ferretería,,,,,1,dudosa,nombre_dudoso
 164d37232524,G&G,Cerrajería,,,Calle 163A,,1,dudosa,nombre_dudoso
-70ba4967fd7e,Gloria,Restaurante,,6015878750,Calle 146,,1,descartada,registro_cruzado_invalido
-bfe9b1fcf770,Guadalupe,Panadería,,6015878750,Calle 76,,1,descartada,registro_cruzado_invalido
 a6c9a0359eed,Her,Taller/Oficio (electronics repair),,,Calle 82,,1,dudosa,nombre_dudoso
 37e3a62442b6,Hips,Restaurante,,,Carrera 2a,,1,dudosa,nombre_dudoso
 5381d89c4182,HOME,Comida rápida,,,,,1,dudosa,nombre_dudoso
@@ -4956,41 +4973,28 @@ c095ad53f8a7,Inox,Taller/Oficio (interior decorator),,,Avenida Calle 72,,1,dudos
 deb84fdb5869,J&L,Comida rápida,,,,,1,dudosa,nombre_dudoso
 ecb8fbdf3698,J&R,Taller de carros,,,Carrera 21,,1,dudosa,nombre_dudoso
 2442e2ec085b,Jema,Ferretería,,,Avenida Calle 161,,1,dudosa,nombre_dudoso
-54c5c72f52dd,Jhonatan,Panadería,,,,,1,descartada,registro_cruzado_invalido
 a31a71744654,JMC,Taller/Oficio (key cutter),,,Calle 11,,1,dudosa,nombre_dudoso
-a97a447fe529,Jorge Iván,Modistería,,6015878750,Carrera 16C,,1,descartada,registro_cruzado_invalido
-7a19c0c03ab7,José María,Restaurante,,6015878750,,,1,descartada,registro_cruzado_invalido
-07dd67991884,Juan Andrés,Comida rápida,,6015878750,,,1,descartada,registro_cruzado_invalido
-6b7c667ba064,Juan Bautista,Taller/Oficio (winery),,6015878750,,,1,descartada,registro_cruzado_invalido
-4e96553b6081,Juan Pablo,Carnicería,,6015878750,,,1,descartada,registro_cruzado_invalido
-0b8c89d90f10,Julia,Restaurante,william@juliapizzeria.com,+57 1 5302115;+57 302 309 0898;+57 601 745 6226,Avenida Calle 85 12-81,https://juliapizzeria.com,1,verificada,
 75dcab7bfe4a,Kame,Restaurante,,,67,,1,dudosa,nombre_dudoso
 43eb041bd62f,Kano,Restaurante,,,Diagonal 83,,1,dudosa,nombre_dudoso
-96781aedb6eb,KATHERIN,Panadería,,,,,1,descartada,registro_cruzado_invalido
 2f235e7154ab,KFC,Comida rápida,,,,,1,dudosa,nombre_dudoso
 50aa643beaf0,KMI,Comida rápida,,,Calle 3,,1,dudosa,nombre_dudoso
 cd2b1a9d81e4,Koku,Restaurante,,,,,1,dudosa,nombre_dudoso
 f1c845cb36c3,Kong,Restaurante,,,Calle 69A 5-36,,1,dudosa,nombre_dudoso
 90eeb2ede133,L & C,Ferretería,,,,,1,dudosa,nombre_dudoso
 1006bb5a3b4c,L&M,Ferretería,,,,,1,dudosa,nombre_dudoso
+0bc0f9c0dd4f,La lupita,Restaurante,tatiana.lozano182@gmail.com,3132226772,CALLE 22 #89-54,,1,dudosa,sin_rastro_claro
 3b67e3ef4705,La Y,Comida rápida,,,,,1,dudosa,nombre_dudoso
 5b44a6e58bc2,LAR,Taller de carros,,,,,1,dudosa,nombre_dudoso
-bfa8f4439d36,Leon,Restaurante,,573024572315,Calle 40 7-43,,1,verificada,
 314bb08820f2,Luna,Restaurante,,,Carrera 12 83-09,,1,dudosa,nombre_dudoso
 f159d2034ae4,M & N,Restaurante,,,,,1,dudosa,nombre_dudoso
 a76c39101cc7,M&S,Restaurante,,,Calle 156,,1,dudosa,nombre_dudoso
 e26cbbfffb18,M.y,Ferretería,,,Carrera 109A 143,,1,dudosa,nombre_dudoso
 07853891b5a7,Mabe,Panadería,,,,,1,dudosa,nombre_dudoso
-27a1ff87a930,Maria,Taller de carros,,6015878750,Calle 64B Sur,,1,descartada,registro_cruzado_invalido
-0d7ffeae721a,Maria Antonia,Restaurante,,,,,1,descartada,registro_cruzado_invalido
 1d5834f67dbe,Masa,Restaurante,,,Calle 70 4-83,,1,dudosa,nombre_dudoso
-17eae8b70542,MATIAS,Taller de carros,,,,,1,descartada,registro_cruzado_invalido
-e6cb93bced6e,Michel,Lavandería,,6015878750,,,1,descartada,registro_cruzado_invalido
 4959e02a75e5,Miel,Restaurante,,,,,1,dudosa,nombre_dudoso
 dece270f19ad,miga,Panadería,,,,,1,dudosa,nombre_dudoso
 39983468a97f,Mil,Panadería,,,Calle 66 Bis S,,1,dudosa,nombre_dudoso
 74ae1d2debe5,Mola,Restaurante,,,Avenida Calle 85,,1,dudosa,nombre_dudoso
-3db9c1e45447,Monica,Ferretería,,6015878750,,,1,descartada,registro_cruzado_invalido
 867d8995851d,Muy,Restaurante,,,,,1,dudosa,nombre_dudoso
 120171b4096f,MYM,Taller de carros,,,Avenida Calle 161,,1,dudosa,nombre_dudoso
 4702ed486bdc,Nemo,Restaurante,,+57 1 3257949,,,1,dudosa,nombre_dudoso
@@ -5003,14 +5007,13 @@ c29748b18a08,ONIX,Taller/Oficio (clockmaker),,,,,1,dudosa,nombre_dudoso
 f6f9119b63a2,OVI,Pinturas,,,Calle 68A,,1,dudosa,nombre_dudoso
 ac92fdd2f7e8,Pan,Fábrica/Industria,,,Carrera 82D 71 A 69,,1,dudosa,nombre_dudoso
 863dd7a14bc5,Pan &,Panadería,,,,,1,dudosa,nombre_dudoso
-dcfe21cb3aa6,Paola,Panadería,,6015878750,Calle 64,,1,descartada,registro_cruzado_invalido
 ab5cedf01c59,PPC,Comida rápida,,,,,1,dudosa,nombre_dudoso
 d0b5761f8769,Qun,Restaurante,,+573157652425,Avenida Calle 85 12-72,,1,dudosa,nombre_dudoso
 9585f155bca7,Rio,Restaurante,,,,,1,dudosa,nombre_dudoso
 483812c20442,Roma,Panadería,,,,,1,dudosa,nombre_dudoso
 25cc6b14d78a,RPM,Taller de carros,,,,,1,dudosa,nombre_dudoso
 6ae07fd187cc,Sach,Restaurante,,,Calle 69,,1,dudosa,nombre_dudoso
-df1193a28884,Sara,Ferretería,,6015878750,Calle 41B Sur,,1,descartada,registro_cruzado_invalido
+45bb88592483,Salsipuedes,Comida rápida,smasmela179@gmail.com,,Cra 116a #81-84,,1,dudosa,sin_rastro_claro
 7227b4310e21,SFB,Taller de carros,,,Avenida Carrera 70,,1,dudosa,nombre_dudoso
 9bea1e5c2889,SICO,Fábrica/Industria,,,,,1,dudosa,nombre_dudoso
 e0abf46b1bff,Sion,Panadería,,,,,1,dudosa,nombre_dudoso
@@ -5020,11 +5023,8 @@ e0abf46b1bff,Sion,Panadería,,,,,1,dudosa,nombre_dudoso
 ef72ddb897d9,Umai,Restaurante,,+57 1 2538602,Vía Cota Chía,,1,dudosa,nombre_dudoso
 74481b5e66f8,Uoso,Restaurante,,,Carrera 13 78-37,,1,dudosa,nombre_dudoso
 04876fcb9d33,URO,Restaurante,,,,,1,dudosa,nombre_dudoso
-ffb9a0c1a70d,Valería,Panadería,,,Calle 162,,1,descartada,registro_cruzado_invalido
 492a91623184,wika,Restaurante,,,,,1,dudosa,nombre_dudoso
-b0f0b5eb39b0,William's,Panadería,,,,,1,descartada,registro_cruzado_invalido
 975cbb48b0a3,WOK,Restaurante,,,,,1,dudosa,nombre_dudoso
-82e2f43f6c1f,Ximena,Panadería,,6015878750,Calle 43 Sur 6-45,,1,descartada,registro_cruzado_invalido
 cb9006b065b6,Yury,Panadería,,,Calle 3,,1,dudosa,nombre_dudoso
 e93b7c10c0fa,.CO INTERNET S.A.S.,Empresa privada (DIAN),eduardo@cointernet.co,,CALLE 81 NUMERO 11 - 08 P 6 OFICINA 6 116,,2,sin_verificar,
 79983f8c75ac,14-85 DENTAL SPA S.A.S,Salud (IPS y clínicas),gerencia2@1485dentalspa.com,(601) 926 1485;3212947734;3222512277,"Cra. 14 #85-68 Cons. 303, Bogotá (Sede Andino); también Sede Salitre: Cra 68B #24-39 Local 319-321, y Sede Unicentro: Calle 119 #14-42 Local 2",https://1485dentalspa.com,2,verificada,
@@ -5038,7 +5038,7 @@ ae3574b91494,4 elements accesorios,gift,,3143220126,Carrera 114A # 151C-07,,2,si
 be1117c51df8,4LIFE RESEARCH COLOMBIA LLC,Empresa privada (DIAN),marthac@4life.com,,CARRERA 15 98 42 CALLE 101,,2,sin_verificar,
 5014ac38a0f5,7GLAB SUCURSAL COLOMBIA,Empresa privada (DIAN),admin@7glab.com,,CALLE 99 7A 51 OFICINA 401,,2,sin_verificar,
 a0504bd21bd2,7M GROUP S.A.,Empresa privada (DIAN),martin.manjarres@7mcolombia.co,,AVENIDA EL DORADO NUMERO 69A -51,,2,sin_verificar,
-5547f81e747c,80 Sillas,Restaurante,contacto@takami.co,+57-601-6447766,Calle 118 6A-5,,2,sin_verificar,
+5547f81e747c,80 Sillas,Restaurante,contacto@takami.co,+57-601-6447766,Calle 118 6A-5,https://takami.co/,2,verificada,
 c6dc63659372,>Pronto pollo,fast food,,3223608874,calle 53 # 77a-15 77a,,2,sin_verificar,
 7893e8e6a833,"A A A INSETEC LTDA. ARQUITECTURA, ACABADOS Y AISLAMIENTOS",Empresa privada (DIAN),aaainsetecltda@gmail.com,,CALLE 118 49 08,,2,sin_verificar,
 6a293083d503,A B C DEL REMOLQUE S.A.S.,Empresa privada (DIAN),abcdelremolque@hotmail.com,,AVENIDA CALLE 6 42A 35,,2,sin_verificar,
@@ -5067,7 +5067,6 @@ f8075f3753da,A&L SYSTEMS SOLUTIONS SAS,Proveedores del Estado,systemssolutions_a
 cef42604964c,A&P PUBLICIDAD S.A.S.,Proveedores del Estado,ayppublicidad@gmail.com,6311089,CARRERA 41A 3 - 32 AP 101,,2,sin_verificar,
 a1b02501a014,A&S COMPUTADORES S.A. ALQUILER Y SERVICIO,Empresa privada (DIAN),contabilidad@ayscomputadores.com.co,,CARRERA 22 N 83 40,,2,sin_verificar,
 b135e3024876,A&S CONSTRUCTORES LIMITADA.,Empresa privada (DIAN),contabilidad@aysconstructores.com.co,,CALLE 100 8 A 49 OFICINA 908 TO B,,2,sin_verificar,
-e4a08bcea78e,A&V ClÍNICAS ODONTOLÓGICAS SAS,Salud (IPS y clínicas),adyvelandia@hotmail.com,,,,2,dudosa,sin_rastro_claro
 d9a3c21bffde,A&V SALUD IPS SAS,Salud (IPS y clínicas),frodriguezsaludips@gmail.com,3218100843,"Cr 53B 45B 05 Sur, Bogotá, D.C.",,2,verificada,
 e3865c914341,A'Comer,Cafetería,,,Calle 1 A,,2,sin_verificar,
 ecbdb3e9841f,A-VENTUS S.A.S. EN REORGANIZACION,Empresa privada (DIAN),contabilidad1@a-ventus.com,,DIAGONAL 94 BIS 56 30,,2,sin_verificar,
@@ -5078,7 +5077,7 @@ c1ae7ddf3c79,AAAA ACADEMIA ABSCRITA A ASOCIACION DE ESPECIALISTAS S.A.S,Salud (I
 fd0a31566932,AB SEÑALIZACION S.A.S.,Empresa privada (DIAN),ventas@absenalizacion.com,,CALLE 136 47 24,,2,sin_verificar,
 7000a7d543e1,Abadia Colonial,,abadiacolonial@gmail.com,5713411884,BogotaSurOr,,2,sin_verificar,
 b624a303d474,"ABAGO S.A. S, EN REORGANIZACION",Empresa privada (DIAN),contabilidad@abago.co,,CARRERA 73 B 9 90,,2,sin_verificar,
-8a99044fc75b,Abasto,Restaurante,andino@abasto.com.co,7821371,Carrera 6 119B-52,,2,sin_verificar,
+8a99044fc75b,Abasto,Restaurante,andino@abasto.com.co,7821371,Carrera 6 119B-52,https://abasto.com.co/,2,verificada,
 ca85b6784b26,ABBOTT LABORATORIES DE COLOMBIA S.A.S.,Empresa privada (DIAN),impuestos.colombia@abbott.com,,CALLE 100 9A 45 P14,,2,sin_verificar,
 46ba5feef742,ABBOTT RAPID DIAGNOSTICS COLOMBIA S.A.S.,Empresa privada (DIAN),cumplimiento.col@alere.com,,CALLE 110 9 25 OFICINA 501,,2,sin_verificar,
 b1d9269a2e42,ABBVIE S.A.S,Empresa privada (DIAN),maria.espitia@abbvie.com,,CARRERA 11 94 A 34 P 4,,2,sin_verificar,
@@ -5180,7 +5179,6 @@ f2aa89d9e268,ACUEDUCTO VEREDA MEUSA ESP,Servicios públicos,acueductoveredalmeus
 0c862337f4c5,ACUEDUCTO VEREDAL SAN JOIS,Servicios públicos,acueductosanjois@hotmail.com,8573161,VEREDA SAN JOSE SECTOR II,,2,sin_verificar,
 60812cf8aed7,ACUMULADORESD DUNCAN S.A.S.,Empresa privada (DIAN),adiaz@bateriasduncan.com.co,,"AUTOPISTA MEDELLIN KILOMETRO 2,5 VIA PARQUE LA FLORIDA BG 59",,2,sin_verificar,
 3f2bcecc4da4,Acuña,Droguería,,,,,2,sin_verificar,
-8986dd5f81dc,ACYS Apoyo Terapéutico Integral E.U.,Salud (IPS y clínicas),amarcreceryservir@yahoo.com,,,,2,dudosa,sin_rastro_claro
 ee02efd68287,AD ORANGE S.A.S.,Empresa privada (DIAN),jpardo@adorange.net,,CALLE 106 21 95 SU 503,,2,sin_verificar,
 b04b55a20d65,Adaia,Cafetería,,,Carrera 105F,,2,sin_verificar,
 124f2c4ff0f8,ADAMA COLOMBIA S.A.S.,Empresa privada (DIAN),contact.us@adama.com,,CARRERA 11 87 51 PI4,,2,sin_verificar,
@@ -5209,10 +5207,10 @@ be169269e0bb,ADMINISTRADORA SILVER LTDA,Proveedores del Estado,licitacionsilver@
 d198cb033835,ADOTEX S.A.S,Empresa privada (DIAN),asistentedeauditoria@narinoyasociados.com,,CALLE 19 68 B 65,,2,sin_verificar,
 1eb1adfa819a,Adrenalina,Calzado,,,Calle 122,,2,sin_verificar,
 4a6641699510,ADRIALPETRO PETROLEUM SERVICES COLOMBIA S.A.S. EN REORGANIZACION,Empresa privada (DIAN),contabilidad@adrialpetro.com.co,,CARRERA 14 NUMERO 99-33 OFICINA 406,,2,sin_verificar,
-e41a6e69a281,ADRIANA CEBALLOS PORRAS E.U.,Salud (IPS y clínicas),elitedentalgalerias2008@hotmail.com,,,,2,sin_verificar,
+e41a6e69a281,ADRIANA CEBALLOS PORRAS E.U.,Salud (IPS y clínicas),elitedentalgalerias2008@hotmail.com,3204358300;(1) 3460502,"Diagonal 53C # 23-44, barrio San Luis / Galerías, Teusaquillo, Bogotá D.C.",,2,verificada,
 a79e59a5513a,ADTECH S.A.,Empresa privada (DIAN),adtechsa@adtech.com.co,,CARRERA 9A N 99-02 OCALLE 816,,2,sin_verificar,
 f70361b66f0a,ADVANCE CONTROLESCOLOMBIA LIMITADA.,Empresa privada (DIAN),admin.col@grupoadvance.com,,CALLE 38 8 12 OFICINA 302,,2,sin_verificar,
-4b71f2960392,Advance odontologia SAS,Salud (IPS y clínicas),satuple4@hotmail.com,,,,2,sin_verificar,
+4b71f2960392,Advance odontologia SAS,Salud (IPS y clínicas),,601 467 4620,"Avenida 19 # 102-31, Local 2-1, Bogotá (barrio Chicó Navarra, Usaquén)",,2,dudosa,sin_rastro_claro
 943c55b900b6,ADVANCED MEDICAL LINE S.A.,Empresa privada (DIAN),gerencia@innovacionmedica.com,,CALLE L. 84 N 18-38 OFC. 601,,2,sin_verificar,
 6300dd9c8e83,ADVANCED PRODUCTS COLOMBIA LTDA.,Empresa privada (DIAN),co.andres.diaz@ap-grupo.com,,ZONA AVENIDA ICEÑO SECTOR BUENOS AIRES FINCA SAGARRERAS PUEBLO VIEJO SOPO,,2,sin_verificar,
 3116a158f6e2,ADVANTIS CONSULTORIA GERENCIAL S.A.S.,Empresa privada (DIAN),bip.colombia@mail-bip.com,,CALLE 86 NUMERO 10 - 88 OFICINA 701A,,2,sin_verificar,
@@ -5220,23 +5218,23 @@ f70361b66f0a,ADVANCE CONTROLESCOLOMBIA LIMITADA.,Empresa privada (DIAN),admin.co
 6b7d31222ea7,ADW MAQUINAS DE COSER S.A.S.,Empresa privada (DIAN),contabilidad@adwsa.com,,CALLE 19 17 64,,2,sin_verificar,
 6ec28f6454b0,AECSA S.A,Empresa privada (DIAN),director.contabilidad@aecsa.com.co,,AVENIDA AMERICAS 46 41,,2,sin_verificar,
 a028901e741d,AEI ARQUITECTURA E INTERIORES S.A.S.,Empresa privada (DIAN),pmurillo@aeispaces.com,,CARRERA 14 98 51,,2,sin_verificar,
-14ec8292298b,AEPSI SAS,Salud (IPS y clínicas),info@aepsi.com.co,,,,2,sin_verificar,
+14ec8292298b,AEPSI SAS,Salud (IPS y clínicas),info@aepsi.com.co,601 7506835;320 8724660,"Calle 93B No. 16-08, Consultorio/Oficina 301, Bogotá D.C.",https://aepsi.com.co/,2,verificada,
 6c18f0feedc8,Aeroclub de Colombia,school,,0316761498,UPZ Guaymaral,,2,sin_verificar,
 6cecfc76c440,AERODELICIAS LIMITADA,Empresa privada (DIAN),estave@aerodelicias.com,,CARRERA 127 NUMERO 22G - 18 INTERIOR 4 Y 5,,2,sin_verificar,
 6aff8d487cba,AEROESTRUCTURAS DE COLOMBIA S.A.S. EN REORGANIZACION,Empresa privada (DIAN),da_gmar@hotmail.com,,TRANSVERSAL 112 B BIS A 65A 19,,2,sin_verificar,
 e0a3f52f3e8f,AEROFULL S.A.S.,Empresa privada (DIAN),martha.aerofull@gmail.com,,CALLE 106 B 59 50 APTO 301,,2,sin_verificar,
 ceec3c30bc36,AEROSAN S.A.S.,Empresa privada (DIAN),notificaciones@aerosan.com,,CALLE 26 N 106-39 EDIFICIO CSU-A,,2,sin_verificar,
-8f5f2852b3de,aerosanidad sas,Salud (IPS y clínicas),gerencia@aerosanidadsas.com,,,,2,sin_verificar,
+8f5f2852b3de,aerosanidad sas,Salud (IPS y clínicas),gerencia@aerosanidadsas.com,+57 333 602 5751 ext. 152;300 222 1241;365 6171,"Carrera 28A # 71-94, barrio Alcázares, localidad Barrios Unidos, Bogotá D.C. (oficina Bogotá de Aerosanidad SAS)",https://www.aerosanidadsas.com/,2,verificada,
 5d4312c23c8c,AEROSUPPORT S.A.S.,Empresa privada (DIAN),mreina@aerosupportfbo.com,,AVENIDA EL DORADO 103 08 INT 20,,2,sin_verificar,
 b59bffcae138,Aeroturbo de Colombia,Empresa/Oficina,,,,,2,sin_verificar,
 0bf1a265c719,AEROVIAJES PACIFICO DE BOGOTA S.A.,Empresa privada (DIAN),contabilidad@aeroviajespacifico.com,,CARRERA 13 77 A 80,,2,sin_verificar,
 4cc44bcb0746,AERZEN COLOMBIA S.A.S.,Empresa privada (DIAN),rcastillo@aerzen.co,,AUTOPISTA MEDIFICIO KILOMETRO 3 CEM MOD 2 BODEGA 27 SIBERIA COTA,,2,sin_verificar,
 05a12f0be19b,AES S.AS.,Empresa privada (DIAN),aespanas23@gmail.com,,CALLE 98A 69B 55,,2,sin_verificar,
-3e47f1e4f54a,AESTHETICLINE S.A.S,Salud (IPS y clínicas),adriana@cifes.com,,,,2,sin_verificar,
+3e47f1e4f54a,AESTHETICLINE S.A.S,Salud (IPS y clínicas),,,,,2,descartada,registro_cruzado_invalido
 34896993cadd,AFC INGENIERIA S.A.S.,Empresa privada (DIAN),contactoafcingenieria@gmail.com,,CALLE 116 N 9 36 APTO 303,,2,sin_verificar,
 0e7deea33108,Afternoon tea,Cafetería,,,,,2,sin_verificar,
-d792ae15a17b,AG ASISTENCIAS IPS SAS,Salud (IPS y clínicas),ipsasistencias@aggroup.la,,,,2,sin_verificar,
-83c817a1fdbc,Agadon,Restaurante,agadon@dlksa.net,573226133,Bogotá,,2,sin_verificar,
+d792ae15a17b,AG ASISTENCIAS IPS SAS,Salud (IPS y clínicas),ipsasistencias@aggroup.la,+57 1 7042621;4864906,"Av Carrera 45 N° 93-39, La Castellana, Bogotá (oficina principal); también Carrera 5 No 10-35 Consultorio 103, La Candelaria, Bogotá",https://www.aggroup.la/portal/en/ag-asistencias-ips/,2,verificada,
+83c817a1fdbc,Agadon,Restaurante,agadon@dlksa.net,573226133,Bogotá,https://www.restauranteagadon.com/,2,verificada,
 4e594c0517ee,AGAVCA SAS,Servicios públicos,aprovechamientoagavca@gmail.com,0000000,Carrera 77 # 76-17,,2,sin_verificar,
 e722da4c25ea,Agencia & Aduanas Pasar,Empresa/Oficina,,,Avenida Carrera 103 25F-40,,2,sin_verificar,
 d1ed765d7a85,AGENCIA ALEMANA DE COLOMBIA S.A.S.,Empresa privada (DIAN),diana.benavides@jungheinrich.co,,CALLE 2 18 93 VIA MOSQUERA PARQUE INDUSTRIAL SAN JORGE BG 57 58,,2,sin_verificar,
@@ -5303,7 +5301,7 @@ a1e6604cb0f5,AGROAROMAS S.A.S.,Empresa privada (DIAN),contabilidad@agroaromas.co
 dee2f67d000b,AGROBAHIA S.A.,Empresa privada (DIAN),martha.eug@gmail.com,,CALLE 118 NUMERO 19-56 OFICINA 204,,2,sin_verificar,
 1a252ee17985,AGROCAMPO S.A.S.,Empresa privada (DIAN),luis.vargas@agrocampo.com.co,,CALLE 73 20 62,,2,sin_verificar,
 35c14cdd3881,AGROCENTRO COLOMBIA S.A.S,Empresa privada (DIAN),colombia@agrocentro.com,,CALLE 108 51 81,,2,sin_verificar,
-2c1666aad4f3,AGRODIESEL motores y partes SAS,Repuestos de carros,agrodieselsas@gmail.com,7813910,Carrera 19 3606963,,2,sin_verificar,
+2c1666aad4f3,AGRODIESEL motores y partes SAS,Repuestos de carros,agrodieselsas@gmail.com,7813910,Carrera 19 3606963,,2,verificada,
 e2d6695efa00,Agrodiesel motores y partes SAS,Repuestos de carros,,3419118,Calle 7A 15 A 51,,2,sin_verificar,
 cda53903ccdf,AGROEXPORT DE COLOMBIA S.A.S.,Empresa privada (DIAN),ramon.duarte@agroexport.com.co,,CARRERA 7 180 75 MODULO 1 CALLE E 10 11,,2,sin_verificar,
 636b3b0d6fba,"AGROFILTER S.A. S., VALIDACION JUDICIAL",Empresa privada (DIAN),agrofilterltda@gmail.com,,CALLE 11 23 26,,2,sin_verificar,
@@ -5389,7 +5387,7 @@ eba2a1fd34a9,AGUDELO TORO LILIANA PATRICIA,Comercio,patriciaagudelotoro@gmail.co
 fe23ffbbcb43,AIGUAFREDA SCA,Empresa privada (DIAN),gerencia@aytauditores.com.co,,CARRERA 7 75 98 OFICINA 1102,,2,sin_verificar,
 98a61d4f3726,AINPRO S.A.,Empresa privada (DIAN),finanzas@ainpro.com.co,,CARRERA 65 B 18 A 40,,2,sin_verificar,
 1b90135994cc,AIR FLOW S.A.S.,Empresa privada (DIAN),gerencia.administrativa@airflowsas.com,,CARRERA 28 70 44,,2,sin_verificar,
-7fa56993e752,AIR LIQUIDE COLOMBIA SAS,Salud (IPS y clínicas),calidad-salud@airliquide.com,,,,2,sin_verificar,
+7fa56993e752,AIR LIQUIDE COLOMBIA SAS,Salud (IPS y clínicas),calidad-salud@airliquide.com,6017424444;018000182444,"Av. Las Américas # 44-23, Edificio Hornitos, 2do piso, Bogotá (sede Américas); también Autopista Norte # 94-23, Edificio North West, 2do piso, Bogotá (sede Castellana)",https://co.airliquide.com/ ; https://co.healthcare.airliquide.com/,2,verificada,
 317c4994e744,AIRE ACONDICIONADO S.A.S.,Empresa privada (DIAN),aireacondicionado@yahoo.com,,CALLE 29 NUMERO 7A 04,,2,sin_verificar,
 3c477615ee51,AIRE CARIBE S.A.,Empresa privada (DIAN),contador.nacional@airecaribe.com,,CALLE 128 45A 41,,2,sin_verificar,
 d9143379631e,Aire Libre y Aventura,Empresa/Oficina,,,Carrera 14A 71A-59,,2,sin_verificar,
@@ -5415,7 +5413,7 @@ db9cc714f079,ALAI S.A.S.,Empresa privada (DIAN),gmunoz@minipak.co,,GMUNOZ@MINIPA
 183491e5cb2c,ALAMBRES Y MALLAS S.A.,Empresa privada (DIAN),almasa@almasa.com.co,,CARRERA 68 D NUMERO 39 F 58 SUR,,2,sin_verificar,
 44f4878d883f,Alameda Primaveral,florist,,3125878061,Bogotá,,2,sin_verificar,
 53a8af88ccdb,Alan González Cirugía Plástica y Salud Estética,Doctor,servicioalcliente2@alangonzalez.com,5716224123,Carrera 7Bis 124-26,,2,sin_verificar,
-7d49da688d88,ALARCON FORERO SOCIEDAD DE MEDICINA DEPORTIVA LTDA AF MEDICINA DEPORTIVA LTDA,Salud (IPS y clínicas),personalgym@gmail.com,,,,2,sin_verificar,
+7d49da688d88,ALARCON FORERO SOCIEDAD DE MEDICINA DEPORTIVA LTDA AF MEDICINA DEPORTIVA LTDA,Salud (IPS y clínicas),personalgym@gmail.com,6372424;9320283;3112456011,"Calle 106 No. 17 A 58, Bogotá D.C.",,2,verificada,
 e79b8b66d871,ALARM SYSTEMS CAR Y COMPAÑIA LIMITADA ASC S.A.S.,Empresa privada (DIAN),asc_18c@hotmail.com,,CALLE 74 NUMERO 23-34,,2,sin_verificar,
 eedeb2279a48,ALARMAS MULTI SERVICIOS LIMITADA.,Empresa privada (DIAN),dirfinanciero@ams.com.co,,CARRERA 28 70 45,,2,sin_verificar,
 5ceb7e65417f,ALASKA,Cafetería,,,calle 38A # 93 D 35 S,,2,sin_verificar,
@@ -5435,10 +5433,10 @@ f29434c07ae9,Aldaza,Droguería,,,,,2,sin_verificar,
 be0404d3e7ae,ALDEA PROYECTOS S.A.S,Empresa privada (DIAN),notificaciones@aldea.com.co,,AVENIDA CALLE 100 7A 20,,2,sin_verificar,
 ee0ee60edbcb,Aldia Pharma,Droguería,,,Avenida Moratto Carrera 70,,2,sin_verificar,
 620408c2d463,ALDICOM OPERADORES LIMITADA. EN REORGANIZACION,Empresa privada (DIAN),petronavarra@gmail.com,,AVENIDA CARRERA 45 104 40,,2,sin_verificar,
-42f4df6a3d95,ALEANDES SAS,Salud (IPS y clínicas),gerencia.aleandes@gmail.com,,,,2,sin_verificar,
+42f4df6a3d95,ALEANDES SAS,Salud (IPS y clínicas),gerencia.aleandes@gmail.com,6013380353,"Cra. 18 #32-81, Barrio Teusaquillo, Bogotá D.C.",https://aleandes.com/,2,verificada,
 0df5242f5d2a,ALEAR COLOMBIA S.A.S.,Empresa privada (DIAN),alearcolombia@gmail.com,,CARRERA 70 103 16,,2,sin_verificar,
 9c49df4939e7,ALEJANDRO GARZON SUAREZ S.A.S.,Empresa privada (DIAN),ferrealegarzon@gmail.com,,CARRERA 15 11-68,,2,sin_verificar,
-f8eca87b93a0,ALEJANDRO OROZCO SAS,Salud (IPS y clínicas),mrodriguez@gastrocenter.co,,,,2,sin_verificar,
+f8eca87b93a0,ALEJANDRO OROZCO SAS,Salud (IPS y clínicas),mrodriguez@gastrocenter.co,3144578279;3181057747;3164474264,"Calle 116 #9-72, Consultorio 701 (Edificio Global Medical Center), Bogotá D.C.",https://gastrocenter.co (también operan bajo gastrocenter.com),2,verificada,
 758241107b43,ALEMAN BELLO S.A.S.,Empresa privada (DIAN),aleman_bello@email.com,,CALLE 25 SUR 69 A 22,,2,sin_verificar,
 98707149862a,ALEXANDRA FARMS S.A.S.,Empresa privada (DIAN),alexandrafarms@gmail.com,,CARRERA 7 113 43 OFICINA 1507,,2,sin_verificar,
 89fb0aeac83f,ALEXION PHARMA COLOMBIA S.A.S.,Empresa privada (DIAN),edison.bernal@alexion.com,,CARRERA 9 NUMERO 115-06 /30 EDIFICIO TIERRA FIRME OFICINA 2904,,2,sin_verificar,
@@ -5459,19 +5457,19 @@ afbd1fbf533e,ALFONSO URIBE S Y COMPAÑIA S.A.,Empresa privada (DIAN),auribe@alfo
 0f8fe1cc52e2,ALGOA EU,Empresa privada (DIAN),mrestrepo@flexospring.com.co,,CARRERA 63 NUMERO 14 - 75,,2,sin_verificar,
 05a5b91be8da,ALGRAFHER S.A.S.,Empresa privada (DIAN),contabilidad@algrafjher.com,,AVENIDA CALLE 6 NUMERO 49 - 38,,2,sin_verificar,
 c51f275f7fe1,ALIADOS ENERGETICOS DE COLOMBIA S.A.S. EN VALIDACION,Empresa privada (DIAN),info@aenco.com.co,,CARRERA 60 D BIS 97 70,,2,sin_verificar,
-c3a00acf7c1c,ALIADOS SALUD OCUPACIONAL SAS,Salud (IPS y clínicas),gerencia@aliadossaludocupacional.com,,,,2,sin_verificar,
-826d09fa9600,ALIANZA BLESSED S.A.S.,Salud (IPS y clínicas),alianzablessed@gmail.com,,,,2,sin_verificar,
-12eb1e2b8418,Alianza Codigo Rojo IPS SAS,Salud (IPS y clínicas),medicalsaludcodigorojo@gmail.com,,,,2,sin_verificar,
+c3a00acf7c1c,ALIADOS SALUD OCUPACIONAL SAS,Salud (IPS y clínicas),gerencia@aliadossaludocupacional.com,6016918599;6230213;3112273836,"Calle 80 # 19-56, Bogotá D.C.",https://www.aliadossaludocupacional.com/,2,verificada,
+826d09fa9600,ALIANZA BLESSED S.A.S.,Salud (IPS y clínicas),alianzablessed@gmail.com,5337725;5331248;3013057933,"Diagonal 115A No 70C-75, Local 1, Barrio Morato, Bogotá D.C.",https://blessedent.com.co/,2,verificada,
+12eb1e2b8418,Alianza Codigo Rojo IPS SAS,Salud (IPS y clínicas),medicalsaludcodigorojo@gmail.com,3106092071;3227373252,"Carrera 18 #56A-46 Sur, Bogotá",,2,verificada,
 86da48fbd735,ALIANZA DEL HUMEA S.A.S.,Empresa privada (DIAN),gerencia@alhumea.com,,CARRERA 13 94A 44 OFICINA 401 EDIFICIO CENTROEMPRESARIAL IVIA,,2,sin_verificar,
-bfff7cc66f81,ALIANZA DIAGNOSTICA Y QUIRURGICA LIFE SAS SIGLA ADQ LIFE SAS,Salud (IPS y clínicas),iruc@hotmail.com,,,,2,sin_verificar,
-8fbb24804b62,ALIANZA EXAMENES EMPRESARIALES OCUPACIONALES Y SERVICIOS MEDICOS LTDA,Salud (IPS y clínicas),gerenciaalianzaexamenes@gmail.com,,,,2,sin_verificar,
+bfff7cc66f81,ALIANZA DIAGNOSTICA Y QUIRURGICA LIFE SAS SIGLA ADQ LIFE SAS,Salud (IPS y clínicas),,3152232727;3168004000;3224515505,"Carrera 7C # 125-11, Bogotá D.C. (consultorios 201-206 piso 3, 305-310 piso 4, 403, 406, 407)",https://centromedicolife.com/,2,verificada,
+8fbb24804b62,ALIANZA EXAMENES EMPRESARIALES OCUPACIONALES Y SERVICIOS MEDICOS LTDA,Salud (IPS y clínicas),gerenciaalianzaexamenes@gmail.com,6012174450;3135543936;3204930881,"Av Calle 63 No. 24-44, Of/Cons 206-208, Bogotá (Sede 7 de Agosto); también Centro Internacional, Carrera 7 # 27-42",https://alianzaexamenes.com/,2,verificada,
 58e3f5f40340,ALIANZA MOTOR S.A,Empresa privada (DIAN),notificacionesjudiciales@alianzamotor.com,,CARRERA 67 167 61,,2,sin_verificar,
 eca3f3609632,ALIANZA ORIENTAL S.A.,Empresa privada (DIAN),ramon.duarte@alianzaoriental.com,,CARRERA 7 180 75 MODULO 1 CALLE E 10 11,,2,sin_verificar,
-53535e989b1d,ALIANZA SALUD LABORAL SAS,Salud (IPS y clínicas),alianza.saludlaboral@gmail.com,,,,2,sin_verificar,
+53535e989b1d,ALIANZA SALUD LABORAL SAS,Salud (IPS y clínicas),alianza.saludlaboral@gmail.com,3226801398;(601) 8088147,"Av. Cra. 19 No. 95-55, Consultorio 310, Bogotá D.C., Colombia",https://alianzasl.com/,2,verificada,
 9b50a2bed846,ALIANZA TEMPORALES S.A.S.,Empresa privada (DIAN),zaira.chamorro@alianzatemporal.com.co,,CALLE 25 B NUMERO 38 A - 54,,2,sin_verificar,
 82987bbf0f6b,ALIATUBOS S.A.S.,Empresa privada (DIAN),cartera@aliatubos.com,,CARRERA 25 17 67,,2,sin_verificar,
 caeae4266623,ALICARTE Y COMPAÑIA S EN C,Empresa privada (DIAN),albergogogo@yahoo.es,,TRANSVERSAL 57 108 42,,2,sin_verificar,
-cac503678e08,Alice's,Restaurante,alex@alicesbogota.com,6753212,Calle 69A 5-18,,2,sin_verificar,
+cac503678e08,Alice's,Restaurante,alex@alicesbogota.com,6753212,Calle 69A 5-18,https://www.alicesbogota.com/,2,verificada,
 479e0da6cfb8,ALICORP COLOMBIA S.A.,Empresa privada (DIAN),spenao@alicorp.com.pe,,CALLE 12B 68B - 25,,2,sin_verificar,
 d3d533c2d43c,ALIENERGY S.A.S.,Empresa privada (DIAN),administracion@alienergy.com.co,,CARRERA 7 171B 98,,2,sin_verificar,
 134d427cb0d9,Alimentaria,Fruver,,,Carrera 2,,2,sin_verificar,
@@ -5484,7 +5482,7 @@ b9de8e510574,ALIMENTOS CRIOLLOS S.A.,Empresa privada (DIAN),contabilidad@tipicas
 4976c9c4edcc,ALIMENTOS S.A.S. S.A.S,Empresa privada (DIAN),admin@sas.com.co,,DIAGONAL 19 D 39 20,,2,sin_verificar,
 cc2a337c75cb,ALIMENTOS SPRESS LIMITADA.,Empresa privada (DIAN),contabilidadspress4@gmail.com,,CARRERA 94 NUMERO 66A 25,,2,sin_verificar,
 2c6a54fc8726,ALIMSO CATERING SERVICES S.A. EN REORGANIZACION,Empresa privada (DIAN),contabilidad@alimso.com,,AVENIDA BOYACALLENUMERO 54 -0 6,,2,sin_verificar,
-ac38b4c83db2,ALIRIO GUTIERREZ MILLAN Y CIA SAS UNIDAD DE ATENCIÓN PRIMARIA DARSALUD,Salud (IPS y clínicas),darsalud@hotmail.com,,,,2,sin_verificar,
+ac38b4c83db2,ALIRIO GUTIERREZ MILLAN Y CIA SAS UNIDAD DE ATENCIÓN PRIMARIA DARSALUD,Salud (IPS y clínicas),darsalud@hotmail.com,6012654118;3505090588,"Carrera 78 K # 33 A - 76 Sur, Edificio Sura, Bogotá (Kennedy)",https://darsaludips.com.co/,2,verificada,
 c461714dd048,ALJOGAR Y COMPAÑIA S.A.S.,Empresa privada (DIAN),amp-cardona@hotmail.com,,CALLE 93B NUMERO 11A 84 OFICINA 203,,2,sin_verificar,
 6c54d424e619,ALKHORAYEF PETROLEUM COLOMBIA,Empresa privada (DIAN),acardenas@alkhorayef.com,,CARRERA 9 113 52 OFICINA 404 CENTRO EMPRESARIAL TORRES UNIDAS,,2,sin_verificar,
 694bffa5f50c,Alkosto Calle 68,Supermercado,nombre@correo.com,+576014073033,Carrera 68B # 72-43,,2,sin_verificar,
@@ -5507,7 +5505,7 @@ eebe86f20429,ALMACEN BUSTAMANTE S.A.S.,Empresa privada (DIAN),almacenbustamante@
 a6a34b31253b,Almacen Dianas (lanas),craft,,3209862995,Bogotá,,2,sin_verificar,
 be17d9617eb3,ALMACEN EL ARQUITECTO S.A.S.,Empresa privada (DIAN),contabilidad@almacenelarquitecto.co,,CARRERA 14 NUMERO 80-27,,2,sin_verificar,
 2efcc448fa74,ALMACEN EL HACHAZO S.A.,Empresa privada (DIAN),hachazo00@hotmail.com,,CALLE 140 13-81,,2,sin_verificar,
-255f16f5ab6a,Almacen montaño Taller de Torno y soldaduras milton garcia,Taller de carros,notlim71@hotmail.com,+57 301 2792311,Carrera 24D 19 Sur-6,,2,sin_verificar,
+255f16f5ab6a,Almacen montaño Taller de Torno y soldaduras milton garcia,Taller de carros,notlim71@hotmail.com,+57 301 2792311,Carrera 24D 19 Sur-6,,2,dudosa,sin_rastro_claro
 220cde3215f8,ALMACEN MOTORFRENOS S.A.S.,Empresa privada (DIAN),info@motorfrenos.com,,KILOMETRO 16 7 01,,2,sin_verificar,
 3000a38aeb78,ALMACEN SANITARIO S.A.S.,Empresa privada (DIAN),j_contabilidad@almacensanitario.com,,CARRERA 25 13 -43,,2,sin_verificar,
 ece97327b7fa,ALMACEN SURTICOL LIMITADA.,Empresa privada (DIAN),surticol@hotmail.com,,CARRERA 24 D 17 28 SUR,,2,sin_verificar,
@@ -5527,7 +5525,7 @@ f1c3af5f0e4d,ALMARCHIVOS S.A.,Empresa privada (DIAN),contabilidad@almarchivos.co
 6016dc705890,ALMCENES AGROMAX S.A. SCOMPRA Y VENTA DE INSUMOS AGROPECUARIOS S.A.S.,Empresa privada (DIAN),almacenesagromax@yahoo.com,,CARRERA 4 NUMERO 1-28,,2,sin_verificar,
 20b895127de7,Almendras,Cafetería,,,Carrera 9,,2,sin_verificar,
 f0f04f7afccb,almojabaneria EL BUEN SABOR,Cafetería,,,,,2,sin_verificar,
-165d9d19c816,Alotec,Taller de carros,alotec@alotec.net,3103414419,Carrera 96G 2132,,2,sin_verificar,
+165d9d19c816,Alotec,Taller de carros,alotec@alotec.net,3103414419,Carrera 96G 2132,,2,dudosa,sin_rastro_claro
 674bec042118,ALPAAR S.A.S,Empresa privada (DIAN),alpaarsas@alpaar.com,,CALLE 110 9-25 OFINCA 1004,,2,sin_verificar,
 33c1bbd37440,ALPACIFICO SOCIEDAD EN COMANDITA,Empresa privada (DIAN),alpacificosenc@hotmail.com,,CALLE 112 15 07 OFICINA 302,,2,sin_verificar,
 6386ebe9667b,Alpain,repair,,3124635007,Carrera 50,,2,sin_verificar,
@@ -5545,7 +5543,7 @@ ed3ea30a1921,ALQUILERES Y SERVICIOS S.A. EN REORGANIZACION,Empresa privada (DIAN
 a2a061cf7657,ALSTOM ENERGIAS RENOVAVEIS LIMITADA. SUCURSAL COLOMBIA,Empresa privada (DIAN),marco.chaves@ge.com,,AVENIDA CARRERA 72 NUMERO 80 94 PISO 12,,2,sin_verificar,
 2645625c3f03,Alta Moda,Telas,,,Carrera 52C,,2,sin_verificar,
 5bf459105ee9,Alta Resolución Fotografía - ARF,Photo,arfcomunicaciones@gmail.com,572173374,Calle 76 14-53,,2,sin_verificar,
-5fefaf50a95b,ALTA VISION SAS,Salud (IPS y clínicas),calidad@hablemosdesalud.com.co,,,,2,sin_verificar,
+5fefaf50a95b,ALTA VISION SAS,Salud (IPS y clínicas),calidad@hablemosdesalud.com.co,6016164585;6164585,"Carrera 14 No. 86A-15, Bogotá (barrio Cabrera) — Edificio ""Hablemos de Salud""",https://www.altavision.com.co/,2,verificada,
 9785c198fd19,ALTACOL NORVENTAS S.A.S.,Empresa privada (DIAN),ramiro.vargas@norventas.com,,KILOMETRO 7.5 AUTOPISTA MEDELLIN PARQUE INDUSTRIAL AVENIDA USELAS,,2,sin_verificar,
 1e44c416556a,ALTACORTE S.A.S.,Empresa privada (DIAN),sofiadezambrano@altacorte.co,,CALLE 100 8A 55 TO C OFICINA 609,,2,sin_verificar,
 b4d5c3500ce8,ALTAIR INGENIERIA S.A.S.,Empresa privada (DIAN),fernando.barrero@altairsa.com,,CARRERA 16 82 29 OFICINA 801,,2,sin_verificar,
@@ -5571,8 +5569,8 @@ de03a9973d6e,ALURA ANIMAL HEALTH AND NUTRITION S.A.S.,Empresa privada (DIAN),kav
 5cc1ea8655b5,Aluvión,Joyería,aluvion_joyeria@hotmail.com,3143596904,Carrera 55 170 A 35,,2,sin_verificar,
 a7056d0303d6,ALV SERVICIOS Y SUMINISTROS LIMITADA.,Empresa privada (DIAN),alvservicios@outlook.com,,DIAGONAL 62 SUR 21 A 60,,2,sin_verificar,
 0eaa9f19d90a,Alvang Camping,Outdoor,info@mysite.com,3153744216,Carrera 70C 48 A – 20,,2,sin_verificar,
-dc2499759375,ALVARADO RODRIGUEZ ARENAS ORTODONCISTAS ASOCIADOS SAS SIGLA CLINICA ODONTOLOGICA ODONTO ESTETIK,Salud (IPS y clínicas),odontoestetik2010@hotmail.com,,,,2,sin_verificar,
-fdde9d5d7b65,ALVAREZ RUBIO YIMY ALBERTO,Construcción,alvarezrubio0909@gmail.com,3138131563,CL 9 NRO. 6 - 72,,2,sin_verificar,
+dc2499759375,ALVARADO RODRIGUEZ ARENAS ORTODONCISTAS ASOCIADOS SAS SIGLA CLINICA ODONTOLOGICA ODONTO ESTETIK,Salud (IPS y clínicas),odontoestetik2010@hotmail.com,3118853580;3144337497;2388823,"Cra 51 No. 59C-93 Sur Local 204, Bogotá (sede Gran Plaza El Ensueño); también Cra 51 No. 44-06 Sur Esquina, Venecia, Bogotá (sede Venecia)",https://www.aiyellow.com/odontoestetik/,2,verificada,
+fdde9d5d7b65,ALVAREZ RUBIO YIMY ALBERTO,Construcción,alvarezrubio0909@gmail.com,3138131563,CL 9 NRO. 6 - 72,,2,dudosa,sin_rastro_claro
 1542a67ed796,ALVAREZ VERGEL & COMPAÑIA S EN C A,Empresa privada (DIAN),h.alv@hotmail.com,,TRANSVERSAL 68 NUMERO 182-16 INT 2,,2,sin_verificar,
 d3b2fe7b53e9,ALVAREZ VILLEGAS S.A.S. Y/O TELINDA S.A.S.,Empresa privada (DIAN),contabilidad@telinda.com,,CARRERA 9 11 74 LC01,,2,sin_verificar,
 2811c12a607e,ALVARO F CALA Y COMPAÑIA SCA,Empresa privada (DIAN),afcycia@gmail.com,,CALLE 86 8 62 APARTAMENTO 801,,2,sin_verificar,
@@ -5586,7 +5584,7 @@ dad595d760f3,AMADEUS IT GROUP COLOMBIA S.A.S.,Empresa privada (DIAN),viviana.ven
 0e1ecbaf0fcb,AMAL S.A.S.,Empresa privada (DIAN),amal.sas.sociedad@gmail.com,,CALLE 93 A N 11 - 36 OFICINA 202,,2,sin_verificar,
 9310a1765e3c,Amaranto,florist,,0572692902,Carerra 20 25-49,,2,sin_verificar,
 5eda9bc420da,AMARILO S.A.S.,Empresa privada (DIAN),notificacionesjudiciales@amarilo.com,,CALLE 90 11A 27,,2,sin_verificar,
-f36b2b695378,Amarok Campamento canino,Jardín infantil,amarokcampamento@gmail.com,3203393705,Zona 6,,2,sin_verificar,
+f36b2b695378,Amarok Campamento canino,Jardín infantil,amarokcampamento@gmail.com,3203393705,Zona 6,https://www.amarokamp.com,2,verificada,
 c6dbaf8a9533,Amazon,Empresa/Oficina,,,,,2,sin_verificar,
 f4d87857516d,Amazonia cafe,Cafetería,,,,,2,sin_verificar,
 46427ddd6d14,AMBAR INVERSIONES S.A.S,Empresa privada (DIAN),gradallos@hotmail.com,,CALLE 93 NUMERO 14 20 OFICINA 704,,2,sin_verificar,
@@ -5598,11 +5596,11 @@ d4f68d646ee5,AMBIENTE VIABLE SAS,Proveedores del Estado,ambienteviablesas2020@gm
 7439b4d3cc9e,AMBIENTES ACCESORIOS S.A.S.,Empresa privada (DIAN),contabilidad@carminavillegas.com,,CALLE 66 NUMERO 20 15,,2,sin_verificar,
 7ecef9c7acbc,AMBIENTTI CONSTRUCTORA INMOBILIARIA S.A.,Empresa privada (DIAN),contactenos@ambientti.com.co,,CARRERA 16 A 78 11 PISO 6,,2,sin_verificar,
 bebfeeda0191,AMBITO URBANO S.A.S.,Empresa privada (DIAN),contabilidad@ingeurbe.com,,CALLE 72 7 64 PI 2,,2,sin_verificar,
-83af546a86a4,AMBU-SANAR S.A.S SIGLA AMBUSAS,Salud (IPS y clínicas),ambusanar2021@gmail.com,,,,2,sin_verificar,
-816b4a9f8788,AMBULANCIAS AEREAS DE COLOMBIA S.A.S.,Salud (IPS y clínicas),administracion@ambulanciasaereasdecolombia.com,,,,2,sin_verificar,
-1cc3316b1d11,AMBUPETROL MEDICA S.A.S-AMBUMEDICA S.A.S,Salud (IPS y clínicas),admonambumedicabogota@gmail.com,,,,2,sin_verificar,
-cb507d697905,AMBUSALUD RCP SAS,Salud (IPS y clínicas),ambusaludrcp@gmail.com,,,,2,sin_verificar,
-dc1b9f01876b,AMBUSURE IPS S.A.S.,Salud (IPS y clínicas),ambusureips@gmail.com,,,,2,sin_verificar,
+83af546a86a4,AMBU-SANAR S.A.S SIGLA AMBUSAS,Salud (IPS y clínicas),ambusanar2021@gmail.com,601 781 7190;311 581 5807,"Carrera 69 K #79-67 Piso 1, Barrio Ferias, Bogotá",https://ambusanar.com/,2,verificada,
+816b4a9f8788,AMBULANCIAS AEREAS DE COLOMBIA S.A.S.,Salud (IPS y clínicas),administracion@ambulanciasaereasdecolombia.com,3125488322;3108814575;+57 1 413 8372,"Aeropuerto El Dorado P1, Cra 103 # 26-92 Interior 9 Hangar 182, Bogotá",https://www.ambulanciasaereasdecolombia.com/,2,verificada,
+1cc3316b1d11,AMBUPETROL MEDICA S.A.S-AMBUMEDICA S.A.S,Salud (IPS y clínicas),admonambumedicabogota@gmail.com,4083837;3203414161,"Carrera 29 # 5A-73, B. Veraguas/Santa Isabel, Localidad Mártires, Bogotá (también reportada como Kr 30 Bis # 5B-63 Piso 1, misma zona)",,2,dudosa,sin_rastro_claro
+cb507d697905,AMBUSALUD RCP SAS,Salud (IPS y clínicas),ambusaludrcp@gmail.com,3214882104;3115708936;(031) 7045807,"Carrera 72 # 74A-46, Bogotá D.C.",ambusalud.co (dominio no resuelve actualmente / posible sitio caído),2,verificada,
+dc1b9f01876b,AMBUSURE IPS S.A.S.,Salud (IPS y clínicas),ambusureips@gmail.com,3214882104,"Transversal 77 C 47-16 P1, Bogotá D.C.",,2,verificada,
 390688f3b248,AMCOL INGENIERIA LIMITADA.,Empresa privada (DIAN),mavihur@yahoo.com,,CARRERA 49B NUMERO 91-54,,2,sin_verificar,
 75ec174d8960,AMCOR RIGID PACKAGING DE COLOMBIA S.A.S.,Empresa privada (DIAN),pcal-representacionlegalrigid@amcor.com,,KILOMETRO 2 VIA FUNZA SIBERIA PARQUE INDUSTRIAL ARGELIA BG 16 17 18 19,,2,sin_verificar,
 5f037d4ebbfa,AMERAYCA S.A.S.,Empresa privada (DIAN),amerayca@gmail.com,,CARRERA 4A 66 81 APTO 301,,2,sin_verificar,
@@ -5641,7 +5639,7 @@ e30609c0f97a,AMMA & COMPAÑIA S.A.S.,Empresa privada (DIAN),sintes-sas@hotmail.c
 ddb13dd34c23,AMPACET COLOMBIA S.A.S.,Empresa privada (DIAN),norma.traslavina@ampacet.com,,CALLE 72 NUMERO 6 - 44 EDIFICIO APARQUE OFICINA 1102,,2,sin_verificar,
 cbb7d5dbdf69,AMPLEX DE COLOMBIA COMPAÑIA S.A.S.,Empresa privada (DIAN),rmedina@amplexcolombia.com,,CARRERA 47 93 20,,2,sin_verificar,
 b203d1cdd830,AMR CONSTRUCCIONES Y COMPAÑIA S.A,Empresa privada (DIAN),asistentecontable@amr.com.co,,CARRERA 16 93A 36 OFICINA 401,,2,sin_verificar,
-6d1a70a2fd37,AMS AMBULANCIAS SAS SIGLA AMS AE SAS,Salud (IPS y clínicas),administrativa@amsambulancias.com.co,,,,2,sin_verificar,
+6d1a70a2fd37,AMS AMBULANCIAS SAS SIGLA AMS AE SAS,Salud (IPS y clínicas),administrativa@amsambulancias.com.co,3116541750;3182695808;7023608-73,"Carrera 24d No. 13-46 Sur, El Restrepo, Bogotá (también reportada: Calle 18 #77-67 Consultorio 416, Centro Comercial Meridian 13 del Este, Bogotá)",http://amsambulancias.com.co/,2,verificada,
 4a9bba0469f4,AMTECO S.A.S.,Empresa privada (DIAN),amtecosas@gmail.com,,CALLE 150 16 56 OFICINA 308 8,,2,sin_verificar,
 58356a48f5c9,AMTEL LIMITADA.,Empresa privada (DIAN),sermol@yahoo.com,,CALLE 106 57 23 OFICINA 403 A,,2,sin_verificar,
 6180c2a6033c,AMWAY COLOMBIA,Empresa privada (DIAN),alejandra.acosta@amway.com,,CARRERA 19 NUMERO 100 45 PISO 12 EDIFICIO WEWORK,,2,sin_verificar,
@@ -5681,7 +5679,7 @@ c44a0781d9b8,ANDUQUIA VELASCO SONIA ESTEFANIA,Comercio,stefaanduquia96@gmail.com
 01528375e3d5,Andy Joel,Fruver,,,Calle 19,,2,sin_verificar,
 4370712faf7d,ANESCA S.A.S.,Empresa privada (DIAN),jtulioangelnavarro@gmail.com,,AVENIDA CARRERA 7 NUMERO 83 - 29 OFICINA 1004,,2,sin_verificar,
 6335a10ab108,Angarita Motos,Repuestos de carros,,,Avenida Calle 161,,2,sin_verificar,
-987df23420a2,ANGELA PATRICIA TORRES C SOLUCIONES EN ODONTOLOGIA S.A.S,Salud (IPS y clínicas),angelitatorres@gmail.com,,,,2,sin_verificar,
+987df23420a2,ANGELA PATRICIA TORRES C SOLUCIONES EN ODONTOLOGIA S.A.S,Salud (IPS y clínicas),angelitatorres@gmail.com,,"Carrera 9 # 103A-36, CS 402, Bogotá",,2,dudosa,sin_rastro_claro
 2b39032bd4ea,ANGELA ZAPATA RENDON,Comercio,irraangela15@gmail.com,3104953550,CALLE PRINCIPAL CORREGIMIENTO DE IRRA,,2,sin_verificar,
 8e611382a629,Angelus,Fruver,,,Calle 147C,,2,sin_verificar,
 def8b314a6cd,Angie Pan,Cafetería,,,Calle 5 A Sur,,2,sin_verificar,
@@ -5721,7 +5719,7 @@ bec4533893ef,APEX TOOL GROUP S. A. S.,Empresa privada (DIAN),cali-taxes@apextool
 93e0a1e8e7ee,APK PETROLEUM ENGINEERING TECHNICAL EQUIPMENT LTDA.,Empresa privada (DIAN),jlivingneira@hotmail.com,,CALLE 90 NUMERO 19 - 41 OFICINA 703,,2,sin_verificar,
 294426491a85,APLICACIONES INFORMATICAS PROFESIONALES LIMITADA.,Empresa privada (DIAN),cjbecerrac@gmail.com,,CARRERA 45A NUMERO 106-46,,2,sin_verificar,
 6bde04f4cd0a,APLICACIONES TECNICAS E INVERSIONES S.A.S.,Empresa privada (DIAN),logistica@aplitecnia.com.co,,CARRERA 67A NUMERO 94A -40,,2,sin_verificar,
-4a89d04931e1,APM SERVICIOS ASISTENCIALES IPS S.A.S.,Salud (IPS y clínicas),administracion@apmasesores.com,,,,2,sin_verificar,
+4a89d04931e1,APM SERVICIOS ASISTENCIALES IPS S.A.S.,Salud (IPS y clínicas),administracion@apmasesores.com,6067222;3106666888;+573015437006,"Carrera 16 No. 68-74, Chapinero (Sede Flores), Bogotá",https://apmasesores.com,2,verificada,
 3d9d48ac3e5e,APONTE BERNAL Y COMPAÑIA S EN C,Empresa privada (DIAN),aponterosi@gmail.com,,CARRERA 21 9-31 OFICINA 3051,,2,sin_verificar,
 40575a3f1e6f,APOREMA S.A.,Empresa privada (DIAN),aporras@lafayette.com,,CALLE 15 72 95,,2,sin_verificar,
 7696b51ded65,APORTES EN LINEA S.A.,Empresa privada (DIAN),financiera@aportesenlinea.com,,CARRERA 14 A NUMERO 101/47 - 63 PISO 4,,2,sin_verificar,
@@ -5729,7 +5727,7 @@ d035b376df78,Apoyo Financiero,educational institution,,7755805,Bogotá,,2,sin_ve
 5ecbd03be319,Apoyo Grafico LTDA,Copyshop,info@apoyografico.com.co,5715476363,Calle 57,,2,sin_verificar,
 1a532d2a6453,APOYOS FINANCIEROS ESPECIALIZADOS S.A. APOYAR S.A.,Empresa privada (DIAN),auxiliar.contable@apoyosfinancieros.com,,AVENIDA CARRERA 45 118 30 OFICINA 701,,2,sin_verificar,
 5392776c4666,APPLUS NORCONTROL SL,Empresa privada (DIAN),yazmin.forero@applus.com,,CALLE 17 NUMERO 69 46 ZONA INDUSTRIAL MONTEVIDEO,,2,sin_verificar,
-9e7c2babc144,APPSEMI S.A.S,Salud (IPS y clínicas),appsemisas@appsemi.co,,,,2,sin_verificar,
+9e7c2babc144,APPSEMI S.A.S,Salud (IPS y clínicas),appsemisas@appsemi.co,+57 323 738 5185,"Calle 79B N° 29B-44, Piso 1, Barrio Santa Sofía, Bogotá D.C.",https://app-semi.com/,2,verificada,
 154c01f232d5,APRILIS INVESTMENT S.A.S.,Empresa privada (DIAN),c.alaixt@aprilis.com.co,,TRANSVERSAL 22A 60 10 APARTAMENTO 501,,2,sin_verificar,
 c86e15614648,Aprovechamiento Circular,Servicios públicos,gcia.aprovechamientocircular@gmail.com,3108509,PARQUE INDUSTRIAL SAN JORGE BODEGA NO. 60,,2,sin_verificar,
 3d07d1b71221,APROVECHAMIENTO COLOMBIANO DE RECICLAJE SAS ESP,Servicios públicos,aprocolombia@gmail.com,9240406,CARRERA 54 B SUR 52 B 15,,2,sin_verificar,
@@ -5768,7 +5766,7 @@ bb0ff8dbc5d0,ARBOLEDA VELASQUEZ JAVIER DE JESUS,Comercio,javierarboleda72@gmail.
 856388c2d8e4,Arcadia Viajes Bogotá,travel agency,,3143135784,Calle 146 7-64,,2,sin_verificar,
 f89fe6cc0c93,ARCANAS TRADING CO E.S.P SAS CI,Servicios públicos,gerencia@arcanastrading.com,0000000,CR 87 N # 74 C SUR 83,,2,sin_verificar,
 64191243c847,ARCANATURA S.A.,Empresa privada (DIAN),lilicorbe26@hotmail.com,,CARRERA 2A 72-50 APTO 102,,2,sin_verificar,
-ba5962e7c113,ARCANGELES FUNDACION PARA LA REHABILITACION INTEGRAL,Salud (IPS y clínicas),jishelmanrique@arcangeles.org,,,,2,sin_verificar,
+ba5962e7c113,ARCANGELES FUNDACION PARA LA REHABILITACION INTEGRAL,Salud (IPS y clínicas),jishelmanrique@arcangeles.org,(601) 629 7047 ext 115-116;(601) 6297077;PBX 3336025204,"Calle 106 # 17A-43, B. San Patricio, Bogotá D.C. (también reportan Carrera 7b bis # 132-38 Piso 9, Edificio Forest Medical Center)",https://arcangeles.org/,2,verificada,
 281ab2709f94,ARCE MUÑOZ RAMIREZ Y COMPAÑIA S.A.S.,Empresa privada (DIAN),arcemunozramirez@yahoo.es,,CALLE 8 19 A 35,,2,sin_verificar,
 79cab52d972a,ARCE ROJAS CONSULTORES & COMPAÑIA S. A.,Empresa privada (DIAN),david.arce@arcerojas.com,,CALLE 112 14B 12,,2,sin_verificar,
 40c08467e589,ARCEC S.A.,Empresa privada (DIAN),financiera@arcec.com.co,,PARQUE INDUSTRIAL VIC BG KILOMETRO 2 1.5 VIA FUNZA SIBERIA,,2,sin_verificar,
@@ -5780,7 +5778,7 @@ ba5962e7c113,ARCANGELES FUNDACION PARA LA REHABILITACION INTEGRAL,Salud (IPS y c
 7dde719eda85,ARCHIVOS FUNCIONALES Y OFICINAS EFICIENTES ZZETA S.A.S. EN REORGANIZACION,Empresa privada (DIAN),subgerencia@zzeta.info,,CARRERA 31 NUMERO 39 41 SUR,,2,sin_verificar,
 0c57554dea69,ARCILA WOHLMUTH Y COMPAÑIA S EN C,Empresa privada (DIAN),contabilidadiaw@gmail.com,,CARRERA 11 86 60 OFICINA 402,,2,sin_verificar,
 147e17fdbc4f,ARCILLAS DE COLOMBIA S.A.,Empresa privada (DIAN),contabilidad@arcillasdecolombia.com,,VIA ZIPAQUIRA UBATE KILOMETRO 6 VEREDA EL OLIVO,,2,sin_verificar,
-33f22a4f7008,arcoiris de esperanza s.a.s,Salud (IPS y clínicas),ipsade@arcoirisdeesperanza.com,,,,2,sin_verificar,
+33f22a4f7008,arcoiris de esperanza s.a.s,Salud (IPS y clínicas),ipsade@arcoirisdeesperanza.com,+57 1 6968410;310 7732715;314 3692116,"Carrera 73 No. 55-78, Bogotá D.C.",http://arcoirisdeesperanza.com,2,verificada,
 dc8f9f868685,ARCOMAT S.A.S.,Empresa privada (DIAN),comunicaciones@arcomat.com.co,,CARRERA 49 NUMERO 103 B 42,,2,sin_verificar,
 d1173e1edfe4,ARCOS DORADOS COLOMBIA S.A.S.,Empresa privada (DIAN),lina.ortiz@co.mcd.com,,AVENIDA 116 N 7-15 OFINCA 1402,,2,sin_verificar,
 db4d11347a6b,ARDEMA S.A.,Empresa privada (DIAN),gerencia@outsourcingaq.com,,CARRERA 17A 116 15,,2,sin_verificar,
@@ -5793,7 +5791,7 @@ db4d11347a6b,ARDEMA S.A.,Empresa privada (DIAN),gerencia@outsourcingaq.com,,CARR
 e7f2e673a19f,ARECICLAR SAS ESP,Servicios públicos,areciclaresp@gmail.com,3203871,CALLE 1 # 4 - 21 IN 1 OF 507,,2,sin_verificar,
 a9ac592f3763,Areenda Conducia Fach Mente,Empresa/Oficina,,,Avenida Calle 72,,2,sin_verificar,
 6998a46bd3c9,ARENA COMMUNICATIONS COLOMBIA S.A.S.,Empresa privada (DIAN),notificaciones.colombia@havasmg.com,,CARRERA 7 NUMERO 71-21 TO A OFICINA 1101,,2,sin_verificar,
-a0e42d41cd89,Arepas La Reina,Restaurante,lareinarepas@gmail.com,+573006051877,Carrera 6 15,,2,sin_verificar,
+a0e42d41cd89,Arepas La Reina,Restaurante,lareinarepas@gmail.com,+573006051877,Carrera 6 15,,2,verificada,
 1be53ae7be03,AREZO S.A.S.,Empresa privada (DIAN),gciaarezo@gmail.com,,CARRERA 13 93 68 OFICINA 506,,2,sin_verificar,
 ad2aca9d93d6,Arfos,Repuestos de carros,,,Avenida Carrera 70 Avenida de la Constitución 07,,2,sin_verificar,
 ad440fceccc7,ARGENTARIA S.A.S,Empresa privada (DIAN),bernalernesto@hotmail.com,,CALLE 93 15 59 OFICINA 403,,2,sin_verificar,
@@ -5828,8 +5826,8 @@ c27a6fec9913,ARM TRANSFORMADORES S.A.S. EN REORGANIZACION,Empresa privada (DIAN)
 f90dfa9ae017,ARMAEQUIPOS S.A.S.,Empresa privada (DIAN),contabilidad@armaequipos.com,,CALLE 132 NUMERO 58C-32,,2,sin_verificar,
 03c0433ffad3,ARMAJU CONSTRUCCIONES Y MONTAJES SAS,Proveedores del Estado,jmas10@hotmail.com,3204408537,CALLE 10 # 26-61,,2,sin_verificar,
 247f30e37ac9,ARMENTA CHAVARRO S.A.S.,Empresa privada (DIAN),contabilidad@achcol.com,,CALLE 125BIS NUMERO 20-75 OFICINA 401,,2,sin_verificar,
-5fe5c665686f,ARMONIA DENTO FACIAL ADF S.A.S,Salud (IPS y clínicas),madagon.cirumax@gmail.com,,,,2,sin_verificar,
-9b424623c267,ARMONIA LASER IPS SAS,Salud (IPS y clínicas),fabian5g@hotmail.com,,,,2,sin_verificar,
+5fe5c665686f,ARMONIA DENTO FACIAL ADF S.A.S,Salud (IPS y clínicas),madagon.cirumax@gmail.com,+57 316 4132749;+57 316 4637076,"Carrera 13 No. 94A-25, Oficina 501, Bogotá",https://www.armoniadentofacial.com/,2,verificada,
+9b424623c267,ARMONIA LASER IPS SAS,Salud (IPS y clínicas),fabian5g@hotmail.com,,"Av. Pepe Sierra # 9-72, Usaquén (Bogotá Norte), Bogotá D.C.",,2,dudosa,sin_rastro_claro
 576192e3ff56,ARMOR INTERNATIONAL S.A.,Empresa privada (DIAN),armor@armorinternational.com,,CARRERA 30 NUMERO 12-45,,2,sin_verificar,
 5be387b4e103,ARMOTEC COLOMBIA S.A. EN REORGANIZACION,Empresa privada (DIAN),recepcionarmotec@gmail.com,,CALLE 110 9 25 OFICINA 602,,2,sin_verificar,
 7195ca99369e,ARNESES Y GOMAS S.A.,Empresa privada (DIAN),admin@ayg.com.co,,CARRERA 33 10 31,,2,sin_verificar,
@@ -5855,15 +5853,15 @@ a8ec38f04fcc,ARROCERA LA BARBONA LIMITADA.,Empresa privada (DIAN),arroceralabarb
 352690b9a1bd,ARSAR S.A.S.,Empresa privada (DIAN),benilda.esteban@cosargo.com.co,,CALLE 70 9 36,,2,sin_verificar,
 69fd7140c442,Art and Grafts,Telas,,,Carrera 52C,,2,sin_verificar,
 79b08f8b50f9,ART HOME TEXTIL S.A.S.,Empresa privada (DIAN),contabilidad@arthometextil.com,,CARRERA 63 17 B 07,,2,sin_verificar,
-7c2bf9d80532,ART MEDICA S.A.S,Salud (IPS y clínicas),notificaciones@artmedica.co,,,,2,sin_verificar,
+7c2bf9d80532,ART MEDICA S.A.S,Salud (IPS y clínicas),notificaciones@artmedica.co,+57 300 912 0074;+57 324 573 7308 (WhatsApp),"Calle 93 #19B-67 Pisos 6 y 7, Edificio Bridge 93, Bogotá",https://artmedica.com.co/,2,verificada,
 baf540c3e642,ARTE CAPITAL S. A.,Empresa privada (DIAN),sofosbotero@gmail.com,,CARRERA 1 ESTE NUMERO 78 97 A 401,,2,sin_verificar,
 6f9180fe8b8f,Arte Hogar,Menaje/Hogar,,,Calle 162,,2,sin_verificar,
 81386be34c81,ARTE LITOGRAFICO S.A.S.,Empresa privada (DIAN),contabilidad@artelitografico.com,,CARRERA 8 26 36,,2,sin_verificar,
-8cf4af430b27,ARTE ORAL SERVICIOS ODONTOLOGICOS ESPECIALIZADOS S.A.S,Salud (IPS y clínicas),info.cita@arteoral.com,,,,2,sin_verificar,
+8cf4af430b27,ARTE ORAL SERVICIOS ODONTOLOGICOS ESPECIALIZADOS S.A.S,Salud (IPS y clínicas),info.cita@arteoral.com,3125862916,"Calle 110 #9-25, Torre Empresarial Pacific, Oficina 612, Bogotá D.C.",https://arteoral.com/,2,verificada,
 ede860518886,Arte y Cabello,beauty,,3142990840,Calle 4b 56-12,,2,sin_verificar,
 f558be7f8ab1,Arte y Joyas Quinchia,Empresas (datos abiertos),artejoyas58@gmail.com,,,,2,sin_verificar,
 2a23d4854c46,Arte y Pasión Cafe,Cafetería,,7804377,Bogotá,,2,sin_verificar,
-a59bc9f61f53,Arte y Pasión Café,Cafetería,arteypasioncafe@gmail.com,7804377,Calle 10 8-87,,2,sin_verificar,
+a59bc9f61f53,Arte y Pasión Café,Cafetería,arteypasioncafe@gmail.com,7804377,Calle 10 8-87,https://arteypasioncafe.com/,2,verificada,
 39f7ea9684d9,ARTECMA S.A.S.,Empresa privada (DIAN),info@artecma.com,,CALLE 12 44 13,,2,sin_verificar,
 75515b53adcb,ARTECOM,Empresa/Oficina,,,,,2,sin_verificar,
 623224e8ab05,ARTEFACTOS AMERICAN S.A.S.,Empresa privada (DIAN),notificaciones@arteamerican.com.co,,CALLE 5C NUMERO 53 F 60,,2,sin_verificar,
@@ -5874,9 +5872,9 @@ fcdb1d436c1c,Artesanías Batán,Handicraft,info@webmail.com,3209632415,Carrera 1
 fbbe73351ee4,ARTGLASSPUBLICIDAD R SAS,Proveedores del Estado,artglasspublicidadr@gmail.com,3102664616,CRA 53 N. 74 - 79,,2,sin_verificar,
 8a02e907fe10,ARTILAB S.A,Empresa privada (DIAN),contabilidad@artilab.com.co,,PARQUE EMPRESARIAL DE OCENTRO COMERCIAL IDENTE BG 18,,2,sin_verificar,
 3149a8f2a6cb,ARTIMFER S.A.S.,Empresa privada (DIAN),info.artimfer@gmail.com,,AUTOPISTA NORTE KILOMETRO 20 5,,2,sin_verificar,
-f0740a0e1cb9,ARTRO CENTRO IPS SAS,Salud (IPS y clínicas),pauloalban@artrocentro.com,,,,2,sin_verificar,
+f0740a0e1cb9,ARTRO CENTRO IPS SAS,Salud (IPS y clínicas),pauloalban@artrocentro.com,6015405106,"Carrera 27B #73-59, Piso 1, Bogotá D.C. (barrio Barrios Unidos)",https://artrocentro.com/,2,verificada,
 279f3c35bb96,ArtTé,Cafetería,,,Calle 119 B,,2,sin_verificar,
-099b2e51882f,ARTUNATHIE SAS,Salud (IPS y clínicas),clinicaronaldvargas@gmail.com,,,,2,sin_verificar,
+099b2e51882f,ARTUNATHIE SAS,Salud (IPS y clínicas),,,,,2,descartada,registro_cruzado_invalido
 d416f766773f,ARU COLOMBIA SAS,Proveedores del Estado,arucolombia2020@gmail.com,5337982,CARRERA 49 A 91-75,,2,sin_verificar,
 b02816af68eb,ARUNA ASESORES S.A.S.,Empresa privada (DIAN),info@arunasesores.com,,AVENIDA CALLE 26 NUMERO 68 CALLE 61 OFICINA 605,,2,sin_verificar,
 6a4b489b0e02,AS TELEVISION AS MEDIOS LIMITADA.,Empresa privada (DIAN),astvasmedios@gmail.com,,CALLE 19 NUMERO 5 51 OFICINA 504-505,,2,sin_verificar,
@@ -5918,14 +5916,14 @@ bd05fab4bdcf,ASETZ ENERGY CORPORATION COLOMBIA,Empresa privada (DIAN),asistente.
 8b786d4014c5,ASIA WINDS INTERNATIONAL S.A.S.,Empresa privada (DIAN),wakko1999@hotmail.com,,CALLE 168 NUMERO 21-20,,2,sin_verificar,
 0bf4b4d35e99,ASIC S.A,Empresa privada (DIAN),coordinacion.contable@asicamericas.com,,CARRERA 12 71 99,,2,sin_verificar,
 d6f4416f80e9,ASICIACION MEGAREC,Servicios públicos,asomegarec@gmail.com,3520127,DG 50 sur #5H 36 bodega 02,,2,sin_verificar,
-daf5f074f98b,ASISDERMA SAS,Salud (IPS y clínicas),asisdermaadmon@gmail.com,,,,2,sin_verificar,
-d1a5360f676d,ASISFARMA S.A.S,Salud (IPS y clínicas),direccionasistencial@asisfarma.com.co,,,,2,sin_verificar,
-9b92c57a0097,ASISTENCIA CIENTIFICA DE ALTA COMPLEJIDAD SAS,Salud (IPS y clínicas),coord.gerencia@asistenciacientifica.com,,,,2,sin_verificar,
-0afcfa6b1c88,ASISTENCIA MEDICA ESPECIAL EN SALUD IPS SAS SIGLA AMESALUD IPS SAS,Salud (IPS y clínicas),coordinacion.asmes@gmail.com,,,,2,sin_verificar,
-33e92888cf24,ASISTENCIA MEDICA INTEGRAL S.A.S. INSTITUCION PRESTADORA DE SERVICIO DE SALUD IPS,Salud (IPS y clínicas),jefe.calidad@clinicaodontologicaami.com,,,,2,sin_verificar,
-698a66ba5d64,ASISTIR SALUD SAS,Salud (IPS y clínicas),coordinaciondecalidad@asistirsalud.com,,,,2,sin_verificar,
-929a8ebf6577,ASMED SALUD SAS,Salud (IPS y clínicas),asmedsaludsas@gmail.com,,,,2,sin_verificar,
-963c57421bbc,ASMEDAN S.A.S ASOCIACION DE MEDICOS Y ANESTESIOLOGOS,Salud (IPS y clínicas),rp.valle@grupoasmedan.com,,,,2,sin_verificar,
+daf5f074f98b,ASISDERMA SAS,Salud (IPS y clínicas),asisdermaadmon@gmail.com,(601) 432 52 20;+57 311 445 86 29,"Carrera 21 No. 23-36 Sur Piso 3 (Sede Olaya), Bogotá; también Calle 99 No. 48-06 Consultorio 504 Edificio Quirón (Sede La Castellana)",https://asisderma.com,2,verificada,
+d1a5360f676d,ASISFARMA S.A.S,Salud (IPS y clínicas),direccionasistencial@asisfarma.com.co,601 218 2002,"Carrera 47 No 93-58, Barrio Castellana, Bogotá, Colombia",https://www.asisfarma.com.co,2,verificada,
+9b92c57a0097,ASISTENCIA CIENTIFICA DE ALTA COMPLEJIDAD SAS,Salud (IPS y clínicas),coord.gerencia@asistenciacientifica.com,,,,2,dudosa,sin_rastro_claro
+0afcfa6b1c88,ASISTENCIA MEDICA ESPECIAL EN SALUD IPS SAS SIGLA AMESALUD IPS SAS,Salud (IPS y clínicas),coordinacion.asmes@gmail.com,,,,2,dudosa,sin_rastro_claro
+33e92888cf24,ASISTENCIA MEDICA INTEGRAL S.A.S. INSTITUCION PRESTADORA DE SERVICIO DE SALUD IPS,Salud (IPS y clínicas),jefe.calidad@clinicaodontologicaami.com,PBX 601-8844819;WhatsApp +57 313 4015778;WhatsApp +57 324 6890472,Bogotá: Carrera 7B No. 146-90 (sede Bogotá de Clínica Odontológica AMI),https://www.clinicaodontologicaami.com,2,verificada,
+698a66ba5d64,ASISTIR SALUD SAS,Salud (IPS y clínicas),coordinaciondecalidad@asistirsalud.com,2231145 ext 224;3187116815;(+57) 1 4227600,"Calle 64G N° 90A-40, Bogotá D.C. (sede/dirección de prestador registrada en directorio oficial de establecimientos de salud; también reportada dirección corporativa Cr. 13a 37-32, Bogotá)",asistirsalud.com,2,verificada,
+929a8ebf6577,ASMED SALUD SAS,Salud (IPS y clínicas),asmedsaludsas@gmail.com,,,,2,dudosa,sin_rastro_claro
+963c57421bbc,ASMEDAN S.A.S ASOCIACION DE MEDICOS Y ANESTESIOLOGOS,Salud (IPS y clínicas),rp.valle@grupoasmedan.com,(601) 745-4520,"Sede Cra 30: Av. 1 de Mayo 34-41; Sede Suba: Calle 139 N° 101 C 06, Suba Tibabuyes, Bogotá",http://grupoasmedan.com,2,verificada,
 5eb80c896fc9,ASMI CONSTRUCTORES S.A.S.,Empresa privada (DIAN),lavella@itacconstrucciones.com,,AVENIDA CARRERA 45 NUMERO 108A-50 P6,,2,sin_verificar,
 07127d2e5472,Aso Dent Clínica Odontológicas,dentist,,+57 601 6833696,Carrera 114 152D-4,,2,sin_verificar,
 43432737dc3b,ASO MUNDO ECOLOGICO,Servicios públicos,asomundoeco03@gmail.com,4454400,CR 82 B #54 B SUR 11 MZ 261,,2,sin_verificar,
@@ -5946,10 +5944,10 @@ b1f3b6705cf7,ASOCIACION AMBIENTAL ADMINISTRADORA DEL ACUEDUCTO AGUAS DEL NARANJA
 605e7055b79c,asociacion ambiental industriales del reciclaje calimenio,Servicios públicos,paulagabiss@hotmail.com,8991171,K7#6-11,,2,sin_verificar,
 bf28e5f220cb,ASOCIACION AMBIENTAL NACIONAL DE RECICLADORES,Servicios públicos,ashorebasociacion0419@gmail.com,7173774,calle 100 carrera 4 c Manzana c casa 11,,2,sin_verificar,
 c63ebb9452fb,ASOCIACION ASOECOVIDA,Servicios públicos,asociacionasoecovida@gmail.com,0000000,CALLE 73 B NRO. 87 I 97 SUR,,2,sin_verificar,
-ade1543f3c07,"ASOCIACION CENTRO DE ATENCION PARA NIÑOS CON TRASTORNOS SENSORIOMOTORES """"ACONIÑO""""""",Salud (IPS y clínicas),administracion@aconino.org,,,,2,sin_verificar,
+ade1543f3c07,"ASOCIACION CENTRO DE ATENCION PARA NIÑOS CON TRASTORNOS SENSORIOMOTORES """"ACONIÑO""""""",Salud (IPS y clínicas),administracion@aconino.org,(601) 650 8473;313 391 0760;(601) 290 0521,"Sede Norte: Calle 127 B No. 45-28, Barrio Prado, Bogotá; Sede Américas: Calle 6 A No. 71 A - 10, Barrio Marsella, Bogotá",https://www.aconino.org,2,verificada,
 d5bb73ed4dcc,ASOCIACION CENTRO NACIONALSALUD AMBIENTE Y TRABAJO AGUA VIVA,Proveedores del Estado,sonia.medina@censat.org,6013377709,CRA 27 A 24 10 PISO 2,,2,sin_verificar,
-3f30b37cac14,ASOCIACION COLOMBIANA DE DIABETES,Salud (IPS y clínicas),adiabete@asodiabetes.org,,,,2,sin_verificar,
-d191e8a0aeeb,"ASOCIACION COLOMBIANA DE PADRES CON HIJOS ESPECIALES """"ACPHES""""""",Salud (IPS y clínicas),acphes@acphes.org,,,,2,sin_verificar,
+3f30b37cac14,ASOCIACION COLOMBIANA DE DIABETES,Salud (IPS y clínicas),adiabete@asodiabetes.org,,"Diagonal 39A Bis No. 14-78, Teusaquillo, Bogotá (sede secundaria: Carrera 24 No. 83-22 Local 3, Barrio Polo Club, Bogotá)",http://asodiabetes.org/,2,verificada,
+d191e8a0aeeb,"ASOCIACION COLOMBIANA DE PADRES CON HIJOS ESPECIALES """"ACPHES""""""",Salud (IPS y clínicas),acphes@acphes.org,672 13 53;679 76 29;678 80 09,,http://www.acphes.org,2,verificada,
 21e7bed3fd6c,ASOCIACION COLOMBIANA DE RECICLADORES,Servicios públicos,acorec2017@gmail.com,3114168,calle 6 # 87 f - 87,,2,sin_verificar,
 c793acf102e8,ASOCIACION COLOMBIANA DE RECICLADORES DE BOGOTA,Servicios públicos,gerencia@reciclaodres-acorb.com,6157640,CRA 54 B No. 52 B - 15 sur,,2,sin_verificar,
 a01388d4353b,ASOCIACION COLOMBIANA DE RECICLADORES DE OFICIO,Servicios públicos,karynjb06@gmail.com,0000000,Cra 7A #14-96 Brr. San Juan,,2,sin_verificar,
@@ -5960,7 +5958,7 @@ e02eccec869b,ASOCIACION COLOMBIANA DE RECICLADORES MUNDO ECOLOGICO MP,Servicios 
 36e2cce32ac6,ASOCIACION COLOMBIANA DE RECUPERADORES DE OFICIO DEL HABITAD,Servicios públicos,acrohcolombiana@gmail.com,0000000,carrera 75 c # 60 b 79 sur,,2,sin_verificar,
 666a86511947,ASOCIACION COLOMBIANA DE RECUPERADORES UNIDOS POR BOGOTA,Servicios públicos,acrub2017@gmail.com,5513347,CALLE 70 BIS SUR N. 78 - 21 BARRIO NUEVA GRANADA BOSA,,2,sin_verificar,
 1fb59fa822a4,ASOCIACION COLOMBIANA DE RESIDUOS APROVECHABLES,Servicios públicos,asociacioncolombianaderesiduos@gmail.com,9331400,calle 16 C # 78 G 09,,2,sin_verificar,
-419315f74cb3,ASOCIACION COLOMBIANA PRO NIÑO CON PARALISIS CEREBRAL -PROPACE,Salud (IPS y clínicas),direccion@propace.org,,,,2,sin_verificar,
+419315f74cb3,ASOCIACION COLOMBIANA PRO NIÑO CON PARALISIS CEREBRAL -PROPACE,Salud (IPS y clínicas),direccion@propace.org,+57 1 3534000 (PBX);+57 1 3534016 (citas médicas),"Carrera 54 # 65-85, Barrios Unidos, Bogotá D.C., Colombia",https://propace.org,2,verificada,
 4d0efe938ccc,ASOCIACION COLOMBIANA Y EMPRESARIAL DE RECICLAJE S.A.S. E.S.P.,Servicios públicos,asocer2019@gmail.com,8634233,CR 95 B SUR No. 42B SUR 65 P 1,,2,sin_verificar,
 96c66c82614c,ASOCIACION COOPERATIVA DE RECICLADORES DE BOGOTA,Servicios públicos,arbesp@gmail.com,9054997,CARRERA 34 No 9-46,,2,sin_verificar,
 ef5c78e2766d,"ASOCIACION DE ACUEDUCTO REGIONAL VEREDAS SAN MIGUEL, SANTA ROSA, SAN JOSE",Servicios públicos,burgosesn@hotmail.com,8686139,cra 8 no. 8-27,,2,sin_verificar,
@@ -5969,7 +5967,7 @@ c42a81d61f15,ASOCIACION DE AFILIADOS ACUEDUCTO REGIONAL VEREDAS Y SECTORES DE LO
 e614167b14cf,ASOCIACION DE AFILIADOS DEL ACUEDUCTO DE LA VERADA ALTANIA,Servicios públicos,acueductoaltania@gmail.com,8245549,Carrera 3 Nº 3 - 33 Piso 2º,,2,sin_verificar,
 af54e5b814c8,ASOCIACION DE AFILIADOS DEL ACUEDUCTO REGIONAL DE GRANADA CUNDINAMARCA,Servicios públicos,asoaguas.e.s.p@hotmail.com,5295084,CALLE 12 14 18,,2,sin_verificar,
 0bbdf8a34bd9,ASOCIACION DE AFILIADOS DEL ACUEDUCTO RURAL VEREDA DE LA TRINIDAD,Servicios públicos,mypines56@hotmail.com,8138197,Cra 49c · 86a-36,,2,sin_verificar,
-4594d9e181e8,ASOCIACION DE AMIGOS CONTRA EL CANCER PROSEGUIR,Salud (IPS y clínicas),calidad@proseguir.org,,,,2,sin_verificar,
+4594d9e181e8,ASOCIACION DE AMIGOS CONTRA EL CANCER PROSEGUIR,Salud (IPS y clínicas),calidad@proseguir.org,(601) 915 9900;(601) 916 9100;+57 318 935 0012,"Carrera 16 #59-04/54, Bogotá",https://proseguir.org,2,verificada,
 375679c35bfb,ASOCIACION DE APROVECHAMIENTO ECOLOGICO DE BOGOTA,Servicios públicos,aso.aprobecol@gmail.com,3162489,Dg 40 # 29 11,,2,sin_verificar,
 6d24d26c4f6b,ASOCIACION DE BIOSOLUCIONES Y APROVECHAMIENTO,Servicios públicos,asociacionasoaprovec@gmail.com,3002973,CL 63B 118B 24,,2,sin_verificar,
 554dcb152ff1,ASOCIACION DE GESTORES AMBIENTALES,Servicios públicos,gestoresambientalesaga@gmail.com,0000000,CARRERA 24 #35 17 SUR,,2,sin_verificar,
@@ -6311,7 +6309,7 @@ bf8cae2b84c3,ASOCIACION GRUPO EMPRESARIAL DE LA ZONA OCTAVA,Servicios públicos,
 40731fd96032,ASOCIACION INTEGRAL DE RECICLADORES ECOLOGICOS ESP,Servicios públicos,aireurbanoesp@gmail.com,9209334,CALLE142 BIS A 138 A 50,,2,sin_verificar,
 d74344d0ba23,ASOCIACION INTEGRAL DE TRABAJADORES INFORMALES DE BOGOTA,Servicios públicos,asociacion@asitrib.com.co,4943794,Carrera 87C # 73 - 05 SUR,,2,sin_verificar,
 f98fa163065a,ASOCIACION INTREGAL Y POPULAR DE RECICLADORES DE OFICIO DE COLOMBIA,Servicios públicos,asiprocol@gmail.com,3219030,calle 71 sur # 86 C 12,,2,sin_verificar,
-0b20db3c18bc,ASOCIACION MEDICA PARA LA ATENCION INTEGRAL S.A.S CLINICA NUEVO MONTERREY,Salud (IPS y clínicas),auditor.ampisaludips@gmail.com,,,,2,sin_verificar,
+0b20db3c18bc,ASOCIACION MEDICA PARA LA ATENCION INTEGRAL S.A.S CLINICA NUEVO MONTERREY,Salud (IPS y clínicas),auditor.ampisaludips@gmail.com,3207669851,"Cl. 102 # 70B-57, Barrio Santa Rosa, Bogotá",https://www.nuevomonterrey.com.co/,2,verificada,
 cba2578e2882,"ASOCIACION MULTIACTIVA DE LAS VEREDAS BALSILLAS, LOS BALSOS, CORAMA, SAN ISIDRO Y MATIMA",Servicios públicos,sandiego80@hotmail.com,8453487,VEREDA LOS BALSOS,,2,sin_verificar,
 dd5401e739e9,ASOCIACION MUNDIAL AMIGOS DEL RECICLAJE ESP,Servicios públicos,rcpolania@yahoo.com,4329690,CRA 93 D No 40 A 27 sur,,2,sin_verificar,
 5629e3e4b04b,ASOCIACION MUNDIAL DEL RECICLADOR POR EL PLANETA,Servicios públicos,amure.planet_2017@hotmail.com,5355887,Cra 93 A N° 130A -07,,2,sin_verificar,
@@ -6330,7 +6328,7 @@ acdf301c7af2,ASOCIACION PLANETA RECICLABLE ASOPLANET,Servicios públicos,asoplan
 0a54f7db4c96,ASOCIACION RECUPERADORES AMBIENTALISTAS COLOMBIANOS,Servicios públicos,arrecol@hotmail.com,4007893,calle 136 N° 130A - 42,,2,sin_verificar,
 e476d831878a,asociacion recuperadores del reciclaje roca verde,Servicios públicos,asorocaverde17@gmail.com,5717709,TRANSVERSAL 81 G BIS 34 A 40 SUR,,2,sin_verificar,
 03d425c73cba,ASOCIACION RECUPERANDO MATERIALES RECICLABLES DE KENNEDY,Servicios públicos,remareek@gmail.com,7063744,CR 81 D # 40F 16 Sur,,2,sin_verificar,
-f3b614b1ee35,ASOCIACION SAN BARTOLOME APOSTOL CENTRO MEDICO,Salud (IPS y clínicas),asociacionsanbartolomeapostol@gmail.com,,,,2,sin_verificar,
+f3b614b1ee35,ASOCIACION SAN BARTOLOME APOSTOL CENTRO MEDICO,Salud (IPS y clínicas),asociacionsanbartolomeapostol@gmail.com,(1) 253 88 25;(1) 613 56 94;(1) 613 38 23,"Carrera 59A # 129B-01, Ciudad Jardín del Norte (Suba), Bogotá D.C., Colombia",,2,verificada,
 203de5c42b9f,ASOCIACION SINDICAL DE DANZAS DE CUNDINANARCA,Proveedores del Estado,asodanzacund@gmail.com,3208532311,DIAGONAL 5E N° 8C-19 CASA 23,,2,sin_verificar,
 051794e4d57e,ASOCIACION SOLIDARIA DE RECICLADORES DEL SERVICIO DE APROVECHAMIENTO,Servicios públicos,echeverryantonio@outlook.es,3134982,Transversal 18R # 69H -19 Sur,,2,sin_verificar,
 7af201396310,ASOCIACION SOLUCIONES AMBIENTALES POSITIVAS,Servicios públicos,unmejorambientepositivo@gmail.com,7805818,Calle 60A N° 71H39 SUR,,2,sin_verificar,
@@ -6378,7 +6376,7 @@ f0b45ca178f4,ASOCIACIÓN DE RECICLADORES LA ESTRELLA DEL SUR,Servicios públicos
 2fefd1d2fe7e,ASOCIACIÓN DE RECICLADORES NUEVA ERA ESP,Servicios públicos,arnuevaeraesp@gmail.com,0000000,CALLE 135 # 152 30,,2,sin_verificar,
 5422b9459097,asociación de recicladores orbe,Servicios públicos,asociacionderecicladoresorbe@gmail.com,6238530,calle 23 no.86 05,,2,sin_verificar,
 eb9d8135b61f,Asociación de recicladores por una Ciudad Limpia,Servicios públicos,asociacionrecil@gmail.com,4200687,Transversal 68 Bis # 2 A -40,,2,sin_verificar,
-2622f7c6b113,Asociación de Recicladores Puerta de Oro,Gestión de residuos,ambientalpuertadeoro@gmail.com,3103164651,Calle 16 No 36-41,,2,sin_verificar,
+2622f7c6b113,Asociación de Recicladores Puerta de Oro,Gestión de residuos,ambientalpuertadeoro@gmail.com,3103164651,Calle 16 No 36-41,,2,dudosa,sin_rastro_claro
 d43f3f126b02,ASOCIACIÓN DE RECICLADORES RECUPERADORES AMBIENTALES UN PASO AL FUTURO,Servicios públicos,ivancepeda21ct@gmail.com,6089373,Carrera 88B # 52-50 sur piso 2,,2,sin_verificar,
 cf7da855c1c6,Asociación de recicladores Semilleros del futuro para un ambiente mejor,Servicios públicos,reci-asosemilleros@hotmail.com,3734213,Calle 23 Sur # 8 - 47,,2,sin_verificar,
 54e71d4bf776,ASOCIACIÓN DE RECICLADORES SOMOS LA ESPERANZA,Servicios públicos,sarmientomilton@gmail.com,0000000,Calle 76 sur N 78 F 41,,2,sin_verificar,
@@ -6448,7 +6446,7 @@ f483b0d0d025,Asociación Gremial de Reciclaje de Tocancipá E.S.P,Servicios púb
 0fd11c508758,ASOCIACIÓN NACIONAL DE RECUPERADORES ORGANIZADOS POR EL MEDIO AMBIENTE,Servicios públicos,asociacionandromedaesp@gmail.com,8013154,CALLE 47 # 26 - 16,,2,sin_verificar,
 4cc6b5d1ff29,ASOCIACIÓN NACIONAL DE RECUPERADORES RECICLANDO PARA EL FUTURO E.S.P.,Servicios públicos,recfuturoesp@gmail.com,9015841,transversal 81 B No 34 A - 74 sur,,2,sin_verificar,
 0e5cb6b4187b,Asociación para el desarrollo social y recuperación ambiental colmena,Servicios públicos,asodesacolmena@gmail.com,9440145,KRA 12#18-54,,2,sin_verificar,
-8f53019c9fd8,ASOCIACIÓN PROFAMILIA,Salud (IPS y clínicas),marisol.pachon@profamilia.org.co,,,,2,sin_verificar,
+8f53019c9fd8,ASOCIACIÓN PROFAMILIA,Salud (IPS y clínicas),marisol.pachon@profamilia.org.co,,,http://www.profamilia.org.co,2,verificada,
 73ac9aa367dc,Asociación Recicladores Camilo Torres,Servicios públicos,jhan.carlotapias@gmail.com,3068848,Calle 21 bis No 39-26,,2,sin_verificar,
 2c5ea293f5cb,Asociación Recicladores de Sumapaz y Cundinamarca,Servicios públicos,bioarsyc@gmail.com,8683144,Carrera 3 # 10-27,,2,sin_verificar,
 4a2f70cc15a6,ASOCIACIÓN RECICLADORES ECORECICLAJE LA CALERA,Servicios públicos,alexbor4376@gmail.com,0000000,CALLE 9 # 11 46 BARRIO VILLA 70,,2,sin_verificar,
@@ -6456,19 +6454,19 @@ f483b0d0d025,Asociación Gremial de Reciclaje de Tocancipá E.S.P,Servicios púb
 1517f3aacff8,ASOCIACIÓN RECICLEMOS DIFERENTE E.S.A.,Servicios públicos,fundredbogota@gmail.com,2490154,CALLE 17A 69F-26,,2,sin_verificar,
 ad4ce3f423ef,ASOCIACIÓN SALITRE AMBIENTAL,Servicios públicos,asambiental1@gmail.com,4835082,CRA 24 No 1h-30,,2,sin_verificar,
 4a6c338a2829,Asociación Ángeles Recicladores,Servicios públicos,jean11marco55@hotmail.com,8553027,Villa de San Diego de Ubate kilometro 1 via Chiquinquira,,2,sin_verificar,
-3c310fb31a47,ASOCIADOS DENTALES SAS,Salud (IPS y clínicas),joseantonio28@gmail.com,,,,2,sin_verificar,
-4636557e2b0e,ASOCIADOS UNIDAD NACIONAL ODONTOLOGICA A UNO LTDA,Salud (IPS y clínicas),aunodentalcolor@hotmail.com,,,,2,sin_verificar,
+3c310fb31a47,ASOCIADOS DENTALES SAS,Salud (IPS y clínicas),joseantonio28@gmail.com,,,,2,dudosa,sin_rastro_claro
+4636557e2b0e,ASOCIADOS UNIDAD NACIONAL ODONTOLOGICA A UNO LTDA,Salud (IPS y clínicas),aunodentalcolor@hotmail.com,,,,2,dudosa,sin_rastro_claro
 3f4b7b729166,ASOCREAR FUTURO R.R,Servicios públicos,crearfuturo.r@gmail.com,4454400,CR 86A #55SUR 29,,2,sin_verificar,
-3a87d172eba8,ASODER Consultores S.A.S,Salud (IPS y clínicas),asoderconsultoresas@gmail.com,,,,2,sin_verificar,
+3a87d172eba8,ASODER Consultores S.A.S,Salud (IPS y clínicas),asoderconsultoresas@gmail.com,,,,2,dudosa,sin_rastro_claro
 8f7d0f1e52f6,ASOIMPACTO AMBIENTAL,Servicios públicos,asoimpactoambiental@gmail.com,4639086,CL 50 BIS # 89 A 15 SUR,,2,sin_verificar,
-b4be9b349e17,ASONEST SAS,Salud (IPS y clínicas),gerente@asonest.org,,,,2,sin_verificar,
+b4be9b349e17,ASONEST SAS,Salud (IPS y clínicas),gerente@asonest.org,3152758213;3166525835,"Calle 127 No. 21-60, CS 218-219, Clínica Reina Sofía, Bogotá",https://www.asonest.org,2,verificada,
 ffeb4688c0af,ASSA ABLOY COLOMBIA S.A.S,Empresa privada (DIAN),luis.e.camelo@assaabloy.com,,CALLE 12 32 39,,2,sin_verificar,
 56b0a61f45b9,ASSERTIVENESS PARTNERING AND INNOVATION API S.A.S.,Empresa privada (DIAN),api@api.com.co,,CALLE 87 12 9 APARTAMENTO 302,,2,sin_verificar,
 fffb4132db09,ASSETS BANK BENVENISTE LONDOÑO S.A.,Empresa privada (DIAN),assetsbankbenveniste@gmail.com,,CARRERA 33 BIS 25 B 67 OFICINA 67 201,,2,sin_verificar,
 b976a3760e70,ASSIGNIA INFRAESTRUCTURAS S.A. SUCURSAL COLOMBIA,Empresa privada (DIAN),fernando_salgado@assignia.com,,CARRERA 18 86A 14 OFICINA 111,,2,sin_verificar,
 8acb7d14e755,ASSIST CARD DE COLOMBIA S.A.S,Empresa privada (DIAN),notificaciones.colombia@assistcard.com,,CARRERA 11 82 01 PISO 8,,2,sin_verificar,
 86867d74fd10,ASSIST CONSULTORES DE SISTEMAS S.A.,Empresa privada (DIAN),ccaicedo@assist.com.co,,CARRERA 62 NUMERO 103-44 OFICINA 501,,2,sin_verificar,
-d643c0b1258e,ASSO LTDA ASESORIAS Y SERVICIOS EN SALUD OCUPACIONAL,Salud (IPS y clínicas),saludocupacional@assoltda.com,,,,2,sin_verificar,
+d643c0b1258e,ASSO LTDA ASESORIAS Y SERVICIOS EN SALUD OCUPACIONAL,Salud (IPS y clínicas),saludocupacional@assoltda.com,3002038208;3046656708;601 2873029,"Calle 123 # 7-51, consultorio 1102, Bogotá, Colombia",https://www.assoltda.com,2,verificada,
 8ef54d65b862,ASSUT MEDICAL LIMITADA.,Empresa privada (DIAN),assut@assutmedical.net,,DIAGONAL 23 2 SUR N 11 99,,2,sin_verificar,
 efdd3198f4e6,ASTAF COLOMBIA S.A.S.,Empresa privada (DIAN),representante.legal@astaf.com.co,,CARRERA 13 97 76 PI 6,,2,sin_verificar,
 3cf549f94cfe,ASTECNIA S.A.,Empresa privada (DIAN),contabilidad@astecnia.com,,CARRERA 2 48 27 ZONA INDUSTRIAL CAZUCALLE,,2,sin_verificar,
@@ -6480,13 +6478,13 @@ a1886f2bff1f,ASTRAZENECA COLOMBIA S.A.S,Empresa privada (DIAN),santiago.beltran@
 e52935fa7f8f,ASTRO MAQUINARIA S.A.S.,Empresa privada (DIAN),info@astromaquinaria.com,,CALLE 140 22 06,,2,sin_verificar,
 05481439ec6f,ASTROREPUESTOS S.A.S.,Empresa privada (DIAN),contabilidad@astrorepuestos.com,,CALLE 17 96H 72,,2,sin_verificar,
 cac4117d937f,ASUARTELAM,Servicios públicos,asuartelam@gmail.com,8165505,TRANSVERSAL 4D No. 4-11,,2,sin_verificar,
-47d0953dcac3,ATARDECER DE LOS AÑOS LTDA,Salud (IPS y clínicas),adriana.baron@clinicaatardecer.com,,,,2,sin_verificar,
+47d0953dcac3,ATARDECER DE LOS AÑOS LTDA,Salud (IPS y clínicas),adriana.baron@clinicaatardecer.com,,,,2,dudosa,sin_rastro_claro
 b9c645cf006d,ATC SITIOS DE COLOMBIA S.A.S.,Empresa privada (DIAN),notificacionescolombia@americantower.com,,CARRERA 11 A NUMERO 93 - 35 PISO 2,,2,sin_verificar,
 f33c19c2e37f,Atec garage,Repuestos de carros,,+573143283857,Calle 143 138a15,,2,sin_verificar,
-2cd23419ba31,ATECHDENTAL SAS,Salud (IPS y clínicas),atechdental@hotmail.com,,,,2,sin_verificar,
+2cd23419ba31,ATECHDENTAL SAS,Salud (IPS y clínicas),atechdental@hotmail.com,,,,2,dudosa,sin_rastro_claro
 92b4c3457047,ATEMPO INVERSIONES S.A.,Empresa privada (DIAN),info@atempo.com.co,,CARRERA 19 84 09,,2,sin_verificar,
-cccc453b9831,ATENCION PREHOSPITALARIA Y SEGURIDAD INDUSTRIAL APREHSI LTDA,Salud (IPS y clínicas),bermudezjuanfelipe@aprehsiltda.com,,,,2,sin_verificar,
-487b83f23545,ATENCIÓN EN MEDICINA LABORAL SAS SIGLA- ATMELA,Salud (IPS y clínicas),rolando.melo@gmail.com,,,,2,sin_verificar,
+cccc453b9831,ATENCION PREHOSPITALARIA Y SEGURIDAD INDUSTRIAL APREHSI LTDA,Salud (IPS y clínicas),bermudezjuanfelipe@aprehsiltda.com,,,,2,dudosa,sin_rastro_claro
+487b83f23545,ATENCIÓN EN MEDICINA LABORAL SAS SIGLA- ATMELA,Salud (IPS y clínicas),rolando.melo@gmail.com,,,,2,dudosa,sin_rastro_claro
 d6916f6e28ba,ATENTO COLOMBIA S.A.,Empresa privada (DIAN),isabela.ardalan@atento.com,,CALLE 67 NUMERO 12 - 35,,2,sin_verificar,
 d1eb596dcb5f,ATENTO TELESERVICIOS ESPAÑA S.A. SUCURSAL EN COLOMBIA,Empresa privada (DIAN),noralba.salas@atento.com,,CALLE 67 12 35,,2,sin_verificar,
 634fbf94c4a3,Athena Bitcoin ATM,bank,soporte@athenabitcoin.com.,+57 350 733 7465,Avenida Calle 13 65-21,,2,sin_verificar,
@@ -6503,22 +6501,22 @@ bc753051ec6b,Atlanta Plus,Droguería,,,Calle 64A,,2,sin_verificar,
 3f78dcbaaec2,ATLAS REPUESTOS Y SERVICIO S.A.S,Proveedores del Estado,atlas.servicio@gmail.com,3102444951,CALL2 52 A # 74 A 32,,2,sin_verificar,
 8b67ea86dbab,Atlethic,fitness centre,,7183945,Bogotá,,2,sin_verificar,
 8f576b8f3183,ATRAPALO COLOMBIA S.A.S.,Empresa privada (DIAN),angela.ruiz@atrapalo.com.co,,CALLE 127 7A 47 PISO 6,,2,sin_verificar,
-ca4080c21e25,ATRYS COLOMBIA S.A.S.,Salud (IPS y clínicas),sistemadecalidad-co@atryshealth.com,,,,2,sin_verificar,
+ca4080c21e25,ATRYS COLOMBIA S.A.S.,Salud (IPS y clínicas),sistemadecalidad-co@atryshealth.com,,,https://atryscolombia.com/,2,verificada,
 0fb1e8d0bcc1,AUDELIA CAPITAL LIMITED SUCURSAL COLOMBIA,Empresa privada (DIAN),contabilidad@encajes.com,,CALLE 17A 69B 06,,2,sin_verificar,
 7c4cf664ff6b,Audifarma,Droguería,,,,,2,sin_verificar,
 3e3991a150d5,Audifarma - Solo dispensacion,Droguería,,,Avenida Calle 100,,2,sin_verificar,
-1046db53e6d1,AUDIFONOS ALCIRA RAMIREZ S A S,Salud (IPS y clínicas),ventas@audifonosalcira.com,,,,2,sin_verificar,
+1046db53e6d1,AUDIFONOS ALCIRA RAMIREZ S A S,Salud (IPS y clínicas),ventas@audifonosalcira.com,+57 313 387 4314;+57 314 602 3769 (WhatsApp),"Calle 63 #11-45 Oficina 209, Bogotá",https://www.audifonosalcira.com,2,verificada,
 d98d6311926e,AUDILIMITED CONTADORES PUBLICOS S.A.S.,Empresa privada (DIAN),magarcia@audilimited.com,,CARRERA 7 74 B 56 OFICINA 1208,,2,sin_verificar,
 ebb31ddeb17e,AUDILIMITED S.A.S.,Empresa privada (DIAN),rgallo@audilimited.com,,CARRERA 7 74 B 56 OFICINA 1208,,2,sin_verificar,
 c2b55f0ca803,AUDIO CONCEPT DE COLOMBIA S.A.S,Empresa privada (DIAN),info@audioconcept.com.co,,AUTOPISTA NORTE 120 19,,2,sin_verificar,
 0ce3ce7a92ef,AUDIO DAZ P.A. SYSTEM S.A.S.,Empresa privada (DIAN),adridaza27@hotmai.com,,AVENIDA 9 NUMERO 189A 22,,2,sin_verificar,
 95b5fead3a38,Audio Salud Integral,Audiologist,info@audiosaludintegral.com,+57 1 340 4777,Transversal 21 47-76,,2,sin_verificar,
-8cacf79884a8,AUDIOCOM SAS,Salud (IPS y clínicas),administracion@audiocom.com.co,,,,2,sin_verificar,
-1fad57e29749,AUDIOSALUD INTEGRAL SAS,Salud (IPS y clínicas),audiosaludintegral@gmail.com,,,,2,sin_verificar,
+8cacf79884a8,AUDIOCOM SAS,Salud (IPS y clínicas),administracion@audiocom.com.co,+57 317 669 7358 (WhatsApp),,https://www.audiocom.com.co,2,verificada,
+1fad57e29749,AUDIOSALUD INTEGRAL SAS,Salud (IPS y clínicas),audiosaludintegral@gmail.com,(601) 478 4901;317 645 7335;316 525 1433,"Calle 63 N° 21 - 48, Barrio Muequetá, Diagonal al Colsubsidio de la carrera 24, Bogotá D.C., Colombia",https://www.audiosaludintegral.com,2,verificada,
 0f427bc45daf,AUDISALUD COLOMBIA SAS,Proveedores del Estado,gerencia@audisalud.com,+573134942853,CRA 8 NO 167D-62 MIRAMONT PARK OFC 401 INT 1,,2,sin_verificar,
 9e7c12db43bc,AUGUSTO MEJIA U Y COMPAÑIA EDUARDO MEJIA Z SUCESORES S.A.S.,Empresa privada (DIAN),contabilidadmejiaz@outlook.com,,CARRERA 13 17 90,,2,sin_verificar,
 e9d9b784e4d4,Aula Ambiental Agroecologica Mhuyso de OAET,,huertamhuyso@gmail.com,,63 - 00 Cra 55a,,2,sin_verificar,
-250ed245c738,AUNARSALUD SERVICIOS INTEGRALES EN SALUD SAS - SIGLA AUNARSALUD,Salud (IPS y clínicas),gerencia@aunarsalud.com,,,,2,sin_verificar,
+250ed245c738,AUNARSALUD SERVICIOS INTEGRALES EN SALUD SAS - SIGLA AUNARSALUD,Salud (IPS y clínicas),gerencia@aunarsalud.com,333-033-4045 (PBX);300-914-7304 (línea Nueva EPS);+57 310-231-6559 (WhatsApp Capital Salud),"Calle 63 #13-34, Pisos 2 y 6, Chapinero, Bogotá",https://www.aunarsalud.com,2,verificada,
 b05e5f3d6b20,AUREN AUDITORES S.A,Empresa privada (DIAN),albalucia.pulido@auren.com.co,,CALLE 94 A 11 A 66 PI 1,,2,sin_verificar,
 ff4509506214,AURORA CAPITAL S.A.S.,Empresa privada (DIAN),liliamaria.velez70@gmail.com,,CALLE 67 4A 71,,2,sin_verificar,
 68affde4877f,AUROS S.A.,Empresa privada (DIAN),luzma@auros-sa.com.co,,DIAGONAL 49 SUR 60-58,,2,sin_verificar,
@@ -6594,22 +6592,22 @@ b46ae70ec646,AV&L INGENIERIA SAS,Proveedores del Estado,javila@maringenieros.com
 6ebf0725acc1,AVA Y COMPAÑIA S.C.A.,Empresa privada (DIAN),avayebad@hotmail.com,,CALLE 72 10 07 OFICINA 901,,2,sin_verificar,
 429752bf2440,AVALES Y CREDITOS S.A,Empresa privada (DIAN),contador@avacreditos.com,,AVENIDA CALLE 9 50 15 PI 2 BL A,,2,sin_verificar,
 fd9aa32b4ddc,AVALUOS INTEGRALES S.A.S,Empresa privada (DIAN),info@avaluosintegrales.co,,CALLE 40 A 13 09 OFICINA 1801,,2,sin_verificar,
-e63a6214c06a,AVAMED DIAGNOSTICO MEDICO S.A.S / SIGLA: AVAMED S.A.S,Salud (IPS y clínicas),gerencia@diagnosticomedico.co,,,,2,sin_verificar,
+e63a6214c06a,AVAMED DIAGNOSTICO MEDICO S.A.S / SIGLA: AVAMED S.A.S,Salud (IPS y clínicas),gerencia@diagnosticomedico.co,(+571) 3076920;320 2780872,"Av. Boyacá N° 50 – 37, Bogotá",https://diagnosticomedico.co,2,verificada,
 087200519b14,AVANCE CALL CENTER S.A.S.,Empresa privada (DIAN),jsilva@avancebpo.com,,CALLE 26B 4A 45 P3,,2,sin_verificar,
 eeb2fceec02b,AVANCE DIGITAL S .A EN REORGANIZACION,Empresa privada (DIAN),ros.leon@avancedigital.com,,CARRERA 18 137 31,,2,sin_verificar,
-defeb0ccf864,Avances Tecnológicos e Innovación para la Salud SAS con sigla AVAN SALUD,Salud (IPS y clínicas),ombkennedy@gmail.com,,,,2,sin_verificar,
-7e37b32219ee,avances terapeuticos ips s.a.s,Salud (IPS y clínicas),avanceterapeutico@gmail.com,,,,2,sin_verificar,
+defeb0ccf864,Avances Tecnológicos e Innovación para la Salud SAS con sigla AVAN SALUD,Salud (IPS y clínicas),ombkennedy@gmail.com,,,,2,dudosa,sin_rastro_claro
+7e37b32219ee,avances terapeuticos ips s.a.s,Salud (IPS y clínicas),avanceterapeutico@gmail.com,6017468830,"Avenida Carrera 24 # 84-40, Local 101, Bogotá D.C.",,2,verificada,
 a1ba32320216,AVANT PLAST S.A.S.,Empresa privada (DIAN),contabilidad@avantplast.com,,CARRERA 19 B 168 64,,2,sin_verificar,
-d6d77dca67d6,AVANT SALUD INTEGRAL SAS,Salud (IPS y clínicas),avantsaludintegral@gmail.com,,,,2,sin_verificar,
+d6d77dca67d6,AVANT SALUD INTEGRAL SAS,Salud (IPS y clínicas),avantsaludintegral@gmail.com,,,,2,dudosa,sin_rastro_claro
 96c67d552cfd,AVANTE SISTEMATIZANDO S.A.,Empresa privada (DIAN),contabilidad@rentadvisor.com.co,,CARRERA 14 101 11 OFICINA 601,,2,sin_verificar,
 39ed5b13f8d1,AVANTEL S.A.S. EN REORGANIZACION,Empresa privada (DIAN),notificacionesjudiciales@avantel.com.co,,TRANSVERSAL 23 NUMERO 95 53,,2,sin_verificar,
 9a26d3c3dbc1,AVANTI CONSULTORIAS E INVERSIONES S EN C,Empresa privada (DIAN),mricardo@inverlink.com,,CARRERA 7 71 52,,2,sin_verificar,
 85c3883a538c,AVANXO COLOMBIA,Empresa privada (DIAN),jcarlos.cruz@globant.com,,AVENIDA CALLE 26 NUMERO 92 32 MODULO G6,,2,sin_verificar,
-962e576789c8,AVANZAR IPS REHABILITACIÓN Y HABILITACIÓN SAS,Salud (IPS y clínicas),ipsavanzar@gmail.com,,,,2,sin_verificar,
+962e576789c8,AVANZAR IPS REHABILITACIÓN Y HABILITACIÓN SAS,Salud (IPS y clínicas),ipsavanzar@gmail.com,,,,2,dudosa,sin_rastro_claro
 b2f4cf87f0be,AVAYA COMMUNICATION DE COLOMBIA S.A.,Empresa privada (DIAN),asotelofajardo@avaya.com,,CALLE 127ANUMERO 53A-45 TORRE 3 OFICINA 402,,2,sin_verificar,
 5042f3afe1af,AVE COLOMBIANA S.A.S.,Empresa privada (DIAN),contabilidad@avecolombiana.com.co,,ZIPAQUIRA KILOMETRO 3 VIA NEMOCON,,2,sin_verificar,
 12f93425c8f1,AVEGAR S.A. S-EN REORGANIZACION,Empresa privada (DIAN),avegarltda@yahoo.com,,VEREDA EL RETIRO FINCA MONTEBELLO,,2,sin_verificar,
-687a446bc807,AVENIR SALUD SAS,Salud (IPS y clínicas),martaluz@avenirsalud.com,,,,2,sin_verificar,
+687a446bc807,AVENIR SALUD SAS,Salud (IPS y clínicas),martaluz@avenirsalud.com,+57 310 318 3025;+57 321 828 3897,"Calle 50 # 8 - 24, Consultorio 305, Bogotá D.C., Colombia",https://avenirsalud.com,2,verificada,
 f28162a4a615,AVEPAL S.A.S.,Empresa privada (DIAN),carolina.rendon@avepal.com,,CARRERA 5 NUMERO 9 26 SUR TRANSVERSAL 3 OFICINA 611,,2,sin_verificar,
 b9dc3e74a0e9,AVI STRATEGIC INVESTMENT S.A.S.,Empresa privada (DIAN),gertiq@hotmaii.com,,CARRERA 23 86 A 63,,2,sin_verificar,
 b09440743c47,AVIA CARIBBEAN LIMITADA.,Empresa privada (DIAN),jonathan.rodriguez@aviatur.com,,AVENIDA 19 NUMERO 4 - 62,,2,sin_verificar,
@@ -6649,28 +6647,28 @@ fea258c715d6,AXITY COLOMBIA S.A.S.,Empresa privada (DIAN),juliana.caro@axity.com
 697c32660dd3,AYESA INGENIERIA Y ARQUITECTURA S.A.U. SUCURSAL COLOMBIA,Empresa privada (DIAN),fchacin@ayesa.com,,CALLE 126 7 26 P 8,,2,sin_verificar,
 c9c75d054483,AYMAR Y COMPAÑIA S.A.S.,Empresa privada (DIAN),aymarycia@gmail.com,,KILOMETRO 3 VIA NEMOCON,,2,sin_verificar,
 2a553ed83637,Ayuda en Acción Colombia AeA,Foundation,informacion@ayudaenaccion.org,12366302,Carrera 16,,2,sin_verificar,
-1c1d0ce0a1a5,AYUDA MEDICA DOMICILIARIA Y EMPRESARIAL SOLUCIONES EN SALUD OCUPACIONAL S A S,Salud (IPS y clínicas),administracion@ayudamedica.com.co,,,,2,sin_verificar,
-9e7c6210e8ba,AYUDA MEDICA TERRITORIAL EN AMBULANCIAS AYMEDT AMBULANCIAS LTDA SIGLA AYMEDT AMBULANCIAS LTDA,Salud (IPS y clínicas),gerencia@aymedtambulancias.onmicrosoft.com,,,,2,sin_verificar,
-a41b514fce73,AYUDAS DIAGNOSTICAS SURA S.A.S,Salud (IPS y clínicas),rqext@suramericana.com.co,,,,2,sin_verificar,
+1c1d0ce0a1a5,AYUDA MEDICA DOMICILIARIA Y EMPRESARIAL SOLUCIONES EN SALUD OCUPACIONAL S A S,Salud (IPS y clínicas),administracion@ayudamedica.com.co,601-3907495;+57 315-545-36-19,"Carrera 69f # 64f – 43 bodega piso 1, Bogotá (sede operativa) / Transversal 55 # 98a – 66, CC Iserra 100, local 238, Bogotá (sede administrativa)",https://www.ayudamedica.com.co,2,verificada,
+9e7c6210e8ba,AYUDA MEDICA TERRITORIAL EN AMBULANCIAS AYMEDT AMBULANCIAS LTDA SIGLA AYMEDT AMBULANCIAS LTDA,Salud (IPS y clínicas),gerencia@aymedtambulancias.onmicrosoft.com,,,,2,dudosa,sin_rastro_claro
+a41b514fce73,AYUDAS DIAGNOSTICAS SURA S.A.S,Salud (IPS y clínicas),rqext@suramericana.com.co,601 489 79 04;01 8000 517 736,,https://www.sura.co/ayudas-diagnosticas,2,verificada,
 dcebddf9cba6,AYURA S.A.S.,Empresa privada (DIAN),arodriguez@ayura.co,,CALLE 93 B NUMERO 12-30 OFICINA 401,,2,sin_verificar,
 7371b1e162c9,AZ La Receta,restaurant,,+57 304 1391691,Calle 22 1-04,,2,sin_verificar,
 84f3f80fe707,AZ SMART TECHNOLOGY SAS,Proveedores del Estado,info@azsmart.net,9144344,CALLE 100 ·NO. 47A - 42 OFICINA 501,,2,sin_verificar,
 f0e9b2d692d4,AZABACHE ENERGY INC SUCURSAL COLOMBIA.,Empresa privada (DIAN),contabilidad@azaenergia.com,,AVENIDA CARRERA 9 NUMERO 113-52 OFICINA 1004,,2,sin_verificar,
 fde5c5426ad2,AZACAN S.A.S. EN REORGANIZACION,Empresa privada (DIAN),ygarcia@azacancolombia.com,,CARRERA 52 123 A 15,,2,sin_verificar,
 68d0100fc0bd,Azacan SAS,Empresa/Oficina,,,,,2,sin_verificar,
-7a490c6a758d,Azahar Cafe,Cafetería,info@azaharcoffee.com,7821675,Carrera 9 79A-23,,2,sin_verificar,
+7a490c6a758d,Azahar Cafe,Cafetería,info@azaharcoffee.com,7821675,Carrera 9 79A-23,,2,dudosa,sin_rastro_claro
 13e0b4201dab,Azahar Café,Cafetería,,7821675,Carrera 14A,,2,sin_verificar,
 099219744195,Azaleia,Calzado,,,Carrera 69B,,2,sin_verificar,
 1890786925ed,AZEMBLA S.A.S.,Empresa privada (DIAN),prodriguez@azembla.com.co,,CARRERA 11 A 90 -15 SEGUNDO PISO,,2,sin_verificar,
 341bd3953d82,Azlogica,Empresa/Oficina,,,Carrera 10,,2,sin_verificar,
 95a20b0170b6,AZUL & BLANCO MILLONARIOS FC S.A.,Empresa privada (DIAN),jefe.contable@millonarios.com.co,,CALLE 90 NUMERO 19 -41 OFICINA 902,,2,sin_verificar,
 81ac77da6239,AZUL K S.A.S.,Empresa privada (DIAN),azulksa@azulk.com,,AUTOPISTA SUR 60 51,,2,sin_verificar,
-bbde0a64bfc5,B & B SALUD ORAL PARA TI SAS,Salud (IPS y clínicas),bybortodoncia@gmail.com,,,,2,sin_verificar,
+bbde0a64bfc5,B & B SALUD ORAL PARA TI SAS,Salud (IPS y clínicas),bybortodoncia@gmail.com,,,,2,dudosa,sin_rastro_claro
 8cc1c31e16c5,B & V ESTRUCTURAS METALICAS LIMITADA. EN REORGANIZACION,Empresa privada (DIAN),contabilidad@bvestructurasmetalicas.com.co,,AUTOPISTA MEDELLIN RP SIBERIA 600 METROS VIA FUNZA,,2,sin_verificar,
 9f5196a513a0,B BRAUN MEDICAL S.A.,Empresa privada (DIAN),notificaciones_oficiales.co@bbraun.com,,CARRERA 19 NUMERO 100-45 PISO 6,,2,sin_verificar,
-51265d0eea93,B S P CORPOLASER LTDA,Salud (IPS y clínicas),corpolaser98@hotmail.com,,,,2,sin_verificar,
+51265d0eea93,B S P CORPOLASER LTDA,Salud (IPS y clínicas),corpolaser98@hotmail.com,,,,2,dudosa,sin_rastro_claro
 73e3fd2028ba,B T P MEDIDORES Y ACCESORIOS S.A EN REORGANIZACION,Empresa privada (DIAN),contabilidad@btp.com.co,,CALLE 18 B 65 B 75,,2,sin_verificar,
-9db39dfa059e,B Y R GROUP Sociedad por Acciones Simplificada SIGLA B Y R SAS,Salud (IPS y clínicas),aestheticlinical@hotmail.com,,,,2,sin_verificar,
+9db39dfa059e,B Y R GROUP Sociedad por Acciones Simplificada SIGLA B Y R SAS,Salud (IPS y clínicas),aestheticlinical@hotmail.com,,,,2,dudosa,sin_rastro_claro
 78789fd772d8,B Y Z S.A.S.,Empresa privada (DIAN),byzsas2018@gmail.com,,CALLE 12 60 97,,2,sin_verificar,
 af4ebc227e6c,B&C S.A.,Empresa privada (DIAN),edgarmora@byc-sa.com,,CARRERA 47 NUMERO 103 29,,2,sin_verificar,
 bc0107722bb9,B.I. S.A.S,Empresa privada (DIAN),dir.admon@bi-sse.com,,CALLE 123 7A 20,,2,sin_verificar,
@@ -6720,12 +6718,12 @@ daeb26458ad5,BARRAGAN E HIJOS Y COMPAÑIA S.A.S.,Empresa privada (DIAN),barragan
 89f735d7b942,Barrica Vinoteca & Cervecería,Bar,contacto@barrica.co,3118451528,Carrera 3,,2,sin_verificar,
 ddc5528ff078,BARRIO TALLER LIMITADA,Empresa privada (DIAN),jacqueline-1201@hotmail.com,,CARRERA 27CALLE 71B 53,,2,sin_verificar,
 0995771cace6,BARTOLO SOSSA JORGE MARIO,Comercio,jorgebartolo06@gmail.com,3102258143,C NARANJAL,,2,sin_verificar,
-7cfdac1dfe50,BARUCH CENTRO DE REHABILITACION PARA TRASTORNOS DE LA CONDUCTA Y EL NEURODESARROLLO SAS,Salud (IPS y clínicas),ipsbaruch@gmail.com,,,,2,sin_verificar,
+7cfdac1dfe50,BARUCH CENTRO DE REHABILITACION PARA TRASTORNOS DE LA CONDUCTA Y EL NEURODESARROLLO SAS,Salud (IPS y clínicas),ipsbaruch@gmail.com,,,,2,dudosa,sin_rastro_claro
 518327923602,BARVAL COLOMBIA S.A.,Empresa privada (DIAN),gerencia@barval.com,,CARRERA 5 10-79 SUR AUTOPISTA CAJICALLECHIA - PUENTE PEATONAL MA,,2,sin_verificar,
 d47d5f4250c2,BASF QUIMICA COLOMBIANA S.A.,Empresa privada (DIAN),roselli.cantor@basf.com,,CALLE 99 NUMERO 69 CALLE 32,,2,sin_verificar,
 48da00b69d79,BASIC FARM S.A.S.,Empresa privada (DIAN),dlzea@basicfarm.com,,CALLE 59 NUMERO 16-24,,2,sin_verificar,
-e8cab8d779be,Basilic,Restaurante,reservas.bogota@sofitel.com,+576016466390,Carrera 13 85-80,,2,sin_verificar,
-f0652c096d39,Basker Burgers,Comida rápida,elcrew@basker.com.co,+573009625237,Bogotá,,2,sin_verificar,
+e8cab8d779be,Basilic,Restaurante,reservas.bogota@sofitel.com,+576016466390,Carrera 13 85-80,,2,dudosa,sin_rastro_claro
+f0652c096d39,Basker Burgers,Comida rápida,elcrew@basker.com.co,+573009625237,Bogotá,https://basker.com.co,2,verificada,
 b114cd5fa56a,BATEMAN INGENIERIA S.A.,Empresa privada (DIAN),contabilidadbil2012@gmail.com,,CARRERA 20 39 65,,2,sin_verificar,
 8289413a738a,BATERIAS CAMPEON Y COMPAÑIA S.A.S. EN REORGANIZACION,Empresa privada (DIAN),bateriascampeon@hotmail.com,,AVENIDA BOYACALLE34 08 SUR,,2,sin_verificar,
 fb0c6efc4e06,Baterias el Boyaco,Repuestos de carros,,,Carrera 111C,,2,sin_verificar,
@@ -6741,7 +6739,7 @@ a43cae4cde41,BAVARIA Y COMPAÑIA SCA,Empresa privada (DIAN),notificaciones@ab-in
 4fd6e8f4a0be,BAYER S.A.,Empresa privada (DIAN),notificacioneslegales@bayer.com,,AVENIDA AMERICAS 57-52,,2,sin_verificar,
 382e8a00ac2c,BAYO HOLDINGS INC Y COMPAÑIA SCA,Empresa privada (DIAN),hguevara@arrobainversiones.com,,CALLE 100 7 33 OFICINA 1801,,2,sin_verificar,
 62d80de7df4f,BAYPORT COLOMBIA S.A,Empresa privada (DIAN),notificaciones.judiciales@bayport.com.co,,CARRERA 16 NUMERO 97 - 46 / 40. PISO5. EDIFICIO TORRE 97,,2,sin_verificar,
-c538c51f9bc9,BB Banana Bread,Cafetería,hello@bananabananabread.com,+57 311 7641648;+57 310 4143370,"Cl. 90 ##11-56, Bogotá",,2,sin_verificar,
+c538c51f9bc9,BB Banana Bread,Cafetería,hello@bananabananabread.com,+57 311 7641648;+57 310 4143370,"Cl. 90 ##11-56, Bogotá",http://bananabananabread.com,2,verificada,
 ce722c1add63,BB INGENIEROS S.A.S.,Empresa privada (DIAN),bbingenierosltda@gmail.com,,CARRERA 15 NUMERO 49-84 OFICINA 303,,2,sin_verificar,
 2706651a8f63,BC BROMELIAS DE COLOMBIA S.A.S.,Empresa privada (DIAN),jsgruber@bromelia-bc.com,,TRANSVERSAL 23B NUMERO 22-03,,2,sin_verificar,
 4e6730c28dde,BCI INGENIERIA S.A.S.,Empresa privada (DIAN),bci@bci.co,,BCI@BCI.CO,,2,sin_verificar,
@@ -6752,7 +6750,7 @@ a2eb8735cbbe,Beautique,hairdresser,,3045695202,Carrera 4 69-45,,2,sin_verificar,
 257a95e731e9,BEAVER S.A,Empresa privada (DIAN),info@beavercolombia.com,,CARRERA 22 16 48,,2,sin_verificar,
 7e4c43e11367,BEBUCA S.A.S.,Empresa privada (DIAN),marbusca0@gmail.com,,CALLE 109 NUMERO 11A-47 AO 702,,2,sin_verificar,
 e366156fe4b0,BECERRA AGUDELO EDUAR ANDRES,Comercio,cena-2610@hotmail.com,3122456590,CARRERA 7 NRO 10-19 BARRIO PRIMERO DE MAYO,,2,sin_verificar,
-0c662ffe83d9,BECERRA TORRES LIMITADA,Salud (IPS y clínicas),jaimebecerraorl@yahoo.com,,,,2,sin_verificar,
+0c662ffe83d9,BECERRA TORRES LIMITADA,Salud (IPS y clínicas),jaimebecerraorl@yahoo.com,,,,2,dudosa,sin_rastro_claro
 e31b05c927a7,BECOME DIGITAL SAS,Proveedores del Estado,fredy.aguiar@becomedigital.com.co,3209010927,CARRERA 19 #100-45,,2,sin_verificar,
 0ccc4d4d3613,BECTON DICKINSON DE COLOMBIA LIMITADA.,Empresa privada (DIAN),diego.rivera@bd.com,,VEREDA VUELTA GRANDE A 150 METROS DE LA GLORIETA DE SIBERIA VIA COTA,,2,sin_verificar,
 8f4aca966bd3,BEDA BOGOTA S.A.S. AGENCIA CORDEL,Empresa privada (DIAN),beda@vitraltextil.com,,CALLE 20 69B 41,,2,sin_verificar,
@@ -6775,7 +6773,7 @@ f442c523fa96,BENCHMARK GROWERS S.A.S.,Empresa privada (DIAN),benchmargrowers@ben
 a8de6860a78c,Bendición de Yahveh,supermarket,,3154475651,Calle 19B 32-15,,2,sin_verificar,
 0b55970422a2,Bendito Hostel,,benditohostels@gmail.com,3136441603,Carrera 16 40a-36,,2,sin_verificar,
 309573f8ccca,BENEMOTORS S.A.,Empresa privada (DIAN),contabene1@gmail.com,,CARRERA 68A 19-16,,2,sin_verificar,
-88c3f13932d2,BENESSERE S.A.S.,Salud (IPS y clínicas),benesserebogota@gmail.com,,,,2,sin_verificar,
+88c3f13932d2,BENESSERE S.A.S.,Salud (IPS y clínicas),benesserebogota@gmail.com,,,,2,dudosa,sin_rastro_claro
 1cb5da91d3dc,BENHABITAT S.A.S.,Empresa privada (DIAN),contabilidad@benhabitat.com,,CALLE 109 NUMERO 109 B 11,,2,sin_verificar,
 8073b8212a3e,BENITEZ MENDOZA & COMPAÑIA S. EN C.S.,Empresa privada (DIAN),benitezmendoza@hotmail.es,,AVENIDA CARRERA 7 NUMERO 148 22 CALLE14,,2,sin_verificar,
 907e4fed11e7,BENJAMIN SANCHEZ & COMPAÑIA S.A. EN REORGANIZACION,Empresa privada (DIAN),gerentegeneral@benjaminsanchez.com.co,,AVENIDA AUTOPISTA NORTE 114 78,,2,sin_verificar,
@@ -6783,7 +6781,7 @@ a8de6860a78c,Bendición de Yahveh,supermarket,,3154475651,Calle 19B 32-15,,2,sin
 ee4050aaa438,BEON SAS,Proveedores del Estado,caroaguilarmorelli@gmail.com,3017540310,CL 118 # 18-15 AP 601,,2,sin_verificar,
 eb5d120e4622,BERBEA E HIJOS S.A.S.,Empresa privada (DIAN),acta_chia@hotmail.com,,AVENIDA PRADILLA 5 92 OFICINA 206 CENTRO COMERCIAL PLAZA CHIA,,2,sin_verificar,
 d7e631bf5070,BERLITZ COLOMBIA S.A.,Empresa privada (DIAN),catalina.acero@berlitz.com.co,,CALLE 26 69 A 51 LC A 102,,2,sin_verificar,
-436601045e75,BERMEDIC LTDA,Salud (IPS y clínicas),gabrielber@bermedic.com,,,,2,sin_verificar,
+436601045e75,BERMEDIC LTDA,Salud (IPS y clínicas),gabrielber@bermedic.com,,"Carrera 18C # 121-40, Oficina 102, Bogotá D.C.",,2,verificada,
 0c8bd6b6fc4d,BERNAL ARQUITECTOS S.A.S.,Empresa privada (DIAN),info@bernalarquitectos.com.co,,CARRERA 16 93 A 36 OFICINA 501 93 A 36 OFICINA 501,,2,sin_verificar,
 9aa797c82a40,BERNAL MAZUERA Y COMPAÑIA S EN C,Empresa privada (DIAN),bernalmazuera@gmail.com,,CARRERA 45 A N 91 70 APTO 701,,2,sin_verificar,
 6785dad1789c,BERNARDO JARAMILLO & COMPAÑIA S.A.S.,Empresa privada (DIAN),contabilidad.bjsas@outlook.com,,CALLE 106 53 39 OFICINA 603,,2,sin_verificar,
@@ -6807,20 +6805,20 @@ d7070ca37afd,"Biblioteca Museo Carlos Lleras Restrepo, UJTL",,utadeomas@utadeo.e
 2cf2987e1046,Bicicletas J.J,bicycle,,3182217463,Calle 163A,,2,sin_verificar,
 450128ff6987,Bicicleteria Santa Rosa,bicycle,,3115646817,Bogotá,,2,sin_verificar,
 099ea24c818d,Biciclópolis,bicycle,,3045456259,Carrera 50,,2,sin_verificar,
-91eed97d9f3b,BIENAVENTURANZA IPS SAS,Salud (IPS y clínicas),gestiondecalidad@bienaventuranzaips.com,,,,2,sin_verificar,
+91eed97d9f3b,BIENAVENTURANZA IPS SAS,Salud (IPS y clínicas),gestiondecalidad@bienaventuranzaips.com,7432442;01-8000189689,"Avenida Calle 53 # 71 A -13, Bogotá D.C, Barrio Normandía",https://www.bienaventuranzaips.com,2,verificada,
 0ed79d93bead,BIENES LA LIBERTAD S.A.,Empresa privada (DIAN),mcespedes@bieneslalibertad.com,,CARRERA 7 1 34 SUR,,2,sin_verificar,
 5da262cb5af9,BIENES RAICES 16 S.A.S.,Empresa privada (DIAN),contabilidad@refugiohotelspa.com,,AVENIDA CARRERA 15 88-64 OCALLE 313,,2,sin_verificar,
 de6ca6ba6dc4,BIENES RAICES SANTANA & COMPAÑIA S EN C A,Empresa privada (DIAN),santana_s_a@hotmail.com,,CALLE 74 NUMERO 64 66,,2,sin_verificar,
 5cf98742bd86,BIENES Y ARTE BIENART S.A.S.,Empresa privada (DIAN),bienartsas@gmail.com,,CALLE 93 17 45 OFICINA 701,,2,sin_verificar,
-81c293b6059b,BIENESTAR IPS S.A.S.,Salud (IPS y clínicas),notificacionesjudiciales@bienestarips.com,,,,2,sin_verificar,
-a61b7db449a5,Bienestar y salud empresarial SAS,Salud (IPS y clínicas),m.venegas@byse.com.co,,,,2,sin_verificar,
-dbc722bd0a71,BIENESTAR Y SALUD LABORAL SAS,Salud (IPS y clínicas),c.talero@bsl.com.co,,,,2,sin_verificar,
+81c293b6059b,BIENESTAR IPS S.A.S.,Salud (IPS y clínicas),notificacionesjudiciales@bienestarips.com,601 4823300;+57 321 3300382;601 4873434,"Carrera 68A N°. 24B - 10, Torre 3, Pisos 4, 9 y 10, Edificio Plaza Claro, Bogotá D.C.",https://bienestarips.com,2,verificada,
+a61b7db449a5,Bienestar y salud empresarial SAS,Salud (IPS y clínicas),m.venegas@byse.com.co,3043786317,"Calle 60 No. 15A-26, Chapinero, Bogotá D.C.",http://byse.com.co/,2,verificada,
+dbc722bd0a71,BIENESTAR Y SALUD LABORAL SAS,Salud (IPS y clínicas),c.talero@bsl.com.co,+57 300 802 1701 (WhatsApp),,https://bsl.com.co,2,verificada,
 aa1ae490341f,Biensestar,Cafetería,,,Calle 74A,,2,sin_verificar,
 523c005b0c72,BIERA S.A.S.,Empresa privada (DIAN),ajhiguera@biera.com.co,,CALLE 12 A 38 - 40,,2,sin_verificar,
 9296f8504bcf,Big Box,Calzado,,,,,2,sin_verificar,
 ed5b17fdb2e3,BIG MARKET S.A.,Empresa privada (DIAN),contabilidad@bigmarket.com.co,,PARQUE INDUSTRIAL LA FLORIDA BG 9,,2,sin_verificar,
 d55c6b080a1f,BIG PASS S.A.S.,Empresa privada (DIAN),contabilidad-co@edenred.com,,CALLE 72 10 07 OFINCA 201,,2,sin_verificar,
-39091f228a0e,BIGENICS COLOMBIA SAS,Salud (IPS y clínicas),liliana@bigenics.com,,,,2,sin_verificar,
+39091f228a0e,BIGENICS COLOMBIA SAS,Salud (IPS y clínicas),liliana@bigenics.com,+57 317 367 5244,,https://www.bigenics.com,2,verificada,
 a89d7dcf3071,BIGFOOT COLOMBIA S.A.S.,Empresa privada (DIAN),gerencia@dafiti.com.co,,CALLE 100 13 21,,2,sin_verificar,
 3fd8b822395b,Bike Kontrol,bicycle,edwinvasquez.kontrol@gmail.com,00572699387,Carrera 25,,2,sin_verificar,
 bfbf9502847b,Bike nerds,Cafetería,,,,,2,sin_verificar,
@@ -6833,20 +6831,20 @@ ba5c52f8f8f8,BIO D S.A.,Empresa privada (DIAN),henry.ballen@biodsa.com,,TERMINAL
 4cf6e9e85b7a,BIO-AMBIENTAL SUPPORT QUIMICA S.A.S. BIC,Empresa privada (DIAN),servicioalcliente@biosupportsas.com,,CALLE 68 93-52,,2,sin_verificar,
 5f3f00521f9e,BIOAGRICOLA DEL LLANO S.A EMPRESA DE SERVICIOS PUBLICOS,Servicios públicos,yabermudez@grupodellano.com,6819100,CARRERA 38 No 26C 95 Maizaro Sur,,2,sin_verificar,
 2a271be32788,BIOARA S.A,Empresa privada (DIAN),administracion@bioarasa.com,,CARRERA 68 G 79 46,,2,sin_verificar,
-ca9170279a55,BIOARRAY S.A.S,Salud (IPS y clínicas),luisa.tobon@bioarray.com.co,,,,2,sin_verificar,
+ca9170279a55,BIOARRAY S.A.S,Salud (IPS y clínicas),luisa.tobon@bioarray.com.co,+573015301356;+573022294626;+5717625902,"Calle 127 N. 20-16, Consultorio 208, Barrio La Calleja Norte, Bogotá, Colombia",https://bioarray.com.co,2,verificada,
 2732eacce3fb,BIOASEGURAR ANALITICA SAS,Proveedores del Estado,calidad@bioasegurar.com,3212428993,KM 1.5 VIA CAJICA TABIO N. 21-62,,2,sin_verificar,
-c59717face82,BIOAURIS IPS SAS,Salud (IPS y clínicas),bioaurisips@gmail.com,,,,2,sin_verificar,
+c59717face82,BIOAURIS IPS SAS,Salud (IPS y clínicas),bioaurisips@gmail.com,,,,2,dudosa,sin_rastro_claro
 33f4db7c3775,BIOCHEM FARMACEUTICA DE COLOMBIA S.A.,Empresa privada (DIAN),contabilidad@biochemfarmaceutica.com,,CARRERA 22 166 66,,2,sin_verificar,
 384c9de5cacd,BIOCIENTIFICA LIMITADA.,Empresa privada (DIAN),biocient@outlook.com,,CARRERA 15A NUMERO 121-12 OFICINA 518 CARRERA 15A NUMERO 121-12 OFICINA 518,,2,sin_verificar,
 3e38888b56ba,BIOCONSTRUCCIONES S.A.,Empresa privada (DIAN),contabilidad@bioconstrucciones.com,,CARRERA 9 17 02,,2,sin_verificar,
-89ce6b7d4f0a,BIODENT LA VICTORIA S.A.S.,Salud (IPS y clínicas),albalucia333@hotmail.es,,,,2,sin_verificar,
+89ce6b7d4f0a,BIODENT LA VICTORIA S.A.S.,Salud (IPS y clínicas),albalucia333@hotmail.es,,,,2,verificada,
 ba9360eb7b20,BIODENTALES DE COLOMBIA LIMITADA.,Empresa privada (DIAN),sforero@biodentales.com.co,,CARRERA 7 NUMERO 122 08,,2,sin_verificar,
 6bf82761e655,BIOEMPAK S.A.,Empresa privada (DIAN),gerencia@bioempak.com,,PARQUE INDUSTRIAL GRAN SABANA BG M 40,,2,sin_verificar,
 4f98db5dee6a,BIOFIBRAS SAS ESP,Servicios públicos,tatiana.ardila@empacor.com,2627799,carrera 68B 17 56,,2,sin_verificar,
 da07e07aaa3d,BIOFUTURO S.A.S.,Empresa privada (DIAN),info@biofuturo.com,,CALLE 44 16 63,,2,sin_verificar,
 cdf794dd50e8,BIOGEN LABORATORIOS DE COLOMBIA S.A.S,Empresa privada (DIAN),contable@laboratoriosbiogen.com,,CARRERA 33 BIS NUMERO 25 B 68 OFICINA 101 A,,2,sin_verificar,
 f6a96a6e241e,BIOINTECH S.A.S.,Empresa privada (DIAN),gerencia@biointech.co,,CALLE 171 55 A 41,,2,sin_verificar,
-d5d4c1593b4f,BIOMAB I P S SAS SIGLA BIOMAB I P S,Salud (IPS y clínicas),administrativa@biomab.co,,,,2,sin_verificar,
+d5d4c1593b4f,BIOMAB I P S SAS SIGLA BIOMAB I P S,Salud (IPS y clínicas),administrativa@biomab.co,,,,2,dudosa,sin_rastro_claro
 505199d06ca1,BIOMAR NATURALES S.A.S.,Empresa privada (DIAN),central@biomarket.com.co,,CARRERA 68N 31 79 SUR,,2,sin_verificar,
 d07d2ce29abf,BIOMARIN COLOMBIA LIMITADA.,Empresa privada (DIAN),biomarin-colombia@bmrn.com,,CALLE 116 7 15 OCALLE 804,,2,sin_verificar,
 1b873a8b85dd,BIOMAX BIOCOMBUSTIBLES S.A.,Empresa privada (DIAN),info@biomax.co,,CARRERA 14 NUMERO 99-33 PISO 9,,2,sin_verificar,
@@ -6854,22 +6852,22 @@ d07d2ce29abf,BIOMARIN COLOMBIA LIMITADA.,Empresa privada (DIAN),biomarin-colombi
 9d62dc7dbc23,BIOMERIEUX COLOMBIA S.A.S.,Empresa privada (DIAN),olga.ibanez@biomerieux.com,,CARRERA 7 N 127-48,,2,sin_verificar,
 ce8271cac43f,BIONEX TECHNOLOGY SAS,Proveedores del Estado,bionextechnology4@gmail.com,3125595495,CL 4 F NO 39 B - 20 TO 4 AP 404,,2,sin_verificar,
 b786b325d0f0,BIONEXO S.A.S.,Empresa privada (DIAN),ycuillos@bionexo.com,,CALLE 90 13A - 31 P 6,,2,sin_verificar,
-cd329b7e91c6,BIONUCLEAR S.A.S,Salud (IPS y clínicas),bionuclearsas@gmail.com,,,,2,sin_verificar,
+cd329b7e91c6,BIONUCLEAR S.A.S,Salud (IPS y clínicas),bionuclearsas@gmail.com,,,,2,dudosa,sin_rastro_claro
 13806b330ac1,BIOPLAST S.A.,Empresa privada (DIAN),directoracontabiilidad@bioplast.co,,CARRERA 92 64C 24,,2,sin_verificar,
 13a0493d82ba,BIOQUIFAR PHARMACEUTICA S.A,Empresa privada (DIAN),contabilidad@bioquifar.com,,CARRERA 37A 25-52,,2,sin_verificar,
 1073ae77fe9f,BIOQUIMICO PHARMA S.A.,Empresa privada (DIAN),ruthm927@hotmail.com,,TRANSVERSAL 76 B 47 14,,2,sin_verificar,
 4fae6b6356fc,BIORECURSOS S.A.S.,Empresa privada (DIAN),oficina.bogota@biorecursos.com.co,,CALLE 100 NUMERO 8A - 37 TO A OFICINA 205,,2,sin_verificar,
-9caa2eba9413,BioSanity Holding SAS,Salud (IPS y clínicas),ipsbiosanity@gmail.com,,,,2,sin_verificar,
-d973e6291e33,BIOSHAPE H&AE S.A.S,Salud (IPS y clínicas),bioshape1@gmail.com,,,,2,sin_verificar,
+9caa2eba9413,BioSanity Holding SAS,Salud (IPS y clínicas),ipsbiosanity@gmail.com,,,,2,dudosa,sin_rastro_claro
+d973e6291e33,BIOSHAPE H&AE S.A.S,Salud (IPS y clínicas),bioshape1@gmail.com,,,,2,dudosa,sin_rastro_claro
 81b111f9d1ef,BIOSISTEMAS INGENIERIA MEDICA S.A.S.,Empresa privada (DIAN),diradministrativa@biosistemasing.com,,AUTOPISTA NORTE 195 64 CALLE E 42 CENTRO COMERCIAL FULL HOUSE,,2,sin_verificar,
 4d7f47c5e82d,BIOSPIFAR S.A.,Empresa privada (DIAN),contabilidad@biospifar.com,,AVENIDA CALLE 7 155 80 IN 7 OFICINA 115,,2,sin_verificar,
 d868e430d10a,BIOSTAR PHARMACEUTICAL S.A.,Empresa privada (DIAN),contabilidad@biostarsa.com,,PARQUE IND. GRAN SABANA BG 12 VEREDA TIBITO,,2,sin_verificar,
 a67179db3744,BIOTECH COL S.A.,Empresa privada (DIAN),contabilidad@biotechcol.com,,CALLE 47 13 31 OFICINA 101 TO B,,2,sin_verificar,
 f44a4f3c69a3,BIOTECNIK S.A.S.,Empresa privada (DIAN),impuestos@biotecnik.com,,CARRERA 11 79 52,,2,sin_verificar,
-6fc96e4e0b93,BIOTECNOLOGIA Y GENETICA S.A.S BIOTECGEN S.A.S,Salud (IPS y clínicas),biotecgen@biotecgen.com.co,,,,2,sin_verificar,
+6fc96e4e0b93,BIOTECNOLOGIA Y GENETICA S.A.S BIOTECGEN S.A.S,Salud (IPS y clínicas),biotecgen@biotecgen.com.co,3336025563,"Calle 119 # 49-26, Bogotá",https://www.biotecgen.com.co,2,verificada,
 438e9388fb76,BIOTECS INGENIERIA DE TRATAMIENTO DE AGUAS LIMITADA.,Empresa privada (DIAN),biotecs@biotecs.com.co,,CARRERA 50 103B 43,,2,sin_verificar,
 454e8cc5a650,BIOTOSCANA FARMA S.A,Empresa privada (DIAN),legal.colombia@knighttx.com,,AVENIDA CARRERA 45 108 27 TORRE 3 OFICINA 1901,,2,sin_verificar,
-e8e527918e0a,BIOTRATAMIENTO DE RESIDUOS EL MU?A LTDA,Gestión de residuos,administrativa@biotratamientoderesiduos.com,4108273,Finca Bellavista ? Vereda La Union,,2,sin_verificar,
+e8e527918e0a,BIOTRATAMIENTO DE RESIDUOS EL MU?A LTDA,Gestión de residuos,administrativa@biotratamientoderesiduos.com,4108273,Finca Bellavista ? Vereda La Union,,2,dudosa,sin_rastro_claro
 3bc635863fa7,BIOTRONITECH COLOMBIA S.A.S.,Empresa privada (DIAN),contabiliad@biotronitech.com.co,,CALLE 123 7 50,,2,sin_verificar,
 2ecf9382b48a,BISMARK COLOMBIA S.A.S.,Empresa privada (DIAN),gloria@bismark.net.co,,CARRERA 7 NUMERO 84 A - 29 OFICINA 301,,2,sin_verificar,
 cbd5c1b8ad6a,Bit-Card Colombia,department store,,+57 03 301 517 2242,Bogotá,,2,sin_verificar,
@@ -6891,7 +6889,7 @@ d0cb86472af5,Blue Apple Pharmacy,Droguería,,,Calle 96,,2,sin_verificar,
 1e1197c3e202,BLUE ONE SOLUTIONS S.A.S,Empresa privada (DIAN),asistente@blueonesolutions.com.co,,CALLE 118 19 52 OFICINA 204 206,,2,sin_verificar,
 265c884baec9,BLUE PACIFIC ASSETS,Empresa privada (DIAN),contabilidad@bluepacificassets.com,,CALLE 93 11 A 28 OCALLE 802,,2,sin_verificar,
 f6a03b867175,BLUEBOX S.A.S.,Servicios públicos,aprovechamientobluebox@gmail.com,0000000,AVENIDA 6A BIS 35N 100 OF. 315,,2,sin_verificar,
-c150f773c9ac,BLUECARE SALUD SAS SIGLA BLUECARE,Salud (IPS y clínicas),habilitacioncm@bluecare.com.co,,,,2,sin_verificar,
+c150f773c9ac,BLUECARE SALUD SAS SIGLA BLUECARE,Salud (IPS y clínicas),habilitacioncm@bluecare.com.co,(601) 7420222;(604) 6041445;+(601) 593-81111,"Carrera 14 No. 93B-15, Bogotá, Colombia",https://www.bluecare.com.co,2,verificada,
 8ea42d04bdae,BM Autopartes,Repuestos de carros,,,Avenida Calle 161,,2,sin_verificar,
 0aab8f16dbe0,Bobinados & Repuestos del Norte,Repuestos de carros,,,Avenida Calle 161,,2,sin_verificar,
 c2f48af1d8ae,Bocado de Reina,Cafetería,,,,,2,sin_verificar,
@@ -6904,26 +6902,26 @@ b0c0ae27b33d,Bodega Textil,Telas,,,Carrera 52C,,2,sin_verificar,
 94b314f82fdb,BODEGAS DE MOSELA LIMITADA.,Empresa privada (DIAN),contabilidadbodemosela@yahoo.com,,AUTOPISTA MEDELLIN KILOMETRO 5.1 SIBERIA VIA LA VEGA,,2,sin_verificar,
 0be24464957a,BODEGAS DEL RHIN LIMITADA.,Empresa privada (DIAN),contabilidad@casadelrhin.com,,CARRERA 30 9 35,,2,sin_verificar,
 437ee338ef34,Bodehogar Storage - Alquiler de minibodegas,Empresa,bhan@bodehogar.co,+57 601 7429008,Avenida Carrera 45 128-45,,2,sin_verificar,
-12c64ec1ccc5,BODY HEALTH AND BEAUTY GYM BHB LTDA,Salud (IPS y clínicas),bhbgym@gmail.com,,,,2,sin_verificar,
+12c64ec1ccc5,BODY HEALTH AND BEAUTY GYM BHB LTDA,Salud (IPS y clínicas),bhbgym@gmail.com,,,,2,dudosa,sin_rastro_claro
 2d9c514794e1,Bodytech active kids,fitness centre,,+57 317 5298546,Bogotá,,2,sin_verificar,
 b2d249ed3a81,BOEHRINGER INGELHEIM S.A.,Empresa privada (DIAN),cesar.redondo@boehringer-ingelheim.com,,CARRERA 11 84A 09 P5,,2,sin_verificar,
 87d38c96d573,BOEING INTERNATIONAL CORPORATION,Empresa privada (DIAN),bfsbog@boeing.com,,AVENIDA CALLE 26 103 - 08 IN P 2,,2,sin_verificar,
 220fa3f63a03,Bogosil Silenciadores,Repuestos de carros,,,Avenida Carrera 86,,2,sin_verificar,
 cd909d64ccc9,Bogota,bank,,01-800-0518877,Carrera 99 18-20,,2,sin_verificar,
-dcfceae97695,Bogota Beer Company,Cafetería,protecciondedatos@co.ab-inbev.com,8000000,38-58 cra1,,2,sin_verificar,
+dcfceae97695,Bogota Beer Company,Cafetería,protecciondedatos@co.ab-inbev.com,8000000,38-58 cra1,https://www.bbccerveceria.com,2,verificada,
 fda8d2c65ea6,Bogota Bike Tours,Bicycle rental,bogotabiketours@gmail.com,573340841,BogotaSurOr,,2,sin_verificar,
 61c04cdfeb8f,BOGOTA COQUE LLC SUCURSAL COLOMBIANA,Empresa privada (DIAN),administracion@bogotacoque.com,,CARRERA 102A 25H 45 OFICINA 107,,2,sin_verificar,
 db60b6254b24,Bogota Detailing Center,Car wash,bogotadetailing@gmail.com,3173089221,Carrera 8F Bis A 163A-11,,2,sin_verificar,
 2bdb3a0a0043,BOGOTA FUTBOL CLUB S.A.,Empresa privada (DIAN),contabilidad@bogotafc.com,,AVENIDA CALLE 26 69 63 OFICINA 401,,2,sin_verificar,
-714cc3c19527,BOGOTA LASER OCULAR SURGERY CENTER S.A,Salud (IPS y clínicas),calidad@bogotalaser.com,,,,2,sin_verificar,
+714cc3c19527,BOGOTA LASER OCULAR SURGERY CENTER S.A,Salud (IPS y clínicas),calidad@bogotalaser.com,(601) 629-4919;+57 310 698 7990,"Calle 113 No. 7-45, Torre B, Oficinas 1410 y 613, Bogotá",https://www.bogotalaser.com,2,verificada,
 5f135ce5df02,BOGOTA LIMPIA S.A.S. E.S.P.,Servicios públicos,adrian.toloza@bogotalimpia.com,7450912,Av. Calle 13 No. 68-71,,2,sin_verificar,
 d558b9021a85,BOGOTANA DE LIMPIEZA LIMITADA.,Empresa privada (DIAN),bogotanadelimpieza@gmail.com,,CARRERA 28A NUMERO 52-04,,2,sin_verificar,
-c2f0ae5d1b0b,Bogotana de Mangueras S.a.s.,Gestión de residuos,ventas@bogotanademangueras.com,3609931,CARRERA 33 N 08 07,,2,sin_verificar,
-a55628ea2494,BOLIVAR SALUD IPS S.A.S,Salud (IPS y clínicas),silvia.ramirez@segurosbolivar.com,,,,2,sin_verificar,
+c2f0ae5d1b0b,Bogotana de Mangueras S.a.s.,Gestión de residuos,ventas@bogotanademangueras.com,3609931,CARRERA 33 N 08 07,https://bogotanademangueras.com,2,verificada,
+a55628ea2494,BOLIVAR SALUD IPS S.A.S,Salud (IPS y clínicas),silvia.ramirez@segurosbolivar.com,,,,2,dudosa,sin_rastro_claro
 590a681c51e6,BOMBAS HYDRAL LIMITADA.,Empresa privada (DIAN),conta@bombashydral.com,,CARRERA 36 NUMERO 11A 04,,2,sin_verificar,
 d0114e8c521f,BOMBAS Y MONTAJES S.A.S.,Empresa privada (DIAN),info@bombasymontajes.com,,CARRERA 69 B NUMERO 73 A 77,,2,sin_verificar,
 e906ac9d2e7b,BOMBATEX PUBLICIDAD S.A.S.,Empresa privada (DIAN),info@bombatex.com,,CALLE 78 69KILOMETRO 35,,2,sin_verificar,
-ffecf9ba313a,Bombay Lounge,Restaurante,info@bombaylounge.com.co,2559803,Calle 93 13A-28,,2,sin_verificar,
+ffecf9ba313a,Bombay Lounge,Restaurante,info@bombaylounge.com.co,2559803,Calle 93 13A-28,https://bombaylounge.com.co,2,verificada,
 88f517587187,BOMBOLANDIA LIMITADA.,Empresa privada (DIAN),contabilidad@bombolandia.com.co,,CALLE 90A NUMERO 96B 85,,2,sin_verificar,
 d16530784db2,Bon Voyage Cafe,cafe,,+57 312 3365151,Calle 22B 43B-17,,2,sin_verificar,
 bb6270e0e1a6,Bonanza Agraria,Fruver,,,Calle 35 Sur,,2,sin_verificar,
@@ -6936,15 +6934,15 @@ b2c0afceaf9c,BORETS SERVICES LTD SUCURSAL COLOMBIA,Empresa privada (DIAN),impues
 35e6ee0e778e,Bosco Clínica Veterinaria,veterinary,,+57 1 539 0508;+57 310 669 5977,Avenida Calle 80,,2,sin_verificar,
 743a22f285c8,Bosi Outlet,Calzado,,,Avenida Calle 19,,2,sin_verificar,
 b7fa36311ef9,Bossi,Calzado,,,,,2,sin_verificar,
-588dd38d9232,BOSTON MEDICAL CARE SAS IPS,Salud (IPS y clínicas),juan.monroy@convatec.com,,,,2,sin_verificar,
+588dd38d9232,BOSTON MEDICAL CARE SAS IPS,Salud (IPS y clínicas),,,,,2,descartada,registro_cruzado_invalido
 d5a7e14dcb36,BOSTON MEDICAL DEVICES COLOMBIA LIMITADA.,Empresa privada (DIAN),camilo.nino@convatec.com,,AVENIDA CARRERA 45 108 27 OFICINA 801 TO 3 EDIFICIO PARALELO 108,,2,sin_verificar,
-c4d25b0a8b7b,BOSTON MEDICAL GROUP DE COLOMBIA S.A.S.,Salud (IPS y clínicas),notificaciones@bostonmedical.com.co,,,,2,sin_verificar,
+c4d25b0a8b7b,BOSTON MEDICAL GROUP DE COLOMBIA S.A.S.,Salud (IPS y clínicas),notificaciones@bostonmedical.com.co,300 912 1855,"Edificio Bogotá Trade Center, Cra 10 #97A - 13 Of 303, Chapinero, Bogotá (también sede en Ac. 26 #69-63 Of. 314, Bogotá)",https://bostonmedical.com.co/,2,verificada,
 bdcba64e2fdb,BOSTON SCIENTIFIC COLOMBIA LIMITADA,Empresa privada (DIAN),jhon.martinez@bsci.com,,CALLE 113 7 45,,2,sin_verificar,
 e2f630943018,Botanico hostel,,info@botanicohostel.com,3134191288,Carrera 2,,2,sin_verificar,
 cca2786d6134,Botas Boterine,Calzado,,,,,2,sin_verificar,
 a7a5e813decf,Botas Cocodrilo,Calzado,,,Calle 18 Sur,,2,sin_verificar,
 91a68393f31c,"BOTELLAS PET S.A.S., EN VALIDACION JUDICIAL",Empresa privada (DIAN),botellaspetsas2020@gmail.com,,AVENIDA CARRERA 68 10 37,,2,sin_verificar,
-89abf9b5f320,BOTELLO ALHIPPIO SAS,Salud (IPS y clínicas),botedent@hotmail.com,,,,2,sin_verificar,
+89abf9b5f320,BOTELLO ALHIPPIO SAS,Salud (IPS y clínicas),botedent@hotmail.com,,,,2,dudosa,sin_rastro_claro
 9138a57d53d1,BOTERO CLAVIJO DIEGO ARMANDO,Comercio,armando56botero@gmail.com,3107175599,CALLE 7 NRO. 4 -08 BARRIO MIRAFLORES,,2,sin_verificar,
 d2689e5c3101,BOTERO INGENIEROS S.A.S.,Empresa privada (DIAN),algarcia@boteroingenieros.co,,CALLE 222 52 31,,2,sin_verificar,
 d6d33f979014,BOTERO IRIARTE HNOS Y COMPAÑIA S.A.S.,Empresa privada (DIAN),boteroiriartehnos@comercialboterinos.com,,CARRERA 18 78- 40 OF. 301,,2,sin_verificar,
@@ -6952,7 +6950,7 @@ fce7f7f48f59,BOTON PROMO S.A.S.,Empresa privada (DIAN),contabilidad@esferos.com,
 6739219ec512,Bourbon coffee Roasters,Cafetería,,,Calle 70A,,2,sin_verificar,
 a53ab60bb869,BOX PRODUCTION DESIGN S.A.S. EN REORGANIZACION,Empresa privada (DIAN),contabilidad@boxdesignpro.com,,CARRERA 75 68B- 60,,2,sin_verificar,
 acf544b98711,BOYDEN DE COLOMBIA CONSULTORES EJECUTIVOS LIMITADA.,Empresa privada (DIAN),asanchez@boyden.com,,CARRERA 15 88 64 OFICINA 220,,2,sin_verificar,
-762550ffad7c,Boys & Girls,Colegio,admisiones@jardinboysandgirls.edu.co,5694398,Calle 104,,2,sin_verificar,
+762550ffad7c,Boys & Girls,Colegio,admisiones@jardinboysandgirls.edu.co,5694398,Calle 104,https://jardinboysandgirls.edu.co,2,verificada,
 1016c81b6896,BP CONSTRUCTORES S.A.,Empresa privada (DIAN),contabilidad@bpconstructores.com,,CARRERA 16 100 44,,2,sin_verificar,
 6b3039052d34,BRAD S.A.S.,Empresa privada (DIAN),contactobradsas@gmail.com,,CARRERA 7 NUMERO 155C - 30 OFICINA 4503,,2,sin_verificar,
 8268309785a5,BRADCO S.A.S,Empresa privada (DIAN),contactobradco@gmail.com,,CARRERA 7 NUMERO 155C - 30 OFICINA 4505,,2,sin_verificar,
@@ -6960,7 +6958,7 @@ acf544b98711,BOYDEN DE COLOMBIA CONSULTORES EJECUTIVOS LIMITADA.,Empresa privada
 5b045a77b47f,BRANCH OF MICROSOFT COLOMBIA INC,Empresa privada (DIAN),lilibet.gonzalez@microsoft.com,,CALLE 92 11 51 P10,,2,sin_verificar,
 458a40c836df,Brando,Calzado,,,Calle 38 Sur,,2,sin_verificar,
 1b69e9c75424,BRANDSTRAT S.A.S,Empresa privada (DIAN),gestion@brandstrat.com,,CALLE 95 11 A 37 OFICINA 501,,2,sin_verificar,
-68d8616adee9,BRAQUITERAPIA MARLY LTDA,Salud (IPS y clínicas),braquiterapiamarly@gmail.com,,,,2,sin_verificar,
+68d8616adee9,BRAQUITERAPIA MARLY LTDA,Salud (IPS y clínicas),braquiterapiamarly@gmail.com,,,,2,dudosa,sin_rastro_claro
 7ec09b91b215,Brasa Brasil,restaurant,,+57 601 7562490,Bogotá,,2,sin_verificar,
 5ec9d08070c6,BRASERV PETROLEO LIMITADA. SUCURSAL COLOMBIANA,Empresa privada (DIAN),camilo.torres@braservpetroleo.com.co,,CALLE 98 NUMERO 22 - 64 OFICINA 210 EDIFICIO CALLE 100,,2,sin_verificar,
 214e157c1c67,BRASILENA CARNES FRIAS S.A.,Empresa privada (DIAN),administracion@brasilena.com.co,,CARRERA 88A 136 37,,2,sin_verificar,
@@ -6988,13 +6986,13 @@ b08311400c43,Bristol Plus 93,Droguería,,,,,2,sin_verificar,
 1b0b7d1afe66,Brot 85,Panadería,,7821675,Calle 85 12-66,,2,sin_verificar,
 14f35f96d810,Brot 90,Panadería,,7821675,Carrera 13 90-17,,2,sin_verificar,
 c4172397a4d8,Brot 97,Panadería,,7821675,Cra 11b 97-56,,2,sin_verificar,
-218447dc03e8,Brot Quinta Camacho,Panadería,talentohumano@brot.com.co,7821675,Calle 70a 9-95,,2,sin_verificar,
+218447dc03e8,Brot Quinta Camacho,Panadería,talentohumano@brot.com.co,7821675,Calle 70a 9-95,https://brot.com.co,2,verificada,
 f042aa92b9a2,BRUECKNER COLOMBIA S.A.S.,Empresa privada (DIAN),bco@brueckner.com,,CARRERA 106 NUMERO 15A-25 BODEGA 24 MANZANA 9,,2,sin_verificar,
 b9cb7627d3fd,BSI COLOMBIA S.A.,Empresa privada (DIAN),info@bsicolombia.com,,CARRERA 50 102 A 90,,2,sin_verificar,
 7174638b1d6f,BT COLOMBIA LIMITADA.,Empresa privada (DIAN),ricardo.daza@bt.com,,CALLE 113 NUMERO 7-21 TORRE A OF. 1015,,2,sin_verificar,
 c336486c66f9,BT LATAM HOLDINGS ( COLOMBIA ) SOCIEDAD ANONIMA,Empresa privada (DIAN),kelly.cervera@senicnet.com,,CALLE 113 NUMERO 7 21 TORRE A OFICINA 1112,,2,sin_verificar,
 2b9d611ab537,BTN TIME COLOMBIA S.A.S.,Empresa privada (DIAN),christianquintero@btntime.com,,AVENIDA CARRERA 86 51 66 OFICINA 207,,2,sin_verificar,
-a81eff305904,Btr Colombia S.a.s,Gestión de residuos,mariai@sipiar.com,3144407768,BODEGA 25 ET 1 Y BODEGA 26 ET 1,,2,sin_verificar,
+a81eff305904,Btr Colombia S.a.s,Gestión de residuos,,3144407768,BODEGA 25 ET 1 Y BODEGA 26 ET 1,,2,descartada,registro_cruzado_invalido
 4b3dcd3afb73,BTU SERVICONTROLES LIMITADA.,Empresa privada (DIAN),jaimealonso@btuservicontroles.com,,CARRERA 42 22 A 23,,2,sin_verificar,
 de906a5d8ece,Bubbys Lenceria,Ropa,servicioalcliente@bubbyslenceria.com,+57 601 4630304,Carrera 57A 134A-54,,2,sin_verificar,
 6c4b396e85ef,Bucaramanga,Calzado,,,Avenida Carrera 10,,2,sin_verificar,
@@ -7006,7 +7004,7 @@ bbc2b06c0ff5,BUENO TREJOS GREGORIO NACIANCENO,Comercio,gregoriobuenotrejos@gmail
 1ebdec444553,BUHLER AG SUCURSAL COLOMBIA,Empresa privada (DIAN),miguel.garcia@buhlergroup.com,,CALLE. 127 NUMERO 14-54 OFICINA 203,,2,sin_verificar,
 4e132ecb38c9,BUILDING & MINING CONTRACTORS S.A.S. EN REORGANIZACION,Empresa privada (DIAN),gerencia@buildingsconstruction.com,,CARRERA 21 98 71 P 7,,2,sin_verificar,
 32ba518adbc4,BUITRAGO PERALTA & ASOCIADOS ABOGADOS S.A.S,Proveedores del Estado,jbuitragoabogados@gmail.com,3016704821,CALLE 94A NO. 16 - 51 OFC 502,,2,sin_verificar,
-89fc56c12273,BUITRAGO SAS,Salud (IPS y clínicas),margoth0528@hotmail.com,,,,2,sin_verificar,
+89fc56c12273,BUITRAGO SAS,Salud (IPS y clínicas),margoth0528@hotmail.com,,,,2,dudosa,sin_rastro_claro
 2520eb8a4ce6,BUNDY COLOMBIA S.A.,Empresa privada (DIAN),crgutierrez@tifs.com,,CARRERA 13A NUMERO 6 - 98,,2,sin_verificar,
 59fed4d01e74,BUNWELL PROPERTIES INCORPORATED SUCURSAL COLOMBIA,Empresa privada (DIAN),contab.gmz@gmail.com,,CALLE 127A 11B 70 IN 1 APARTAMENTO 702,,2,sin_verificar,
 ae7a5c7dcd89,Burguer Factory,fast food,,+57 322 7663661;+57 1 6154905,Calle 127B Bis 50A-46,,2,sin_verificar,
@@ -7035,7 +7033,7 @@ c319faf53205,C I SAN JSOE FARMS LIMITADA.,Empresa privada (DIAN),lamayacontabili
 5d8e483333be,C L CONSTRUCCIONES LIMITADA.,Empresa privada (DIAN),clconstruccionesltda@hotmail.com,,AUTOPISTA NORTE 137 12,,2,sin_verificar,
 1ad213a4123e,C M G CONSTRUCCIONES Y MONTAJES GENERALES S.A.S. EN REORGANIZACION,Empresa privada (DIAN),contabilidad1@cmgsas.co,,CALLE 23 96 KILOMETRO 03,,2,sin_verificar,
 e26fe427b12f,C R G S.A.S.,Empresa privada (DIAN),crestrepo@eyr.com.co,,CALLE 90 NUMERO 19A 46 PS 7,,2,sin_verificar,
-0863ae25f0ae,C Y R SALUD IPS SAS,Salud (IPS y clínicas),sandra.celis@cyrsalud.co,,,,2,sin_verificar,
+0863ae25f0ae,C Y R SALUD IPS SAS,Salud (IPS y clínicas),sandra.celis@cyrsalud.co,,,,2,dudosa,sin_rastro_claro
 6178542cffc1,C&C CONSULTORES & CONTADORES S.A.S.,Comercio,contadoresyconsultorescc@gmail.com,,CL 5 7 27BRR CENTRO,,2,sin_verificar,
 a0eac2177d54,C&M URBANIZADORA S.A.S. EN REORGANIZACION,Empresa privada (DIAN),cymurbanizadora@hotmail.com,,CARRERA 73 BIS 55 60,,2,sin_verificar,
 4cfe9e011db7,C&T Vial Logistica SAS,Empresa,info@cytlogistica.com,3208309138,Carrera 68G 73A 60,,2,sin_verificar,
@@ -7046,7 +7044,7 @@ f7ecdc11c376,C.D. SYSTEMS DE COLOMBIA S.A.,Empresa privada (DIAN),liquidadorcdsy
 9a6c1b93b5ed,C.I SINTETICOS Y TEXTILES DE COLOMBIA S.A,Empresa privada (DIAN),emartin@similcuero.com.mx,,CARRERA 24 D 19 47 SUR,,2,sin_verificar,
 dba92a5db810,C.I. AGROMONTE S.A.S,Empresa privada (DIAN),contabilidad@agromonte-sa.com,,CALLE 90 12 28 PISO 2,,2,sin_verificar,
 678b80e10069,C.I. CENTRAL DE COMBUSTIBLES Y LUBRICANTES S.A.S.,Empresa privada (DIAN),oblanco@centraldecombustibles.com,,CALLE 12BIS NUMERO 71G-53,,2,sin_verificar,
-f8619ef1acfd,C.i. Esapetrol S.a.,Gestión de residuos,coordinador.hseq@esapetrolsa.com,7751200,CALLE 59 A BIS A SUR No 81D 45,,2,sin_verificar,
+f8619ef1acfd,C.i. Esapetrol S.a.,Gestión de residuos,coordinador.hseq@esapetrolsa.com,7751200,CALLE 59 A BIS A SUR No 81D 45,https://esapetrolsa.com/,2,verificada,
 c625944f3291,C.I. FIRE & MARKETING LIMITADA.,Empresa privada (DIAN),contabilidad@fire-marketing.co,,CARRERA 34 NUMERO 9-2,,2,sin_verificar,
 59cfc4e80f4f,C.I. HACIENDA SANTA PAULA ROSES S.A.S.,Empresa privada (DIAN),santapaularoses2018@gmail.com,,CALLE 39 NO16-19,,2,sin_verificar,
 c1fc17b58e85,C.I. IMPORTEX S.A.,Empresa privada (DIAN),contador@importex.com.co,,CARRERA 16A 78 11 OF.501,,2,sin_verificar,
@@ -7085,7 +7083,7 @@ d91d76a8299a,Cafatería Sambitto,Cafetería,,,,,2,sin_verificar,
 4cd3a639d930,Cafe Arbol,Cafetería,,,,,2,sin_verificar,
 4f19420ad0ed,Cafe Casu,Cafetería,,,Calle 12 19,,2,sin_verificar,
 aba57433deeb,CAFE COLSUAVES S.A.S,Empresa privada (DIAN),contabilidad@colsuaves.com,,CALLE 148 7H 48 CALLE7,,2,sin_verificar,
-e1d63a327689,Cafe de la Fonda,Cafetería,info@cafedelafonda.com,575396333,Calle 24 19-96,,2,sin_verificar,
+e1d63a327689,Cafe de la Fonda,Cafetería,info@cafedelafonda.com,575396333,Calle 24 19-96,https://cafedelafonda.com,2,verificada,
 d6136689cfb0,Cafe de Mundo,cafe,,+57 316 396 0700,Diagonal 46 15A-02,,2,sin_verificar,
 860c3aff8795,Cafe del sol,Cafetería,,,,,2,sin_verificar,
 d37200e7feb8,CAFE DEVOTION S.A.S.,Empresa privada (DIAN),contabilidad@cafedevotion.com,,CALLE 20 69B 12,,2,sin_verificar,
@@ -7105,7 +7103,7 @@ a90db4791ee1,Cafe y Express,Cafetería,,,,,2,sin_verificar,
 1b8e78d6f6b5,Cafeteria Ed. Baron,Cafetería,,,,,2,sin_verificar,
 6f5301c4b5b4,Cafeteria Geologia,Cafetería,,,,,2,sin_verificar,
 d911d4ca4ef9,Cafeteria Grumpy,Cafetería,,,Carrera 68G Bis,,2,sin_verificar,
-40d61e7052e7,Cafeteria La Central,Restaurante,apoyos@javeriana.edu.co,7401929,Bogotá,,2,sin_verificar,
+40d61e7052e7,Cafeteria La Central,Restaurante,,7401929,Bogotá,,2,descartada,registro_cruzado_invalido
 6e991a00e381,Cafeteria La Especial,Cafetería,,,45-15sur,,2,sin_verificar,
 8cc0252aaba4,Cafeteria La Mochila,Cafetería,,,,,2,sin_verificar,
 c09c47b2f582,Cafeteria La Moni's,Cafetería,,,Calle 54 Sur,,2,sin_verificar,
@@ -7131,8 +7129,8 @@ f09df9a87d3c,Cafetería Extacion Purto 7,Cafetería,,,Carrera 7 6-53,,2,sin_veri
 ecd0bde160ec,Cafetería La Malagueña,Cafetería,,,Avenida Calle 80,,2,sin_verificar,
 40c29cb7a4f4,Cafetería y Sandwichería JM,Cafetería,,,Avenida Primero de Mayo,,2,sin_verificar,
 700b82ad8457,Cafexpress,Cafetería,,,Calle 74A,,2,sin_verificar,
-afd6f3e5f8b7,Caffa,Cafetería,contacto@caffacolombia.com,+57 302 3023363,Calle 93B 16-66,,2,sin_verificar,
-1bca2778a630,Café 18,Cafetería,coffee.shop@cafe18.com.co,7724888,Bogotá,,2,sin_verificar,
+afd6f3e5f8b7,Caffa,Cafetería,contacto@caffacolombia.com,+57 302 3023363,Calle 93B 16-66,,2,dudosa,sin_rastro_claro
+1bca2778a630,Café 18,Cafetería,coffee.shop@cafe18.com.co,7724888,Bogotá,https://cafe18.com.co,2,verificada,
 8b22a0d04106,Café 32,cafe,,+57 1 285 4420,Carrera 13 32-92,,2,sin_verificar,
 11b0875b8134,Café Bar Jack Daniels,cafe,,+57 1 608 6088;+57 1 245 7308,Carrera 13 33-62,,2,sin_verificar,
 c82da918caee,Café bar Lele,Cafetería,,,,,2,sin_verificar,
@@ -7167,10 +7165,10 @@ f4e411f380fa,CAFÉ Y CACAO COMPANY S.A.S.,Comercio,cafeycacaocompany@gmail.com,,
 70383feb671c,Café y Tarot,internet cafe,,3212111418,Carrera 21 63-74,,2,sin_verificar,
 02d5e43b13dc,CAHEGA GROUP S.A.S.,Empresa privada (DIAN),cahegagroup@gmail.com,,CALLE 17 96C 64,,2,sin_verificar,
 79fe01cb37b6,CAICEDO CONCHA Y COMPAÑIA S EN C,Empresa privada (DIAN),caicedoroa29@gmail.com,,CALLE 93A 9 31 APARTAMENTO 203,,2,sin_verificar,
-a5faef46ef96,CAJA COLOMBIANA DE SUBSIDIO FAMILIAR COLSUBSIDIO,Salud (IPS y clínicas),carlos.artetamo@colsubsidio.com,,,,2,sin_verificar,
-8c27e1d58432,CAJA DE COMPENSACION FAMILIAR COMPENSAR,Salud (IPS y clínicas),abarragan@compensar.com,,,,2,sin_verificar,
-970cec526dc7,CAJA DE COMPENSACION FAMILIAR DE CUNDINAMARCA COMFACUNDI,Salud (IPS y clínicas),judith.navas@comfacundi.com.co,,,,2,sin_verificar,
-69cc43edf293,CAJA DE COMPENSACIÓN FAMILIAR CAFAM,Salud (IPS y clínicas),calidadsalud@cafam.com.co,,,,2,sin_verificar,
+a5faef46ef96,CAJA COLOMBIANA DE SUBSIDIO FAMILIAR COLSUBSIDIO,Salud (IPS y clínicas),carlos.artetamo@colsubsidio.com,+57 601 745 79 00;01 8000 947 900;+57 601 742 01 00,"Calle 26 # 25-50, Bogotá D.C.",https://www.colsubsidio.com,2,verificada,
+8c27e1d58432,CAJA DE COMPENSACION FAMILIAR COMPENSAR,Salud (IPS y clínicas),abarragan@compensar.com,,"Avenida Carrera 68 No. 49A-47, Bogotá (sede principal, barrio Engativá)",https://www.compensar.com,2,verificada,
+970cec526dc7,CAJA DE COMPENSACION FAMILIAR DE CUNDINAMARCA COMFACUNDI,Salud (IPS y clínicas),judith.navas@comfacundi.com.co,(+57) 601 379 0909;01 8000 945 754;(+57) 601 794 0427,"Calle 53 # 10-39, Chapinero, Bogotá",https://comfacundi.com.co,2,verificada,
+69cc43edf293,CAJA DE COMPENSACIÓN FAMILIAR CAFAM,Salud (IPS y clínicas),calidadsalud@cafam.com.co,,"Av 68 # 90-88, Bogotá (sede principal CAFAM)",https://www.cafam.com.co,2,verificada,
 c4dfba052527,Cajas Automáticas,Repuestos de carros,,+57 314 4023187,Calle 64 104-20,,2,sin_verificar,
 ba0d70dc9785,CAJAS FUERTES AMERICAN SAFE LTDA.,Empresa privada (DIAN),cajasfuertesltda@hotmail.com,,CALLE 133 6A 12 INT 2 APTO 501,,2,sin_verificar,
 656ef1aa208c,"CAJAS FUERTES ANCLA, S.A.",Empresa privada (DIAN),andrea.espitia@ancla.la,,CARRERA 68H NUMERO 73A - 29,,2,sin_verificar,
@@ -7186,7 +7184,7 @@ ba0d70dc9785,CAJAS FUERTES AMERICAN SAFE LTDA.,Empresa privada (DIAN),cajasfuert
 55e7ba2dd4bd,CALLE IMPRESORES S.A.S.,Empresa privada (DIAN),administrativo@calleimpresores.com,,CARRERA 27 68 75,,2,sin_verificar,
 258f279d8da9,Calltech S.A.,company,comercial@calltechsa.com,,Calle 128B Bis,,2,sin_verificar,
 8fa442576dfc,Calma,Cafetería,,,,,2,sin_verificar,
-d814c05c2f25,CALMM SAS,Salud (IPS y clínicas),calidad@saana.com.co,,,,2,sin_verificar,
+d814c05c2f25,CALMM SAS,Salud (IPS y clínicas),calidad@saana.com.co,,,,2,dudosa,sin_rastro_claro
 fcb0f8a62e99,CALOPI S.A.S,Empresa privada (DIAN),piloga@yahoo.com,,CALLE 77 8 68 APARTAMENTO 702,,2,sin_verificar,
 1ffa911fd2e6,CALPES S.A.,Empresa privada (DIAN),calpes@hotelneivaplaza.com,,CARRERA 21 100 20 OF.401,,2,sin_verificar,
 f514703ba7a4,CALPRECO LIMITADA.,Empresa privada (DIAN),andesan64@gmail.com,,AVENIDA CARRERA 15 124 29 OFICINA 302,,2,sin_verificar,
@@ -7238,7 +7236,7 @@ dbe42e6a9e28,Calzamos,Calzado,,,Carrera 16,,2,sin_verificar,
 36d5aaefbcb7,CAM COLOMBIA MULTISERVICIOS S.A.S,Empresa privada (DIAN),manuel.guzman-araujo@engie.com,,CALLE 113 NUMERO 7-45 TO B OFIC 1107-1109,,2,sin_verificar,
 906f57b03c48,Camacho's Gran Estacion,fast food,,3421772,Bogotá,,2,sin_verificar,
 c142091b4193,Camaleón Restaurante Café Bar,Cafetería,,,Carrera 3,,2,sin_verificar,
-bd1dee4a1121,CAMARGO DIAZ ESDRAS,Construcción,esdrascd2@gmail.com,3112592530,CRA. 2A NRO. 1-11,,2,sin_verificar,
+bd1dee4a1121,CAMARGO DIAZ ESDRAS,Construcción,esdrascd2@gmail.com,3112592530,CRA. 2A NRO. 1-11,,2,dudosa,sin_rastro_claro
 49bed975572e,CAMARPLAST Y COMPAÑIA LIMITADA.,Empresa privada (DIAN),contabilidad@camarplast.com.co,,CARRERA 34 12B 41,,2,sin_verificar,
 ebb9cd9ace5a,CAMATOR S.A.,Empresa privada (DIAN),tandem@tandemweb.com,,CARRERA A. 65 NUMERO 81-81,,2,sin_verificar,
 fecbf47f9f89,Cambio Aceite,Repuestos de carros,,,,,2,sin_verificar,
@@ -7255,7 +7253,7 @@ fecbf47f9f89,Cambio Aceite,Repuestos de carros,,,,,2,sin_verificar,
 6ed9c31066d7,CAMINOS INMOBILIARIOS S.A.S.,Empresa privada (DIAN),contabilidad@caminosinmobiliarios.com,,CALLE 93A 14 17 OFICINA 402,,2,sin_verificar,
 d0023b62d0a5,Camisalud,Droguería,,,Carrera 86F,,2,sin_verificar,
 9b8baaa6089d,Camisetas Green Fabrica,Ropa,info@camisetasgreen.com,+573123710284,Avenida Calle 139 118 25,,2,sin_verificar,
-d78aa535d3cc,CAMPO ELIAS PAEZ IPS SAS,Salud (IPS y clínicas),campoeliaspaezips@outlook.com,,,,2,sin_verificar,
+d78aa535d3cc,CAMPO ELIAS PAEZ IPS SAS,Salud (IPS y clínicas),campoeliaspaezips@outlook.com,,,,2,dudosa,sin_rastro_claro
 81ed502141cc,Campo Hermoso,Fruver,,,,,2,sin_verificar,
 ffb545ec44f7,CAMPOALEGRE S.A.S.,Empresa privada (DIAN),lpinzon@emezeta.com.co,,"DIAGONAL 72 NUMERO 1 - 52 ESTE, APTO 1001 EDIFICIO LUMINI",,2,sin_verificar,
 3533e57288ad,CAMPOS SAAB S.A.S.,Empresa privada (DIAN),director.contable@campossaab.com,,CARRERA 23 NUMERO 114A 33,,2,sin_verificar,
@@ -7265,10 +7263,10 @@ ef47b0fbc127,CANDELARIA S.A.S,Empresa privada (DIAN),adm.navilogistica@gmail.com
 c7fb80829dac,Candy Shake,Cafetería,,,Calle 69A,,2,sin_verificar,
 cba2d9954b23,CANOGA GARDEN CONSTRUCCIONES S.A.S.,Empresa privada (DIAN),canogajl@gmail.com,,CALLE 110 9 25 OFICINA 1706,,2,sin_verificar,
 9c64065e846d,CANTERAS SUESCARDILA S.A.S.,Empresa privada (DIAN),jardila@suescardila.com,,CARRERA 15 106 32 OF308,,2,sin_verificar,
-42d1ccf3ff19,CANUS SAS,Salud (IPS y clínicas),gerencia@canus.com.co,,,,2,sin_verificar,
+42d1ccf3ff19,CANUS SAS,Salud (IPS y clínicas),gerencia@canus.com.co,,,,2,dudosa,sin_rastro_claro
 e4b495840b2e,CAPANAPI Y COMPAÑIA S EN C,Empresa privada (DIAN),costos@inducarton.com,,CARRERA 89A NUMERO 64C 53,,2,sin_verificar,
 3d036679b4aa,CAPE COLOMBIA S.A.S.,Empresa privada (DIAN),gerencia.sas@sbgroupintl.com,,CALLE 72 NUMERO 7 82 PISO 9,,2,sin_verificar,
-73c7955f335c,CAPELLA ODONTOLOGIA ESPECIALIZADA LTDA.,Salud (IPS y clínicas),juliocapella@hotmail.com,,,,2,sin_verificar,
+73c7955f335c,CAPELLA ODONTOLOGIA ESPECIALIZADA LTDA.,Salud (IPS y clínicas),juliocapella@hotmail.com,,,,2,dudosa,sin_rastro_claro
 971853fc549d,Capelli,hairdresser,,5714964806,Calle 182 182-51,,2,sin_verificar,
 0bbc29b6a396,CAPGEMINI COLOMBIA S.A.S,Empresa privada (DIAN),lnunez@capgemini.com,,CALLE 99 10 57 PISO 2,,2,sin_verificar,
 742f531a63bd,CAPILL FRANCE S.A. EN REESTRUCTURACION,Empresa privada (DIAN),carlos.tesoreria@capillfrance.com,,CALLE 162 21 50,,2,sin_verificar,
@@ -7276,7 +7274,7 @@ b4cb2f2783d5,Capinorte,Droguería,,,Carrera 65,,2,sin_verificar,
 839cf1ad44b4,CAPITAL MUBET S.A.S. EN VALIDACION JUDICIAL,Empresa privada (DIAN),contactenos@capitalmubet.co,,AVENIDA CALLE 26 59 51 TORRE 3 OFICINA 504,,2,sin_verificar,
 b5b264952bc1,CAPITALIZACIONES MERCANTILES S.A.S,Empresa privada (DIAN),aorozco@capitalizaciones.com,,CALLE 71 10 40 OFICINA 304,,2,sin_verificar,
 a2f943b42e6a,CAPRIVAL S.A.S.,Empresa privada (DIAN),rrubio@deloitte.com,,CARRERA 7 74 09 P 6,,2,sin_verificar,
-bacb240b0c7d,CAPSALUD CAPACITACION Y PREVENCION EN SALUD SAS,Salud (IPS y clínicas),gerencia.domisalud@gmail.com,,,,2,sin_verificar,
+bacb240b0c7d,CAPSALUD CAPACITACION Y PREVENCION EN SALUD SAS,Salud (IPS y clínicas),gerencia.domisalud@gmail.com,,,,2,dudosa,sin_rastro_claro
 5bccc9162dd4,Capuchinet Cafe,Cafetería,,,Carrera 4 12-94,,2,sin_verificar,
 bf60a57254c7,Car Audio,Repuestos de carros,,,Carrera 18A,,2,sin_verificar,
 ef01ef4d50b5,CAR BOYACA SCA,Empresa privada (DIAN),janeth.neira@distoyota.com.co,,CARRERA 17 NUMERO 93-66,,2,sin_verificar,
@@ -7306,18 +7304,18 @@ c25970257d1a,CARBONES QUINTANA ALVARADO S.A.S.,Empresa privada (DIAN),facturacio
 50f4fe34add5,Carbón Caliente,fast food,,+57 1 310 1945;+57 1 310 2162,Carrera 13,,2,sin_verificar,
 263a225b5461,CARCAFE LTDA.,Empresa privada (DIAN),notificaciones@carcafe.com.co,,CALLE 72 NUMERO 10-07 PISO 13 OF.1301,,2,sin_verificar,
 57844c7ef8a6,CARCO S.A.,Empresa privada (DIAN),doris.asencio@carco.com.co,,CALLE 13 43 64,,2,sin_verificar,
-5d716107c2b5,CARDIO COLOMBIA S.A.S,Salud (IPS y clínicas),cardiocolombia@cardiocolombia.com.co,,,,2,sin_verificar,
-68ef99386fc3,CARDIO COUNTRY S A S,Salud (IPS y clínicas),gerenciacardiocountry@gmail.com,,,,2,sin_verificar,
+5d716107c2b5,CARDIO COLOMBIA S.A.S,Salud (IPS y clínicas),cardiocolombia@cardiocolombia.com.co,+57 (601) 7422316;320 715 4045,"Carrera 46 No. 95-56, Bogotá",http://www.cardiocolombia.com.co,2,verificada,
+68ef99386fc3,CARDIO COUNTRY S A S,Salud (IPS y clínicas),gerenciacardiocountry@gmail.com,,,,2,dudosa,sin_rastro_claro
 b8eaa2f4a68d,Cardio Rebajas,Droguería,,,Calle 163A,,2,sin_verificar,
 0a5b3892ec7d,Cardio Salud,Droguería,,,Calle 163A,,2,sin_verificar,
-fa919c3c5db1,CARDIOIB S.A.S,Salud (IPS y clínicas),burgosmarrugoerick@gmail.com,,,,2,sin_verificar,
-ef493be98887,CARDIOLAB LIMITADA,Salud (IPS y clínicas),cardiolab.limitada@gmail.com,,,,2,sin_verificar,
-c6a54dfcef8c,CARDIOLOGICAS SAS,Salud (IPS y clínicas),administracion@cardiologicas.com.co,,,,2,sin_verificar,
-b773c3207a58,CARDIOPEDIATRAS LTDA,Salud (IPS y clínicas),cardiopediatras@yahoo.com,,,,2,sin_verificar,
+fa919c3c5db1,CARDIOIB S.A.S,Salud (IPS y clínicas),burgosmarrugoerick@gmail.com,,,,2,dudosa,sin_rastro_claro
+ef493be98887,CARDIOLAB LIMITADA,Salud (IPS y clínicas),cardiolab.limitada@gmail.com,,,,2,dudosa,sin_rastro_claro
+c6a54dfcef8c,CARDIOLOGICAS SAS,Salud (IPS y clínicas),administracion@cardiologicas.com.co,2870590;3175919879;3158534017,"Kr 23 # 45C 31 Cs 617, Bogotá D.C.",,2,dudosa,sin_rastro_claro
+b773c3207a58,CARDIOPEDIATRAS LTDA,Salud (IPS y clínicas),cardiopediatras@yahoo.com,,,,2,dudosa,sin_rastro_claro
 aecd0a816277,Cardiorebajas,Droguería,,,Carrera 55,,2,sin_verificar,
 38b3885a6a75,CARDONA GUEVARA ANGELA MARIA,Comercio,cardonaangelamaria7@gmail.com,3113011603,CALLE 5 NRO 11-68 BARRIO RICAUTER,,2,sin_verificar,
 52a767133ca6,CARDOZO ORDOÑEZ S.A.S.,Empresa privada (DIAN),abogados@cardozoordonez.com,,CALLE 110 NUMERO 9 25 OFICINA 1710,,2,sin_verificar,
-df71631d93a5,CARE24 S A S,Salud (IPS y clínicas),habilitacion@care24.com.co,,,,2,sin_verificar,
+df71631d93a5,CARE24 S A S,Salud (IPS y clínicas),habilitacion@care24.com.co,,,,2,dudosa,sin_rastro_claro
 a7a83a559d89,CARENZA S.A.,Empresa privada (DIAN),depjuridico@comstar.com.co,,CARRERA 127 15B 55,,2,sin_verificar,
 d7680553ec98,CARGEX S.A.,Empresa privada (DIAN),contabilidad@cargex.com.co,,AVENIDA DORADO NUMERO 97-51 OFINCA 105,,2,sin_verificar,
 2c6165d75bbf,Cargo Zone ETC,Empresa/Oficina,,,Calle 65,,2,sin_verificar,
@@ -7328,9 +7326,9 @@ ab3c400fff70,CargoZone,Empresa/Oficina,,+57 601 2366744,Avenida Carrera 19 100-4
 22992f5fcd72,CARL ZEISS VISION COLOMBIA S.A.S.,Empresa privada (DIAN),mario.montes@zeiss.com,,CARRERA 9 80 15 OFICINA 303,,2,sin_verificar,
 3377099b7e99,CARLEMON DE COLOMBIA LIMITADA.,Empresa privada (DIAN),gemalimitada@hotmail.com,,CARRERA 11 90 20,,2,sin_verificar,
 2d12e1b819da,CARLLANTAS S.A.S. EN REORGANIZACION,Empresa privada (DIAN),carllantas@carllantas.com,,CALLE 49 20-46,,2,sin_verificar,
-b29c08ea1559,CARLOS ALBERTO MEJIA GOMEZ,Construcción,mjgomez.claro@gmail.com,,Carrera 23 No. 72-27 Ulpiano Lloreda,,2,sin_verificar,
+b29c08ea1559,CARLOS ALBERTO MEJIA GOMEZ,Construcción,mjgomez.claro@gmail.com,,Carrera 23 No. 72-27 Ulpiano Lloreda,,2,dudosa,sin_rastro_claro
 3822bbdce20a,CARLOS AUGUSTO TABARQUINO BEDOYA,Comercio,garbach@hotmail.om,3137298263,CARRERA 5 NRO. 3-98 VIA PANAMERICANA IRRA,,2,sin_verificar,
-298c4ea94b44,CARLOS EDUARDO RANGEL GALVIS S.A.S,Salud (IPS y clínicas),edugalvis@yahoo.es,,,,2,sin_verificar,
+298c4ea94b44,CARLOS EDUARDO RANGEL GALVIS S.A.S,Salud (IPS y clínicas),edugalvis@yahoo.es,,,,2,dudosa,sin_rastro_claro
 1397fd7c594b,CARLOS F GARZON Y ASOCIADOS LIMITADA.,Empresa privada (DIAN),sociedadcfgc@gmail.com,,CARRERA 13 63 39,,2,sin_verificar,
 941ea8b624e2,Carlos gomez,Telas,,,,,2,sin_verificar,
 63aed41ea5de,CARLOS NIETO Y COMPAÑIA S.A.S.,Empresa privada (DIAN),direccioncontable@carlosnieto.com.co,,CALLE 73 20 C 19,,2,sin_verificar,
@@ -7347,13 +7345,13 @@ aa0895bdea21,CARNES FINAS GUADALUPE S.A.S.,Empresa privada (DIAN),cfguadalupeltd
 4b24ff87e136,Carnes Finas Ríos de Agua Viva,butcher,,+576015227327,Carrera 75 24D-06,,2,sin_verificar,
 c5a5a501129c,CARNES FRIAS REICAR S.A.S.,Empresa privada (DIAN),contabilidadreicar@gmail.com,,CARRERA 65A 18 82,,2,sin_verificar,
 9b27f5e86477,CARNES FRIAS SAN MARTIN LIMITADA.,Empresa privada (DIAN),contabilidad@carnesfriassanmartin.com,,CARRERA 69 C NUMERO 31-63/73 SUR,,2,sin_verificar,
-bc74de8980c2,Carnes La Especial,Carnicería,carneslaespecialq@gmail.com,+573504209315,Calle 128 C # 52-04,,2,sin_verificar,
+bc74de8980c2,Carnes La Especial,Carnicería,carneslaespecialq@gmail.com,+573504209315,Calle 128 C # 52-04,,2,dudosa,sin_rastro_claro
 1b367395a7a0,CARNES LA SUIZA Y COMPAÑIA LIMITADA.,Empresa privada (DIAN),carneslasuiza@yahoo.com,,CALLE 163A NUMERO 8A 61,,2,sin_verificar,
 9124d7de4727,CARNES LOS SAUCES S.A.,Empresa privada (DIAN),contabilidad@carneslossauces.com,,AVENIDA BOYACALLE54-06,,2,sin_verificar,
 0b9615a73fe6,Carnes Vienesa,marketplace,,+57 1 7654003,Carrera 16 A 75 B 28 Sur,,2,sin_verificar,
 55040854ec6b,Carnes Y Verduras 1A,supermarket,,+5716696448,Calle 176 53-04,,2,sin_verificar,
 eee8f8a825b6,CARO RODRIGUEZ HARVEY,Comercio,elicarcaro@hotmail.com,3133911497,CARRERA 7 NRO. 6-44,,2,sin_verificar,
-289f51d4725f,CAROLINA MARTINEZ SAS,Salud (IPS y clínicas),notificaciones@dracarolinamartinez.com,,,,2,sin_verificar,
+289f51d4725f,CAROLINA MARTINEZ SAS,Salud (IPS y clínicas),notificaciones@dracarolinamartinez.com,+57 1 653 1313;+57 311 206 9199;+57 314 567 3463,"Edificio Cima, Consultorio 201-203, Calle 83 #16A-44, Barrio Antiguo Country, Bogotá D.C., Colombia",https://www.dracarolinamartinez.com,2,verificada,
 f6c4c5cea193,CARRAO ENERGY SUCURSAL COLOMBIA,Empresa privada (DIAN),rperea@carraoenergy.com,,CALLE 113 NUMERO 7-45 TORRE B OFICINA 1407,,2,sin_verificar,
 fa72d12642c3,CARRERA ARANGO S.A.S,Empresa privada (DIAN),ana.arango@carrera-arango.com,,AVENIDA CARRERA 72 NUMERO 37-89 SUR,,2,sin_verificar,
 586ae7d8ce87,CARRERO & ASOCIADOS S.A.S,Empresa privada (DIAN),firmas@carreroasociados.com,,AVENIDA CALLE 26 69D 91 OFICINA 404 TO 2,,2,sin_verificar,
@@ -7368,10 +7366,10 @@ f9f154cfb34a,CARTONERIA MOSQUERA S.A.,Empresa privada (DIAN),contabilidad@carton
 a094c00c0765,CARUBARE S.A.S.,Empresa privada (DIAN),cloboguerrero@construequipos.com,,CALLE 221 52 53,,2,sin_verificar,
 ae94a672f0eb,Carulla,Supermercado,u003eservicio-al-cliente-carulla@clientesexito.com,5717481444,Avenida Calle 85 15-29,,2,sin_verificar,
 b404a26db7ee,Carulla,Supermercado,,5716020417,Avenida Carrera 15 114A-33,,2,sin_verificar,
-90b3dfd35b7f,Carvajal,Cafetería,carvajal.ulloa@gmail.com,3202063370,Calle 35 Sur,,2,sin_verificar,
+90b3dfd35b7f,Carvajal,Cafetería,carvajal.ulloa@gmail.com,3202063370,Calle 35 Sur,,2,dudosa,sin_rastro_claro
 5cc44acc827e,"CARVAJAL & CORTES INGENIERIA S.A.S., EN REORGANIZACION",Empresa privada (DIAN),info@carvajalcortes.co,,CARRERA 48 NUMERO 150A 15 OFICINA 304,,2,sin_verificar,
 5075964a9abe,CAS COLOMBO AMERICAN SCHOOL S.A.,Empresa privada (DIAN),colamericano@cas.edu.co,,CARRERA 73 214 53,,2,sin_verificar,
-0ec68aabce44,Casa Café Cultor,Cafetería,tienda.casa@cafecultor.co,+573155431596,Calle 70A 9-44,,2,sin_verificar,
+0ec68aabce44,Casa Café Cultor,Cafetería,tienda.casa@cafecultor.co,+573155431596,Calle 70A 9-44,https://www.cafecultor.co,2,verificada,
 0fddcb463eab,CASA CIENTIFICA BLANCO Y COMPAÑIA,Empresa privada (DIAN),casacam@casacientifica.com,,CARRERA 27A 49A-41,,2,sin_verificar,
 db52aa22536c,Casa comercial centro suba,Empresa/Oficina,,,,,2,sin_verificar,
 324fcf70efc9,Casa Comercial La Mejor,Empresa/Oficina,,,Calle 122,,2,sin_verificar,
@@ -7404,11 +7402,11 @@ c4876e0c0144,CASTAÑEDA & VELASCO ASOCIADOS S.A.S.,Empresa privada (DIAN),info@c
 732e218ff8d8,CASTAÑEDA CASTAÑEDA ANDRES MAURICIO,Comercio,andresmauriciocastaneda61@gmail.com,3143990736,CALLE 8 NRO 4-51 BARRIO MIRAFLORES,,2,sin_verificar,
 b77019985470,CASTAÑEDA MORALES ANGELICA MARIA,Comercio,miangel9@hotmail.es,3127792829,CALLE 5 CARRERA 12 -501 ESQUINA,,2,sin_verificar,
 f146c425b778,CASTAÑO SANCHEZ DIEGO STIVEN,Comercio,diegostiven25@hotmail.com,3122150606,CALLE 11 CARRERA 15 ESQUINA BARRIO GALAN,,2,sin_verificar,
-0afcaf4d8762,Castellana 104,Restaurante,info@castellana104.com,+57 601 215 1475,Avenida Carrera 19,,2,sin_verificar,
+0afcaf4d8762,Castellana 104,Restaurante,info@castellana104.com,+57 601 215 1475,Avenida Carrera 19,https://www.castellana104.com/,2,verificada,
 6ab3b147c702,CASTELLANA EMPRESARIAL S.A.S.,Empresa privada (DIAN),ziruma_sa@hotmail.com,,CALLE 14 12B 25 AD,,2,sin_verificar,
 fc171a5a827e,CASTILMODA S.A.S.,Empresa privada (DIAN),castilmodarh@gmail.com,,AUTOPISTA MEDELLIN KILOMETRO 2.5 VIA PARCELAS 900 METROS CIEM OIKOS OCENTRO COME,,2,sin_verificar,
 df803fae0189,Castolin Eutectic,tinsmith,,7966951,Avenida Calle 13 34-21,,2,sin_verificar,
-bcb4de284414,CASTRO FLOREZ RAUL,Construcción,raul.castro.florez@gmail.com,3124479946,CLL 19 Nro.2-54 BRR SANTA MARIA,,2,sin_verificar,
+bcb4de284414,CASTRO FLOREZ RAUL,Construcción,raul.castro.florez@gmail.com,3124479946,CLL 19 Nro.2-54 BRR SANTA MARIA,,2,dudosa,sin_rastro_claro
 d13fd9c49dbe,CASTRO ROJAS INGENIEROS Y ARQUITECTOS S.A.S.,Empresa privada (DIAN),castrorojascontabilidad@hotmail.com,,CALLE 114 NUMERO 53-72 INT. 102,,2,sin_verificar,
 c7097b0b4f91,CASTRO URIBE INGENIEROS S.A.S.,Empresa privada (DIAN),gerencia@castrouribe.com,,CARRERA 57 NUMERO 133-17,,2,sin_verificar,
 173758e6c1c6,CASTRO Y RINCON S.A.S,Empresa privada (DIAN),contabilidad@cbk.edu.co,,CARRERA 52 214 55,,2,sin_verificar,
@@ -7419,7 +7417,7 @@ adb9d99cdd6a,CASYBER LIMITADA.,Empresa privada (DIAN),contabilidad@casyber.com,,
 8dcce2c83beb,Cataluña Norte,Droguería,,,,,2,sin_verificar,
 c258062a4107,Catastro Soacha,government,,6015552491,BogotaSurOcc,,2,sin_verificar,
 1c6736ee2c67,CATAY LIMITADA,Empresa privada (DIAN),conta@ingetec.com.co,,CARRERA 6 NUMERO 30 A 30,,2,sin_verificar,
-61616a3f923b,CATAÑO & MARQUEZ SAS,Salud (IPS y clínicas),contabilidad.cm@hotmail.com,,,,2,sin_verificar,
+61616a3f923b,CATAÑO & MARQUEZ SAS,Salud (IPS y clínicas),contabilidad.cm@hotmail.com,,,,2,dudosa,sin_rastro_claro
 63b06b320336,CATERING ANDINA S.A.S.,Empresa privada (DIAN),mauricioespinosa@une.net.co,,CARRERA 12 116 23 IN 103,,2,sin_verificar,
 ad4b11eefd1d,Cauchos,Repuestos de carros,,,Carrera 21,,2,sin_verificar,
 12b1572c8456,CAUDALES DE COLOMBIA S.A. ESP,Empresa privada (DIAN),amaldonado@caudalesdecolombia.com.co,,CALLE 121 48-72,,2,sin_verificar,
@@ -7428,7 +7426,7 @@ eda48f7314ac,CAVAR S.A.,Empresa privada (DIAN),manuela.vargas@cavar.com.co,,CALL
 45d050aeeff9,CAVELCA LIMITADA.,Empresa privada (DIAN),romeromcbain@yahoo.com,,CARRERA 13 49 40 OFICINA 219,,2,sin_verificar,
 891169304364,CAVICUEROS S.A.S.,Empresa privada (DIAN),contabilidad@cavicueros.com,,CALLE 64D 112B 69,,2,sin_verificar,
 2f84f212dcbd,Cayimer La Sahara,Fruver,,,Calle 64G,,2,sin_verificar,
-b7470a611398,Cayre,Clínica,notificacionesjudiciales@cayre.co,6446800,Carrera 12 38,,2,sin_verificar,
+b7470a611398,Cayre,Clínica,notificacionesjudiciales@cayre.co,6446800,Carrera 12 38,https://www.cayre.co,2,verificada,
 4f9b3c5be3cd,CAÑON & CAÑON AUDITORES S.A.S.,Empresa privada (DIAN),canonycanon@canonycanon.com,,CALLE 99 7A -77 OCALLE 405,,2,sin_verificar,
 79cd7a97d1a5,CB BOLIVAR INMOBILIARIA S.A.,Empresa privada (DIAN),cbolivar@constructorabolivar.com,,CALLE 134 NUMERO 72 31,,2,sin_verificar,
 a1d1ea982f3e,CB TECHNOLOGY SAS,Proveedores del Estado,ventascbsas@gmail.com,3125431675,CARRERA 16 N. 79-20 OF 903,,2,sin_verificar,
@@ -7444,7 +7442,7 @@ d959b73c79f5,CCRS INMOBILIARIA S.A.S.,Empresa privada (DIAN),notificaciones@casi
 3b1345b8ebda,CDC INGENIERIA LIMITADA.,Empresa privada (DIAN),lumacali@hotmail.com,,"CARRERA . 7 NUMERO 237-04, KILOMETRO 3, FLORESTA DE LA SABANA",,2,sin_verificar,
 c347f19b6531,CDM EQUIPOS S.A.,Empresa privada (DIAN),adminbogota@cdmequipos.com,,CARRERA 49A 91 20,,2,sin_verificar,
 90360ef0cea0,CDM SMITH INC,Empresa privada (DIAN),infocolombia@cdmsmith.com,,CALLE 82 12 18,,2,sin_verificar,
-9e748bd1bab1,CDS&C COLOMBIANA DE SERVICIOS Y CONSTRUCCION S.A.S.,Construcción,japacialtda@hotmail.com,5634268,,,2,sin_verificar,
+9e748bd1bab1,CDS&C COLOMBIANA DE SERVICIOS Y CONSTRUCCION S.A.S.,Construcción,,5634268,,,2,descartada,registro_cruzado_invalido
 e251b8532d2a,CEBALLOS VARGAS SOCIEDAD EN COMANDITA CEVAR S EN C,Empresa privada (DIAN),cevarsenc.oficina@gmail.com,,CALLE 116 15B 26 OFICINA 401,,2,sin_verificar,
 50d5110d70e6,Ceci's Kitchen,restaurant,,313-871-7851,Avenida Carrera 19 #114a-27,,2,sin_verificar,
 69f5031e8478,CECILIA RODRIGUEZ DE RODRIGUEZ S EN C,Empresa privada (DIAN),info@inmobiliaria.com,,CARRERA 14 76 39,,2,sin_verificar,
@@ -7455,19 +7453,19 @@ d723950ae79e,Cegarreria Monte Blanco,convenience,,+57 320 353 4392,Bogotá,,2,si
 0871d2c2018c,CEL UNION LIMITADA.,Empresa privada (DIAN),admin@celunion.com,,AVENIDA CARACAS 14 14 SUR,,2,sin_verificar,
 cf030f8c3715,CELMEDIA MKT S.A.,Empresa privada (DIAN),pvasquez@loyalquo.com,,CARRERA 11 B 98 08 OFICINA 305,,2,sin_verificar,
 eedc9e43c5d0,CELQO S.A.S.,Empresa privada (DIAN),financiera@celqo.com,,CARRERA 7 156 80 OFICINA 1504 EDIFICIO NORTH POINT,,2,sin_verificar,
-c83005cef7ab,CEMAE SAS,Salud (IPS y clínicas),administracion@cemae.co,,,,2,sin_verificar,
+c83005cef7ab,CEMAE SAS,Salud (IPS y clínicas),administracion@cemae.co,,,,2,dudosa,sin_rastro_claro
 b4e12798c538,CEMENTOS COLOMBIANOS S.A.S.,Empresa privada (DIAN),aramosr@elementia.com,,AUTOPISTA SUR KILOMETRO 1 VIA SILVANIA,,2,sin_verificar,
 04045c493b4b,CEMENTOS DEL ORIENTE S.A.,Empresa privada (DIAN),auditoria@orientte.co,,CARRERA 7 171 B 98,,2,sin_verificar,
 6f0a91327503,CEMENTOS TEQUENDAMA S.A.S,Empresa privada (DIAN),direccioncontable@cetesa.com.co,,CARRERA 11 75 19,,2,sin_verificar,
-83d28a333941,CEMPAI SAS,Salud (IPS y clínicas),gerencia@cempai.com,,,,2,sin_verificar,
-a1c3da8b8690,CENASIP S.A.S,Salud (IPS y clínicas),gerencia@cenasip.com,,,,2,sin_verificar,
+83d28a333941,CEMPAI SAS,Salud (IPS y clínicas),gerencia@cempai.com,3212092628;3108176600;3160441661,"Calle 134 No. 7B – 83, Consultorio 814, Edificio El Bosque, Bogotá, D.C.",http://cempai.com,2,verificada,
+a1c3da8b8690,CENASIP S.A.S,Salud (IPS y clínicas),gerencia@cenasip.com,+57 302 832 2336;+57 324 246 5612,"Calle 68 N. 56B - 08, Bogotá, Colombia",https://www.cenasip.com,2,verificada,
 bb98c79ba807,Cencabo,Institución educativa,info@cencabo.edu.co,+57 1 340 0634,Avenida Carrera 14 35-90,,2,sin_verificar,
 0be452fca320,CENCOSUD COLOMBIA S.A.,Empresa privada (DIAN),notificaciones@cencosud.com.co,,AVENIDA 9 NUMERO 125 30,,2,sin_verificar,
-5c58c2105189,CENFIMAX S.A.S,Salud (IPS y clínicas),cenfimax@hotmail.com,,,,2,sin_verificar,
+5c58c2105189,CENFIMAX S.A.S,Salud (IPS y clínicas),cenfimax@hotmail.com,,,,2,dudosa,sin_rastro_claro
 bbd0122ac905,CENGAGE LEARNING DE COLOMBIA S.A.S.,Empresa privada (DIAN),fany.torres@cengage.com,,CARRERA 65 NUMERO 67-39,,2,sin_verificar,
 30f3ffc99f60,CENIT TRANSPORTE Y LOGISTICA DE HIDROCARBUROS S.A.S.,Empresa privada (DIAN),notificacionesjudiciales@cenit-transporte.com,,CALLE 113 NUMERO 7- 80 PISOS 12 Y 13,,2,sin_verificar,
 832392bf783b,CENMAR S.A.S.,Empresa privada (DIAN),jramirez@araujoibarra.com,,CARRERA 7 75 98 APARTAMENTO 1001,,2,sin_verificar,
-0caa023e3db5,CENRED COLOMBIA SAS,Salud (IPS y clínicas),cenredcolombia@gmail.com,,,,2,sin_verificar,
+0caa023e3db5,CENRED COLOMBIA SAS,Salud (IPS y clínicas),cenredcolombia@gmail.com,,,,2,dudosa,sin_rastro_claro
 49606de3801f,CENTAK ANDINA S.A.S.,Empresa privada (DIAN),lmoreno@centakandina.com,,AVENIDA CALLE 24 95 12 BG 14,,2,sin_verificar,
 d06673678b12,CENTAURUS MENSAJEROS S.A. EN REORGANIZACION,Empresa privada (DIAN),financiera@centaurusmensajeros.com,,DIAGONAL 61B 18 24,,2,sin_verificar,
 0ff9f7d0dfa5,Centercel Comunicaciones,Empresa/Oficina,,,Calle 68,,2,sin_verificar,
@@ -7478,7 +7476,7 @@ e031e666fb0b,CENTRAL DE DISOLVENTES S.A.S.,Empresa privada (DIAN),contabilidad@p
 945504eb1f41,Central District Cycling,bicycle,,3213020344,Bogotá,,2,sin_verificar,
 a72a4f242196,Central Domicilios Importadoras Asociadas,Empresa,servicioalcliente@iasociadas.com,4619714,2350902,,2,sin_verificar,
 72aa229e3157,Central Electrica CUAN,Empresa/Oficina,,,,,2,sin_verificar,
-fc0c3f5f4fa6,CENTRAL MEDICAL SERVICES S.A.S,Salud (IPS y clínicas),ipscms.sas@gmail.com,,,,2,sin_verificar,
+fc0c3f5f4fa6,CENTRAL MEDICAL SERVICES S.A.S,Salud (IPS y clínicas),ipscms.sas@gmail.com,7762131;3102457247,"Kr 75 B # 57 N Sur 45, Puerta 01, Bogotá D.C.",,2,verificada,
 7a0c0a7c7490,Central Park Café,Cafetería,,,Calle 82,,2,sin_verificar,
 71ecb350ea53,CENTRAL PARKING SYSTEM COLOMBIA S.A.S.,Empresa privada (DIAN),servicioalcliente@centralparking.com.co,,CARRERA 19A 61 11,,2,sin_verificar,
 4526404b9222,Central Plus,Droguería,,,Calle 155,,2,sin_verificar,
@@ -7487,17 +7485,17 @@ b4fa03a44a19,Central USBBog,Cafetería,,,,,2,sin_verificar,
 d08052c833f1,CENTRO AGROLECHERO GROUP S.A.S.,Empresa privada (DIAN),info@centroagrolechero.com,,CARRERA 14A 71 35,,2,sin_verificar,
 7229903dc552,CENTRO AGROPECUARIO E INSUMOS LOS PINOS S.A.S.,Empresa privada (DIAN),gerencia@agropinos.com,,CENTRO COMERCIAL CENTRO CHIA CALLE E 11-10,,2,sin_verificar,
 086a534663e9,CENTRO AIRES Y COMERCIALIZADORA SAS,Proveedores del Estado,centroairesyservicios@hotmail.com,6015975607,CALLE 66 BIS 75-46,,2,sin_verificar,
-c0578a02aacb,CENTRO ASISTENCIAL DOMICILIARIO S.A.S - SIGLA CENAS S.A.S,Salud (IPS y clínicas),cenasdomicilios@hotmail.com,,,,2,sin_verificar,
-a08fed497ff3,CENTRO AUDIOLOGICO ESPECIALIZADO C.A.E S.A.S,Salud (IPS y clínicas),cae@daudio.co,,,,2,sin_verificar,
-982b48b7c8c2,CENTRO AUDIOLOGICO Y QUIRURGICO DEL COUNTRY SAS,Salud (IPS y clínicas),administracion@caqc.co,,,,2,sin_verificar,
+c0578a02aacb,CENTRO ASISTENCIAL DOMICILIARIO S.A.S - SIGLA CENAS S.A.S,Salud (IPS y clínicas),cenasdomicilios@hotmail.com,,,,2,dudosa,sin_rastro_claro
+a08fed497ff3,CENTRO AUDIOLOGICO ESPECIALIZADO C.A.E S.A.S,Salud (IPS y clínicas),cae@daudio.co,,,,2,dudosa,sin_rastro_claro
+982b48b7c8c2,CENTRO AUDIOLOGICO Y QUIRURGICO DEL COUNTRY SAS,Salud (IPS y clínicas),administracion@caqc.co,(601) 616 0502;(601) 616 0524;315 374 2938,"Carrera 16 A # 82-46, Pisos 1, 4, 5 y 6, Bogotá",https://caqc.co,2,verificada,
 824d1443ef2e,CENTRO AUTOMOTOR DIESEL S.A.,Empresa privada (DIAN),contabilidad@centrodiesel.com.co,,CALLE 13 68 B 11,,2,sin_verificar,
-e066f9f69ef3,CENTRO CARDIOLOGICO DE BOGOTA S.A.S,Salud (IPS y clínicas),ccdbogota@gmail.com,,,,2,sin_verificar,
-c5ec2c52ac7c,CENTRO CARDIOVASCULAR COLOMBIANO SAS - SIGLA CC CARDIOVASCULAR,Salud (IPS y clínicas),administracion@cencardio.com,,,,2,sin_verificar,
-fcd698dbda1c,CENTRO CIENTIFICO INTERNACIONAL DE MEDICINA BIOLOGICA SAS,Salud (IPS y clínicas),centrobiologico@yahoo.com,,,,2,sin_verificar,
-22ef07552f9d,CENTRO CLINICO DE CIRUGIA AMBULATORIA Y MANEJO POST-QUIRURGICO LIMITADA SIGLAS CENPOST LTDA.,Salud (IPS y clínicas),j.r009@hotmail.com,,,,2,sin_verificar,
-056bafc4d210,CENTRO COLOMBIANO DE CIRUGIA PLASTICA LTDA,Salud (IPS y clínicas),info@plasticayestetica.com,,,,2,sin_verificar,
-6dd1be686bde,Centro Colombiano de Diagnostico de Melanoma y Lesiones Pigmentadas SAS / sigla: CCDIMEL SAS,Salud (IPS y clínicas),merlanocesar@me.com,,,,2,sin_verificar,
-f49f78ad03bd,CENTRO COLOMBIANO DE FERTILIDAD Y ESTERILIDAD CECOLFES SAS SIGLA CECOLFES,Salud (IPS y clínicas),cecolfes@cecolfes.com,,,,2,sin_verificar,
+e066f9f69ef3,CENTRO CARDIOLOGICO DE BOGOTA S.A.S,Salud (IPS y clínicas),ccdbogota@gmail.com,,,,2,dudosa,sin_rastro_claro
+c5ec2c52ac7c,CENTRO CARDIOVASCULAR COLOMBIANO SAS - SIGLA CC CARDIOVASCULAR,Salud (IPS y clínicas),administracion@cencardio.com,+57 333 602 56 50;+57 300 608 21 05,"Cra 71b Nro 51 09, Bogotá - Colombia",https://www.cencardio.com,2,verificada,
+fcd698dbda1c,CENTRO CIENTIFICO INTERNACIONAL DE MEDICINA BIOLOGICA SAS,Salud (IPS y clínicas),centrobiologico@yahoo.com,601 2871777;2878211,"Carrera 24 # 45A-33, Palermo, Bogotá D.C.",,2,verificada,
+22ef07552f9d,CENTRO CLINICO DE CIRUGIA AMBULATORIA Y MANEJO POST-QUIRURGICO LIMITADA SIGLAS CENPOST LTDA.,Salud (IPS y clínicas),j.r009@hotmail.com,,,,2,dudosa,sin_rastro_claro
+056bafc4d210,CENTRO COLOMBIANO DE CIRUGIA PLASTICA LTDA,Salud (IPS y clínicas),info@plasticayestetica.com,,,,2,dudosa,sin_rastro_claro
+6dd1be686bde,Centro Colombiano de Diagnostico de Melanoma y Lesiones Pigmentadas SAS / sigla: CCDIMEL SAS,Salud (IPS y clínicas),merlanocesar@me.com,,,,2,dudosa,sin_rastro_claro
+f49f78ad03bd,CENTRO COLOMBIANO DE FERTILIDAD Y ESTERILIDAD CECOLFES SAS SIGLA CECOLFES,Salud (IPS y clínicas),cecolfes@cecolfes.com,(601) 7420505;+57 317 8592137,"Calle 102 # 14A-15, Bogotá",https://cecolfes.com,2,verificada,
 c5dc189d7356,Centro Colombo Americano,Institución educativa,admisiones@colombobogota.edu.co,7800199,Avenida Calle 19,,2,sin_verificar,
 7cd05a2d0286,Centro comercial Caracas,Droguería,,,Avenida Caracas- Calle 51 Sur,,2,sin_verificar,
 f2ec0769afe1,Centro Comercial Centro Suba,mall,,6017447577,Av Suba con Cra 91 (Calle 145 # 91-19) Frente a la estación de transmilenio Sub,,2,sin_verificar,
@@ -7508,105 +7506,105 @@ ba30b76210f7,CENTRO COMERCIAL PASEO AVENIDA CENTENARIO S.A.S.,Empresa privada (D
 7bb681b8e39b,Centro Comercial Paseo San Rafael,Mall,servicioalcliente@paseosanrafael.com,6016434737,Calle 134 55-30,,2,sin_verificar,
 fa3cbb68ae50,CENTRO CULTURAL BACATA,Proveedores del Estado,mardanis400@gmail.com,3133812936,CALLE 15 # 22A 60,,2,sin_verificar,
 bcfa83b493f0,CENTRO DE ABASTOS AGROPECUARIOS S.A.S.,Empresa privada (DIAN),juan.cobos@ceba.com.co,,AUTOPISTA MEDELLIN KILOMETRO 3.5 COSTADO SUR BODEGA 79,,2,sin_verificar,
-2b33f286e8be,Centro de Adelgazamiento Fast Bogota SAS,Salud (IPS y clínicas),fastbogota@gmail.com,,,,2,sin_verificar,
+2b33f286e8be,Centro de Adelgazamiento Fast Bogota SAS,Salud (IPS y clínicas),fastbogota@gmail.com,,,,2,dudosa,sin_rastro_claro
 2101d7f08c7f,Centro de Alabanza Oasis Central,Place of worship,centrodealabanzaoasiscentral@gmail.com,3225818301,Avenida Calle 17 81B - 53,,2,sin_verificar,
 a42573f1a6e1,Centro de Asesoria Espiritual,religion,,3107444325,Calle 45 21-50,,2,sin_verificar,
 e526f416f5d1,CENTRO DE ATENCION E INVESTIGACION MEDICA SAS,Proveedores del Estado,victor.sierra@caimed.com,6012441444,CR 42 A NO. 17-50,,2,sin_verificar,
-528470e6863c,"CENTRO DE ATENCION INTEGRAL DE HERIDAS CRÓNICAS COMPLEJAS S.A. ""CAIHCRON""",Salud (IPS y clínicas),caihcron@gmail.com,,,,2,sin_verificar,
-899c7c619a80,"Centro de Atencion Manejo Integral de Heridas y Estomas S.A.S sigla ""CAMIHERE""",Salud (IPS y clínicas),centrocamihere@gmail.com,,,,2,sin_verificar,
-b827c9f14a6e,centro de atencion pulmonar respiremos S.A.S /CAP respiremos S.A.S,Salud (IPS y clínicas),lilianamcampos70@yahoo.com,,,,2,sin_verificar,
-1cc0942a2e94,CENTRO DE ATENCIÓN E INVESTIGACIÓN MÉDICA S.A.S. - CAIMED S.A.S,Salud (IPS y clínicas),gerencia@caimed.com,,,,2,sin_verificar,
-8766314dce04,CENTRO DE CIRUGIA AMBULATORIA IPS LTDA,Salud (IPS y clínicas),jhmoorep@gmail.com,,,,2,sin_verificar,
-e4221c945bcf,CENTRO DE CIRUGIA MINIMA INVASIVA S.A.S CECIMIN S.A.S,Salud (IPS y clínicas),lipgarcia@colsanitas.com,,,,2,sin_verificar,
-b601ca71473b,CENTRO DE COLOPROCTOLOGIA Y ENDOSCOPIA S A S,Salud (IPS y clínicas),centrodecoloproctologia@gmail.com,,,,2,sin_verificar,
+528470e6863c,"CENTRO DE ATENCION INTEGRAL DE HERIDAS CRÓNICAS COMPLEJAS S.A. ""CAIHCRON""",Salud (IPS y clínicas),caihcron@gmail.com,,,,2,dudosa,sin_rastro_claro
+899c7c619a80,"Centro de Atencion Manejo Integral de Heridas y Estomas S.A.S sigla ""CAMIHERE""",Salud (IPS y clínicas),centrocamihere@gmail.com,,,,2,dudosa,sin_rastro_claro
+b827c9f14a6e,centro de atencion pulmonar respiremos S.A.S /CAP respiremos S.A.S,Salud (IPS y clínicas),lilianamcampos70@yahoo.com,3107630637,"Carrera 16 No. 82-74, Consultorio 410, Bogotá D.C. (dirección alterna registrada: Carrera 9b No. 117a-90 Sótano 1, Bogotá D.C.)",,2,verificada,
+1cc0942a2e94,CENTRO DE ATENCIÓN E INVESTIGACIÓN MÉDICA S.A.S. - CAIMED S.A.S,Salud (IPS y clínicas),gerencia@caimed.com,+57 3175141016,"Edificio Vita, Cra 4ta. este #24-65, Chía, Cundinamarca (sede actual; ya NO está en Bogotá)",https://www.caimed.com,2,verificada,
+8766314dce04,CENTRO DE CIRUGIA AMBULATORIA IPS LTDA,Salud (IPS y clínicas),jhmoorep@gmail.com,,,,2,dudosa,sin_rastro_claro
+e4221c945bcf,CENTRO DE CIRUGIA MINIMA INVASIVA S.A.S CECIMIN S.A.S,Salud (IPS y clínicas),lipgarcia@colsanitas.com,(601) 3759333;(601) 6002555,"Avenida carrera 45 # 104 - 76 (Paralela autopista norte), Bogotá, Colombia",https://www.cecimin.com.co,2,verificada,
+b601ca71473b,CENTRO DE COLOPROCTOLOGIA Y ENDOSCOPIA S A S,Salud (IPS y clínicas),centrodecoloproctologia@gmail.com,,,,2,dudosa,sin_rastro_claro
 2a6661265323,Centro de Conciliaición Resolver,lawyer,,6014672813,Carrera 14 76-65,,2,sin_verificar,
-ae9f83f1285c,CENTRO DE CONTROL DE CÁNCER SAS,Salud (IPS y clínicas),administracion@centrodecontroldecancer.com,,,,2,sin_verificar,
-73dd2379b06e,Centro de Dermatologia y Cirugia Dermatologica del Country CDCD LTDA,Salud (IPS y clínicas),gerencia.cdcd@gmail.com,,,,2,sin_verificar,
-4e87c209d404,CENTRO DE DESARROLLO INTEGRAL DE SALUD FAMILIAR JUAN PABLO II IPS SAS CON SIGLA CEDI SALUD FAMILIAR,Salud (IPS y clínicas),auditoria@juanpabloiiips.com,,,,2,sin_verificar,
+ae9f83f1285c,CENTRO DE CONTROL DE CÁNCER SAS,Salud (IPS y clínicas),administracion@centrodecontroldecancer.com,+601 236 69 27;+57 300 3487512,"Carrera 16A No. 84-19, Bogotá (sede principal; tienen además sedes en Cra 16A #85-72/92, Cra 16A #83-11 y Cra 20B #75A-36)",https://centrodecontroldecancer.com,2,verificada,
+73dd2379b06e,Centro de Dermatologia y Cirugia Dermatologica del Country CDCD LTDA,Salud (IPS y clínicas),gerencia.cdcd@gmail.com,(1) 7038176,"Calle 83 #19-36, Cons. 705, Bogotá D.C. (variantes en otras fuentes: Calle 83 # 16a-44 Cons. 303; Cra. 16 # 82-29 Cons. 104 — todas en el sector de El Country, cerca de Cll 83 con Cra 16)",,2,verificada,
+4e87c209d404,CENTRO DE DESARROLLO INTEGRAL DE SALUD FAMILIAR JUAN PABLO II IPS SAS CON SIGLA CEDI SALUD FAMILIAR,Salud (IPS y clínicas),auditoria@juanpabloiiips.com,,,https://www.juanpabloiiips.com,2,verificada,
 bc4f31e842fc,CENTRO DE DESARROLLO TECNOLOGICO DE LA ESMERALDA COLOMBIANA CDTEC,Proveedores del Estado,info@gemlabcdtec.com,7467490,CALLE 12 B NO 6 82 PISO 11,,2,sin_verificar,
 6ea5e28f120f,CENTRO DE DIAGNOSTICO AUTOMOTRIZ SANTA LIBRADA,Proveedores del Estado,cdasantalibrada@gmail.com,3906322,CRA 11 69 G 25 SUR,,2,sin_verificar,
-7308c45cefd8,CENTRO DE DIAGNOSTICO Y TRATAMIENTO CENDIATRA SOCIEDAD POR ACCIONES SIMPLIFICADAS CENDIATRA SAS,Salud (IPS y clínicas),cendiatra@cendiatra.com,,,,2,sin_verificar,
+7308c45cefd8,CENTRO DE DIAGNOSTICO Y TRATAMIENTO CENDIATRA SOCIEDAD POR ACCIONES SIMPLIFICADAS CENDIATRA SAS,Salud (IPS y clínicas),cendiatra@cendiatra.com,PBX 601 744 3001;WhatsApp +57 318 206 6922,"Carrera 5 # 19-08, piso 1, Centro, Bogotá (sede principal)",https://www.cendiatra.com,2,verificada,
 7629518e9b3b,Centro de Educación para el Trabajo y Desarrollo Humano,Institución educativa,direccion@cedep.edu.co,+57 1 320 5900;+57 1 320 5884,Avenida Carrera 14 45-00,,2,sin_verificar,
-cd40de0b6f59,CENTRO DE ENFERMEDADES DIGESTIVAS SAS,Salud (IPS y clínicas),abonilla@gutmedica.com,,,,2,sin_verificar,
-cfb459946dbb,CENTRO DE ENFERMEDADES HEPÁTICAS Y DIGESTIVAS SAS - CEHYD SAS,Salud (IPS y clínicas),gerenciamedica@cehyd.com.co,,,,2,sin_verificar,
-da3abe25d0dd,CENTRO DE ENFERMEDADES NEOPLASICAS S A S,Salud (IPS y clínicas),centroenf.neoplasicas@hotmail.com,,,,2,sin_verificar,
-9f66a91cbe43,CENTRO DE ESPECIALIDADES MEDICO QUIRURGICAS LIMITADA CLINICA CEMEQ LTDA,Salud (IPS y clínicas),administrador@clinicacemeq.com.co,,,,2,sin_verificar,
-5f4b5730ade4,CENTRO DE ESPECIALISTAS DIAGNOSTICO TRATAMIENTOS CEDIT SAS,Salud (IPS y clínicas),unidadrenalk@ceditltda.com,,,,2,sin_verificar,
-850abf6943af,CENTRO DE ESPECIALISTAS IPS LOGROS SAS,Salud (IPS y clínicas),coordinadornacionalcalidad@gmail.com,,,,2,sin_verificar,
-06c57792bb76,"CENTRO DE ESTIMULACION, REHABILITACION Y APRENDIZAJE SEMILLAS DE ESPERANZA S.A.S SIGLA: CERASES S.A.",Salud (IPS y clínicas),elsydelgado11078@hotmail.com,,,,2,sin_verificar,
-82cdd875e1ef,CENTRO DE EVALUACION MEDICA PORVIDA LIMITADA La sociedad podra usar la sigla CEM PORVIDA,Salud (IPS y clínicas),asistenteadministrativa@porvida.com.co,,,,2,sin_verificar,
-03aa5282e681,CENTRO DE EXCELENCIA PARA EL MANEJO DE LA DIABETES S.A.S. SIGLA CEMDI SAS,Salud (IPS y clínicas),gerencia@cemdi.net.co,,,,2,sin_verificar,
-ed311605b044,Centro de Fertilidad Repronat SAS,Salud (IPS y clínicas),repronat.colombia@gmail.com,,,,2,sin_verificar,
-4c1575662dee,CENTRO DE GASTROENTEROLOGIA Y ENDOSCOPIA LIMITADA,Salud (IPS y clínicas),centrodegastrocalidad@gmail.com,,,,2,sin_verificar,
+cd40de0b6f59,CENTRO DE ENFERMEDADES DIGESTIVAS SAS,Salud (IPS y clínicas),abonilla@gutmedica.com,(601) 642-7200;+57 310 669 5699,"Calle 97 No. 23-37, Pisos 2-3 (Centro Médico Dalí), Bogotá D.C.",https://gutmedica.com,2,verificada,
+cfb459946dbb,CENTRO DE ENFERMEDADES HEPÁTICAS Y DIGESTIVAS SAS - CEHYD SAS,Salud (IPS y clínicas),gerenciamedica@cehyd.com.co,+57 317 5861585;+57 316 6455313,,https://cehyd.com.co,2,verificada,
+da3abe25d0dd,CENTRO DE ENFERMEDADES NEOPLASICAS S A S,Salud (IPS y clínicas),centroenf.neoplasicas@hotmail.com,6183489;2960513,"KR 22 #45 B -38 CS 101, Bogotá D.C.",,2,verificada,
+9f66a91cbe43,CENTRO DE ESPECIALIDADES MEDICO QUIRURGICAS LIMITADA CLINICA CEMEQ LTDA,Salud (IPS y clínicas),administrador@clinicacemeq.com.co,,,,2,dudosa,sin_rastro_claro
+5f4b5730ade4,CENTRO DE ESPECIALISTAS DIAGNOSTICO TRATAMIENTOS CEDIT SAS,Salud (IPS y clínicas),unidadrenalk@ceditltda.com,,,,2,dudosa,sin_rastro_claro
+850abf6943af,CENTRO DE ESPECIALISTAS IPS LOGROS SAS,Salud (IPS y clínicas),coordinadornacionalcalidad@gmail.com,,,,2,dudosa,sin_rastro_claro
+06c57792bb76,"CENTRO DE ESTIMULACION, REHABILITACION Y APRENDIZAJE SEMILLAS DE ESPERANZA S.A.S SIGLA: CERASES S.A.",Salud (IPS y clínicas),elsydelgado11078@hotmail.com,,,,2,dudosa,sin_rastro_claro
+82cdd875e1ef,CENTRO DE EVALUACION MEDICA PORVIDA LIMITADA La sociedad podra usar la sigla CEM PORVIDA,Salud (IPS y clínicas),asistenteadministrativa@porvida.com.co,601 3907398;+57 314 818 5515,"Av de las Américas # 50 – 15, Centro Comercial Carrera, Local C 1060, Bogotá - Colombia",https://www.porvida.com.co,2,verificada,
+03aa5282e681,CENTRO DE EXCELENCIA PARA EL MANEJO DE LA DIABETES S.A.S. SIGLA CEMDI SAS,Salud (IPS y clínicas),gerencia@cemdi.net.co,+57 324 8381520;+57 310 5150142;+57 310 4048143,"Avenida Calle 100 #61-18, Barrio Nuevo Andes, Bogotá (sede adicional: Transversal 60 #127D-39, Barrio Villas III, Bogotá)",https://www.cemdi.net.co,2,verificada,
+ed311605b044,Centro de Fertilidad Repronat SAS,Salud (IPS y clínicas),repronat.colombia@gmail.com,,,,2,dudosa,sin_rastro_claro
+4c1575662dee,CENTRO DE GASTROENTEROLOGIA Y ENDOSCOPIA LIMITADA,Salud (IPS y clínicas),centrodegastrocalidad@gmail.com,,,,2,dudosa,sin_rastro_claro
 2a746c467e83,CENTRO DE GERENCIAMIENTO DE RESIDUOS DOÑA JUANA S.A. E.S.P.,Servicios públicos,analista.costos@cgr-bogota.com,3848830,Av Boyaca Kilometro 5 vía al llano,,2,sin_verificar,
 bf92706ae43e,Centro de Idiomas Global,Empresa/Oficina,,,Avenida Calle 72,,2,sin_verificar,
 b7e59d828d8d,CENTRO DE IMAGENES PRESENTE Y FUTURO DE LA MEDICINA S.A.S,Empresa privada (DIAN),cddcolombia@hotmail.com,,CALLE 41 24 55,,2,sin_verificar,
-718debed7512,CENTRO DE INVESTIGACIONES DEL SISTEMA NERVIOSO S.A.S. SIGLA GRUPO CISNE S.A.S.,Salud (IPS y clínicas),info@grupocisne.org,,,,2,sin_verificar,
-6419e44c922b,CENTRO DE INVESTIGACIONES ONCOLOGICAS CLINICA SAN DIEGO CIOSAD SAS,Salud (IPS y clínicas),hhrojas007@gmail.com,,,,2,sin_verificar,
-ea9b7b4abe66,"CENTRO DE INVESTIGACIÓN EN REUMATOLOGÍA Y ESPECIALIDADES MÉDICAS SAS ""CIREEM SAS""",Salud (IPS y clínicas),administracion@cireem.com.co,,,,2,sin_verificar,
-02b47bb77e3d,CENTRO DE MACULA GUSTAVO ALVIRA ESCOBAR SAS,Salud (IPS y clínicas),servicioalpaciente@centrodemacula.com,,,,2,sin_verificar,
+718debed7512,CENTRO DE INVESTIGACIONES DEL SISTEMA NERVIOSO S.A.S. SIGLA GRUPO CISNE S.A.S.,Salud (IPS y clínicas),info@grupocisne.org,4441234;3160176306;3162716137,,https://grupocisne.org/,2,verificada,
+6419e44c922b,CENTRO DE INVESTIGACIONES ONCOLOGICAS CLINICA SAN DIEGO CIOSAD SAS,Salud (IPS y clínicas),gerenciaadmin@ciosad.com,3208400 ext 420;3204924655,"AC 33 # 14-37, Teusaquillo, Bogotá D.C.",,2,verificada,
+ea9b7b4abe66,"CENTRO DE INVESTIGACIÓN EN REUMATOLOGÍA Y ESPECIALIDADES MÉDICAS SAS ""CIREEM SAS""",Salud (IPS y clínicas),administracion@cireem.com.co,(601) 602 4730;(601) 485 3675;310 860 9027 (WhatsApp),"Carrera 12 No. 97-32, Consultorios 201, 301 y 404, Bogotá, Colombia",https://www.cireem.com/,2,verificada,
+02b47bb77e3d,CENTRO DE MACULA GUSTAVO ALVIRA ESCOBAR SAS,Salud (IPS y clínicas),servicioalpaciente@centrodemacula.com,+57 3153239748;(571) 6195003,"Calle 119 #7-14, Centro Médico Santa Ana, Piso 3, Bogotá",https://www.centrodemacula.com,2,verificada,
 47a0fa2228f6,CENTRO DE MANTENIMIENTO Y REPARACION DE HELICOPTEROS RUSOS CMR S.A.S. EN REORGANIZACION,Empresa privada (DIAN),notificaciones@cmr.com.co,,NUEVA ZONA DE AVIACION GENERAL HANGAR 19,,2,sin_verificar,
-46a0b51511ac,"Centro de Medicina Avanzada Integral SAS ""CENTRO MAI IPS""",Salud (IPS y clínicas),maimedicinaalternativa@gmail.com,,,,2,sin_verificar,
+46a0b51511ac,"Centro de Medicina Avanzada Integral SAS ""CENTRO MAI IPS""",Salud (IPS y clínicas),maimedicinaalternativa@gmail.com,,,,2,dudosa,sin_rastro_claro
 0eed3acb87e3,Centro de Negocios San Rafael,Empresa/Oficina,,,Calle 109 19 48 Oficina 402,,2,sin_verificar,
-a19dc9f34951,CENTRO DE NEUROPSICOLOGIA Y PSICOPEDAGOGIA APLICADA IPS LTDA CENPA IPS LTDA,Salud (IPS y clínicas),cenpaipsltda@gmail.com,,,,2,sin_verificar,
-9c4864b6f8a4,CENTRO DE ORTOPEDIA Y TRAUMATOLOGIA UNICENTRO LTDA,Salud (IPS y clínicas),centro-ortopedia@hotmail.com,,,,2,sin_verificar,
-4339da852859,CENTRO DE RAYOS X Y ECOGRAFIA S.A.S,Salud (IPS y clínicas),ips.crye@gmail.com,,,,2,sin_verificar,
-06a3f58bd057,CENTRO DE RECONOCIMIENTO DE BOGOTA LIMITADA SIGLAS CERTIBOGOTA Ltda.,Salud (IPS y clínicas),ipscertibogota@hotmail.com,,,,2,sin_verificar,
-9294cabba055,CENTRO DE RECONOCIMIENTO DE CONDUCTORES ATENTO IPS LTDA,Salud (IPS y clínicas),ipsatento@yahoo.es,,,,2,sin_verificar,
-f74df7a91fab,CENTRO DE RECONOCIMIENTO DE CONDUCTORES DE COLOMBIA 2 SAS - CRC DE COLOMBIA 2 SAS,Salud (IPS y clínicas),crcdecolombia@hotmail.com,,,,2,sin_verificar,
-dddadb348f64,CENTRO DE RECONOCIMIENTO DE CONDUCTORES MEDICONDUZCA S.A.S,Salud (IPS y clínicas),crcmediconduzca@gmail.com,,,,2,sin_verificar,
-a70bccb2437c,CENTRO DE REHABILITACION PARA ADULTOS CIEGOS CRAC,Salud (IPS y clínicas),direccion@cracolombia.org.co,,,,2,sin_verificar,
-a0b404017426,CENTRO DE REHABILITACION PARA NIÑOS CON LABIO Y PALADAR FISURADO - FISULAB,Salud (IPS y clínicas),direccion@fisulab.org,,,,2,sin_verificar,
-97b318fd9de2,CENTRO DE REHABILITACION Y ESTÉTICA ORAL SAS - SIGLA CREO SAS,Salud (IPS y clínicas),creoclinica@hotmail.com,,,,2,sin_verificar,
+a19dc9f34951,CENTRO DE NEUROPSICOLOGIA Y PSICOPEDAGOGIA APLICADA IPS LTDA CENPA IPS LTDA,Salud (IPS y clínicas),cenpaipsltda@gmail.com,(1) 533-4928;(1) 533-4929,"Carrera 23 # 87-10/14, Barrio Polo Club, Bogotá D.C.",,2,verificada,
+9c4864b6f8a4,CENTRO DE ORTOPEDIA Y TRAUMATOLOGIA UNICENTRO LTDA,Salud (IPS y clínicas),centro-ortopedia@hotmail.com,,,,2,dudosa,sin_rastro_claro
+4339da852859,CENTRO DE RAYOS X Y ECOGRAFIA S.A.S,Salud (IPS y clínicas),ips.crye@gmail.com,,,,2,dudosa,sin_rastro_claro
+06a3f58bd057,CENTRO DE RECONOCIMIENTO DE BOGOTA LIMITADA SIGLAS CERTIBOGOTA Ltda.,Salud (IPS y clínicas),ipscertibogota@hotmail.com,,,,2,dudosa,sin_rastro_claro
+9294cabba055,CENTRO DE RECONOCIMIENTO DE CONDUCTORES ATENTO IPS LTDA,Salud (IPS y clínicas),ipsatento@yahoo.es,,,,2,dudosa,sin_rastro_claro
+f74df7a91fab,CENTRO DE RECONOCIMIENTO DE CONDUCTORES DE COLOMBIA 2 SAS - CRC DE COLOMBIA 2 SAS,Salud (IPS y clínicas),crcdecolombia@hotmail.com,,,,2,dudosa,sin_rastro_claro
+dddadb348f64,CENTRO DE RECONOCIMIENTO DE CONDUCTORES MEDICONDUZCA S.A.S,Salud (IPS y clínicas),crcmediconduzca@gmail.com,+57 314 2518528,"Diagonal 23 #69-60, Local 103, Bogotá D.C.",https://www.mediconduzca.com,2,verificada,
+a70bccb2437c,CENTRO DE REHABILITACION PARA ADULTOS CIEGOS CRAC,Salud (IPS y clínicas),direccion@cracolombia.org.co,,,,2,dudosa,sin_rastro_claro
+a0b404017426,CENTRO DE REHABILITACION PARA NIÑOS CON LABIO Y PALADAR FISURADO - FISULAB,Salud (IPS y clínicas),direccion@fisulab.org,318 659 66 11;314 64 26 (fijo);9284305,,https://fisulab.org,2,verificada,
+97b318fd9de2,CENTRO DE REHABILITACION Y ESTÉTICA ORAL SAS - SIGLA CREO SAS,Salud (IPS y clínicas),creoclinica@hotmail.com,,,,2,dudosa,sin_rastro_claro
 458da92f04e1,Centro de Rehabilitación Oral Odontoven,dentist,odontoven1@gmail.com,,Calle 8 Sur 38 A 41,,2,sin_verificar,
-2c93f7a31e37,CENTRO DE SALUD CIRUGIA ESTETICA AMBULATORIA CLINICA DE CHARRY LTDA,Salud (IPS y clínicas),naso_val@hotmail.com,,,,2,sin_verificar,
-f4dd21c751f3,CENTRO DE SALUD JUAN BONAL,Salud (IPS y clínicas),csjbonal@yahoo.com,,,,2,sin_verificar,
-bab03d436c09,CENTRO DE SALUD SANTA TERESITA IRRA,Farmacias,hospitalnasareth@hotmail.com,3600536,"CALLE PRINCIPAL , BARRIO PRIMERO DE MAYO - IRRA",,2,sin_verificar,
-0a1bcf1b31ba,CENTRO DE TECNOLOGIA OFTALMICA S.A.S. Y PODRÁ UTILIZAR LA SIGLA CTO S.A.S,Salud (IPS y clínicas),centrodetecnologia@ctoltda.com,,,,2,sin_verificar,
-2d98424e98c0,CENTRO DE TERAPIAS OCUFILEN LTDA,Salud (IPS y clínicas),ocufilen@gmail.com,,,,2,sin_verificar,
-444dab94da1d,Centro de Tratamiento e Investigación sobre Cáncer,Clínica,historiaclinica@fctic.org,7818852,Bogotá,,2,sin_verificar,
-303eafdd277d,CENTRO DERMATOLOGICO GIOVANNI BOJANINI S.A.S.,Salud (IPS y clínicas),calidad@giovannibojanini.co,,,,2,sin_verificar,
+2c93f7a31e37,CENTRO DE SALUD CIRUGIA ESTETICA AMBULATORIA CLINICA DE CHARRY LTDA,Salud (IPS y clínicas),naso_val@hotmail.com,,,,2,dudosa,sin_rastro_claro
+f4dd21c751f3,CENTRO DE SALUD JUAN BONAL,Salud (IPS y clínicas),csjbonal@yahoo.com,,,,2,dudosa,sin_rastro_claro
+bab03d436c09,CENTRO DE SALUD SANTA TERESITA IRRA,Farmacias,hospitalnasareth@hotmail.com,3600536,"CALLE PRINCIPAL , BARRIO PRIMERO DE MAYO - IRRA",,2,dudosa,sin_rastro_claro
+0a1bcf1b31ba,CENTRO DE TECNOLOGIA OFTALMICA S.A.S. Y PODRÁ UTILIZAR LA SIGLA CTO S.A.S,Salud (IPS y clínicas),centrodetecnologia@ctoltda.com,,,,2,dudosa,sin_rastro_claro
+2d98424e98c0,CENTRO DE TERAPIAS OCUFILEN LTDA,Salud (IPS y clínicas),ocufilen@gmail.com,,,,2,dudosa,sin_rastro_claro
+444dab94da1d,Centro de Tratamiento e Investigación sobre Cáncer,Clínica,historiaclinica@fctic.org,7818852,Bogotá,https://www.cticsarmientoangulo.org/,2,verificada,
+303eafdd277d,CENTRO DERMATOLOGICO GIOVANNI BOJANINI S.A.S.,Salud (IPS y clínicas),calidad@giovannibojanini.co,,,,2,dudosa,sin_rastro_claro
 80fe8c1712df,Centro Dermatológico Federico Lleras Acosta,hospital,,3077072,Avenida Carrera 14,,2,sin_verificar,
-566dba5d673c,Centro educativo Infancia de Jesus,Colegio,coord.acad.infancia.de.jesus@gmail.com,3333333,Bogotá,,2,sin_verificar,
-85ff2c31673b,CENTRO ELECTRO AUDITIVO NACIONAL AL SERVICIO DE LA REHABILITACION SAS,Salud (IPS y clínicas),audiologiabogota@ipsceansas.com,,,,2,sin_verificar,
+566dba5d673c,Centro educativo Infancia de Jesus,Colegio,coord.acad.infancia.de.jesus@gmail.com,3333333,Bogotá,,2,dudosa,sin_rastro_claro
+85ff2c31673b,CENTRO ELECTRO AUDITIVO NACIONAL AL SERVICIO DE LA REHABILITACION SAS,Salud (IPS y clínicas),audiologiabogota@ipsceansas.com,333-602-6006;324-533-4968;315-433-6693,"Carrera 7 #41-21, Bogotá - Colombia",https://www.ipsceansas.com,2,verificada,
 4e9c1daccb07,Centro Empresarial Oikos,,inmobiliaria@oikos.com.co,3138543813,Tocancipa,,2,sin_verificar,
 efa2c51efff8,CENTRO EMPRESARIAL Y COMERCIAL SAN VICTORINO S.A.,Empresa privada (DIAN),sanvictorinobta@gmail.com,,CALLE 11 10-57 OFICINA 209,,2,sin_verificar,
-faec717bd53d,CENTRO ESPECIALIZADO EN NEURODESARROLLO TERAPIAS INTEGRALES Y RE HABILITACIÓN SAS SIGLA CEENTIR SAS,Salud (IPS y clínicas),ceentir@gmail.com,,,,2,sin_verificar,
-490b38d5339b,CENTRO EXCELENCIA DE CUIDADOS EN SALUD ESENCIAL INSTITUCION PRESTADORA DE SERVICIOS DE SALUD S.A.S.,Salud (IPS y clínicas),c.calidad@esencial-ips.com,,,,2,sin_verificar,
+faec717bd53d,CENTRO ESPECIALIZADO EN NEURODESARROLLO TERAPIAS INTEGRALES Y RE HABILITACIÓN SAS SIGLA CEENTIR SAS,Salud (IPS y clínicas),ceentir@gmail.com,+57 601 2329857;+57 301 3906753,"Calle 147 # 17-78, oficina 308, Cedritos, Bogotá (Edificio Soko); sede adicional Km. 1.5 Vía Chía-Cajicá, oficina 201",https://ceentir.com,2,verificada,
+490b38d5339b,CENTRO EXCELENCIA DE CUIDADOS EN SALUD ESENCIAL INSTITUCION PRESTADORA DE SERVICIOS DE SALUD S.A.S.,Salud (IPS y clínicas),c.calidad@esencial-ips.com,+57 317 433 9515;+57 324 364 8927;+57 315 343 0665,"Calle 42 # 13A – 11, Bogotá, Colombia",https://esencial-ips.com,2,verificada,
 0b797020bf5c,CENTRO FERRETERO MAFER S.A.S.,Empresa privada (DIAN),contabilidadmafersas@hotmail.com,,CALLE 12 NUMERO 15-30,,2,sin_verificar,
-3f966f643780,CENTRO INFANTIL PARA EL NEURODESARROLLO EN FAMILIA SAS - CINEFA,Salud (IPS y clínicas),julio.omana@gmail.com,,,,2,sin_verificar,
-b289f2a68067,CENTRO INTEGRAL DE REHABILITACION COLOMBIA - CIREC,Salud (IPS y clínicas),gloria.pinilla@cirec.org,,,,2,sin_verificar,
-44878da9b19d,CENTRO INTEGRAL PARA MANEJO DEL DOLOR-CINDOLOR S.A.S,Salud (IPS y clínicas),jvtptorres@gmail.com,,,,2,sin_verificar,
-3f0f596c1fec,CENTRO INTEGRAL TERAPEUTICO DE MANO CITMA SAS,Salud (IPS y clínicas),monicayad@gmail.com,,,,2,sin_verificar,
+3f966f643780,CENTRO INFANTIL PARA EL NEURODESARROLLO EN FAMILIA SAS - CINEFA,Salud (IPS y clínicas),julio.omana@gmail.com,,,,2,dudosa,sin_rastro_claro
+b289f2a68067,CENTRO INTEGRAL DE REHABILITACION COLOMBIA - CIREC,Salud (IPS y clínicas),gloria.pinilla@cirec.org,(601) 795 3600;(+57) 310 467 1259,"Centro de Atención: Cra 54 # 65 - 25, Barrio Modelo Norte, Bogotá; Centro Administrativo: Calle 70B # 57 - 09, Barrio San Fernando, Bogotá",https://www.cirec.org,2,verificada,
+44878da9b19d,CENTRO INTEGRAL PARA MANEJO DEL DOLOR-CINDOLOR S.A.S,Salud (IPS y clínicas),jvtptorres@gmail.com,,,,2,dudosa,sin_rastro_claro
+3f0f596c1fec,CENTRO INTEGRAL TERAPEUTICO DE MANO CITMA SAS,Salud (IPS y clínicas),monicayad@gmail.com,,,,2,dudosa,sin_rastro_claro
 b39f9f524fbb,CENTRO INTERACTIVO DE CRM S.A.,Empresa privada (DIAN),tito.aponte@interactivo.com.co,,CARRERA 7 16 36,,2,sin_verificar,
 efddd067ca80,CENTRO INTERNACIONAL DE INVESTIGACIONES FORENSES Y CRIMINALISTICAS - CENTRO INTERNACIONAL FOR EN REO,Empresa privada (DIAN),jtmtruji@hotmail.com,,CARRERA 14 B 119 95,,2,sin_verificar,
-a48a01529b68,CENTRO INTERNACIONAL DE MEDICINAS ALTERNATIVAS VAN UDEN IPS,Salud (IPS y clínicas),cimaips@gmail.com,,,,2,sin_verificar,
-998eef028534,CENTRO INTERNACIONAL INTEGRAL DE RESTAURACION - CIIR,Salud (IPS y clínicas),asociir@hotmail.com,,,,2,sin_verificar,
-622dab6d5404,CENTRO LASER DE ENFERMEDADES VENOSAS SAS,Salud (IPS y clínicas),laser.venoso@yahoo.com.co,,,,2,sin_verificar,
+a48a01529b68,CENTRO INTERNACIONAL DE MEDICINAS ALTERNATIVAS VAN UDEN IPS,Salud (IPS y clínicas),cimaips@gmail.com,,,,2,dudosa,sin_rastro_claro
+998eef028534,CENTRO INTERNACIONAL INTEGRAL DE RESTAURACION - CIIR,Salud (IPS y clínicas),asociir@hotmail.com,,,,2,dudosa,sin_rastro_claro
+622dab6d5404,CENTRO LASER DE ENFERMEDADES VENOSAS SAS,Salud (IPS y clínicas),laser.venoso@yahoo.com.co,601 2153382;305 2983443;300 2568255,"Calle 116 #9-72, Consultorio 602 y 603, Bogotá",https://centrolaservenoso.com,2,verificada,
 fff736d1808a,Centro Latas,Repuestos de carros,,,Calle 1,,2,sin_verificar,
-17b5d6a9cec8,CENTRO MEDICO ARIZALUD S A S,Salud (IPS y clínicas),arizalud@gmail.com,,,,2,sin_verificar,
-a78c2add1fe9,CENTRO MEDICO DE ORIENTACION LA GLORIA S.A.S SIGLA IPS LA GLORIA S.A.S,Salud (IPS y clínicas),lagloriaipssas@hotmail.com,,,,2,sin_verificar,
-931891e008e1,CENTRO MEDICO DEPORTIVO MET LTDA,Salud (IPS y clínicas),clinicamet@gmail.com,,,,2,sin_verificar,
-e35957dbbb2c,Centro Medico Ecofam S.A.S,Salud (IPS y clínicas),gerencia@ecofam.com.co,,,,2,sin_verificar,
-0ce5fc76aac2,CENTRO MEDICO ECOMEDICA E.U.,Salud (IPS y clínicas),cbahamon@hotmail.com,,,,2,sin_verificar,
-1e587a49c343,CENTRO MEDICO ENDOCENTRO LTDA,Salud (IPS y clínicas),endocentroltda@yahoo.com,,,,2,sin_verificar,
-439556b5ceb5,CENTRO MEDICO G.C.L. S.A.S,Salud (IPS y clínicas),centromedicogcl@gmail.com,,,,2,sin_verificar,
-9d1db6fa1ca7,CENTRO MEDICO LA FACULTAD SAS,Salud (IPS y clínicas),i.p.s.lafacultad@hotmail.com,,,,2,sin_verificar,
-4e17350e531d,CENTRO MEDICO LABORATORIO CLINICO OLAYA SAS,Salud (IPS y clínicas),centromedicoolaya@gmail.com,,,,2,sin_verificar,
-b0ff59ef6acf,CENTRO MEDICO OFTALMOLOGICO Y LABORATORIO CLINICO ANDRADE NARVAEZ SOCIEDAD POR ACCIONES SIMPLIFICADA,Salud (IPS y clínicas),direccioncalidad@laboratoriocolcan.com,,,,2,sin_verificar,
-57847821eb46,CENTRO MEDICO VITAL DRA. ALIA SANTANA SAS,Salud (IPS y clínicas),aliahelena@hotmail.com,,,,2,sin_verificar,
+17b5d6a9cec8,CENTRO MEDICO ARIZALUD S A S,Salud (IPS y clínicas),arizalud@gmail.com,,,,2,dudosa,sin_rastro_claro
+a78c2add1fe9,CENTRO MEDICO DE ORIENTACION LA GLORIA S.A.S SIGLA IPS LA GLORIA S.A.S,Salud (IPS y clínicas),lagloriaipssas@hotmail.com,3402120,"Calle 34 # 15-51, Bogotá D.C.",,2,verificada,
+931891e008e1,CENTRO MEDICO DEPORTIVO MET LTDA,Salud (IPS y clínicas),clinicamet@gmail.com,,,,2,dudosa,sin_rastro_claro
+e35957dbbb2c,Centro Medico Ecofam S.A.S,Salud (IPS y clínicas),gerencia@ecofam.com.co,+57 321 511 3713,"Calle 27 sur #19b-52, Bogotá, Colombia",https://ecofam.com.co,2,verificada,
+0ce5fc76aac2,CENTRO MEDICO ECOMEDICA E.U.,Salud (IPS y clínicas),cbahamon@hotmail.com,,,,2,dudosa,sin_rastro_claro
+1e587a49c343,CENTRO MEDICO ENDOCENTRO LTDA,Salud (IPS y clínicas),endocentroltda@yahoo.com,,,,2,dudosa,sin_rastro_claro
+439556b5ceb5,CENTRO MEDICO G.C.L. S.A.S,Salud (IPS y clínicas),centromedicogcl@gmail.com,,,,2,dudosa,sin_rastro_claro
+9d1db6fa1ca7,CENTRO MEDICO LA FACULTAD SAS,Salud (IPS y clínicas),i.p.s.lafacultad@hotmail.com,,,,2,dudosa,sin_rastro_claro
+4e17350e531d,CENTRO MEDICO LABORATORIO CLINICO OLAYA SAS,Salud (IPS y clínicas),centromedicoolaya@gmail.com,3478768;601 2397687;3025454106,"Cra 21 No. 26-52 Sur, Barrio Olaya, Bogotá (sede principal); segunda sede Cra 21 No. 21-38 Sur, Barrio Olaya",https://centromedicoolaya.com.co,2,verificada,
+b0ff59ef6acf,CENTRO MEDICO OFTALMOLOGICO Y LABORATORIO CLINICO ANDRADE NARVAEZ SOCIEDAD POR ACCIONES SIMPLIFICADA,Salud (IPS y clínicas),,,,,2,descartada,registro_cruzado_invalido
+57847821eb46,CENTRO MEDICO VITAL DRA. ALIA SANTANA SAS,Salud (IPS y clínicas),aliahelena@hotmail.com,,,,2,dudosa,sin_rastro_claro
 e5457df0860c,CENTRO MOTORS LIMITADA.,Empresa privada (DIAN),centromcomercial@gmail.com,,AVENIDA CALLE 100 8A 55 OFICINA 710 TORRE C,,2,sin_verificar,
-d2311d3c73ee,CENTRO MÉDICO CLÍNICA SENSUS IPS SAS,Salud (IPS y clínicas),centromedicosensus@gmail.com,,,,2,sin_verificar,
+d2311d3c73ee,CENTRO MÉDICO CLÍNICA SENSUS IPS SAS,Salud (IPS y clínicas),centromedicosensus@gmail.com,3118868089,"Calle 103 # 70C-15, Piso 1, Bogotá",,2,verificada,
 362400ececa9,CENTRO NACIONAL DE CONSULTORIA S.A.,Empresa privada (DIAN),contabilidad@cnccol.com,,CALLE 82 6 51,,2,sin_verificar,
-e46cb310ea5d,Centro Nacional de Enfermedades Huerfanas y Linfedema IPS SAS CENEH IPS SAS,Salud (IPS y clínicas),vascular@alejandromolinamd.com,,,,2,sin_verificar,
-6c5392968f11,Centro Nacional de La Salud - Medlucara Ltda,Clínica,info@cnsalud.com,+57 1 6114020,Avenida Carrera 20 80-77,,2,sin_verificar,
+e46cb310ea5d,Centro Nacional de Enfermedades Huerfanas y Linfedema IPS SAS CENEH IPS SAS,Salud (IPS y clínicas),vascular@alejandromolinamd.com,,,,2,dudosa,sin_rastro_claro
+6c5392968f11,Centro Nacional de La Salud - Medlucara Ltda,Clínica,info@cnsalud.com,+57 1 6114020,Avenida Carrera 20 80-77,https://cnsalud.com,2,verificada,
 a75143ab64da,CENTRO NAL DE INSEMINACION ARTIFICIAL S.A.S.,Empresa privada (DIAN),cgantiva@yahoo.com,,CARRERA 47 93 53 OFICINA 201,,2,sin_verificar,
 7b943ac3fa6b,Centro Naturista,Droguería,,,,,2,sin_verificar,
-df47b0e3d5fb,CENTRO NATURISTA ALEMAN SALUD Y VIDA RC,Farmacias,rubithkaterine1992@gmail.com,3125173458,CRA 6 NRO 8-42 BARRIO MIRAFLORES,,2,sin_verificar,
+df47b0e3d5fb,CENTRO NATURISTA ALEMAN SALUD Y VIDA RC,Farmacias,rubithkaterine1992@gmail.com,3125173458,CRA 6 NRO 8-42 BARRIO MIRAFLORES,,2,dudosa,sin_rastro_claro
 8200b139481c,Centro Naturista El Trebol,Droguería,,,,,2,sin_verificar,
-30c16b54b4c0,CENTRO NATURISTA NOVAFAR,Farmacias,luzca2223@gmail.com,3216454097,CRA 6 # 7 - 12 BRR MIRAFLORES,,2,sin_verificar,
+30c16b54b4c0,CENTRO NATURISTA NOVAFAR,Farmacias,luzca2223@gmail.com,3216454097,CRA 6 # 7 - 12 BRR MIRAFLORES,,2,dudosa,sin_rastro_claro
 643f18da5a20,Centro naturista Sonia Lujan,Droguería,,,Calle 42 Sur 26B-35,,2,sin_verificar,
-dc2da9683c3e,CENTRO NEUROLOGICO DE BOGOTA LIMITADA,Salud (IPS y clínicas),cneurologico@hotmail.com,,,,2,sin_verificar,
+dc2da9683c3e,CENTRO NEUROLOGICO DE BOGOTA LIMITADA,Salud (IPS y clínicas),cneurologico@hotmail.com,,,,2,dudosa,sin_rastro_claro
 e6d9f4fc54b6,CENTRO OCULAR DE MIOPIA DR. RINCON SOCIEDAD POR ACCIONES SIMPLIFICADAS S A S,Salud (IPS y clínicas),centrooculardemiopia@hotmail.com,,,,2,sin_verificar,
 d526425dfd0d,Centro Odontologico Oral Expert SAS,Salud (IPS y clínicas),oralexpertcentroodontologico@gmail.com,,,,2,sin_verificar,
 f4668848bae6,Centro Odontologico y Pediatrico Sante S.A.S.,Salud (IPS y clínicas),administracion@soskids.net,,,,2,sin_verificar,
@@ -18216,7 +18214,9 @@ f09303e7978c,ZPANDULEX S.A.S.,Empresa privada (DIAN),dianajim2@hotmail.com,,CARR
 921f6cc461b9,𝗩𝗘𝗛𝗜𝗩𝗢𝗫 ⸺ 𝗗𝗢𝗠𝗢𝗧𝗜𝗖𝗔 𝗩𝗘𝗛𝗜𝗖𝗨𝗟𝗔𝗥,It,vehivox@gmail.com,+57 319 4668608,Carrera 66 67g - 38,,2,sin_verificar,
 78efa95a824f,.0246,Calzado,,,,,2,dudosa,nombre_dudoso
 7df924ad56a9,A & M,Cafetería,,,Carrera 68L,,2,dudosa,nombre_dudoso
+e4a08bcea78e,A&V ClÍNICAS ODONTOLÓGICAS SAS,Salud (IPS y clínicas),adyvelandia@hotmail.com,,,,2,dudosa,sin_rastro_claro
 6b509eb99f10,Abka,stationery,,3147976126,Bogotá,,2,dudosa,nombre_dudoso
+8986dd5f81dc,ACYS Apoyo Terapéutico Integral E.U.,Salud (IPS y clínicas),amarcreceryservir@yahoo.com,,,,2,dudosa,sin_rastro_claro
 ec8cabb2fde4,ADMINISTRADORA COLOMBIANA DE PENSIONES,Instituciones,gestiondocumental@colpensiones.gov.co,,,,2,dudosa,entidad_estatal
 5858b0f5b08d,ADP,Empresa/Oficina,,,,,2,dudosa,nombre_dudoso
 3982d8d2fa2c,AGENCIA NACIONAL DE HIDROCARBUROS,Instituciones,nciudadana@anh.gov.co,,,,2,dudosa,entidad_estatal
