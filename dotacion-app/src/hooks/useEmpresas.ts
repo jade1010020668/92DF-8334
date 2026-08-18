@@ -1,0 +1,270 @@
+import { useCallback } from 'react';
+import type { Empresa, EstadoEmpresa, EventoHistorial, FuenteEmpresa, NuevaEmpresa } from '../types';
+import { ETIQUETA_ESTADO } from '../types';
+import { CLAVE_EMPRESAS } from '../lib/config';
+import { useLocalStorageState } from './useLocalStorageState';
+
+function generarId(): string {
+  if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) return crypto.randomUUID();
+  return `id-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
+/** Antepone un evento al historial (lo más reciente primero, máx. 100). */
+function agregarEvento(
+  historial: EventoHistorial[] | undefined,
+  tipo: EventoHistorial['tipo'],
+  texto: string,
+): EventoHistorial[] {
+  const evento: EventoHistorial = { id: generarId(), fecha: new Date().toISOString(), tipo, texto };
+  return [evento, ...(historial ?? [])].slice(0, 100);
+}
+
+/** Normaliza nombre/dirección para comparar duplicados. */
+function limpiarClave(texto: string): string {
+  return texto
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]/g, '');
+}
+
+function sanearEmpresas(guardado: unknown): Empresa[] {
+  if (!Array.isArray(guardado)) return [];
+  return guardado.filter(
+    (e): e is Empresa => typeof e === 'object' && e !== null && typeof (e as Empresa).nombre === 'string',
+  );
+}
+
+export interface ResultadoAgregar {
+  agregadas: number;
+  duplicadas: number;
+  /** Repetidas a las que se les completó correo, teléfono u otro dato faltante. */
+  actualizadas: number;
+  /** Ids de las empresas recién insertadas (para seleccionarlas al llegar). */
+  idsAgregados: string[];
+}
+
+interface PlanInsercion extends ResultadoAgregar {
+  lista: Empresa[];
+}
+
+/** Referencia a una fila ya conocida: en la lista actual o recién insertada. */
+interface Registro {
+  direccion: string;
+  donde: 'actual' | 'nueva';
+  indice: number;
+}
+
+/** Calcula la inserción con dedup de forma pura (segura ante StrictMode).
+ *  Las repetidas no se descartan a ciegas: si traen correo/teléfono que a la
+ *  fila existente le falta, se lo completan (nunca pisan datos ya escritos). */
+export function planificarInsercion(
+  actuales: Empresa[],
+  nuevas: NuevaEmpresa[],
+  fuente: FuenteEmpresa,
+): PlanInsercion {
+  const copia = [...actuales];
+  // nombre normalizado → registros conocidos. Si cualquiera de las dos
+  // direcciones está vacía, basta el nombre para considerarla repetida.
+  const porNombre = new Map<string, Registro[]>();
+  const registrar = (nombre: string, direccion: string, donde: Registro['donde'], indice: number) => {
+    const lista = porNombre.get(nombre) ?? [];
+    lista.push({ direccion, donde, indice });
+    porNombre.set(nombre, lista);
+  };
+  const buscarDuplicada = (nombre: string, direccion: string): Registro | null => {
+    const registros = porNombre.get(nombre);
+    if (!registros) return null;
+    return registros.find((r) => direccion === '' || r.direccion === '' || r.direccion === direccion) ?? null;
+  };
+  copia.forEach((e, i) => registrar(limpiarClave(e.nombre), limpiarClave(e.direccion), 'actual', i));
+
+  const aInsertar: Empresa[] = [];
+  let duplicadas = 0;
+  let actualizadas = 0;
+  for (const nueva of nuevas) {
+    const nombre = nueva.nombre.trim();
+    if (!nombre) continue;
+    const claveNombre = limpiarClave(nombre);
+    const claveDir = limpiarClave(nueva.direccion ?? '');
+    const repetida = buscarDuplicada(claveNombre, claveDir);
+    if (repetida) {
+      const objetivo = repetida.donde === 'actual' ? copia[repetida.indice] : aInsertar[repetida.indice];
+      const cambios: Partial<Empresa> = {};
+      const rellenar = (campo: 'email' | 'telefono' | 'contacto' | 'sector' | 'direccion') => {
+        const valor = (nueva[campo] ?? '').trim();
+        if (valor && !objetivo[campo]) cambios[campo] = valor;
+      };
+      rellenar('email');
+      rellenar('telefono');
+      rellenar('contacto');
+      rellenar('sector');
+      rellenar('direccion');
+      if (
+        typeof nueva.lat === 'number' &&
+        typeof nueva.lon === 'number' &&
+        (objetivo.lat === undefined || objetivo.lon === undefined)
+      ) {
+        cambios.lat = nueva.lat;
+        cambios.lon = nueva.lon;
+      }
+      if (Object.keys(cambios).length > 0) {
+        const actualizado = { ...objetivo, ...cambios };
+        if (repetida.donde === 'actual') copia[repetida.indice] = actualizado;
+        else aInsertar[repetida.indice] = actualizado;
+        actualizadas++;
+      } else {
+        duplicadas++;
+      }
+      continue;
+    }
+    registrar(claveNombre, claveDir, 'nueva', aInsertar.length);
+
+    const ahora = new Date().toISOString();
+    const estado = nueva.estado ?? 'pendiente';
+    // Una empresa importada como ya contactada necesita fechas para que
+    // seguimientos y estadísticas la vean.
+    let fechaEnvio = nueva.fechaEnvio;
+    let fechaRespuesta = nueva.fechaRespuesta;
+    if (estado !== 'pendiente' && !fechaEnvio) fechaEnvio = ahora;
+    if ((estado === 'respondio' || estado === 'cliente' || estado === 'rechazado') && !fechaRespuesta) {
+      fechaRespuesta = ahora;
+    }
+
+    aInsertar.push({
+      id: generarId(),
+      nombre,
+      sector: (nueva.sector ?? '').trim(),
+      email: (nueva.email ?? '').trim(),
+      telefono: (nueva.telefono ?? '').trim(),
+      contacto: (nueva.contacto ?? '').trim(),
+      direccion: (nueva.direccion ?? '').trim(),
+      estado,
+      fechaCreacion: ahora,
+      fechaEnvio,
+      fechaRespuesta,
+      notas: (nueva.notas ?? '').trim() || undefined,
+      fuente,
+      lat: typeof nueva.lat === 'number' ? nueva.lat : undefined,
+      lon: typeof nueva.lon === 'number' ? nueva.lon : undefined,
+    });
+  }
+  const huboCambios = aInsertar.length > 0 || actualizadas > 0;
+  return {
+    lista: huboCambios ? [...aInsertar, ...copia] : actuales,
+    agregadas: aInsertar.length,
+    duplicadas,
+    actualizadas,
+    idsAgregados: aInsertar.map((e) => e.id),
+  };
+}
+
+export interface UsoEmpresas {
+  empresas: Empresa[];
+  agregarEmpresas: (nuevas: NuevaEmpresa[], fuente: FuenteEmpresa) => ResultadoAgregar;
+  actualizarEmpresa: (id: string, cambios: Partial<Empresa>) => void;
+  cambiarEstado: (id: string, estado: EstadoEmpresa) => void;
+  eliminarEmpresa: (id: string) => void;
+  /** Vuelve a insertar una empresa eliminada (para "Deshacer"). */
+  restaurarEmpresa: (empresa: Empresa) => void;
+  borrarTodo: () => void;
+  /** Reemplaza toda la lista (restauración de un respaldo completo). */
+  reemplazarTodo: (nuevas: Empresa[]) => void;
+  /** Anota un evento en el historial de gestión de una empresa. */
+  registrarEvento: (id: string, tipo: EventoHistorial['tipo'], texto: string) => void;
+}
+
+export function useEmpresas(): UsoEmpresas {
+  const [empresas, setEmpresas] = useLocalStorageState<Empresa[]>(CLAVE_EMPRESAS, [], sanearEmpresas);
+
+  const agregarEmpresas = useCallback(
+    (nuevas: NuevaEmpresa[], fuente: FuenteEmpresa): ResultadoAgregar => {
+      const plan = planificarInsercion(empresas, nuevas, fuente);
+      setEmpresas(plan.lista);
+      return {
+        agregadas: plan.agregadas,
+        duplicadas: plan.duplicadas,
+        actualizadas: plan.actualizadas,
+        idsAgregados: plan.idsAgregados,
+      };
+    },
+    [empresas, setEmpresas],
+  );
+
+  const actualizarEmpresa = useCallback(
+    (id: string, cambios: Partial<Empresa>) => {
+      setEmpresas((actuales) => actuales.map((e) => (e.id === id ? { ...e, ...cambios, id } : e)));
+    },
+    [setEmpresas],
+  );
+
+  const cambiarEstado = useCallback(
+    (id: string, estado: EstadoEmpresa) => {
+      setEmpresas((actuales) =>
+        actuales.map((e) => {
+          if (e.id !== id) return e;
+          const ahora = new Date().toISOString();
+          const cambios: Partial<Empresa> = { estado };
+          if (estado === 'pendiente') {
+            // Retroceder a pendiente limpia la historia para no falsear reportes.
+            cambios.fechaEnvio = undefined;
+            cambios.fechaRespuesta = undefined;
+          }
+          if (estado === 'enviado') {
+            cambios.fechaEnvio = ahora;
+            // Re-cotizar borra la respuesta anterior para que el ciclo arranque limpio.
+            cambios.fechaRespuesta = undefined;
+          }
+          if ((estado === 'respondio' || estado === 'cliente' || estado === 'rechazado') && !e.fechaRespuesta) {
+            cambios.fechaRespuesta = ahora;
+          }
+          cambios.historial = agregarEvento(e.historial, 'estado', `Estado → ${ETIQUETA_ESTADO[estado]}`);
+          return { ...e, ...cambios };
+        }),
+      );
+    },
+    [setEmpresas],
+  );
+
+  const eliminarEmpresa = useCallback(
+    (id: string) => setEmpresas((actuales) => actuales.filter((e) => e.id !== id)),
+    [setEmpresas],
+  );
+
+  /** Vuelve a insertar una empresa eliminada (para "Deshacer"). */
+  const restaurarEmpresa = useCallback(
+    (empresa: Empresa) =>
+      setEmpresas((actuales) =>
+        actuales.some((e) => e.id === empresa.id) ? actuales : [empresa, ...actuales],
+      ),
+    [setEmpresas],
+  );
+
+  const borrarTodo = useCallback(() => setEmpresas([]), [setEmpresas]);
+
+  const reemplazarTodo = useCallback(
+    (nuevas: Empresa[]) => setEmpresas(sanearEmpresas(nuevas)),
+    [setEmpresas],
+  );
+
+  const registrarEvento = useCallback(
+    (id: string, tipo: EventoHistorial['tipo'], texto: string) => {
+      setEmpresas((actuales) =>
+        actuales.map((e) => (e.id === id ? { ...e, historial: agregarEvento(e.historial, tipo, texto) } : e)),
+      );
+    },
+    [setEmpresas],
+  );
+
+  return {
+    empresas,
+    agregarEmpresas,
+    actualizarEmpresa,
+    cambiarEstado,
+    eliminarEmpresa,
+    restaurarEmpresa,
+    borrarTodo,
+    reemplazarTodo,
+    registrarEvento,
+  };
+}

@@ -1,0 +1,60 @@
+name: Actualizar base de datos (robot)
+
+# El robot corre solo en la nube de GitHub. NO necesita ningún computador prendido.
+on:
+  schedule:
+    - cron: "0 7 1 * *"      # el día 1 de cada mes, 7am UTC (2am Colombia)
+  workflow_dispatch:          # además, un botón para correrlo manualmente cuando quieras
+
+permissions:
+  contents: write             # para guardar la base actualizada en el repo
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Descargar el proyecto
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: pip install --quiet huggingface_hub
+
+      - name: Correr el robot (recoge, enriquece, limpia)
+        run: python robot/actualizar_base.py
+
+      - name: Guardar la base actualizada en el repo
+        run: |
+          git config user.name "DotacionPro Robot"
+          git config user.email "bot@dotacionpro.local"
+          if [ -n "$(git status --porcelain web/empresas-bogota.json)" ]; then
+            git add web/empresas-bogota.json
+            git commit -m "robot: base actualizada automáticamente ($(date -u +%Y-%m-%d))"
+            git push
+          else
+            echo "Sin cambios en la base."
+          fi
+
+      - name: Publicar en la app (Hugging Face Space)
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "Falta el secreto HF_TOKEN — no se publica. (Agrégalo en Settings → Secrets)"
+            exit 0
+          fi
+          python - <<'PY'
+          import os
+          from huggingface_hub import HfApi
+          HfApi(token=os.environ["HF_TOKEN"]).upload_file(
+              path_or_fileobj="web/empresas-bogota.json",
+              path_in_repo="empresas-bogota.json",
+              repo_id="MORALES101002/dotacionpro", repo_type="space",
+              commit_message="robot: base actualizada")
+          print("Publicado en el Space.")
+          PY

@@ -1,5 +1,10 @@
 # Dotacion Papa
 
+> 📌 **TODO el proyecto en un solo documento: [`DOCUMENTO_MAESTRO.md`](DOCUMENTO_MAESTRO.md)** (los dos sistemas, la base de datos de 11.031 correos, seguridad y pendientes).
+>
+> **La app vigente es [DotaciónPro](dotacion-app/README.md)** (React, en `dotacion-app/`), **EN VIVO** en https://morales101002-dotacionpro.static.hf.space/ — desarrollo local: `cd dotacion-app && npm install && npm run dev`.
+> Todo lo que sigue abajo (Apps Script + Google Sheets, «Dotación Papá») es el segundo sistema: código listo, pendiente de instalación (~30 min).
+
 Sistema de prospeccion B2B y envio de cotizaciones automatizado para una PYME de dotacion en Bogota.
 
 > **Arquitectura actual: Google Sheets + Apps Script + servicio Node externo de WhatsApp.**

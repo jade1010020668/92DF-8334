@@ -1,0 +1,55 @@
+# Garantiza que la app siempre funcione: pruebas + build en cada cambio.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  # La app VIVA (web/) y el motor de ventas (apps_script/MotorVentas.gs).
+  # Esto es lo que de verdad se le entrega a Diego.
+  pruebas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Motor de ventas (simulador de Apps Script)
+        run: bash pruebas/correr.sh motor
+
+      - name: Instalar Chromium para las pruebas de navegador
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+
+      - name: App web (Chromium real)
+        run: bash pruebas/correr.sh navegador
+
+  # La carpeta dotacion-app/ es la etapa anterior (React), archivada. Se sigue
+  # compilando para que no se pudra en silencio, pero NO es lo que se despliega:
+  # el Space sirve web/ (ver .github/workflows/publicar-hf-space.yml).
+  archivado-dotacion-app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: dotacion-app/package-lock.json
+
+      - name: Instalar dependencias
+        working-directory: dotacion-app
+        run: npm ci
+
+      - name: Pruebas (vitest)
+        working-directory: dotacion-app
+        run: npm test
+
+      - name: Build de producción
+        working-directory: dotacion-app
+        run: npm run build

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#17293b">
+<meta name="description" content="Catálogo 3D interactivo — Dotaciones El Manantial S.A.S. Gira cada prenda, elige color y talla, y pide tu cotización.">
+<title>Catálogo 3D — Dotaciones El Manantial</title>
+<script>
+/* Modo "solo imagen": se marca ANTES de pintar nada, para que jamás se
+   alcance a ver la aplicación completa ni por un instante. */
+try { if (new URLSearchParams(location.search).get("solo") === "1") document.documentElement.classList.add("solo"); } catch (e) {}
+</script>
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: radial-gradient(circle at 30% 18%, #e7ebf0, #cdd4dd);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    display: flex; align-items: center; justify-content: center;
+  }
+  a { color: #ef6c1a; text-decoration: none; }
+  @keyframes vFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .fade { animation: vFade .4s ease; }
+
+  /* ---- marco de la app ---- */
+  .app {
+    width: 100%; max-width: 412px; height: 100dvh; max-height: 900px;
+    background: #eceef1; overflow: hidden; position: relative;
+    display: flex; flex-direction: column;
+  }
+  @media (min-width: 480px) and (min-height: 940px) {
+    .app { border-radius: 42px; box-shadow: 0 40px 90px -20px rgba(20,30,45,.55); }
+  }
+
+  /* header */
+  .header { height: 58px; flex: none; display: flex; align-items: center; justify-content: space-between; padding: 10px 22px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-logo { width: 34px; height: 34px; border-radius: 10px; background: #17293b; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; letter-spacing: .5px; color: #eceef1; }
+  .brand-name { font-size: 13px; font-weight: 700; color: #17293b; letter-spacing: -.2px; line-height: 1.15; }
+  .brand-sub { font-size: 9px; font-weight: 600; color: #8891a0; letter-spacing: 1.2px; }
+  .header-link { font-size: 11px; font-weight: 600; color: #17293b; background: #fff; border: 1px solid rgba(23,41,59,.1); border-radius: 12px; padding: 8px 12px; }
+
+  /* escenario 3D */
+  .stage {
+    flex: none; height: 314px; margin: 8px 18px 0; border-radius: 28px; position: relative; overflow: hidden;
+    background: radial-gradient(circle at 50% 34%, #ffffff 0%, #e6ebf1 60%, #d7dee7 100%);
+    border: 1px solid rgba(23,41,59,.07);
+  }
+  #mount { position: absolute; inset: 0; touch-action: none; cursor: grab; }
+  #mount:active { cursor: grabbing; }
+  .badge360 { position: absolute; top: 16px; left: 16px; display: flex; align-items: center; gap: 6px; padding: 6px 11px; background: rgba(255,255,255,.75); backdrop-filter: blur(8px); border-radius: 999px; font-size: 11px; font-weight: 600; color: #17293b; letter-spacing: .3px; pointer-events: none; }
+  .badge360 .dot { width: 6px; height: 6px; border-radius: 50%; background: #ef6c1a; }
+  .stage-btns { position: absolute; top: 14px; right: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .stage-btn { width: 38px; height: 38px; border: none; border-radius: 13px; background: rgba(255,255,255,.85); backdrop-filter: blur(8px); box-shadow: 0 4px 14px -6px rgba(20,30,45,.4); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #17293b; padding: 0; }
+  .hint { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 7px; padding: 6px 13px; background: rgba(23,41,59,.06); border-radius: 999px; font-size: 11px; color: #5f6a78; font-weight: 500; white-space: nowrap; pointer-events: none; }
+
+  /* contenido scroll */
+  .scroll { flex: 1; overflow-y: auto; padding: 0 22px; -ms-overflow-style: none; scrollbar-width: none; }
+  .scroll::-webkit-scrollbar { display: none; }
+  .prod-cat { font-size: 11px; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase; color: #ef6c1a; }
+  .prod-name { font-size: 25px; font-weight: 700; line-height: 1.08; color: #17293b; margin-top: 5px; letter-spacing: -.5px; }
+  .prod-desc { font-size: 12.5px; color: #6d7684; margin-top: 6px; line-height: 1.4; }
+
+  .row-label { display: flex; align-items: baseline; justify-content: space-between; }
+  .row-label b { font-size: 12px; font-weight: 600; color: #17293b; }
+  .row-label span { font-size: 12px; color: #8891a0; }
+
+  .swatches { display: flex; gap: 11px; margin-top: 11px; }
+  .swatch { position: relative; width: 36px; height: 36px; border-radius: 50%; border: none; padding: 0; cursor: pointer; box-shadow: 0 2px 6px -1px rgba(0,0,0,.22); }
+  .swatch .ring { position: absolute; inset: -4px; border: 2px solid #ef6c1a; border-radius: 50%; }
+  .foto-nota { margin-top: 16px; display: flex; align-items: center; gap: 8px; font-size: 12px; color: #6d7684; }
+
+  .sizes { display: flex; gap: 9px; margin-top: 11px; flex-wrap: wrap; }
+  .size-btn { min-width: 44px; height: 40px; padding: 0 6px; border-radius: 12px; border: 1px solid rgba(23,41,59,.14); background: #fff; color: #17293b; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .size-btn.on { background: #17293b; color: #eceef1; border-color: #17293b; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .card { position: relative; text-align: left; border: 1px solid rgba(23,41,59,.09); background: #fff; border-radius: 20px; padding: 13px; cursor: pointer; display: flex; flex-direction: column; gap: 10px; font-family: inherit; }
+  .card .sel { position: absolute; inset: -1px; border: 2px solid #ef6c1a; border-radius: 20px; pointer-events: none; }
+  .card .thumb { height: 56px; border-radius: 13px; background: radial-gradient(circle at 50% 40%, #f2f5f8, #dfe5ec); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .card .thumb img { height: 52px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 3px rgba(20,30,45,.18)); }
+  .card .thumb span { font-size: 23px; font-weight: 700; color: #17293b; }
+  .card .nm { font-size: 12px; font-weight: 600; color: #17293b; line-height: 1.2; }
+  .card .pr { font-size: 12px; color: #ef6c1a; font-weight: 600; margin-top: 3px; }
+
+  /* ---- MODO SOLO IMAGEN (desde el catálogo de precios) ----
+     La clase vive en <html> y se pone antes del primer pintado: nada de la
+     aplicación completa se alcanza a ver, ni por milisegundos. */
+  html.solo .header, html.solo .scroll, html.solo .cta,
+  body.solo .header, body.solo .scroll, body.solo .cta { display: none; }
+  html.solo .app, body.solo .app { max-width: none; max-height: none; border-radius: 0; box-shadow: none; }
+  html.solo .stage, body.solo .stage { flex: 1; height: auto; margin: 0; border-radius: 0; border: none; }
+  .btn-cerrar-solo { display: none; position: absolute; top: 14px; left: 14px; z-index: 5;
+    width: 42px; height: 42px; border: none; border-radius: 14px; background: rgba(23,41,59,.92);
+    color: #eceef1; font-size: 20px; font-weight: 600; cursor: pointer; align-items: center; justify-content: center;
+    box-shadow: 0 4px 14px -6px rgba(20,30,45,.5); }
+  html.solo .btn-cerrar-solo, body.solo .btn-cerrar-solo { display: flex; }
+  html.solo .badge360, body.solo .badge360 { left: 66px; }
+  .nombre-solo { display: none; position: absolute; bottom: 52px; left: 50%; transform: translateX(-50%);
+    font-size: 15px; font-weight: 700; color: #17293b; background: rgba(255,255,255,.8);
+    backdrop-filter: blur(8px); padding: 8px 18px; border-radius: 999px; white-space: nowrap; pointer-events: none; }
+  html.solo .nombre-solo, body.solo .nombre-solo { display: block; }
+
+  /* barra CTA */
+  .cta { flex: none; padding: 12px 22px calc(18px + env(safe-area-inset-bottom)); background: linear-gradient(to top, #eceef1 72%, rgba(236,238,241,0)); display: flex; align-items: center; gap: 14px; }
+  .cta .plabel { font-size: 9.5px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: #8891a0; }
+  .cta .pval { font-size: 23px; font-weight: 700; color: #17293b; line-height: 1.1; }
+  .cta-btn { flex: 1; height: 54px; border: none; border-radius: 18px; background: #17293b; color: #eceef1; font-family: inherit; font-size: 14.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 9px; }
+  .cta-btn:active { transform: scale(.98); }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <div class="brand">
+      <div class="brand-logo">DM</div>
+      <div>
+        <div class="brand-name">Dotaciones El Manantial</div>
+        <div class="brand-sub">EPP · CONFECCIÓN · BOGOTÁ</div>
+      </div>
+    </div>
+    <a class="header-link" href="./catalogo.html">Lista de precios</a>
+  </div>
+
+  <div class="stage">
+    <div id="mount"></div>
+    <button class="btn-cerrar-solo" id="btn-cerrar-solo" title="Volver al catálogo">✕</button>
+    <div class="nombre-solo" id="nombre-solo"></div>
+    <div class="badge360"><span class="dot"></span>Vista 360°</div>
+    <div class="stage-btns">
+      <button class="stage-btn" id="btn-rotar" title="Pausar/girar">
+        <svg id="ic-pausa" width="15" height="15" viewBox="0 0 24 24" fill="#17293b"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg>
+        <svg id="ic-play" width="15" height="15" viewBox="0 0 24 24" fill="#17293b" style="display:none"><path d="M7 5l12 7-12 7z"/></svg>
+      </button>
+      <button class="stage-btn" id="btn-reset" title="Reiniciar vista">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#17293b" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v4h4"/></svg>
+      </button>
+    </div>
+    <div class="hint">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5f6a78" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h5M17 12h5M12 2v5M12 17v5"/><circle cx="12" cy="12" r="3"/></svg>
+      Arrastra para rotar · pellizca para acercar
+    </div>
+  </div>
+
+  <div class="scroll">
+    <div style="padding:18px 0 2px" class="fade" id="info">
+      <div class="prod-cat" id="i-cat"></div>
+      <div class="prod-name" id="i-nombre"></div>
+      <div class="prod-desc" id="i-desc"></div>
+    </div>
+
+    <div style="margin-top:16px" id="bloque-colores">
+      <div class="row-label"><b>Color / tela</b><span id="i-color"></span></div>
+      <div class="swatches" id="swatches"></div>
+    </div>
+    <div class="foto-nota" id="bloque-foto" style="display:none">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ef6c1a" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      Modelo 3D generado desde la foto real del producto
+    </div>
+
+    <div style="margin-top:18px">
+      <div class="row-label"><b>Talla</b><span>Confección hasta XXL</span></div>
+      <div class="sizes" id="sizes"></div>
+    </div>
+
+    <div style="margin-top:24px;padding-bottom:14px">
+      <div class="row-label" style="margin-bottom:12px"><b>Catálogo 2026</b><span id="i-total"></span></div>
+      <div class="grid" id="grid"></div>
+      <p style="font-size:11px;color:#8891a0;margin-top:14px;line-height:1.5">
+        Precios de referencia 2026, sin IVA. Descuentos por volumen desde 20 unidades.
+        Bordamos y estampamos su logo. <a href="./catalogo.html">Ver lista completa de precios →</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div style="flex:none">
+      <div class="plabel">Precio unit. · sin IVA</div>
+      <div class="pval" id="i-precio"></div>
+    </div>
+    <button class="cta-btn" id="btn-cotizar">
+      Solicitar cotización
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#eceef1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+
+</div>
+
+<script src="./lib/three.min.js"></script>
+<script src="./lib/OrbitControls.js"></script>
+<script>
+/* ==========================================================================
+   Catálogo 3D interactivo — Dotaciones El Manantial S.A.S
+   Basado en el diseño hecho por Diego en Claude Design (App de prendas 3D).
+   Prendas con foto real → malla 3D "inflada" desde la silueta de la foto.
+   Los demás productos → modelos 3D construidos con geometría.
+   ========================================================================== */
+"use strict";
+
+var WHATSAPP_NEGOCIO = "573135745063"; // cel del negocio para recibir cotizaciones
+
+var COLORES = [
+  { nombre: "Azul dril", hex: "#2f5c8f" },
+  { nombre: "Gris", hex: "#676d75" },
+  { nombre: "Caqui", hex: "#b8a481" },
+  { nombre: "Verde", hex: "#3f5f45" },
+  { nombre: "Naranja seguridad", hex: "#ef6c1a" },
+  { nombre: "Negro", hex: "#1e2228" },
+];
+var TALLAS = ["S", "M", "L", "XL", "XXL"];
+
+var PRODUCTOS = [
+  { id: "camisa",   nombre: "Camisa de trabajo",    cat: "Vendedores",     precio: 41500, inicial: "C", desc: "Camisa manga larga en dril · doble bolsillo · hasta XL", foto: "assets/shirt.png", aspecto: 0.8321 },
+  { id: "pantalon", nombre: "Pantalón de trabajo",  cat: "Dotación",       precio: 31500, inicial: "P", desc: "Pantalón en jeans prelavado · hasta talla 36", foto: "assets/pants.png", aspecto: 0.4735 },
+  { id: "overol",   nombre: "Overol enterizo",      cat: "Dotación",       precio: 58800, inicial: "O", desc: "Overol enterizo 3 cremalleras en dril · hasta talla 42" },
+  { id: "polo",     nombre: "Camiseta polo",        cat: "Vendedores",     precio: 25600, inicial: "T", desc: "Camiseta polo manga corta · bordado disponible · hasta XL", foto: "assets/polo.png", aspecto: 1.5 },
+  { id: "casco",    nombre: "Casco de seguridad",   cat: "Protección EPP", precio: 24500, inicial: "S", desc: "Casco de protección industrial · ajuste ratchet", foto: "assets/casco.png", aspecto: 1.5025 },
+  { id: "bota",     nombre: "Bota de seguridad",    cat: "Calzado",        precio: 65000, inicial: "B", desc: "Bota liviana con puntera · ref. 920", foto: "assets/bota.png", aspecto: 1.4975 },
+  { id: "guante",   nombre: "Guante industrial",    cat: "Protección EPP", precio: 9800,  inicial: "G", desc: "Guante tipo ingeniero reforzado", foto: "assets/guante.png", aspecto: 1.1201 },
+  { id: "chaleco",  nombre: "Chaleco periodista",   cat: "Dotación",       precio: 41500, inicial: "V", desc: "Chaleco en dril con bandas reflectivas · hasta XL", foto: "assets/chaleco.png", aspecto: 1.5126 },
+];
+
+var estado = { productoId: "camisa", color: 0, talla: 2, girando: true };
+// Enlace directo desde el catálogo de precios: catalogo3d.html?p=casco
+// Con &solo=1 se muestra ÚNICAMENTE la imagen 3D (sin precios ni catálogo).
+var MODO_SOLO = false;
+try {
+  var qs = new URLSearchParams(location.search);
+  var pParam = qs.get("p");
+  if (pParam && PRODUCTOS_IDS().indexOf(pParam) >= 0) estado.productoId = pParam;
+  MODO_SOLO = qs.get("solo") === "1";
+  if (MODO_SOLO) document.body.classList.add("solo");
+} catch (e) {}
+function PRODUCTOS_IDS() { return PRODUCTOS.map(function (p) { return p.id; }); }
+var fmt = function (n) { return "$" + Math.round(n).toLocaleString("es-CO"); };
+
+/* ------------------------------ Three.js ------------------------------ */
+var T = window.THREE;
+var escena, camara, renderer, controles, grupoProducto = null;
+var esFoto = false, arrastrando = false;
+var cacheImg = {};
+
+function mat(opts) {
+  return new T.MeshStandardMaterial(Object.assign({ color: 0xffffff, roughness: 0.82, metalness: 0.05 }, opts || {}));
+}
+
+function initThree() {
+  var mount = document.getElementById("mount");
+  var w = mount.clientWidth, h = mount.clientHeight;
+
+  renderer = new T.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(w, h);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = T.PCFSoftShadowMap;
+  renderer.outputEncoding = T.sRGBEncoding;
+  mount.appendChild(renderer.domElement);
+
+  escena = new T.Scene();
+  camara = new T.PerspectiveCamera(38, w / h, 0.1, 100);
+  camara.position.set(0, 0.35, 5);
+
+  controles = new T.OrbitControls(camara, renderer.domElement);
+  controles.enableDamping = true;
+  controles.dampingFactor = 0.08;
+  controles.enablePan = false;
+  controles.minDistance = 3.2;
+  controles.maxDistance = 7.5;
+  controles.autoRotateSpeed = 2.2;
+  controles.target.set(0, 0, 0);
+  controles.update();
+  controles.saveState();
+  controles.addEventListener("start", function () { arrastrando = true; });
+  controles.addEventListener("end", function () { arrastrando = false; });
+
+  escena.add(new T.HemisphereLight(0xffffff, 0x9aa2ac, 0.9));
+  var key = new T.DirectionalLight(0xffffff, 1.05);
+  key.position.set(3.5, 6, 4);
+  key.castShadow = true;
+  key.shadow.mapSize.set(1024, 1024);
+  key.shadow.camera.near = 1; key.shadow.camera.far = 20;
+  key.shadow.camera.left = -4; key.shadow.camera.right = 4;
+  key.shadow.camera.top = 4; key.shadow.camera.bottom = -4;
+  key.shadow.bias = -0.0005;
+  escena.add(key);
+  var fill = new T.DirectionalLight(0xffffff, 0.4);
+  fill.position.set(-4, 2, -3);
+  escena.add(fill);
+
+  var piso = new T.Mesh(new T.PlaneGeometry(30, 30), new T.ShadowMaterial({ opacity: 0.17 }));
+  piso.rotation.x = -Math.PI / 2;
+  piso.position.y = -1.4;
+  piso.receiveShadow = true;
+  escena.add(piso);
+
+  if (window.ResizeObserver) {
+    new ResizeObserver(function () {
+      var nw = mount.clientWidth, nh = mount.clientHeight;
+      if (!nw || !nh) return;
+      camara.aspect = nw / nh; camara.updateProjectionMatrix(); renderer.setSize(nw, nh);
+    }).observe(mount);
+  }
+
+  construirProducto();
+  (function loop() {
+    requestAnimationFrame(loop);
+    if (esFoto) {
+      controles.autoRotate = false;
+      if (estado.girando && !arrastrando && grupoProducto) grupoProducto.rotation.y += 0.012;
+    } else {
+      controles.autoRotate = estado.girando;
+    }
+    controles.update();
+    renderer.render(escena, camara);
+  })();
+}
+
+function limitesVista() {
+  if (!controles) return;
+  if (esFoto) {
+    controles.minPolarAngle = Math.PI / 2 - 0.5;
+    controles.maxPolarAngle = Math.PI / 2 + 0.35;
+  } else {
+    controles.minPolarAngle = 0;
+    controles.maxPolarAngle = Math.PI;
+  }
+  controles.reset();
+}
+
+function encuadrar(inner) {
+  var box = new T.Box3().setFromObject(inner);
+  var c = box.getCenter(new T.Vector3());
+  var size = box.getSize(new T.Vector3());
+  inner.position.set(-c.x, -c.y, -c.z);
+  var maxd = Math.max(size.x, size.y, size.z) || 1;
+  var pivote = new T.Group();
+  pivote.add(inner);
+  pivote.scale.setScalar(2.35 / maxd);
+  grupoProducto = pivote;
+  escena.add(pivote);
+}
+
+function construirProducto() {
+  if (grupoProducto) {
+    escena.remove(grupoProducto);
+    grupoProducto.traverse(function (o) { if (o.isMesh) { o.geometry.dispose(); o.material.dispose(); } });
+    grupoProducto = null;
+  }
+  var cur = productoActual();
+  esFoto = !!cur.foto;
+  limitesVista();
+  if (cur.foto) { construirFoto(cur); return; }
+  var inner;
+  if (cur.id === "casco") inner = buildCasco();
+  else if (cur.id === "bota") inner = buildBota();
+  else if (cur.id === "guante") inner = buildGuante();
+  else if (cur.id === "overol") inner = buildOverol();
+  else if (cur.id === "polo") inner = buildPolo();
+  else inner = buildChaleco();
+  encuadrar(inner);
+  aplicarColor();
+}
+
+function aplicarColor() {
+  if (!grupoProducto) return;
+  var hex = COLORES[estado.color].hex;
+  grupoProducto.traverse(function (o) { if (o.isMesh && o.userData.tintable) o.material.color.set(hex); });
+}
+
+function extruir(shape, depth, bevel) {
+  var geo = new T.ExtrudeGeometry(shape, { depth: depth, bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 4, steps: 1, curveSegments: 24 });
+  geo.center();
+  return geo;
+}
+
+/* ---------- Modelos 3D construidos (del diseño de Diego) ---------- */
+function buildOverol() {
+  var g = new T.Group();
+  var s = new T.Shape();
+  s.moveTo(-0.30, 1.25); s.lineTo(-0.72, 1.25); s.lineTo(-1.12, 0.90); s.lineTo(-0.92, 0.66);
+  s.lineTo(-0.56, 0.90); s.lineTo(-0.60, 0.00); s.lineTo(-0.62, -0.20); s.lineTo(-0.60, -1.70);
+  s.lineTo(-0.30, -1.70); s.lineTo(-0.08, -0.15); s.quadraticCurveTo(0, -0.05, 0.08, -0.15);
+  s.lineTo(0.30, -1.70); s.lineTo(0.60, -1.70); s.lineTo(0.62, -0.20); s.lineTo(0.60, 0.00);
+  s.lineTo(0.56, 0.90); s.lineTo(0.92, 0.66); s.lineTo(1.12, 0.90); s.lineTo(0.72, 1.25);
+  s.lineTo(0.30, 1.25); s.quadraticCurveTo(0, 1.05, -0.30, 1.25);
+  var mesh = new T.Mesh(extruir(s, 0.32, 0.12), mat({ roughness: 0.9 }));
+  mesh.castShadow = true; mesh.userData.tintable = true;
+  g.add(mesh);
+  var zip = new T.Mesh(new T.BoxGeometry(0.06, 1.15, 0.05), mat({ color: 0x14202c, roughness: 0.5 }));
+  zip.position.set(0, 0.42, 0.30); g.add(zip);
+  var cuello = new T.Mesh(new T.BoxGeometry(0.78, 0.16, 0.34), mat({ color: 0x14202c, roughness: 0.85 }));
+  cuello.position.set(0, 1.12, 0); g.add(cuello);
+  return g;
+}
+
+function buildCasco() {
+  var g = new T.Group();
+  var shellGeo = new T.SphereGeometry(0.86, 44, 30, 0, Math.PI * 2, 0, Math.PI * 0.6);
+  shellGeo.scale(1, 0.88, 1.05);
+  var shell = new T.Mesh(shellGeo, mat({ roughness: 0.35, metalness: 0.05 }));
+  shell.castShadow = true; shell.userData.tintable = true;
+  g.add(shell);
+  var ala = new T.Mesh(new T.CylinderGeometry(1.0, 1.0, 0.05, 48), mat({ roughness: 0.35 }));
+  ala.position.y = -0.22; ala.castShadow = true; ala.userData.tintable = true;
+  g.add(ala);
+  var bs = new T.Shape();
+  bs.moveTo(-0.6, 0); bs.quadraticCurveTo(-0.66, 0.6, 0, 0.66); bs.quadraticCurveTo(0.66, 0.6, 0.6, 0); bs.quadraticCurveTo(0, 0.1, -0.6, 0);
+  var picoGeo = new T.ExtrudeGeometry(bs, { depth: 0.05, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.03, bevelSegments: 2, curveSegments: 20 });
+  var pico = new T.Mesh(picoGeo, mat({ roughness: 0.35 }));
+  pico.rotation.x = Math.PI / 2 + 0.12;
+  pico.position.set(0, -0.2, 0.62);
+  pico.castShadow = true; pico.userData.tintable = true;
+  g.add(pico);
+  for (var i = -1; i <= 1; i++) {
+    var rib = new T.Mesh(new T.BoxGeometry(0.05, 0.06, 1.55), mat({ roughness: 0.4 }));
+    rib.position.set(i * 0.34, 0.28 - Math.abs(i) * 0.06, 0);
+    rib.userData.tintable = true;
+    g.add(rib);
+  }
+  return g;
+}
+
+function buildBota() {
+  var g = new T.Group();
+  var p = new T.Shape();
+  p.moveTo(-0.55, -0.55); p.lineTo(0.78, -0.55); p.lineTo(0.82, -0.30); p.lineTo(0.55, -0.18);
+  p.lineTo(0.36, 0.02); p.lineTo(0.34, 0.88); p.lineTo(0.30, 0.98); p.lineTo(-0.14, 0.98);
+  p.lineTo(-0.14, 0.10); p.lineTo(-0.50, -0.18); p.quadraticCurveTo(-0.60, -0.35, -0.55, -0.55);
+  var upperGeo = new T.ExtrudeGeometry(p, { depth: 0.66, bevelEnabled: true, bevelThickness: 0.06, bevelSize: 0.06, bevelSegments: 3, curveSegments: 20 });
+  upperGeo.center();
+  var upper = new T.Mesh(upperGeo, mat({ roughness: 0.55 }));
+  upper.castShadow = true; upper.userData.tintable = true;
+  g.add(upper);
+  var suela = new T.Mesh(new T.BoxGeometry(1.44, 0.20, 0.80), mat({ color: 0x1a1d22, roughness: 0.75 }));
+  suela.position.set(0.10, -0.62, 0); suela.castShadow = true;
+  g.add(suela);
+  var puntera = new T.Mesh(new T.BoxGeometry(0.10, 0.30, 0.72), mat({ color: 0x1a1d22, roughness: 0.6 }));
+  puntera.position.set(0.72, -0.40, 0);
+  g.add(puntera);
+  return g;
+}
+
+function buildGuante() {
+  var g = new T.Group();
+  var rough = { roughness: 0.9 };
+  var palma = new T.Mesh(new T.BoxGeometry(0.95, 0.62, 0.34), mat(rough));
+  palma.position.set(0, 0.06, 0); palma.castShadow = true; palma.userData.tintable = true;
+  g.add(palma);
+  var puno = new T.Mesh(new T.CylinderGeometry(0.42, 0.5, 0.4, 24), mat({ roughness: 0.95 }));
+  puno.position.set(0, -0.42, 0); puno.castShadow = true; puno.userData.tintable = true;
+  g.add(puno);
+  [[-0.33, 0.5], [-0.11, 0.64], [0.11, 0.58], [0.33, 0.44]].forEach(function (fd) {
+    var x = fd[0], len = fd[1];
+    var cil = new T.Mesh(new T.CylinderGeometry(0.1, 0.1, len, 18), mat(rough));
+    cil.position.set(x, 0.37 + len / 2, 0); cil.castShadow = true; cil.userData.tintable = true;
+    g.add(cil);
+    var punta = new T.Mesh(new T.SphereGeometry(0.1, 16, 16), mat(rough));
+    punta.position.set(x, 0.37 + len, 0); punta.userData.tintable = true;
+    g.add(punta);
+  });
+  var pulgar = new T.Mesh(new T.CylinderGeometry(0.11, 0.11, 0.44, 18), mat(rough));
+  pulgar.position.set(-0.52, 0.14, 0.02); pulgar.rotation.z = Math.PI * 0.42;
+  pulgar.castShadow = true; pulgar.userData.tintable = true;
+  g.add(pulgar);
+  var puntaP = new T.Mesh(new T.SphereGeometry(0.11, 16, 16), mat(rough));
+  puntaP.position.set(-0.72, 0.32, 0.02); puntaP.userData.tintable = true;
+  g.add(puntaP);
+  return g;
+}
+
+function buildChaleco() {
+  var g = new T.Group();
+  var s = new T.Shape();
+  s.moveTo(-0.32, 1.00); s.lineTo(-0.66, 0.98); s.quadraticCurveTo(-0.60, 0.55, -0.60, 0.40);
+  s.lineTo(-0.60, -1.05); s.lineTo(0.60, -1.05); s.lineTo(0.60, 0.40);
+  s.quadraticCurveTo(0.60, 0.55, 0.66, 0.98); s.lineTo(0.32, 1.00);
+  s.quadraticCurveTo(0, 0.74, -0.32, 1.00);
+  var cuerpo = new T.Mesh(extruir(s, 0.26, 0.1), mat({ roughness: 0.9 }));
+  cuerpo.castShadow = true; cuerpo.userData.tintable = true;
+  g.add(cuerpo);
+  [0.28, -0.42].forEach(function (y) {
+    var banda = new T.Mesh(new T.BoxGeometry(1.02, 0.16, 0.06), mat({ color: 0xd7dde3, roughness: 0.4, metalness: 0.2 }));
+    banda.position.set(0, y, 0.22);
+    g.add(banda);
+  });
+  var zip = new T.Mesh(new T.BoxGeometry(0.05, 1.7, 0.04), mat({ color: 0x14202c, roughness: 0.5 }));
+  zip.position.set(0, -0.05, 0.24);
+  g.add(zip);
+  return g;
+}
+
+function buildPolo() {
+  var g = new T.Group();
+  var s = new T.Shape();
+  s.moveTo(-0.35, 1.0); s.lineTo(-0.78, 1.0); s.lineTo(-1.24, 0.52); s.lineTo(-1.0, 0.28);
+  s.lineTo(-0.60, 0.62); s.lineTo(-0.60, -1.05); s.lineTo(0.60, -1.05); s.lineTo(0.60, 0.62);
+  s.lineTo(1.0, 0.28); s.lineTo(1.24, 0.52); s.lineTo(0.78, 1.0); s.lineTo(0.35, 1.0);
+  s.quadraticCurveTo(0, 0.74, -0.35, 1.0);
+  var cuerpo = new T.Mesh(extruir(s, 0.32, 0.12), mat({ roughness: 0.88 }));
+  cuerpo.castShadow = true; cuerpo.userData.tintable = true;
+  g.add(cuerpo);
+  [-1, 1].forEach(function (dir) {
+    var col = new T.Mesh(new T.BoxGeometry(0.34, 0.14, 0.12), mat({ roughness: 0.85 }));
+    col.position.set(dir * 0.24, 0.94, 0.16);
+    col.rotation.z = dir * 0.5;
+    col.userData.tintable = true;
+    g.add(col);
+  });
+  var tapeta = new T.Mesh(new T.BoxGeometry(0.12, 0.42, 0.06), mat({ roughness: 0.85 }));
+  tapeta.position.set(0, 0.58, 0.25); tapeta.userData.tintable = true;
+  g.add(tapeta);
+  [0.68, 0.5].forEach(function (y) {
+    var btn = new T.Mesh(new T.SphereGeometry(0.035, 12, 12), mat({ color: 0xf2f4f6, roughness: 0.5 }));
+    btn.position.set(0, y, 0.29);
+    g.add(btn);
+  });
+  return g;
+}
+
+/* ---------- Foto real → prenda 3D inflada (técnica del diseño) ---------- */
+var tokenFoto = 0;
+function construirFoto(cur) {
+  var token = ++tokenFoto;
+  var listo = function (image, tex) {
+    if (token !== tokenFoto || !escena) return;
+    encuadrar(hacerInflado(image, tex, image.width / image.height));
+  };
+  var cacheada = cacheImg[cur.foto];
+  if (cacheada) { listo(cacheada.image, cacheada.tex); return; }
+  var image = new Image();
+  image.crossOrigin = "anonymous";
+  image.onload = function () {
+    // El aspecto se calcula solo desde la foto: agregar un producto nuevo
+    // es únicamente soltar su PNG (fondo transparente) en assets/.
+    cur.aspecto = image.width / image.height;
+    var tex = new T.Texture(image);
+    tex.encoding = T.sRGBEncoding;
+    if (renderer) tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    tex.needsUpdate = true;
+    cacheImg[cur.foto] = { image: image, tex: tex };
+    listo(image, tex);
+  };
+  image.src = cur.foto;
+}
+
+function hacerInflado(img, tex, aspecto) {
+  // Lámina plana como una hoja: se ve la foto por el frente y por detrás,
+  // sin grosor visible (las capas apiladas se veían mal al girar).
+  var H = 2.2, Wd = H * aspecto;
+  var g = new T.Group();
+  var frente = new T.Mesh(
+    new T.PlaneGeometry(Wd, H),
+    new T.MeshStandardMaterial({ map: tex, alphaTest: 0.5, side: T.FrontSide, roughness: 0.88, metalness: 0.0 })
+  );
+  frente.position.z = 0.004;
+  frente.castShadow = true;
+  g.add(frente);
+  var atras = new T.Mesh(
+    new T.PlaneGeometry(Wd, H),
+    new T.MeshStandardMaterial({ map: tex, alphaTest: 0.5, side: T.FrontSide, roughness: 0.88, metalness: 0.0 })
+  );
+  atras.rotation.y = Math.PI; // misma foto mirando hacia atrás (no espejada)
+  atras.position.z = -0.004;
+  g.add(atras);
+  return g;
+}
+
+/* ------------------------------ UI ------------------------------ */
+function productoActual() {
+  for (var i = 0; i < PRODUCTOS.length; i++) if (PRODUCTOS[i].id === estado.productoId) return PRODUCTOS[i];
+  return PRODUCTOS[0];
+}
+
+function esc(s) {
+  return String(s || "").replace(/[&<>"']/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+  });
+}
+
+function pintarUI() {
+  var cur = productoActual();
+
+  var info = document.getElementById("info");
+  info.classList.remove("fade"); void info.offsetWidth; info.classList.add("fade");
+  document.getElementById("i-cat").textContent = cur.cat;
+  document.getElementById("i-nombre").textContent = cur.nombre;
+  document.getElementById("i-desc").textContent = cur.desc;
+  document.getElementById("i-precio").textContent = fmt(cur.precio);
+  document.getElementById("i-total").textContent = PRODUCTOS.length + " productos";
+  document.getElementById("nombre-solo").textContent = cur.nombre;
+
+  // colores: solo para modelos 3D (las fotos muestran la tela real)
+  document.getElementById("bloque-colores").style.display = cur.foto ? "none" : "";
+  document.getElementById("bloque-foto").style.display = cur.foto ? "" : "none";
+  document.getElementById("i-color").textContent = COLORES[estado.color].nombre;
+  var sw = COLORES.map(function (c, i) {
+    var on = i === estado.color;
+    var borde = c.hex === "#ef6c1a" && on ? "#17293b" : "#ef6c1a";
+    return '<button class="swatch" data-i="' + i + '" title="' + esc(c.nombre) + '" style="background:' + c.hex + '">' +
+      (on ? '<span class="ring" style="border-color:' + borde + '"></span>' : "") + "</button>";
+  }).join("");
+  document.getElementById("swatches").innerHTML = sw;
+
+  var tz = TALLAS.map(function (t, i) {
+    return '<button class="size-btn' + (i === estado.talla ? " on" : "") + '" data-i="' + i + '">' + t + "</button>";
+  }).join("");
+  document.getElementById("sizes").innerHTML = tz;
+
+  var cards = PRODUCTOS.map(function (p) {
+    var activo = p.id === estado.productoId;
+    var thumb = p.foto
+      ? '<img src="' + p.foto + '" alt="' + esc(p.nombre) + '">'
+      : "<span>" + esc(p.inicial) + "</span>";
+    return '<button class="card" data-id="' + p.id + '">' +
+      (activo ? '<span class="sel"></span>' : "") +
+      '<div class="thumb">' + thumb + "</div>" +
+      '<div><div class="nm">' + esc(p.nombre) + '</div><div class="pr">' + fmt(p.precio) + "</div></div></button>";
+  }).join("");
+  document.getElementById("grid").innerHTML = cards;
+
+  document.getElementById("ic-pausa").style.display = estado.girando ? "" : "none";
+  document.getElementById("ic-play").style.display = estado.girando ? "none" : "";
+}
+
+document.addEventListener("click", function (e) {
+  var swatch = e.target.closest(".swatch");
+  if (swatch) { estado.color = +swatch.dataset.i; pintarUI(); aplicarColor(); return; }
+  var size = e.target.closest(".size-btn");
+  if (size) { estado.talla = +size.dataset.i; pintarUI(); return; }
+  var card = e.target.closest(".card");
+  if (card) {
+    if (card.dataset.id !== estado.productoId) {
+      estado.productoId = card.dataset.id;
+      pintarUI();
+      construirProducto();
+    }
+    return;
+  }
+});
+
+document.getElementById("btn-rotar").addEventListener("click", function () {
+  estado.girando = !estado.girando;
+  pintarUI();
+});
+document.getElementById("btn-reset").addEventListener("click", function () {
+  if (controles) controles.reset();
+});
+document.getElementById("btn-cerrar-solo").addEventListener("click", function () {
+  if (history.length > 1) history.back();
+  else window.location.href = "./catalogo.html";
+});
+
+document.getElementById("btn-cotizar").addEventListener("click", function () {
+  var cur = productoActual();
+  var partes = [
+    "Hola, Dotaciones El Manantial 👋",
+    "Vi su catálogo 3D y me interesa una cotización de:",
+    "• " + cur.nombre + " (" + cur.cat + ")",
+    "• Talla: " + TALLAS[estado.talla],
+  ];
+  if (!cur.foto) partes.push("• Color: " + COLORES[estado.color].nombre);
+  partes.push("• Precio de referencia: " + fmt(cur.precio) + " + IVA");
+  partes.push("");
+  partes.push("Cantidad aproximada: ___");
+  var url = "https://wa.me/" + WHATSAPP_NEGOCIO + "?text=" + encodeURIComponent(partes.join("\n"));
+  window.open(url, "_blank");
+});
+
+/* ------------------------------ Arranque ------------------------------ */
+pintarUI();
+if (window.THREE && window.THREE.OrbitControls) {
+  initThree();
+} else {
+  document.getElementById("mount").innerHTML =
+    '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8891a0;font-size:13px;padding:20px;text-align:center">No se pudo cargar el visor 3D.<br>Revisa tu conexión e intenta de nuevo.</div>';
+}
+</script>
+</body>
+</html>

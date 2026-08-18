@@ -1,0 +1,45 @@
+name: Cañón de correos diario (PARQUEADO — no usar para correo frío)
+
+# ⛔ PARQUEADO (jul 2026) tras investigación con fuentes: la política antispam
+# de Brevo PROHÍBE correo frío a listas sin opt-in (riesgo de suspensión de la
+# cuenta) y reescribe remitentes freemail (@hotmail) a @brevosend.com.
+# El canal de correo vigente es apps_script/MotorVentas.gs (buzón Gmail propio,
+# 45/día uno a uno — ver datos/GUIA_MOTOR_VENTAS.md).
+# Este workflow queda solo con disparo manual por si algún día se usa con
+# dominio propio y lista con autorización (newsletter opt-in).
+on:
+  workflow_dispatch:          # solo manual, conscientemente
+
+permissions:
+  contents: write             # guarda el registro de enviados en el repo
+
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Descargar el proyecto
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Enviar el lote del día por Brevo
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          BREVO_REMITENTE: ${{ secrets.BREVO_REMITENTE }}
+        run: python robot/enviar_correos.py
+
+      - name: Guardar registro de enviados y métricas
+        run: |
+          git config user.name "DotacionPro Robot"
+          git config user.email "bot@dotacionpro.local"
+          if [ -n "$(git status --porcelain datos/estado_envios.json datos/reporte_envios.json)" ]; then
+            git add datos/estado_envios.json datos/reporte_envios.json
+            git commit -m "robot: lote de correos enviado ($(date -u +%Y-%m-%d))"
+            git push
+          else
+            echo "Sin cambios (¿falta el secreto BREVO_API_KEY?)."
+          fi

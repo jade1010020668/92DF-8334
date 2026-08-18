@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Paleta sobria: tinta (casi negro) como color principal + un acento
+       esmeralda discreto. Pensada para verse profesional, no infantil. */
+    --tinta: #14181f;
+    --tinta-suave: #2a2f3a;
+    --pagina: #f4f5f7;
+    --linea: #e6e8ec;
+  }
+
+  html {
+    font-size: 16px;
+  }
+
+  body {
+    @apply antialiased;
+    background-color: var(--pagina);
+    color: #1f2430;
+    font-family: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+  }
+
+  h1, h2, h3 {
+    letter-spacing: -0.018em;
+  }
+}
+
+@layer components {
+  .tarjeta {
+    @apply rounded-2xl border bg-white p-6;
+    border-color: var(--linea);
+    box-shadow: 0 1px 2px rgba(16, 20, 28, 0.04), 0 1px 3px rgba(16, 20, 28, 0.03);
+  }
+
+  /* Botón principal: tinta (casi negro), look corporativo premium. */
+  .btn-primario {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold text-white transition focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+    background-color: var(--tinta);
+  }
+  .btn-primario:hover:not(:disabled) {
+    background-color: var(--tinta-suave);
+  }
+  .btn-primario:focus {
+    --tw-ring-color: rgba(20, 24, 31, 0.35);
+  }
+
+  /* Acento esmeralda discreto (WhatsApp, dinero, confirmaciones). */
+  .btn-verde {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold text-white transition focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+    background-color: #047857;
+  }
+  .btn-verde:hover:not(:disabled) {
+    background-color: #065f46;
+  }
+  .btn-verde:focus {
+    --tw-ring-color: rgba(4, 120, 87, 0.35);
+  }
+
+  .btn-secundario {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border bg-white px-5 py-3 font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+    border-color: var(--linea);
+    --tw-ring-color: rgba(20, 24, 31, 0.18);
+  }
+
+  .btn-peligro {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border px-5 py-3 font-semibold transition focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+    border-color: #f0d4d4;
+    background-color: #fdf6f6;
+    color: #a8332b;
+  }
+  .btn-peligro:hover:not(:disabled) {
+    background-color: #fbecec;
+  }
+
+  .btn-icono {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-40;
+    --tw-ring-color: rgba(20, 24, 31, 0.18);
+  }
+
+  .campo {
+    @apply w-full rounded-xl border bg-white px-4 py-2.5 text-slate-900 placeholder-slate-400 transition focus:outline-none focus:ring-2;
+    border-color: #d7dae0;
+  }
+  .campo:focus {
+    border-color: var(--tinta);
+    --tw-ring-color: rgba(20, 24, 31, 0.14);
+  }
+
+  .etiqueta {
+    @apply mb-1 block text-sm font-semibold text-slate-600;
+  }
+
+  .insignia {
+    @apply inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-semibold;
+  }
+
+  /* Marca de aire premium: secciones con un poco más de respiro. */
+  .titulo-seccion {
+    @apply text-xl font-bold text-slate-900;
+    letter-spacing: -0.02em;
+  }
+}

@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#1d4ed8" />
+<meta name="description" content="DotaciónPro: sistema de cotizaciones y consecución de clientes para Dotaciones El Manantial" />
+<link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./icono-192.png" />
+<title>DotaciónPro — Dotaciones El Manantial</title>
+<link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+<div id="pin-screen" class="pin-screen hidden">
+  <div class="pin-card">
+    <div class="pin-emoji">🦺</div>
+    <h1>DotaciónPro</h1>
+    <p id="pin-title">Ingresa tu clave</p>
+    <input id="pin-input" class="pin-input" type="password" inputmode="numeric" maxlength="12" placeholder="••••" autocomplete="off" />
+    <button id="pin-submit" class="btn btn-primary btn-block">Entrar</button>
+    <p id="pin-error" class="pin-error hidden"></p>
+  </div>
+</div>
+
+<div id="app" class="app hidden">
+
+  <header class="topbar">
+    <div class="brand">🦺 <span>DotaciónPro</span></div>
+    <div style="display:flex;gap:4px;align-items:center">
+      <button id="btn-notifs" class="icon-btn" title="Avisos">🔔<span id="notif-dot" class="dot hidden"></span></button>
+      <button id="btn-bloquear" class="icon-btn hidden" title="Bloquear la app">🔒</button>
+    </div>
+  </header>
+
+  <main id="views" class="views">
+
+    <!-- INICIO -->
+    <section id="view-inicio" class="view">
+      <h2 class="view-title">Inicio</h2>
+      <div id="inicio-saludo" class="card saludo"></div>
+
+      <div class="card">
+        <h3>Buscar correo, dirección o teléfono</h3>
+        <input id="inicio-buscar" class="input" placeholder="Escribe el nombre de la empresa..." autocomplete="off" />
+        <div id="inicio-buscar-resultados" class="list" style="margin-top:10px"></div>
+      </div>
+
+      <div id="aviso-guardado" class="card aviso-card hidden">
+        <p><strong>Bueno saberlo:</strong> tu lista se guarda en este aparato y no se borra al cerrar. Pero el celular y el computador no se comparten solos: para pasarla o ante cualquier percance, usa <b>«Guardar copia de mi lista»</b>.</p>
+        <button id="btn-cerrar-aviso-guardado" class="btn btn-ghost btn-sm">Entendido</button>
+      </div>
+
+      <div id="aviso-backup" class="card aviso-card hidden">
+        <p id="aviso-backup-texto"></p>
+        <button id="btn-ir-backup" class="btn btn-primary btn-sm">Guardar copia de mi lista</button>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi"><span class="kpi-num" id="kpi-empresas">0</span><span class="kpi-label">Empresas</span></div>
+        <div class="kpi"><span class="kpi-num" id="kpi-pendientes">0</span><span class="kpi-label">Para hoy</span></div>
+        <div class="kpi"><span class="kpi-num" id="kpi-pedidos">0</span><span class="kpi-label">Pedidos activos</span></div>
+        <div class="kpi"><span class="kpi-num" id="kpi-saldo">$0</span><span class="kpi-label">Por cobrar</span></div>
+      </div>
+
+      <div class="card">
+        <h3>Primeros pasos</h3>
+        <ul class="steps" id="steps-list"></ul>
+      </div>
+
+      <div class="card" id="card-contactar-masivo">
+        <button id="btn-contactar-masivo" class="btn btn-secondary btn-block" style="background:var(--verde);color:#fff;font-size:1rem;padding:14px"></button>
+        <p class="muted small" style="margin-top:10px"><b>Solo a empresas YA contactadas</b> que no han respondido (el WhatsApp sale escrito; tú das «Enviar»). Máximo 15 al día para proteger tu número. El primer contacto en frío lo hace el Motor de correos, no WhatsApp.</p>
+      </div>
+
+      <div class="card">
+        <h3>Para contactar hoy</h3>
+        <p class="muted small">Las empresas pendientes más cercanas a tu negocio, con el WhatsApp listo.</p>
+        <div id="seguimientos-list" class="list"></div>
+      </div>
+
+      <div class="card" id="card-sin-respuesta">
+        <h3>Seguimientos sugeridos</h3>
+        <p class="muted small">Empresas contactadas hace tiempo que aún no responden.</p>
+        <div id="sin-respuesta-list" class="list"></div>
+      </div>
+    </section>
+
+    <!-- EMPRESAS -->
+    <section id="view-empresas" class="view hidden">
+      <h2 class="view-title">Empresas</h2>
+
+      <div class="toolbar">
+        <input id="emp-buscar" class="input" placeholder="Buscar empresa por nombre, contacto, correo o dirección" />
+        <button id="btn-agregar-empresa" class="btn btn-primary">+ Agregar empresa</button>
+      </div>
+
+      <div class="toolbar filters">
+        <select id="emp-filtro-estado" class="input"></select>
+        <select id="emp-filtro-sector" class="input"></select>
+        <label class="check"><input type="checkbox" id="emp-solo-contacto" /> Solo con contacto</label>
+        <label class="check"><input type="checkbox" id="emp-solo-dotacion" /> 🦺 Compran dotación</label>
+      </div>
+
+      <div class="toolbar">
+        <button id="btn-cargar-bogota" class="btn btn-secondary">Cargar empresas de Bogotá</button>
+        <button id="btn-importar-excel" class="btn btn-ghost">Importar Excel</button>
+        <button id="btn-exportar-excel" class="btn btn-ghost">Exportar</button>
+        <button id="btn-plantilla-excel" class="btn btn-ghost">Plantilla</button>
+        <input id="file-importar" type="file" accept=".xlsx,.xls,.csv" class="hidden" />
+      </div>
+
+      <div id="emp-count" class="muted small"></div>
+
+      <div id="emp-lista" class="list"></div>
+    </section>
+
+    <!-- MAPA -->
+    <section id="view-mapa" class="view hidden">
+      <h2 class="view-title">Buscar empresas en el mapa</h2>
+      <p class="muted small">Encuentra clientes nuevos cerca de tu negocio o por tipo de empresa.</p>
+
+      <div class="toolbar">
+        <button id="modo-cerca" class="btn btn-secondary">📍 Cerca de mi negocio</button>
+        <button id="modo-tipo" class="btn btn-ghost">🔍 Por tipo de empresa</button>
+      </div>
+
+      <div id="mapa-tipo-input" class="toolbar hidden">
+        <input id="mapa-tipo-texto" class="input" placeholder="Ej: empresas de plásticos en Bogotá" />
+      </div>
+
+      <div class="card">
+        <p class="muted small" id="mapa-explicacion">Buscamos empresas que necesitan dotación (talleres, ferreterías, fábricas, restaurantes...) alrededor de tu negocio y te las mostramos ordenadas de la más cercana a la más lejana.</p>
+        <p class="small" style="margin:10px 0 4px">¿A qué distancia?</p>
+        <div class="btn-row">
+          <button class="btn btn-ghost btn-sm dist-btn" data-dist="2">2 km a la redonda</button>
+          <button class="btn btn-primary btn-sm dist-btn" data-dist="5">5 km a la redonda</button>
+          <button class="btn btn-ghost btn-sm dist-btn" data-dist="10">10 km a la redonda</button>
+        </div>
+        <button id="btn-buscar-cerca" class="btn btn-primary btn-block" style="margin-top:12px">🧭 Buscar clientes cerca de mi negocio</button>
+      </div>
+
+      <div id="emp-mapa" class="mapa hidden"></div>
+      <div id="mapa-resultados" class="list"></div>
+    </section>
+
+    <!-- FICHA EMPRESA (modal) -->
+    <div id="modal-empresa" class="modal hidden">
+      <div class="modal-card modal-lg">
+        <div class="modal-head">
+          <h3 id="ficha-nombre">Empresa</h3>
+          <button class="icon-btn" data-close-modal="modal-empresa">✕</button>
+        </div>
+        <div class="modal-body" id="ficha-body"></div>
+      </div>
+    </div>
+
+    <!-- PEDIDOS -->
+    <section id="view-pedidos" class="view hidden">
+      <h2 class="view-title">Pedidos</h2>
+      <div class="toolbar">
+        <select id="ped-filtro-estado" class="input"></select>
+        <button id="btn-nuevo-pedido" class="btn btn-primary">+ Nuevo pedido</button>
+      </div>
+      <div id="ped-lista" class="list"></div>
+    </section>
+
+    <div id="modal-pedido" class="modal hidden">
+      <div class="modal-card modal-lg">
+        <div class="modal-head">
+          <h3 id="pedido-modal-title">Nuevo pedido</h3>
+          <button class="icon-btn" data-close-modal="modal-pedido">✕</button>
+        </div>
+        <div class="modal-body" id="pedido-body"></div>
+      </div>
+    </div>
+
+    <!-- CATALOGO -->
+    <section id="view-catalogo" class="view hidden">
+      <h2 class="view-title">Catálogo de productos</h2>
+      <div class="toolbar">
+        <a class="btn btn-ghost" href="./catalogo.html" target="_blank" rel="noopener">Ver catálogo completo (PDF/imprimible)</a>
+      </div>
+      <div id="catalogo-lista"></div>
+    </section>
+
+    <!-- ESTADISTICAS -->
+    <section id="view-stats" class="view hidden">
+      <h2 class="view-title">Estadísticas</h2>
+      <div id="stats-funnel" class="kpi-grid"></div>
+      <div id="stats-tasas" class="kpi-grid"></div>
+      <div class="card">
+        <h3>¿Qué sectores responden mejor?</h3>
+        <div id="stats-insight" class="insight-box"></div>
+        <div id="stats-sectores" class="list" style="margin-top:12px"></div>
+      </div>
+    </section>
+
+    <!-- CONFIGURACION -->
+    <section id="view-config" class="view hidden">
+      <h2 class="view-title">Configuración</h2>
+
+      <div class="card">
+        <h3>🔒 Acceso con clave (solo tú)</h3>
+        <p class="muted small">Pon una clave para que solo tú puedas abrir la app. Una vez dentro, la sesión queda activa en este equipo; puedes bloquearla cuando quieras con el botón 🔒 de arriba.</p>
+        <label class="field">Crea tu clave (mín. 4)
+          <input id="cfg-pin-nueva" class="input" type="password" inputmode="numeric" />
+        </label>
+        <label class="field">Repite la clave
+          <input id="cfg-pin-repite" class="input" type="password" inputmode="numeric" />
+        </label>
+        <div class="btn-row">
+          <button id="btn-guardar-pin" class="btn btn-primary">Activar clave</button>
+          <button id="btn-quitar-pin" class="btn btn-ghost">Quitar la clave</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Datos de tu empresa</h3>
+        <p class="muted small">Estos datos salen en cada correo, WhatsApp y PDF de cotización.</p>
+        <div class="callout">
+          <b>¿Cómo se envían los correos?</b> Pon abajo el correo desde el que vendes. Cuando envíes una cotización, la app abre tu correo con todo escrito y tú solo das «Enviar» — sin claves ni configuraciones. Si quieres que salgan solos (sin abrir el correo), más abajo está la opción de Brevo.
+        </div>
+        <label class="field">Nombre de tu empresa
+          <input id="cfg-empresa-nombre" class="input" />
+        </label>
+        <label class="field">Dirección
+          <input id="cfg-empresa-direccion" class="input" />
+        </label>
+        <label class="field">Ciudad
+          <input id="cfg-empresa-ciudad" class="input" />
+        </label>
+        <label class="field">Teléfono / WhatsApp
+          <input id="cfg-empresa-telefono" class="input" />
+        </label>
+        <label class="field">Correo de envío
+          <input id="cfg-empresa-correo" class="input" />
+        </label>
+        <div class="btn-row">
+          <button id="btn-guardar-empresa" class="btn btn-primary">Guardar cambios</button>
+          <button id="btn-ver-catalogo" class="btn btn-ghost">Ver catálogo de productos y precios</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Plantillas de mensajes</h3>
+        <label class="field">Mensaje de WhatsApp personalizado
+          <textarea id="cfg-tpl-whatsapp" class="input" rows="3"></textarea>
+        </label>
+        <label class="field">Cuerpo del correo personalizado
+          <textarea id="cfg-tpl-correo" class="input" rows="4"></textarea>
+        </label>
+        <label class="field">Frase sobre descuentos
+          <input id="cfg-tpl-descuentos" class="input" />
+        </label>
+        <label class="field">Días para sugerir seguimiento
+          <input id="cfg-dias-seguimiento" class="input" type="number" min="1" max="60" />
+        </label>
+        <button id="btn-guardar-plantillas" class="btn btn-primary">Guardar cambios</button>
+      </div>
+
+      <div class="card">
+        <h3>Envío de correo automático</h3>
+        <p class="muted small">Conecta tu cuenta de Brevo para poder enviar correos con un clic, individual o masivo. <a href="https://app.brevo.com/settings/keys/api" target="_blank" rel="noopener">Crear cuenta gratis en Brevo</a>.</p>
+        <label class="field">Clave de Brevo
+          <div class="input-with-btn">
+            <input id="cfg-brevo-key" class="input" type="password" />
+            <button id="btn-ver-brevo" class="btn btn-ghost btn-sm">Mostrar</button>
+          </div>
+        </label>
+        <label class="field">Correo remitente verificado en Brevo
+          <input id="cfg-brevo-remitente" class="input" placeholder="tuempresa@dominio.com" />
+        </label>
+        <div class="btn-row">
+          <button id="btn-guardar-brevo" class="btn btn-primary">Activar clave</button>
+          <button id="btn-quitar-brevo" class="btn btn-ghost">Quitar la clave</button>
+        </div>
+        <p class="muted small" style="margin-top:10px">¿Usas Outlook / Microsoft 365? Esa conexión requiere registrar la app en Azure AD (client ID propio). Por ahora puedes usar el botón "Escribir correo" que abre tu correo normal con todo redactado.</p>
+      </div>
+
+      <div class="card">
+        <h3>Buscar empresas en el mapa</h3>
+        <p class="muted small">La búsqueda gratuita (OpenStreetMap) ya funciona sin clave. Si quieres resultados de Google Maps, agrega tu clave de Google Places.</p>
+        <label class="field">Clave de Google Maps (opcional)
+          <div class="input-with-btn">
+            <input id="cfg-google-key" class="input" type="password" />
+            <button id="btn-ver-google" class="btn btn-ghost btn-sm">Mostrar</button>
+          </div>
+        </label>
+        <div class="btn-row">
+          <button id="btn-guardar-google" class="btn btn-primary">Guardar clave</button>
+          <button id="btn-quitar-google" class="btn btn-ghost">Quitar la clave</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Copia de seguridad</h3>
+        <p class="muted small">Guarda un respaldo de tus empresas y pedidos, o restáuralo en otro equipo.</p>
+        <div class="btn-row">
+          <button id="btn-backup" class="btn btn-secondary">Guardar copia de mi lista</button>
+          <button id="btn-restore" class="btn btn-ghost">Restaurar respaldo</button>
+          <input id="file-restore" type="file" accept=".json" class="hidden" />
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Zona de riesgo</h3>
+        <button id="btn-borrar-todo" class="btn btn-danger">Borrar todas las empresas</button>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="tabbar">
+    <button class="tab active" data-view="inicio"><span>🏠</span>Inicio</button>
+    <button class="tab" data-view="empresas"><span>🏢</span>Empresas</button>
+    <button class="tab" data-view="mapa"><span>📍</span>Mapa</button>
+    <button class="tab" data-view="pedidos"><span>🧾</span>Pedidos</button>
+    <button class="tab" data-view="stats"><span>📊</span>Estadísticas</button>
+    <button class="tab" data-view="config"><span>⚙️</span>Ajustes</button>
+  </nav>
+
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="./catalogo-datos.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>

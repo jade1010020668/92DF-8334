@@ -1,0 +1,92 @@
+# Publica la app VIVA (carpeta `web/`) como sitio estático en el Hugging Face Space.
+#
+# Requisito (una sola vez): crear un token de Hugging Face con permiso de
+# ESCRITURA (huggingface.co/settings/tokens) y guardarlo en GitHub como secreto
+# del repositorio con el nombre HF_TOKEN
+# (Settings > Secrets and variables > Actions > New repository secret).
+#
+# URL pública resultante:
+#   https://huggingface.co/spaces/MORALES101002/dotacionpro
+#   https://morales101002-dotacionpro.static.hf.space  (vista directa)
+#
+# OJO — dos detalles que rompen el Space si se cambian a la ligera:
+#  1. NO se sube `web/README.md`. El README del Space es su archivo de
+#     configuración (lleva `sdk: static` al inicio); pisarlo tumba el sitio.
+#  2. `delete_patterns: assets/*` limpia los restos del build de React que
+#     quedaron de la etapa anterior (~150 archivos muertos). Las fotos de
+#     producto viven en `web/assets/*.png` y se vuelven a subir en el mismo
+#     commit, así que no hay ventana en que falten.
+
+name: Publicar la app en Hugging Face Space
+
+on:
+  push:
+    # La app vive en estas ramas; cualquiera de ellas publica.
+    branches:
+      - main
+      - claude/create-plan-framework-aDC3Z
+      - claude/intelligent-cannon-rlgn1v
+    paths:
+      - 'web/**'
+      - '.github/workflows/publicar-hf-space.yml'
+  workflow_dispatch:
+
+env:
+  HF_SPACE: MORALES101002/dotacionpro
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependencias
+        run: pip install --quiet huggingface_hub
+
+      - name: Subir web/ al Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "::error::Falta el secreto HF_TOKEN. Créalo en Settings > Secrets and variables > Actions > New repository secret (nombre exacto: HF_TOKEN, token de Hugging Face con permiso de escritura)."
+            exit 1
+          fi
+          python - <<'PY'
+          import os
+          from huggingface_hub import HfApi
+
+          api = HfApi(token=os.environ['HF_TOKEN'])
+          space = os.environ['HF_SPACE']
+          api.create_repo(repo_id=space, repo_type='space', space_sdk='static', exist_ok=True)
+          api.upload_folder(
+              folder_path='web',
+              repo_id=space,
+              repo_type='space',
+              commit_message='Despliegue automático de web/ desde GitHub Actions',
+              # El README del Space es su configuración (sdk: static) — no tocarlo.
+              ignore_patterns=['README.md', '.DS_Store'],
+              # Borra los restos del build de React de la etapa anterior.
+              delete_patterns=['assets/*'],
+          )
+          print(f'Publicado: https://huggingface.co/spaces/{space}')
+          PY
+
+      - name: Comprobar que el sitio quedó vivo
+        run: |
+          sleep 25
+          for url in \
+            "https://morales101002-dotacionpro.static.hf.space/" \
+            "https://morales101002-dotacionpro.static.hf.space/catalogo.html" \
+            "https://morales101002-dotacionpro.static.hf.space/catalogo3d.html" \
+            "https://morales101002-dotacionpro.static.hf.space/assets/casco.png"
+          do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 "$url" || echo 000)
+            echo "$code  $url"
+            if [ "$code" != "200" ]; then
+              echo "::warning::$url respondió $code (el Space puede tardar un poco en reconstruir)."
+            fi
+          done
